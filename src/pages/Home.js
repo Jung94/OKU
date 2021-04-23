@@ -6,6 +6,7 @@ const Home = (props) => {
     return (
         <div>
             home
+            안녕하세요 ! 
         </div>
     )
 }
