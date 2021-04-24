@@ -1,14 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
+import Container from "components/Container";
 
 const Home = (props) => {
-
-    return (
-        <div>
-            home
-            안녕하세요 ! 
-        </div>
-    )
-}
+  return (
+    <React.Fragment>
+      <Container />
+    </React.Fragment>
+  );
+};
 
 export default Home;
