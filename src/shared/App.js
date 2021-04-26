@@ -9,6 +9,7 @@ import { history } from 'redux/configureStore';
 import Home from 'pages/Home';
 import Login from 'pages/Login';
 import Signup from 'pages/Signup';
+import Agreement from 'pages/Agreement';
 import Detail from 'pages/Detail';
 import NotFound from 'shared/NotFound';
 import Header from 'components/Header';
@@ -23,7 +24,8 @@ const App = (props) => {
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/login" exact component={Login} />
-              <Route path="/Signup" exact component={Signup} />
+              <Route path="/signup" exact component={Signup} />
+              <Route path="/agreement" exact component={Agreement} />
               <Route path="/detail/:id" exact component={Detail} />
               <Route component={NotFound} />
             </Switch>
@@ -37,7 +39,7 @@ const App = (props) => {
 const Grid = styled.div`
 background : #eee;
 margin : 0 auto;
-max-width : 60vw;
+max-width : 1030px;
 
 `;
 
