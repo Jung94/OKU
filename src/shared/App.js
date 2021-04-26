@@ -5,14 +5,10 @@ import styled from 'styled-components';
 import { ConnectedRouter } from 'connected-react-router';
 import { Route, Switch } from 'react-router-dom';
 import { history } from 'redux/configureStore';
-
-import Home from 'pages/Home';
-import Login from 'pages/Login';
-import Signup from 'pages/Signup';
-import Detail from 'pages/Detail';
 import NotFound from 'shared/NotFound';
 import Header from 'components/Header';
-import Footer from 'components/Footer'
+import Footer from 'components/Footer';
+import  { Home, Product, ProductUpload, Signup, Login, Agreement } from "pages/";
 
 const App = (props) => {
   return (
@@ -20,13 +16,14 @@ const App = (props) => {
     <Header/>
     <Grid>
       <Wrap>
-        
           <ConnectedRouter history={history}>
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/login" exact component={Login} />
-              <Route path="/Signup" exact component={Signup} />
-              <Route path="/detail/:id" exact component={Detail} />
+              <Route path="/signup" exact component={Signup} />
+              <Route path="/agreement" exact component={Agreement} />
+              <Route path="/product" exact component={Product} />
+              <Route path="/productupload" exact component={ProductUpload} />
               <Route component={NotFound} />
             </Switch>
           </ConnectedRouter>
@@ -41,7 +38,10 @@ const Grid = styled.div`
 background : #eee;
 margin : 0 auto;
 max-width : 1030px;
+<<<<<<< HEAD
 height : 100%;
+=======
+>>>>>>> 0a965bde5164b768b361487b37f32137853f7146
 
 `;
 
