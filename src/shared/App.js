@@ -16,9 +16,11 @@ import Footer from 'components/Footer'
 
 const App = (props) => {
   return (
+  <div>
+    <Header/>
     <Grid>
       <Wrap>
-        <Header/>
+        
           <ConnectedRouter history={history}>
             <Switch>
               <Route path="/" exact component={Home} />
@@ -31,13 +33,15 @@ const App = (props) => {
           <Footer/>
       </Wrap>
     </Grid>
+    </div>
   );
 }
 
 const Grid = styled.div`
 background : #eee;
 margin : 0 auto;
-max-width : 60vw;
+max-width : 1030px;
+height : 100%;
 
 `;
 

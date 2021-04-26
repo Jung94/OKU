@@ -10,8 +10,11 @@ const Footer = () => {
 };
 
 const AboutUs = styled.div`
-height : 10vh;
+height : 100px;
 background : #FAD4AE;
+position : fixed;
+width : 1030px;
+bottom : 0;
 `;
 
 export default Footer;
