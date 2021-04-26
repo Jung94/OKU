@@ -6,6 +6,7 @@ import { actionCreators as userActions } from 'redux/modules/user';
 import { emailCheck } from 'shared/common';
 
 import { faEye as farEye } from '@fortawesome/free-regular-svg-icons'
+import { faUser as farUser } from '@fortawesome/free-regular-svg-icons'
 import { faLaugh as farLaugh } from '@fortawesome/free-regular-svg-icons'
 import { faEyeSlash as farEyeSlash } from '@fortawesome/free-regular-svg-icons'
 import { faAddressCard as farAddressCard } from '@fortawesome/free-regular-svg-icons'
@@ -259,7 +260,7 @@ const Signup = (props) => {
 
       <SignupBox>
         <IconSpan>
-          <FontAwesomeIcon icon={faUser} />
+          <FontAwesomeIcon icon={farUser} />
         </IconSpan>
         <SignupInput type="text" placeholder="이름" onChange={(e) => { setUserName(e.target.value) }} onBlur={checkUsername}></SignupInput>
       </SignupBox>
