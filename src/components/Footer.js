@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Footer = () => {
+const Footer = (props) => {
     return (
         <AboutUs>
         Footer
@@ -12,9 +12,8 @@ const Footer = () => {
 const AboutUs = styled.div`
 height : 100px;
 background : #FAD4AE;
-position : fixed;
 width : 1030px;
-bottom : 0;
+margin : 0 auto;
 `;
 
 export default Footer;
