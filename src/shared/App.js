@@ -12,10 +12,10 @@ import  { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin } 
 
 const App = (props) => {
   return (
-  <div>
-    <Header/>
-    <Grid>
-      <Wrap>
+    <div>
+      <Header/>
+      <Grid>
+        <Wrap>
           <ConnectedRouter history={history}>
             <Switch>
               <Route path="/" exact component={Home} />
@@ -28,10 +28,9 @@ const App = (props) => {
               <Route component={NotFound} />
             </Switch>
           </ConnectedRouter>
-          
-      </Wrap>
-      <Footer/>
-    </Grid>
+        </Wrap>
+        <Footer/>
+      </Grid>
     </div>
   );
 }
