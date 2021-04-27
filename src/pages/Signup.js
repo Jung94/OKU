@@ -56,23 +56,23 @@ const Signup = (props) => {
   }
 
   // 이메일 사용 가능 여부 확인. 이메일 인풋 포커스 아웃 시
-//   const checkEmailAPI = (email) => {
+  const checkEmailAPI = (email) => {
     
-//     const API = `http://13.209.47.134/api/signup/${email}`;
-//     fetch(API)
-//     .then((res) => res.json())
-//     .then((res) => {
-//       console.log(res);
-//       if (res === true) {
-//         emailInfo.current.style.color = '#ee3a57';
-//         setMessageEmail('·이미 등록된 이메일입니다. 다시 작성해 주십시오!');
+    const API = `http://3.35.137.38/user/signup/${email}`;
+    fetch(API)
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+      // if (res === false) {
+      //   emailInfo.current.style.color = '#ee3a57';
+      //   setMessageEmail('·이미 등록된 이메일입니다. 다시 작성해 주십시오!');
 
-//       } else {
-//         setMessageEmail('·사용이 가능한 이메일입니다.');
-//         emailInfo.current.style.color = '#1cd5ff';
-//       }
-//     });
-//   }
+      // } else {
+      //   setMessageEmail('·사용이 가능한 이메일입니다.');
+      //   emailInfo.current.style.color = '#1cd5ff';
+      // }
+    });
+  }
 
   const idInfo = useRef();
   const pwInfo = useRef();
@@ -188,8 +188,8 @@ const Signup = (props) => {
     } else {
       emailInfo.current.style.display = 'none';
     }
-    // emailInfo.current.style.display = 'block';
-    // checkEmailAPI(email);
+    emailInfo.current.style.display = 'block';
+    checkEmailAPI(email);
   }
 
   // 주소 작성 없이 포커스 아웃 되었을 때

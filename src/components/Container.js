@@ -31,7 +31,7 @@ const Container = (props) => {
     return (
         <Main>
             <Slide>
-            <Slider {...settings}>
+                <Slider {...settings}>
                     <Section>
                         <Title>
                             미니돼지
@@ -102,19 +102,22 @@ const Container = (props) => {
                     <Section>
                     <h3>6번째 섹션</h3>
                     </Section>
-            </Slider>
-        </Slide>
+                </Slider>
+            </Slide>
+            
         </Main>
     )
 };
 
 const Main = styled.div`
-height : 80vh;
-background : #FAF1D6;
+    height : 700px;
+    background : #FAF1D6;
+    border: 1px solid #000;
 `;
 
 
 const Slide = styled.div`
+    border: 1px solid #000;
 `;
 const Section= styled.div`
 text-align : center;
@@ -123,7 +126,10 @@ text-align : center;
 const Title = styled.div`
 `;
 const Image = styled.div`
-margin : 0px 370px;
+
+    & > img {
+        margin : 0 auto;
+    }
 `;
 const Seller = styled.div`
 `;

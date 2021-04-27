@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { history } from 'redux/configureStore';
+import { actionCreators as userActions } from 'redux/modules/user';
 
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -10,18 +11,18 @@ const Login = (props) => {
 
     const dispatch = useDispatch();
 
-    const [email, setEmail] = React.useState('');
+    const [id, setId] = React.useState('');
     const [pw, setPw] = React.useState('');
 
     // 로그인 버튼 클릭 시
     const login = () => {
         
-        if (email === '' || pw === '') {
-        alert('이메일과 비밀번호를 입력해주세요');
+        if (id === '' || pw === '') {
+        alert('아이디와 비밀번호를 입력해주세요');
         return;
         }
         
-        // dispatch(userActions.loginAPI(email,pw));
+        dispatch(userActions.loginAPI(id, pw));
     }
 
     return (
@@ -35,7 +36,7 @@ const Login = (props) => {
           <IconSpan>
             <FontAwesomeIcon icon={faUser} />
           </IconSpan>
-          <LoginInput type="text" placeholder="아이디" onChange={(e) => { setEmail(e.target.value) }} onKeyPress={(e) => {
+          <LoginInput type="text" placeholder="아이디" onChange={(e) => { setId(e.target.value) }} onKeyPress={(e) => {
               if(window.event.keyCode === 13) {
               login();
             } 

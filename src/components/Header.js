@@ -124,9 +124,9 @@ const Header = () => {
 
 const Nav = styled.div`
 min-width: 1030px;
-width : 80vw;
+width : 1400px;
 margin : 0 auto;
-height : 20vh;
+height : 200px;
 background : #D9F1F1;
 `;
 
