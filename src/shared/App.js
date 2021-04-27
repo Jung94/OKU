@@ -8,46 +8,42 @@ import { history } from 'redux/configureStore';
 import NotFound from 'shared/NotFound';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
-import  { Home, Product, ProductUpload, Signup, Login, Agreement } from "pages/";
+import  { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin } from "pages/";
 
 const App = (props) => {
   return (
   <div>
     <Header/>
+    <Grid>
       <Wrap>
           <ConnectedRouter history={history}>
             <Switch>
               <Route path="/" exact component={Home} />
-              <Grid>
               <Route path="/login" exact component={Login} />
+              <Route path="/sociallogin" exact component={SocialLogin} />
               <Route path="/signup" exact component={Signup} />
               <Route path="/agreement" exact component={Agreement} />
               <Route path="/product" exact component={Product} />
               <Route path="/productupload" exact component={ProductUpload} />
               <Route component={NotFound} />
-              </Grid>
             </Switch>
           </ConnectedRouter>  
       </Wrap>  
+      </Grid>
     <Footer/>
-  
-    
     </div>
   );
 }
 
 const Grid = styled.div`
-background : #eee;
 margin : 0 auto;
-max-width : 1030px;
+max-width : 1400px;
 `;
+
 
 const Wrap = styled.div`
   position: relative;
-  min-height: 100vh;
+  min-height: 100%;
 `;
-
-
-
 
 export default App;

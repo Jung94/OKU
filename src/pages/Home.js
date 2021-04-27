@@ -7,12 +7,12 @@ import Card from 'components/Card'
 
 const Home = (props) => {
   return (
-    <React.Fragment>
+    <div style ={{ width : "100%"}}>
       <Container />
       <Post/>
       <DeadlineP/>
       <Card/>
-    </React.Fragment>
+    </div>
   );
 };
 

@@ -32,6 +32,7 @@ const Grid = (props) => {
     borderRadius,
     wrap,
     justify,
+    flexGrow,
   } = props;
 
   const styles = {
@@ -59,6 +60,7 @@ const Grid = (props) => {
     borderRadius: borderRadius,
     wrap: wrap,
     justify: justify,
+    flexGrow: flexGrow,
   };
 
   if (__click) {
@@ -101,11 +103,13 @@ Grid.defaultProps = {
   color: "#5A5656",
   wrap: false,
   justify: false,
+  flexGrow: false,
 };
 
 const GridBox = styled.div`
   z-index: ${(props) => props.zIndex};
-  width: ${(props) => props.width};
+  ${(props) => (props.flexGrow ? `flex-grow:${props.flexGrow};` : `width: ${props.width};`)}
+
   height: ${(props) => (props.height ? props.height : "")};
 
   padding: ${(props) => props.padding};
@@ -125,8 +129,7 @@ const GridBox = styled.div`
   ${(props) => (props.is_flex ? `display:flex; align-items: center;` : "")};
   justify-content: ${(props) => (props.justify ? props.justify : "")};
 
-  ${(props) =>
-    props.column ? `flex-direction: column;` : `flex-direction: row;`}
+  ${(props) => (props.column ? `flex-direction: column;` : `flex-direction: row;`)}
   flex-wrap: ${(props) => (props.wrap ? "wrap" : "")};
 
   text-align: ${(props) => props.textAlign};

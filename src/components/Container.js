@@ -30,7 +30,7 @@ function NextArrow(props) {
     return (
         <div
         className={className}
-        style={{ ...style, display: "block", background: "#111",  zIndex : "1"}}
+        style={{ ...style, display: "block", background: "#111", zIndex : "1"}}
         onClick={onClick}
         />
     );
@@ -69,7 +69,7 @@ const Container = (props) => {
     };
     return (
         <Main>
-            
+            <Box>
             <div style={{margin : "0px 50px 50px"}}>
             <Slide>
                 <Slider {...settings}>
@@ -141,6 +141,7 @@ const Container = (props) => {
             </Slider>
             </Slide>
             </div>
+            </Box>
         </Main>
     )
 };
@@ -154,6 +155,12 @@ const Container = (props) => {
 const Main = styled.div`
 text-align : center;
 `;
+
+const Box = styled.div`
+margin : 0 auto;
+max-width : 1300px;
+`;
+
 
 
 export const Slide = styled.div`

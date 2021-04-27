@@ -4,56 +4,50 @@ import styled from "styled-components";
 import Select from "react-select";
 import { history } from "../redux/configureStore";
 
-import MainLogo from 'images/logo.png'
-import Submit from 'images/search.png'
-import List from "images/list.png"
+import MainLogo from "images/logo.png";
+import Submit from "images/search.png";
+import List from "images/list.png";
 
 const Header = (props) => {
   const option_1 = [
-    {value : "BackEnd", label : "BackEnd"},
-    {value : "FrontEnd", label : "FrontEnd"},
-    {value : "Designer", label : "Designer"}
-  ]
+    { value: "BackEnd", label: "BackEnd" },
+    { value: "FrontEnd", label: "FrontEnd" },
+    { value: "Designer", label: "Designer" },
+  ];
   const option_2 = [
-    {value : "용현" , label : "용현"}, 
-    {value : "성목" , label : "성목"},
-    {value : "경민" , label : "경민"},
-    {value : "가연" , label : "가연"},
-    {value : "연재" , label : "연재"},
-    {value : "소희" , label : "소희"},
-    {value : "유진" , label : "유진"}
-    
-  ]
+    { value: "용현", label: "용현" },
+    { value: "성목", label: "성목" },
+    { value: "경민", label: "경민" },
+    { value: "가연", label: "가연" },
+    { value: "연재", label: "연재" },
+    { value: "소희", label: "소희" },
+    { value: "유진", label: "유진" },
+  ];
   return (
-    
     <Nav>
       <Head>
-          <Left>
-            <About_P>
-            about OKU
-            </About_P>
-            <About_T>
-            about Team
-            </About_T>
-          </Left>
-          <Right>
-            <Signup onClick={() => {
-                history.push("/Signup");
-              }}>
-              회원가입
-            </Signup>
-            <Login onClick={() => {
-                history.push("/Login");
-              }}>
-              로그인 
-            </Login>
-            <Mypage>
-              마이페이지
-            </Mypage>
-            <Ring>
-                알림
-            </Ring>
-          </Right>
+        <Left>
+          <About_P>about OKU</About_P>
+          <About_T>about Team</About_T>
+        </Left>
+        <Right>
+          <Signup
+            onClick={() => {
+              history.push("/Signup");
+            }}
+          >
+            회원가입
+          </Signup>
+          <Login
+            onClick={() => {
+              history.push("/Login");
+            }}
+          >
+            로그인
+          </Login>
+          <Mypage>마이페이지</Mypage>
+          <Ring>알림</Ring>
+        </Right>
       </Head>
       <Middle>
         <Logo onClick={()=>{
@@ -117,7 +111,7 @@ const Header = (props) => {
               
             </Bottom>
     </Nav>
-    );
+  );
 };
 
 const Nav = styled.div`
@@ -125,53 +119,53 @@ min-width: 1030px;
 width : 1030px;
 margin : 0 auto;
 height : 200px;
+
 `;
 
 const Head = styled.div`
-display : flex;
-justify-content: space-between;
-width : 100%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 // 팀에대한 정보
 const Left = styled.div`
-display : flex;
-flex-direction : row;
+  display: flex;
+  flex-direction: row;
 `;
 
 const About_T = styled.p`
-cursor : pointer;
-margin-left : 30px;
+  cursor: pointer;
+  margin-left: 30px;
 `;
 
 const About_P = styled.p`
-cursor : pointer;
-
+  cursor: pointer;
 `;
 
 const Right = styled.div`
-display : flex;
-flex-direction : row;
+  display: flex;
+  flex-direction: row;
 `;
 
 const Signup = styled.p`
-cursor : pointer;
+  cursor: pointer;
 `;
 const Login = styled.p`
-cursor : pointer;
-margin : 0 30px;
+  cursor: pointer;
+  margin: 0 30px;
 `;
 const Mypage = styled.p`
-cursor : pointer;
+  cursor: pointer;
 `;
 const Ring = styled.p`
-cursor : pointer;
-margin-left : 30px;
+  cursor: pointer;
+  margin-left: 30px;
 `;
 
 const Middle = styled.div`
-display : flex;
-justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Logo = styled.div`
@@ -183,25 +177,26 @@ margin : 40px 20px;
 width : 400px;
 height : 40px;
 border : 2px solid #  D300FF;
+
 `;
 
-const Regist_btn = styled. div`
-margin : 40px 50px;
-display : flex;
+const Regist_btn = styled.div`
+  margin: 40px 50px;
+  display: flex;
 `;
 
 const Regist_product = styled.div`
-margin-right : 60px;
-cursor : pointer;
+  margin-right: 60px;
+  cursor: pointer;
 `;
 
 const Chat = styled.div`
-cursor : pointer;
+  cursor: pointer;
 `;
 
 const Bottom = styled.div`
-display: flex;
-justify-content : space-between;
+  display: flex;
+  justify-content: space-between;
 `;
 
 // dropdownmenu
@@ -216,6 +211,7 @@ z-index : 1;
 
 // menu buttond
 const Category = styled.div`
+<<<<<<< HEAD
 padding : 10px;
 display : flex;
 & >.gory :hover ${CategoryList} {
@@ -225,19 +221,17 @@ display : flex;
 `;
 
 
-
 const CategorySelect = styled.div`
-display : flex;
+  display: flex;
 `;
 
 const MainCategory = styled.div`
-width : 170px;
+  width: 170px;
 `;
 
 const MiddleCategory = styled.div`
-width : 170px;
-margin : 0 10px 0 10px;
-
+  width: 170px;
+  margin: 0 10px 0 10px;
 `;
 
 export default Header;
