@@ -14,7 +14,7 @@ import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, My
 
 const App = (props) => {
   const dispatch = useDispatch();
-  const is_login = localStorage.getItem("Access-Token") ? true : false ;
+  const is_login = localStorage.getItem("access_token") ? true : false ;
 
   useEffect(() => {
     if (is_login) {

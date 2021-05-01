@@ -19,22 +19,33 @@ const initialState = {
   sucbid: "",
   productDesc: "",
   tags: "",
-  insert_dt: moment().format("YY.MM.DD hh:mm"),
+  // insert_dt: moment().format("YY.MM.DD hh:mm"),
 };
 
 const addPostAPI = (image, title, cateBig, cateSmall, region, productState, deadline, lowbid, sucbid, delivery, productDesc, tags) => {
   return function (dispatch, getState, { history }) {
 
     let nickname = localStorage.getItem("nickname");
-    let access_token = localStorage.getItem("Access-Token");
+    let access_token = localStorage.getItem("access_token");
     if (!access_token) {
       alert('로그인을 먼저 해주세요!');
       return;
     }
 
-    let formData = new FormData();
-    formData.append("image", image);
-
+    const formData = new FormData();
+    formData.append("nickname", nickname);
+    formData.append("img", image);
+    formData.append("title", title);
+    formData.append("bigCategory", cateBig);
+    formData.append("smallCategory", cateSmall);
+    formData.append("region", region);
+    formData.append("state", productState);
+    formData.append("deadline", deadline);
+    formData.append("lowbid", lowbid);
+    formData.append("sucbid", sucbid);
+    formData.append("deliveryprice", delivery);
+    formData.append("description", productDesc);
+    formData.append("tag", tags);
 
     // if(!cid) {
     //   alert('잘못된 접근입니다.');
@@ -45,26 +56,11 @@ const addPostAPI = (image, title, cateBig, cateSmall, region, productState, dead
     fetch(API, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
         'access_token': `${access_token}`,
       },
-      body: JSON.stringify({
-        nickname: nickname,
-        image: "",
-        title: title,
-        bigCategory : cateBig,
-        smallCategory: cateSmall,
-        region: region,
-        state: productState,
-        deadline: deadline,
-        lowbid: lowbid,
-        sucbid: sucbid,
-        deliveryprice: delivery,
-        description: productDesc,
-        tag: tags,
+      body: formData,
       })
-    })
+    
     .then((res) => res.json())
     .then((res) => {
       console.log(res);

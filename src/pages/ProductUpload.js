@@ -17,14 +17,15 @@ const ProductUpload = (props) => {
     { value: '3D', label: '3D' },
   ]
   const D2CT = [
-    { value: '피규어', label: '피규어' },
-    { value: '포토카드', label: '포토카드' },
-    { value: '포스터', label: '포스터' },
-  ]
-  const D3CT = [
     { value: '앨범', label: '앨범'},
     { value: '굿즈', label: '굿즈' },
     { value: '키링', label: '키링' },
+    
+  ]
+  const D3CT = [
+    { value: '피규어', label: '피규어' },
+    { value: '포토카드', label: '포토카드' },
+    { value: '포스터', label: '포스터' },
   ]
   const D4CT = [
     { value: '10800000', label: '3시간'},
@@ -48,7 +49,7 @@ const ProductUpload = (props) => {
     
   }
 
-  const [image, setImage] = React.useState("");
+  const [image, setImage] = React.useState([]);
   const [title, setTitle] = React.useState("");
   const [cateBig, setCateBig] = React.useState("");
   const [cateSmall, setCateSmall] = React.useState("");
@@ -62,7 +63,7 @@ const ProductUpload = (props) => {
   const sucbid = parseInt(sucbidFake.replace(/,/g, ''));
   const [delivery, setDelivery] = React.useState("");
   const [productDesc, setProductDesc] = React.useState("");
-  const [tags, setTags] = React.useState("");
+  const [tags, setTags] = React.useState([]);
 
   const [cate, setCate] = useState(D2CT);
 

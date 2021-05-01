@@ -76,7 +76,7 @@ const loginAPI = (email, pw) => {
             if (result.access_token) {
                 let token = result.access_token;
                 let nickname = result.nickname;
-                localStorage.setItem('Access-Token', token);
+                localStorage.setItem('access_token', token);
                 localStorage.setItem('nickname', nickname);
                 window.alert('로그인을 완료하였습니다!');
                 dispatch(setUser({
@@ -95,7 +95,7 @@ const loginAPI = (email, pw) => {
 
 const isLogin = () => {
     return function (dispatch, getState, { history }) {
-        const token = localStorage.getItem('Access-Token');
+        const token = localStorage.getItem('access_token');
         const nickname = localStorage.getItem('nickname');
 
         if (!token || !nickname) {
