@@ -10,7 +10,7 @@ import { history } from 'redux/configureStore';
 import NotFound from 'shared/NotFound';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
-import  { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin} from "pages/";
+import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Mypage } from "pages/";
 
 const App = (props) => {
   const dispatch = useDispatch();
@@ -36,6 +36,7 @@ const App = (props) => {
               <Route path="/agreement" exact component={Agreement} />
               <Route path="/product" exact component={Product} />
               <Route path="/productupload" exact component={ProductUpload} />
+              <Route path="/Mypage" exact component={Mypage} />
               <Route component={NotFound} />
             </Switch>
           </ConnectedRouter>  
@@ -44,11 +45,11 @@ const App = (props) => {
       <Footer/>
     </div>
   );
-}
+};
 
 const Grid = styled.div`
-  margin : 0 auto;
-  max-width : 1920px;
+  margin: 0 auto;
+  max-width: 1920px;
 `;
 
 const Wrap = styled.div`

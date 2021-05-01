@@ -1,194 +1,156 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect } from "react";
+import styled from "styled-components";
 import { history } from "../redux/configureStore";
+
+import { actionCreators as postActions } from "redux/modules/post";
+import { useDispatch, useSelector } from "react-redux";
 
 import Slider from "react-slick";
 
-import T_1 from "images/T_1.jpg"
-import T_2 from "images/T_2.jpeg"
-import T_3 from "images/T_3.jpg"
-import T_4 from "images/T_4.jpg"
-import T_5 from "images/T_5.jpeg"
-import T_6 from "images/T_6.jpeg"
-import T_7 from "images/T_7.jpg"
-import { flatMap } from 'lodash';
+import T_1 from "images/T_1.jpg";
+import T_2 from "images/T_2.jpeg";
+import T_3 from "images/T_3.jpg";
+import T_4 from "images/T_4.jpg";
+import T_5 from "images/T_5.jpeg";
+import T_6 from "images/T_6.jpeg";
+import T_7 from "images/T_7.jpg";
+import { flatMap } from "lodash";
 
 // 왼쪽
 function PrevArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-        <div
-        className={className}
-        style={{ ...style, display: "block", background: "red",zIndex : "1" }}
-        onClick={onClick}
-        />
-    );
+  const { className, style, onClick } = props;
+  return (
+    <LeftArrow
+      className={className}
+      style={{
+        ...style,
+        display: "block",
+        zIndex: "999",
+        content: "url(https://1.bp.blogspot.com/-7PhKE4M-Mwg/YIv7w9pC5fI/AAAAAAAAPH8/9vEdlaUKVTU8WiUroBNl0V7XYBAtgcvNACLcBGAsYHQ/s320/%25ED%258C%25A8%25EC%258A%25A4%2B1.png)",
+      }}
+      onClick={onClick}
+    />
+  );
 }
 // 오른쪽
 function NextArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-        <div
-        className={className}
-        style={{ ...style, display: "block", background: "#111", zIndex : "1"}}
-        onClick={onClick}
-        />
-    );
+  const { className, style, onClick } = props;
+  return (
+    <RightArrow
+      className={className}
+      style={{
+        ...style,
+        display: "block",
+        zIndex: "999",
+        content: "url(https://1.bp.blogspot.com/-zPYogI0ZcvA/YIv7xIest9I/AAAAAAAAPIA/Voq7TwepcsMjFb5EqjEXEf29wFPB9aM9gCLcBGAsYHQ/s320/%25ED%258C%25A8%25EC%258A%25A4%2B2.png)",
+      }}
+      onClick={onClick}
+    />
+  );
 }
 
 // 실시간 인기상품
 const Container = (props) => {
-    const {
-        title,
-        img,
-        currentprice
+  const dispatch = useDispatch();
 
-    } = props;
+  useEffect(() => {
+    dispatch(postActions.getProductsAPI());
+  }, []);
+  const _product = useSelector((state) => state.post.product);
 
-    const settings = {
-        dots: true,
-        // 좌우 화살표 줄 것인가
-        arrows: true,
-        // 마지막 슬라이드에서 처음 슬라이스로
-        infinite: true,
-        // 속도
-        speed: 500,
-        // 한 번에 스크롤 몇 개 보여줄 건가(대개 1을 사용함)
-        slidesToShow: 1,
-        // 스크롤 할 때마다 몇 장씩 넘길 것인가
-        slidesToScroll: 1,
-        // 자동 넘김을 할 것인가. 한다면 스피드는?
-        autoplay: false,
-        autoplaySpeed: 2500,
-        // 화면에 올리면 슬라이더가 자동으로 넘어가지 않음
-        pauseOnHover: true,
-        draggable : false,
-        nextArrow: <NextArrow />,
-        prevArrow: <PrevArrow />  
-        
-    };
-    return (
-        <Main>
-            <Box>
-            <div style={{margin : "0px 50px 50px"}}>
-            <Slide>
-                <Slider {...settings}>
-                    <Section>
-                        <Image>
-                            <img src={T_1} />
-                            <Desc>
-                            <h2>실시간 인기상품 </h2>
-                            <Title>
-                            프라이탁 아이패드 슬리브
-                        </Title>
-                        <Deadline>
-                            경매마감까지 00 : 57 : 30 초 남았습니다
-                        </Deadline>
-                        <Currentprice>
-                            138,000원
-                        </Currentprice>
-                        </Desc>
-                        </Image>
-                        
-                    </Section>
+  const { title, img, deadLine, currentprice } = props;
 
-                    <Section>
-                        <Image>
-                            <img src={T_2} />
-                        </Image>
-                        
-                        <Title>
-                            프라이탁 케이크백 
-                        </Title>
-                        <Deadline>
-                            경매마감까지 00 : 57 : 30 초 남았습니다
-                        </Deadline>
-                        <Currentprice>
-                            140,000원
-                        </Currentprice>
-                    </Section>
-
-                    <Section>
-                        <Image>
-                            <img src={T_3} />
-                        </Image>
-                        <Title>
-                            프라이탁 모음 문의주세요
-                        </Title>
-                        <Deadline>
-                            경매마감까지 00 : 57 : 30 초 남았습니다
-                        </Deadline>
-                        <Currentprice>
-                            0원
-                        </Currentprice>
-                    </Section>
-                    
-                    <Section>
-                        <Image>
-                            <img src={T_4} />
-                        </Image>
-                        <Title>
-                            프라이탁 키링 
-                        </Title>
-                        <Deadline>
-                            경매마감까지 00 : 57 : 30 초 남았습니다
-                        </Deadline>
-                        <Currentprice>
-                            20,000원
-                        </Currentprice>
-                    </Section>
-
+  const settings = {
+    dots: true,
+    arrows: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 2,
+    autoplay: false,
+    autoplaySpeed: 2500,
+    pauseOnHover: true,
+    draggable: false,
+    className: "center",
+    centerMode: true,
+    centerPadding: "25%",
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+  };
+  return (
+    <Main>
+      <Box>
+        <div style={{ margin: "0px 50px 50px" }}>
+          <Slide>
+            <Slider {...settings}>
+              {_product.map((i, idx) => {
+                return (
+                  <Section key={idx}>
+                    <Image>
+                      <img src={i.img[0]} />
+                    </Image>
+                    <Desc>
+                      <h2>실시간 인기상품 </h2>
+                      <Title>{i.title}</Title>
+                      <Deadline>경매마감까지 {i.deadLine} 남았습니다.</Deadline>
+                      <Currentprice>{i.currentprice}원</Currentprice>
+                    </Desc>
+                  </Section>
+                );
+              })}
             </Slider>
-            </Slide>
-            </div>
-            </Box>
-        </Main>
-    )
+          </Slide>
+        </div>
+      </Box>
+    </Main>
+  );
 };
 
-// Container.defaultProps = {
-//     title : "",
-//     img : "",
-//     currentprice : ""
-// }
+Container.defaultProps = {
+  title: "나는 용현",
+  img: `https://1.bp.blogspot.com/-L1wiwQpwSMk/YItec1CE7MI/AAAAAAAAPH0/BwLwXf53LIQnaTGQuE6ilAwR31wsYVwMACLcBGAsYHQ/s0/KakaoTalk_20210416_144309208.png`,
+  currentprice: "10,000",
+};
+
+const LeftArrow = styled.div`
+  position: absolute;
+  top: 50%;
+`;
+
+const RightArrow = styled.div`
+  position: absolute;
+  top: 50%;
+`;
 
 const Main = styled.div`
-text-align : center;
+  text-align: center;
 `;
 
 const Box = styled.div`
-margin : 0 auto;
-max-width : 1300px;
+  margin: 0 auto;
+  max-width: 1920px;
 `;
-
-
 
 export const Slide = styled.div`
-margin-top : 20px;
+  margin-top: 20px;
 `;
-export const Section= styled.div`
-display : flex;
-
+export const Section = styled.div`
+  display: flex;
 `;
-const Desc = styled.div`
-text-align : left
-margin : 0px 0px 600px 0px;
-`;
+const Desc = styled.div``;
 export const Title = styled.div`
-font-size : 24px;
+  font-size: 24px;
 `;
 export const Image = styled.div`
-    & > img {
-        ${(props)=>props.width? `width : ${props.width};` : "width: 600px;" }
-        ${(props)=>props.height? `height : ${props.height};` : "height: 600px;" } 
-        ${(props)=> props.margin? `margin : ${props.margin};`: "margin : 0 auto;"}
-        cursor : pointer;
-    }
-    
+  & > img {
+    ${(props) => (props.width ? `width : ${props.width};` : "width: 600px;")}
+    ${(props) => (props.height ? `height : ${props.height};` : "height: 600px;")} 
+    ${(props) => (props.margin ? `margin : ${props.margin};` : "margin : 0 auto;")}
+    cursor : pointer;
+    border-radius: 50px;
+  }
 `;
-export const Currentprice = styled.div`
-`;
-export const Deadline = styled.div`
-`;
+export const Currentprice = styled.div``;
+export const Deadline = styled.div``;
 
 export default Container;

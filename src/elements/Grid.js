@@ -138,7 +138,7 @@ const GridBox = styled.div`
   right: ${(props) => props.right};
   left: ${(props) => props.left};
 
-  .svg {
+  svg {
     cursor: pointer;
   }
 `;
