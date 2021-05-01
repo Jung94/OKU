@@ -16,7 +16,7 @@ function NextArrow(props) {
     return (
         <div
         className={className}
-        style={{ ...style, display: "block", width : "15px", margin : "0 5px",zIndex : '1', content : "url(https://1.bp.blogspot.com/-h_s3Bjrcw84/YIf7ZRav-eI/AAAAAAAAPHA/VfoAtzu6CTsXNbBvR6b5Hb6T9i-qB5YrQCLcBGAsYHQ/s63/%25ED%258C%25A8%25EC%258A%25A4%2B5.png)"}}
+        style={{ ...style, display: "block", width : "15px", margin : "0 5px",zIndex : '1', content : "url(https://lh3.googleusercontent.com/-wYKZN7vWqEQ/YIhJGNP9-TI/AAAAAAAAPHk/QcGq6GAj57Yy3IJZ4vU8W5c_aKC-ZYEOwCLcBGAsYHQ/Right_2.png)"}}
         onClick={onClick}
         />
     );
@@ -27,7 +27,7 @@ function PrevArrow(props) {
     return (
         <div
         className={className}
-        style={{ ...style, display: "block", width : "15px",margin : "0 0 0 5px", content : "url(https://1.bp.blogspot.com/-BYqk1dJWzyc/YIf7Zcj00oI/AAAAAAAAPG8/g36K75wjqZ0BLxqgwUDgGTJuiuofQhKyACLcBGAsYHQ/s63/%25ED%258C%25A8%25EC%258A%25A4%2B6.png)"}}
+        style={{ ...style, display: "block", width : "15px",margin : "0 0 0 5px", content : "url(https://lh3.googleusercontent.com/-0oSZLhu_OCI/YIhJGLxZmSI/AAAAAAAAPHo/0GISg_LjRY8XlReu0kv48mEvEqhRici1QCLcBGAsYHQ/Left_2.png)"}}
         onClick={onClick}
         />
     );
@@ -43,20 +43,13 @@ const DeadlineP = (props) => {
     } = props;
 
     const settings = {
-        // 좌우 화살표 줄 것인가
         arrows: true,
-        // 마지막 슬라이드에서 처음 슬라이스로
         infinite: true,
-        // 속도
         speed: 500,
-        // 한 번에 스크롤 몇 개 보여줄 건가(대개 1을 사용함)
         slidesToShow: 3,
-        // 스크롤 할 때마다 몇 장씩 넘길 것인가
         slidesToScroll: 3,
-        // 자동 넘김을 할 것인가. 한다면 스피드는?
         autoplay: false,
         autoplaySpeed: 2500,
-        // 화면에 올리면 슬라이더가 자동으로 넘어가지 않음
         pauseOnHover: true,
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />  
