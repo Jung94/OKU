@@ -19,12 +19,12 @@ const ProductUpload = (props) => {
   const D2CT = [
     { value: '피규어', label: '피규어' },
     { value: '포토카드', label: '포토카드' },
-    { value: '포스터', label: '포스터' }
+    { value: '포스터', label: '포스터' },
   ]
   const D3CT = [
     { value: '앨범', label: '앨범'},
     { value: '굿즈', label: '굿즈' },
-    { value: '키링', label: '키링' }
+    { value: '키링', label: '키링' },
   ]
   const D4CT = [
     { value: '10800000', label: '3시간'},
@@ -37,9 +37,12 @@ const ProductUpload = (props) => {
   ]
 
   const addPost = () => {
-    console.log(typeof(lowbidFake), lowbidFake);
-    console.log(typeof(lowbid), lowbid);
-    // dispatch(postActions.addPostAPI(image, title, cateBig, cateSmall, region, productState, deadline, lowbid, sucbid, productDesc, tags));
+    console.log(title, cateBig, cateSmall, region);
+    console.log(productState, deadline, lowbid, sucbid, delivery, productDesc, tags);
+    // const addPostList = {
+
+    // }
+    dispatch(postActions.addPostAPI(image, title, cateBig, cateSmall, region, productState, deadline, lowbid, sucbid, delivery, productDesc, tags));
     // window.alert("상품 등록을 완료하였습니다.");
     // history.push("/")
     
@@ -57,23 +60,27 @@ const ProductUpload = (props) => {
   const lowbid = parseInt(lowbidFake.replace(/,/g, ''));
   const [sucbidFake, setSucbidFake] = React.useState("");
   const sucbid = parseInt(sucbidFake.replace(/,/g, ''));
+  const [delivery, setDelivery] = React.useState("");
   const [productDesc, setProductDesc] = React.useState("");
   const [tags, setTags] = React.useState("");
 
+  const [cate, setCate] = useState(D2CT);
+
   const handleCateBig = e => {
     setCateBig(e.value);
-  }
-
-  const handleCateSmall = e => {
     if (cateBig === "3D") {
-
+      setCate(D3CT);
     } else {
-
+      setCate(D2CT);
     }
   }
 
+  const handleCateSmall = e => {
+    setCateSmall(e.value);
+  }
+
   const handleDeadline = e => {
-    setDeadline(e.value);
+    setDeadline(parseInt(e.value));
   }
 
   const handleLowbid = (e) => {
@@ -84,6 +91,14 @@ const ProductUpload = (props) => {
   const handleSucbid = (e) => {
     let real2 = input_priceComma(e.target.value);
     setSucbidFake(real2);
+  }
+
+  const handleDelivery = e => {
+    if (e.target.value === "배송비 별도") {
+      setDelivery(true);
+    } else {
+      setDelivery(false);
+    }
   }
   
   
@@ -161,11 +176,25 @@ const ProductUpload = (props) => {
           </Innerbox_L>
           <Innerbox_R style={{display: "flex", width: "100%", margin: "24px 0 14px"}}>
             <div style={{width: "150px", margin: "0 20px 0 0"}}>
-              <Select onChange={handleCateBig} value={MainCT.find(obj => obj.value === cateBig)} placeholder="2D / 3D" options={MainCT} />
+              <Select onChange={handleCateBig} options={MainCT} value={MainCT.find(obj => obj.value === cateBig)} placeholder="2D / 3D" />
             </div>
-            <div style={{width: "150px", margin: "0"}}>
-              <Select onChange={handleCateSmall} value={D2CT.find(obj => obj.value === cateSmall)} placeholder="상세 분류" options={D2CT} />
-            </div>
+            {/* <div style={{width: "150px", margin: "0"}}>
+              <Select onChange={handleCateSmall} options={cate} value={cate.find(obj => obj.value === cateSmall)} placeholder="상세 분류" />
+            </div> */}
+            {cateBig === "3D" && (
+              <React.Fragment>
+                <div style={{width: "150px", margin: "0"}}>
+                  <Select onChange={handleCateSmall} value={D2CT.find(obj => obj.value === cateSmall)} placeholder="3D 상세 분류" options={D2CT} />
+                </div>
+              </React.Fragment>
+            )} 
+            {cateBig === "2D" && (
+              <React.Fragment>
+                <div style={{width: "150px", margin: "0"}}>
+                  <Select onChange={handleCateSmall} value={D3CT.find(obj => obj.value === cateSmall)} placeholder="2D 상세 분류" options={D3CT} />
+                </div>
+              </React.Fragment>
+            )}
           </Innerbox_R>
         </Outerbox>
         
@@ -196,12 +225,12 @@ const ProductUpload = (props) => {
           </Innerbox_L>
 
           <Innerbox_R>
-            <div style={{display: "flex", justifyContent: "flex-start", gap: "50px", width: "700px", margin : "30px 0 0"}} >
+            <form onChange={(e) => { setProductState(e.target.value) }} style={{display: "flex", justifyContent: "flex-start", gap: "50px", width: "700px", margin : "30px 0 0"}} >
               <label><input type="radio" name="state" value="A급" style={{margin : "0 8px 0 0"}} />A급</label>
               <label><input type="radio" name="state" value="B급" style={{margin : "0 8px 0 0"}} />B급</label>
               <label><input type="radio" name="state" value="C급" style={{margin : "0 8px 0 0"}} />C급</label>
               <label><input type="radio" name="state" value="D급" style={{margin : "0 8px 0 0"}} />D급</label>
-            </div>
+            </form>
           </Innerbox_R>
         </Outerbox>
 
@@ -241,10 +270,10 @@ const ProductUpload = (props) => {
             <p>상품 배송 정보<span style={{color: "red"}}>*</span></p>
           </Innerbox_L>
           <Innerbox_R>
-            <div style={{display: "flex", justifyContent: "flex-start", gap: "50px", width: "700px", margin : "30px 0 0"}} >
+            <form onChange={handleDelivery} style={{display: "flex", justifyContent: "flex-start", gap: "50px", width: "700px", margin : "30px 0 0"}} >
               <label><input type="radio" name="delivery" value="무료 배송(혹은 직거래일 경우)" style={{margin : "0 8px 0 0"}} />무료 배송(or 직거래일 경우)</label>
               <label><input type="radio" name="delivery" value="배송비 별도" style={{margin : "0 8px 0 0"}} />배송비 별도</label>
-            </div>
+            </form>
           </Innerbox_R>
         </Outerbox>
 
@@ -253,7 +282,7 @@ const ProductUpload = (props) => {
             <p>상품 상세 정보<span style={{color: "red"}}>*</span></p>
           </Innerbox_L>
           <Innerbox_R style={{margin : "21px 0 17px"}}>
-            <textarea placeholder="상품 설명을 입력해주세요." style={{padding: "6px 10px", marginTop: "13px", width : "700px", height: "200px", fontSize:"14px"}} rows="10"></textarea>
+            <textarea onChange={(e) => { setProductDesc(e.target.value) }} placeholder="상품 설명을 입력해주세요." style={{padding: "6px 10px", marginTop: "13px", width : "700px", height: "200px", fontSize:"14px"}} rows="10"></textarea>
           </Innerbox_R>
         </Outerbox>
 
@@ -262,7 +291,7 @@ const ProductUpload = (props) => {
             <p>상품 관련 태그</p>
           </Innerbox_L>
           <Innerbox_R>
-            <input type="text" placeholder="태그는 띄어쓰기로 구분됩니다  ex. 피규어 포스터 카드" style={{width:"700px", height:"40px", padding:"10px", margin: "22px 0 0", fontSize:"14px"}}></input>
+            <input onChange={(e) => { setTags(e.target.value) }} type="text" placeholder="태그는 띄어쓰기로 구분됩니다  ex. 피규어 포스터 카드" style={{width:"700px", height:"40px", padding:"10px", margin: "22px 0 0", fontSize:"14px"}}></input>
           </Innerbox_R>
         </Outerbox>
       
