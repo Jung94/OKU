@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { history } from 'redux/configureStore';
 import { useDispatch } from 'react-redux';
@@ -13,9 +13,19 @@ import { faAddressCard as farAddressCard } from '@fortawesome/free-regular-svg-i
 import { faUser, faLock, faEnvelope, faPhone, faAddressCard } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import DaumPostcode from 'react-daum-postcode';
+
 const Signup = (props) => {
 
   const dispatch = useDispatch();
+
+  const postCodeStyle = {
+    display: "block",
+    position: "absolute",
+    top: "50px",
+    zIndex: "100",
+    padding: "7px"
+  };
 
   const [show, setShow] = React.useState(false);  // show = 비밀번호 인풋에 작성한 비밀번호
   const [show2, setShow2] = React.useState(false);  // show2 = 비밀번호 확인 인풋에 작성한 비밀번호
@@ -37,6 +47,7 @@ const Signup = (props) => {
   const [nickName, setNickName] = React.useState('');
   const [phone, setPhone] = React.useState('');
   const [email, setEmail] = React.useState('');
+  const [postalAddress, setPostalAddress] = React.useState('');
   const [address, setAddress] = React.useState('');
   const [detailAddress, setDetailAddress] = React.useState('');
 
@@ -52,28 +63,66 @@ const Signup = (props) => {
       return;
     }
 
-    // dispatch(userActions.signupAPI(email, pw, pwCheck, userName));
+    dispatch(userActions.signupAPI(id, pw, pwCheck, userName, nickName, phone, email, address, detailAddress));
+  }
+
+  // 아이디 사용 가능 여부 확인. 이메일 인풋 포커스 아웃 시
+  const checkIdAPI = (id) => {
+  
+    const API = `http://3.35.137.38/user/signup/id/${id}`;
+    fetch(API)
+    .then((res) => res.json())
+    .then((res) => {
+      let result = res.result;
+      if (result === false) {
+        idInfo.current.style.color = '#ee3a57';
+        setMessageId('·이미 등록된 아이디입니다. 다시 작성해 주십시오!');
+
+      } else {
+        setMessageId('·사용이 가능한 아이디입니다.');
+        idInfo.current.style.color = '#06afd6';
+      }
+    });
+  }
+
+  // 닉네임 사용 가능 여부 확인. 이메일 인풋 포커스 아웃 시
+  const checkNicknameAPI = (nickname) => {
+
+    const API = `http://3.35.137.38/user/signup/nickname/${nickname}`;
+    fetch(API)
+    .then((res) => res.json())
+    .then((res) => {
+      let result = res.result;
+      if (result === false) {
+        nicknameInfo.current.style.color = '#ee3a57';
+        setMessageNickname('·이미 등록된 닉네임입니다. 다시 작성해 주십시오!');
+
+      } else {
+        setMessageNickname('·사용이 가능한 닉네임입니다.');
+        nicknameInfo.current.style.color = '#06afd6';
+      }
+    });
   }
 
   // 이메일 사용 가능 여부 확인. 이메일 인풋 포커스 아웃 시
   const checkEmailAPI = (email) => {
     
-    const API = `http://3.35.137.38/user/signup/${email}`;
+    const API = `http://3.35.137.38/user/signup/email/${email}`;
     fetch(API)
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
-      // if (res === false) {
-      //   emailInfo.current.style.color = '#ee3a57';
-      //   setMessageEmail('·이미 등록된 이메일입니다. 다시 작성해 주십시오!');
+      let result = res.result;
+      if (result === false) {
+        emailInfo.current.style.color = '#ee3a57';
+        setMessageEmail('·이미 등록된 이메일입니다. 다시 작성해 주십시오!');
 
-      // } else {
-      //   setMessageEmail('·사용이 가능한 이메일입니다.');
-      //   emailInfo.current.style.color = '#1cd5ff';
-      // }
+      } else {
+        setMessageEmail('·사용이 가능한 이메일입니다.');
+        emailInfo.current.style.color = '#06afd6';
+      }
     });
   }
-
+  
   const idInfo = useRef();
   const pwInfo = useRef();
   const pwCheckInfo = useRef();
@@ -81,6 +130,7 @@ const Signup = (props) => {
   const nicknameInfo = useRef();
   const phoneInfo = useRef();
   const emailInfo = useRef();
+  const postalAddressInfo = useRef();
   const addressInfo = useRef();
   const detailAddressInfo = useRef();
   
@@ -92,6 +142,7 @@ const Signup = (props) => {
   const [messageNickname, setMessageNickname] = React.useState('');
   const [messagePhone, setMessagePhone] = React.useState('');
   const [messageEmail, setMessageEmail] = React.useState('');
+  const [messagePostalAddress, setMessagePostalAddress] = React.useState('');
   const [messageAddress, setMessageAddress] = React.useState('');
   const [messageDetailAddress, setMessageDetailAddress] = React.useState('');
 
@@ -104,6 +155,8 @@ const Signup = (props) => {
     } else {
       idInfo.current.style.display = 'none';
     }
+    idInfo.current.style.display = 'block';
+    checkIdAPI(id);
   }
 
   // 비밀번호 작성 없이 포커스 아웃 되었을 때
@@ -156,6 +209,8 @@ const Signup = (props) => {
     } else {
       nicknameInfo.current.style.display = 'none';
     }
+    nicknameInfo.current.style.display = 'block';
+    checkNicknameAPI(nickName);
   }
 
   // 전화번호 작성 없이 포커스 아웃 되었을 때
@@ -192,6 +247,17 @@ const Signup = (props) => {
     checkEmailAPI(email);
   }
 
+  // 우편주소 작성 없이 포커스 아웃 되었을 때
+  const checkPostalAddress = () => {
+    if (postalAddress === '') {
+      setMessagePostalAddress('·우편주소를 입력해주세요.');
+      postalAddressInfo.current.style.display = 'block';
+      return;
+    } else {
+      postalAddressInfo.current.style.display = 'none';
+    }
+  }
+
   // 주소 작성 없이 포커스 아웃 되었을 때
   const checkAddress = () => {
     if (address === '') {
@@ -214,10 +280,48 @@ const Signup = (props) => {
     }
   }
 
+  // 주소 검색 한 것 받음
+  const [isZoneCode, setIsZoneCode] = useState();
+  const [isAddress, setIsAddress] = useState();
+  const [isPostOpen, setIsPostOpen] = useState(false); // 주소창 열고 닫기
+
+  // 상세주소
+  const [isAddressPlus, setIsAddressPlus] = useState("");
+  // const onChangeAddressPlus = useCallback(
+  //   (e) => setIsAddressPlus(e.target.value),
+  //   []
+  // );
+
+  // 우편번호 / 주소 찾기
+  const handleComplete = (data) => {
+    let fullAddress = data.address;
+    let extraAddress = "";
+
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== "") {
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    }
+    setPostalAddress(data.zonecode);
+    setAddress(fullAddress);
+    setIsPostOpen(false);
+  };
+
+  const _payment_info = {
+    userAddress: `${postalAddress} ${address} ${detailAddress}`
+  };
+  
+  
+
   return (
     <Wrap>
       <Title>회원가입</Title>
-
+      
       <SignupBox>
         <IconSpan>
           <FontAwesomeIcon icon={faUser} />
@@ -302,7 +406,20 @@ const Signup = (props) => {
         <IconSpan>
           <FontAwesomeIcon icon={farAddressCard} />
         </IconSpan>
-        <SignupInput type="text" placeholder="주소" onChange={(e) => { setAddress(e.target.value) }} onBlur={checkAddress}></SignupInput>
+        <SignupInput postal type="text" placeholder="우편번호" value={postalAddress} onChange={(e) => { setPostalAddress(e.target.value) }} onBlur={checkPostalAddress}></SignupInput>
+        <PostalBtn text="주소 찾기" onClick={() => {setIsPostOpen(true);}}>주소 찾기</PostalBtn>
+      </SignupBox>
+      <InfoUl ref={postalAddressInfo}>
+        <li>{messagePostalAddress}</li>
+      </InfoUl>
+
+      
+
+      <SignupBox>
+        <IconSpan>
+          <FontAwesomeIcon icon={faAddressCard} />
+        </IconSpan>
+        <SignupInput type="text" placeholder="주소" value={address} onChange={(e) => { setAddress(e.target.value) }} onBlur={checkAddress}></SignupInput>
       </SignupBox>
       <InfoUl ref={addressInfo}>
         <li>{messageAddress}</li>
@@ -323,10 +440,81 @@ const Signup = (props) => {
       <LoginBox>
         <LoginLink onClick={() => history.push('/login')} >로그인</LoginLink>
       </LoginBox>
+
+      {isPostOpen && 
+        <Modal>
+          <ModalSection>
+            <DaumPostcode onComplete={handleComplete} />
+          </ModalSection>
+          <ModalBack onClick={() => setIsPostOpen(false)}>
+          </ModalBack>
+        </Modal>
+      }
       
     </Wrap>
   );
 }
+
+const Modal = styled.div`
+  display: flex;
+  align-items: center;
+  animation: modal-bg-show 0.3s;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 90;
+  background-color: rgba(0, 0, 0, 0.6);
+`;
+
+const ModalSection = styled.section`
+  width: 90%;
+  max-width: 450px;
+  margin: 0 auto;
+  border-radius: 0.3rem;
+  background-color: #fff;
+  /* 팝업이 열릴때 스르륵 열리는 효과 */
+  animation: modal-show 0.3s;
+  overflow: hidden;
+  z-index: 99;
+`;
+
+const ModalBack = styled.div`
+  display: flex;
+  align-items: center;
+  animation: modal-bg-show 0.3s;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 96;
+  background-color: transparent;
+`;
+
+const PostalBtn = styled.button`
+  width: 70px;
+  height: 24px;
+  float: right;
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: 400;
+  text-align: center;
+  padding: 0 0 1px;
+  margin: 1px 0 0;
+  font-size: 12px;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  background-color: transparent;
+
+  &:hover {
+    color: #fff;
+    border: none;
+    font-weight: 500;
+    background-color: #06afd6;
+  }
+`;
 
 const InfoUl = styled.ul`
   display: none;
@@ -338,11 +526,10 @@ const InfoUl = styled.ul`
   top: -6px;
   left: 6px;
   font-weight: 400;
-`
+`;
 
 const Wrap = styled.div`
   width: 280px;
-//   height: 70vh;
   margin: 0 auto;
   padding: 50px 0;
   box-sizing: border-box;
@@ -376,7 +563,7 @@ const IconSpan = styled.span`
   float: left;
   text-align: center;
   padding: 0 8px 0 0;
-  color: rgba(204, 204, 204);
+  color: rgba(0, 0, 0, 0.45);
 `;
 
 const IconEyeSpan = styled.span`
@@ -386,7 +573,7 @@ const IconEyeSpan = styled.span`
   padding: 3px 0 0;
   font-size: 14px;
   cursor: pointer;
-  color: rgba(204, 204, 204);
+  color: rgba(0, 0, 0, 0.4);
 `;
 
 const SignupInput = styled.input`
@@ -398,11 +585,12 @@ const SignupInput = styled.input`
   overflow: hidden;
   color: #000;
   font-size: 14px;
-  width: 80%;
   outline: none;
+
+  ${(props) => props.postal ? "width: 50%;" : "width: 80%;"}
   
   &::placeholder {
-    color: rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.4);
     font-size: 0.8rem;
   }
 `;
@@ -420,7 +608,7 @@ const PwdInput = styled.input`
   outline: none;
 
   &::placeholder {
-    color: rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.4);
     font-size: 0.8rem;
   }
 `;
@@ -438,6 +626,7 @@ const SignupButton = styled.button`
   font-weight: 700;
   cursor: pointer;
   outline: none;
+
   &:hover {
     transition: 0.2s;
     background-color: transparent;

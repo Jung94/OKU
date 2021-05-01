@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useEffect } from "react";
 import 'shared/css/App.css';
 import styled from 'styled-components';
 
+import { actionCreators as userActions } from "redux/modules/user";
 import { ConnectedRouter } from 'connected-react-router';
 import { Route, Switch } from 'react-router-dom';
+import { useDispatch } from "react-redux";
 import { history } from 'redux/configureStore';
 import NotFound from 'shared/NotFound';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
-import  { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin } from "pages/";
+import  { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin} from "pages/";
 
 const App = (props) => {
+  const dispatch = useDispatch();
+  const is_login = localStorage.getItem("Access-Token") ? true : false ;
+
+  useEffect(() => {
+    if (is_login) {
+      dispatch(userActions.isLogin());
+    }
+  }, []);
+
   return (
     <div>
       <Header/>
@@ -27,19 +38,17 @@ const App = (props) => {
               <Route path="/productupload" exact component={ProductUpload} />
               <Route component={NotFound} />
             </Switch>
-          </ConnectedRouter>
-        </Wrap>
-        <Footer/>
+          </ConnectedRouter>  
+        </Wrap>  
       </Grid>
+      <Footer/>
     </div>
   );
 }
 
 const Grid = styled.div`
-  background : #eee;
   margin : 0 auto;
-  max-width : 1030px;
-
+  max-width : 1920px;
 `;
 
 const Wrap = styled.div`

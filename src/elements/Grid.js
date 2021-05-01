@@ -101,7 +101,7 @@ Grid.defaultProps = {
   left: false,
   borderRadius: false,
   color: "#5A5656",
-  wrap: false,
+  wrap: null,
   justify: false,
   flexGrow: false,
 };
