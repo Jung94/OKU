@@ -101,7 +101,7 @@ Grid.defaultProps = {
   left: false,
   borderRadius: false,
   color: "#5A5656",
-  wrap: false,
+  wrap: null,
   justify: false,
   flexGrow: false,
 };
@@ -138,7 +138,7 @@ const GridBox = styled.div`
   right: ${(props) => props.right};
   left: ${(props) => props.left};
 
-  .svg {
+  svg {
     cursor: pointer;
   }
 `;

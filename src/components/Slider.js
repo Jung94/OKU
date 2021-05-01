@@ -1,90 +1,171 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronRight as fasCRight, faChevronLeft as fasCLeft } from "@fortawesome/free-solid-svg-icons";
 
 const Slider = (props) => {
-  const { children, top, bottom, margin, color } = props;
+  const { imgList } = props;
+  const [sliderFigure, setSliding] = useState(0);
+
+  // image 배열 시도
+  // const tryList = [
+  //   "https://images.pexels.com/photos/7214940/pexels-photo-7214940.png?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+  //   // "https://images.pexels.com/photos/7144919/pexels-photo-7144919.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+  //   // "https://images.pexels.com/photos/7024051/pexels-photo-7024051.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+  // ];
+
   return (
     <SliderWrap {...props}>
       <Slides>
         {/* 슬라이드사진 */}
-        <SlideDiv className="first">
-          <SlideImg src="https://images.pexels.com/photos/7214940/pexels-photo-7214940.png?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" />
-        </SlideDiv>
-        <SlideDiv>
-          <SlideImg src="https://images.pexels.com/photos/7144919/pexels-photo-7144919.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
-        </SlideDiv>
-        <SlideDiv>
-          <SlideImg src="https://images.pexels.com/photos/7024051/pexels-photo-7024051.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" />
-        </SlideDiv>
-        <BtnBox>
+        <Slide sliderFigure={sliderFigure}>
+          {imgList &&
+            imgList.map((i, idx) => {
+              return <Carousel key={idx} img={i} alt="상품 이미지" />;
+            })}
+        </Slide>
+        {/* 순서 버튼 (radio button) */}
+        <BtnBox sliderFigure={sliderFigure}>
           <BtnLabel>
-            <Btn type="radio" className="radio" id="button1"></Btn>
-          </BtnLabel>
-          <BtnLabel>
-            <Btn type="radio" className="radio" id="button2"></Btn>
-          </BtnLabel>
-          <BtnLabel>
-            <Btn type="radio" className="radio" id="button3"></Btn>
+            {imgList &&
+              imgList.map((i, idx) => {
+                return (
+                  <Btn
+                    key={idx}
+                    type="radio"
+                    onClick={() => {
+                      setSliding(idx * 200);
+                    }}
+                  ></Btn>
+                );
+              })}
           </BtnLabel>
         </BtnBox>
+        {/* 방향키 */}
+        <ArrBox>
+          {imgList &&
+            imgList.map((i, idx) => {
+              return (
+                <FontAwesomeIcon
+                  key={idx}
+                  icon={fasCLeft}
+                  onClick={() => {
+                    if (sliderFigure > 0) {
+                      setSliding(sliderFigure - 200);
+                    } else {
+                      setSliding(200 * idx);
+                    }
+                  }}
+                />
+              );
+            })}
+          {imgList &&
+            imgList.map((i, idx) => {
+              return (
+                <FontAwesomeIcon
+                  key={idx}
+                  icon={fasCRight}
+                  onClick={() => {
+                    if (sliderFigure <= 200 * (idx - 1)) {
+                      setSliding(sliderFigure + 200);
+                    } else {
+                      setSliding(0);
+                    }
+                  }}
+                />
+              );
+            })}
+        </ArrBox>
       </Slides>
     </SliderWrap>
   );
 };
 
-Slider.defaultProps = {
-  color: "#d2d2d2",
-};
+Slider.defaultProps = {};
 
-const SliderWrap = styled.div``;
+const SliderWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+`;
+
 const Slides = styled.div`
   display: flex;
-  flex-direction: row;
-  max-height: 400px;
-  width: 300%;
+  justify-content: space-evenly;
+  height: 500px;
+`;
+
+const Slide = styled.div`
+  display: flexbox;
+  height: 500px;
+  width: 100%;
+  transition: 700ms ease;
+
+  margin-left: ${(props) => (props.sliderFigure ? `-${props.sliderFigure}%;` : "0%;")};
+`;
+
+const Carousel = styled.div`
+  background: ${(props) => `url(${props.img})`};
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  transition: 700ms ease;
 `;
 
 //원형
-const Btn = styled.input`
-  border: 1px transparent white;
-  cursor: pointer;
-
-  background-color: purple;
-  opacity: 0;
-`;
-
-const BtnLabel = styled.label`
-  border: 2px solid black;
-  border-radius: 10rem;
-  padding: 0;
-  width: 10px;
-  transition: 300ms;
-  cursor: pointer;
-  margin: 0 10px;
-  :hover {
-    background-color: black;
+const ArrBox = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  height: inherit;
+  //손보기
+  width: 50%;
+  padding: 1%;
+  justify-content: space-between;
+  align-content: center;
+  svg {
+    width: 100%;
+    font-size: 3rem;
+    color: #ffffff88;
+    z-index: 99;
+    cursor: pointer;
+    :hover {
+      color: whitesmoke;
+    }
   }
 `;
 
 const BtnBox = styled.div`
-  position: absolute;
-  width: 100%;
   display: flex;
-  justify-content: center;
+  position: absolute;
+  height: inherit;
+  width: inherit;
+  ${(props) =>
+    props.sliderFigure === 0
+      ? "& > label:nth-child(1) {background-color: whitesmoke;}"
+      : props.sliderFigure === 200
+      ? "& > label:nth-child(2) {background-color: whitesmoke;}"
+      : "& > label:nth-child(3) {background-color: whitesmoke;}"}
+`;
+
+const Btn = styled.input`
+  cursor: pointer;
+  display: none;
+`;
+
+const BtnLabel = styled.label`
+  background-color: #ffffff88;
+  z-index: 99;
+  border-radius: 10rem;
+  padding: 0;
+  width: 10px;
   height: 10px;
-
-  #button1:checked ~ .first {
-    margin-left
-  } ;
-`;
-
-const SlideDiv = styled.div`
-  transition: 2s;
-`;
-const SlideImg = styled.img`
-  object-fit: cover;
-  max-height: 400px;
-  width: 100%;
+  transition: 300ms;
+  cursor: pointer;
+  margin: auto 10px 20px 10px;
+  :hover {
+    background-color: whitesmoke;
+  }
 `;
 
 export default Slider;
