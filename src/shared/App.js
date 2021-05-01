@@ -37,7 +37,7 @@ const App = (props) => {
 
 const Grid = styled.div`
 margin : 0 auto;
-max-width : 1400px;
+max-width : 1920px;
 `;
 
 
