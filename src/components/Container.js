@@ -66,17 +66,16 @@ const Container = (props) => {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll : 2,
+    slidesToScroll: 2,
     autoplay: false,
     autoplaySpeed: 2500,
     pauseOnHover: true,
     draggable: false,
     className: "center",
     centerMode: true,
-    centerPadding: "500px",
+    centerPadding: "25%",
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-
   };
   return (
     <Main>
@@ -91,12 +90,11 @@ const Container = (props) => {
                       <img src={i.img[0]} />
                     </Image>
                     <Desc>
-                        <h2>실시간 인기상품 </h2>
-                        <Title>{i.title}</Title>
-                        <Deadline>경매마감까지 {i.deadLine} 남았습니다.</Deadline>
-                        <Currentprice>{i.currentprice}원</Currentprice>
-                      </Desc>
-                    
+                      <h2>실시간 인기상품 </h2>
+                      <Title>{i.title}</Title>
+                      <Deadline>경매마감까지 {i.deadLine} 남았습니다.</Deadline>
+                      <Currentprice>{i.currentprice}원</Currentprice>
+                    </Desc>
                   </Section>
                 );
               })}
@@ -115,13 +113,13 @@ Container.defaultProps = {
 };
 
 const LeftArrow = styled.div`
-position: absolute;
-Top : 50%;
+  position: absolute;
+  top: 50%;
 `;
 
 const RightArrow = styled.div`
-position: absolute;
-Top : 50%;
+  position: absolute;
+  top: 50%;
 `;
 
 const Main = styled.div`
@@ -144,14 +142,13 @@ export const Title = styled.div`
   font-size: 24px;
 `;
 export const Image = styled.div`
-& > img {
-    ${ (props) => (props.width ? `width : ${props.width};` : "width: 600px;")}
-    ${ (props) => (props.height ? `height : ${props.height};` : "height: 600px;")} 
-    ${ (props) => (props.margin ? `margin : ${props.margin};` : "margin : 0 auto;")}
+  & > img {
+    ${(props) => (props.width ? `width : ${props.width};` : "width: 600px;")}
+    ${(props) => (props.height ? `height : ${props.height};` : "height: 600px;")} 
+    ${(props) => (props.margin ? `margin : ${props.margin};` : "margin : 0 auto;")}
     cursor : pointer;
-    border-radius : 50px;
-
-}
+    border-radius: 50px;
+  }
 `;
 export const Currentprice = styled.div``;
 export const Deadline = styled.div``;

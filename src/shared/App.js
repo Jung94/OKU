@@ -13,7 +13,7 @@ import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, My
 const App = (props) => {
   return (
     <div>
-      {/* <Header /> */}
+      <Header />
       <Grid>
         <Wrap>
           <ConnectedRouter history={history}>
@@ -38,7 +38,7 @@ const App = (props) => {
 
 const Grid = styled.div`
   margin: 0 auto;
-  max-width: 1030px;
+  max-width: 1920px;
 `;
 
 const Wrap = styled.div`
