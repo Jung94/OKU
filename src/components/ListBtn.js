@@ -10,7 +10,7 @@ const ListBtn = (props) => {
 if (showing) {
     return (
         <div>
-            <img onClick={ListShowing}  src={List}/>
+            <p style={{cursor:"pointer", fontWeight:"bold",fontSize:"20px"}}>카테고리</p>
             <Wrapper>
                 <CategoryBox>
                     <_Left>
@@ -28,7 +28,7 @@ if (showing) {
 } else {
     return (
         <div>
-            <img onClick={ListShowing}  src={List}/>
+            <p style={{cursor:"pointer",fontWeight:"bold",fontSize:"20px"}} >카테고리</p>
                 <Wrapper>
                 </Wrapper>
         </div>
