@@ -11,77 +11,77 @@ const Login = (props) => {
 
     const dispatch = useDispatch();
 
-    const [id, setId] = React.useState('');
+    const [email, setEmail] = React.useState('');
     const [pw, setPw] = React.useState('');
 
     // 로그인 버튼 클릭 시
     const login = () => {
         
-        if (id === '' || pw === '') {
-        alert('아이디와 비밀번호를 입력해주세요');
+        if (email === '' || pw === '') {
+            alert('이메일과 비밀번호를 입력해주세요');
         return;
         }
         
-        dispatch(userActions.loginAPI(id, pw));
+        dispatch(userActions.loginAPI(email, pw));
     }
 
     return (
-      <Wrap>
-        <Title>로그인</Title>
-        <Desc>
-          0부터 9까지 OKU의 다양한 상품을 구경하세요!
-        </Desc>
-    
-        <LoginBox>
-          <IconSpan>
-            <FontAwesomeIcon icon={faUser} />
-          </IconSpan>
-          <LoginInput type="text" placeholder="아이디" onChange={(e) => { setId(e.target.value) }} onKeyPress={(e) => {
-              if(window.event.keyCode === 13) {
-              login();
-            } 
-          }} ></LoginInput>
-        </LoginBox>
-    
-        <LoginBox>
-          <IconSpan>
-            <FontAwesomeIcon icon={faLock} />
-          </IconSpan>
-          <LoginInput type="password" placeholder="비밀번호" onChange={(e) => { setPw(e.target.value) }} onKeyPress={(e) => {
-              if(window.event.keyCode === 13) {
-                login();
-              } 
-          }}></LoginInput>
-        </LoginBox>
+        <Wrap>
+            <Title>로그인</Title>
+            <Desc>
+                0부터 9까지 OKU의 다양한 상품을 구경하세요!
+            </Desc>
+        
+            <LoginBox>
+                <IconSpan>
+                    <FontAwesomeIcon icon={faUser} />
+                </IconSpan>
+                <LoginInput type="text" placeholder="아이디" onChange={(e) => { setEmail(e.target.value) }} onKeyPress={(e) => {
+                    if(window.event.keyCode === 13) {
+                    login();
+                    } 
+                }} ></LoginInput>
+            </LoginBox>
+        
+            <LoginBox>
+                <IconSpan>
+                    <FontAwesomeIcon icon={faLock} />
+                </IconSpan>
+                <LoginInput type="password" placeholder="비밀번호" onChange={(e) => { setPw(e.target.value) }} onKeyPress={(e) => {
+                    if(window.event.keyCode === 13) {
+                        login();
+                    } 
+                }}></LoginInput>
+            </LoginBox>
 
-        <Check>
-          <Auto>
-            <AutoLogin type="checkbox" id="a1" />
-            <label for="a1">자동 로그인</label>
-          </Auto>
+            <Check>
+                <Auto>
+                    <AutoLogin type="checkbox" id="a1" />
+                    <label for="a1">자동 로그인</label>
+                </Auto>
+                
+                <CheckIdPw>
+                    <a>아이디</a>
+                    <CheckBar>|</CheckBar>
+                    <a>비밀번호</a>
+                    <span>찾기</span>
+                </CheckIdPw>
+            </Check>
+        
+            <LoginButton onClick={login} >로그인</LoginButton>
+        
+            <SignupBox>
+                <span>아직 OKU 회원이 아니신가요?</span>
+                <SignupLink onClick={() => history.push('/signup')} >회원가입하러 가기</SignupLink>
+            </SignupBox>
+
+            <SocialBox>
+                <Naver/>
+                <Kakao/>
+                <Google/>
+            </SocialBox>
             
-          <CheckIdPw>
-            <a>아이디</a>
-            <CheckBar>|</CheckBar>
-            <a>비밀번호</a>
-            <span>찾기</span>
-          </CheckIdPw>
-        </Check>
-    
-        <LoginButton onClick={login} >로그인</LoginButton>
-    
-        <SignupBox>
-          <span>아직 OKU 회원이 아니신가요?</span>
-          <SignupLink onClick={() => history.push('/signup')} >회원가입하러 가기</SignupLink>
-        </SignupBox>
-
-        <SocialBox>
-          <Naver/>
-          <Kakao/>
-          <Google/>
-        </SocialBox>
-          
-      </Wrap>
+        </Wrap>
     );
 }
 

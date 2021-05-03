@@ -17,7 +17,7 @@ const initialState = {
     is_login: false,
 };
 
-const signupAPI = (id, pw, pwCheck, userName, nickName, phone, email, address, detailAddress) => {
+const signupAPI = (email, pw, pwCheck, nickName, phone) => {
     return function (dispatch, getState, { history }) {
         
     const API = 'http://3.35.137.38/user/signup';
@@ -27,15 +27,11 @@ const signupAPI = (id, pw, pwCheck, userName, nickName, phone, email, address, d
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            userId: id,
+            email: email,
             password: pw,
             password2: pwCheck,
-            username: userName,
             nickname: nickName,
             number: phone,
-            email: email,
-            address:address,
-            detailAddress: detailAddress
         })
     })
         .then((res) => res.json())
@@ -58,8 +54,8 @@ const signupAPI = (id, pw, pwCheck, userName, nickName, phone, email, address, d
     });
     }
 };
-  
-const loginAPI = (id, pw) => {
+
+const loginAPI = (email, pw) => {
     return function (dispatch, getState, { history }) {
         const API = 'http://3.35.137.38/user/login';
         fetch(API, {
@@ -69,26 +65,27 @@ const loginAPI = (id, pw) => {
             'Accept': 'application/json'
         },
         body: JSON.stringify({
-            userId: id,
+            email: email,
             password: pw,
         })
         })
         .then((res) => res.json())
         .then((result) => {
+            // console.log(result.access_token);
             //성공시 토큰, 유저 정보 저장
             if (result.access_token) {
                 let token = result.access_token;
                 let nickname = result.nickname;
-                localStorage.setItem('Access-Token', token);
+                localStorage.setItem('access_token', token);
                 localStorage.setItem('nickname', nickname);
                 window.alert('로그인을 완료하였습니다!');
                 dispatch(setUser({
                     user: nickname,
-                  }));
+                }));
                 history.push('/');
-            } else if (result.msg === 'password False' || 'userId False') {
-                window.alert('아이디와 비밀번호가 일치하지 않습니다.');
-            } 
+                } else if (result.msg === 'password False' || 'email False') {
+                    window.alert('이메일과 비밀번호가 일치하지 않습니다.');
+                } 
         })
         .catch((error) => {
             console.log(error);
@@ -98,17 +95,17 @@ const loginAPI = (id, pw) => {
 
 const isLogin = () => {
     return function (dispatch, getState, { history }) {
-      const token = localStorage.getItem('Access-Token');
-      const nickname = localStorage.getItem('nickname');
-  
-      if (!token || !nickname) {
-        return;
-      }
-      dispatch(setUser({
-        user: nickname,
-      }));
-    }
-  }
+        const token = localStorage.getItem('access_token');
+        const nickname = localStorage.getItem('nickname');
+
+        if (!token || !nickname) {
+            return;
+        }
+        dispatch(setUser({
+            user: nickname,
+        }));
+}
+}
 
 export default handleActions(
     {
