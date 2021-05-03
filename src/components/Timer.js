@@ -9,7 +9,7 @@ import "moment/locale/ko";
 const Timer = (props) => {
   // day : '~일'
   // hms : '시:분:초'
-  const { day, hms, all } = props;
+  const { day, hms, all, deadLine } = props;
 
   // Date.now() 내장함수
   const [seconds, setSeconds] = useState(Date.now());
@@ -20,7 +20,7 @@ const Timer = (props) => {
   }, 1000);
 
   // data 받기
-  const _deadline = "2021-04-30T22:00:00"; // 데이터 GET하면 받을 준비
+  const _deadline = deadLine; // 데이터 GET하면 받을 준비
   const deadline = moment(_deadline); // 데드라인
   const timeNow = moment(seconds); // 현재
 
@@ -35,9 +35,11 @@ const Timer = (props) => {
   if (day) {
     return <>{deadline - timeNow > 0 ? <TimerWrap>D-{day_duration}</TimerWrap> : <div>경매 종료</div>}</>;
   }
+
   if (hms) {
     return <>{deadline - timeNow > 0 ? <TimerWrap>{hms_duration}</TimerWrap> : <div>경매 종료</div>}</>;
   }
+
   if (all) {
     return <>{deadline - timeNow > 0 ? <TimerWrap>D-{duration}</TimerWrap> : <div>경매 종료</div>}</>;
   }

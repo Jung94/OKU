@@ -1,9 +1,9 @@
 import React, { useState, useSelector } from "react";
 import styled from "styled-components";
 
-import ListBtn from 'components/ListBtn';
-import ListHover from 'components/ListHover';
-import DetailRing from 'components/DetailRing';
+import ListBtn from "components/ListBtn";
+import ListHover from "components/ListHover";
+import DetailRing from "components/DetailRing";
 
 import { history } from "../redux/configureStore";
 
@@ -12,7 +12,6 @@ import Submit from "images/search.png";
 import List from "images/list.png";
 
 const Header = (props) => {
-
   // const is_login = useSelector((state) => state.user.is_login);
 
   const option_1 = [
@@ -31,34 +30,37 @@ const Header = (props) => {
   ];
   return (
     <Nav>
-
       <Head>
         <Left>
           {/* 로고 */}
-          <Logo onClick={() => { history.push("/"); }}>
-              <img alt="로고이미지"
-                style={{ width: "130px", height: "50px", cursor: "pointer" }}
-                src={MainLogo}/>
+          <Logo
+            onClick={() => {
+              history.push("/");
+            }}
+          >
+            <img alt="로고이미지" style={{ width: "130px", height: "50px", cursor: "pointer" }} src={MainLogo} />
           </Logo>
         </Left>
 
         <Right>
           {/* 정보 */}
           <Information>
-            <About_P>
-              about OKU
-            </About_P>
-            <About_T>
-              about Team
-            </About_T>
+            <About_P>about OKU</About_P>
+            <About_T>about Team</About_T>
             {/* 개인정보기능 */}
-            <Signup onClick={() => { history.push("/Signup"); }}>
+            <Signup
+              onClick={() => {
+                history.push("/Signup");
+              }}
+            >
               회원가입
             </Signup>
-            <p>
-              /
-            </p>
-            <Login onClick={() => { history.push("/Login"); }}>
+            <p>/</p>
+            <Login
+              onClick={() => {
+                history.push("/Login");
+              }}
+            >
               로그인
             </Login>
           </Information>
@@ -66,16 +68,19 @@ const Header = (props) => {
           {/* 기능버튼 */}
           <Regist_btn>
             <Mypage>
-              <img src={List}/>
+              <img src={List} />
             </Mypage>
             <Ring>
-              <DetailRing/>
+              <DetailRing />
             </Ring>
             <Chat>
-              <img src={List}/>
+              <img src={List} />
             </Chat>
             <Regist_product
-              onClick={() =>{ history.push("/ProductUpload");}}>
+              onClick={() => {
+                history.push("/productUpload");
+              }}
+            >
               상품등록
             </Regist_product>
           </Regist_btn>
@@ -83,33 +88,36 @@ const Header = (props) => {
       </Head>
       <Middle>
         <Left>
-        <Category>
-          {/* 카테고리 리스트 방식 */}
-          {/* <ListHover/> */}
-          <ListBtn/>
-        </Category>
+          <Category>
+            {/* 카테고리 리스트 방식 */}
+            {/* <ListHover/> */}
+            <ListBtn />
+          </Category>
         </Left>
 
         <Right>
-          <div style={{ padding : "0 13px" }}>
+          <div style={{ padding: "0 13px" }}>
             <Search placeholder="상품명을 입력해주세요."></Search>
           </div>
-          <img alt="등록이미지"
-                style={{
-                zIndex : "100",
-                display: "flex",
-                width: "20px",
-                height: "20px",
-                cursor: "pointer",
-                margin : "-38px 0 0 385px"}}
-                src={Submit}/>
+          <img
+            alt="등록이미지"
+            style={{
+              zIndex: "100",
+              display: "flex",
+              width: "20px",
+              height: "20px",
+              cursor: "pointer",
+              margin: "-38px 0 0 385px",
+            }}
+            src={Submit}
+          />
         </Right>
       </Middle>
     </Nav>
   );
 };
 
-// 큰 틀 
+// 큰 틀
 const Nav = styled.div`
   min-width: 1030px;
   width: 1030px;
@@ -117,13 +125,12 @@ const Nav = styled.div`
   height: 200px;
 `;
 
-// 틀 내부 Grid 
+// 틀 내부 Grid
 const Head = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
 `;
-
 
 // 박스 나누기
 const Left = styled.div`
@@ -132,15 +139,13 @@ const Left = styled.div`
 `;
 const Right = styled.div`
   display: flex;
-flex-direction: column;
-
+  flex-direction: column;
 `;
-
 
 // 개개인정보
 const Information = styled.div`
-display : flex;
-margin : 0 0 0 48px;
+  display: flex;
+  margin: 0 0 0 48px;
 `;
 const About_T = styled.p`
   cursor: pointer;
@@ -164,54 +169,52 @@ const Mypage = styled.p`
 
 const Ring = styled.p`
   cursor: pointer;
-  margin : 0px 10px;
+  margin: 0px 10px;
 `;
 
-// 틀 내부 Grid 
+// 틀 내부 Grid
 const Middle = styled.div`
-  height : 60px;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   width: 100%;
-`; 
+`;
 
-// 로고 
+// 로고
 const Logo = styled.div`
   margin: 25px auto;
 `;
 
 // 카테고리
 const Category = styled.div`
-padding : 10px;
-display : flex;
-margin : 0px 0 10px 0;
+  padding: 10px;
+  display: flex;
+  margin: 0px 0 10px 0;
 `;
 
 // 검색창
 const Search = styled.input`
-  margin: 5px 0 10px 30px ;
+  margin: 5px 0 10px 30px;
   width: 370px;
   height: 40px;
   border: 2px solid #d300ff;
 `;
 
-// 버튼들 
+// 버튼들
 const Regist_btn = styled.div`
   display: flex;
-  margin : 23px 0 0 190px;
-  text-align : Right ;
+  margin: 23px 0 0 190px;
+  text-align: Right;
 `;
 
 // 상품등록버튼
 const Regist_product = styled.div`
   cursor: pointer;
- 
 `;
 // 채팅버튼
 const Chat = styled.div`
   cursor: pointer;
-  margin-right : 15px;
+  margin-right: 15px;
 `;
-
 
 export default Header;

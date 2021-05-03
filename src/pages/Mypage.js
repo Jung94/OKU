@@ -6,7 +6,7 @@ const Mypage = (props) => {
   return (
     <MypageWrap>
       <Profile></Profile>
-      <Text title textAlign="center">
+      <Text h1 weight="600" textAlign="center" marginB="1%">
         홍길동
       </Text>
       <Grid is_flex>
@@ -47,6 +47,9 @@ const Mypage = (props) => {
 };
 
 const MypageWrap = styled.div`
+  max-width: 1030px;
+  margin: 0 auto;
+
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;

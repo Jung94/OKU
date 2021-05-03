@@ -24,11 +24,10 @@ const initialState = {
 
 const addPostAPI = (image, title, cateBig, cateSmall, region, productState, deadline, lowbid, sucbid, delivery, productDesc, tags) => {
   return function (dispatch, getState, { history }) {
-
     let nickname = localStorage.getItem("nickname");
     let access_token = localStorage.getItem("access_token");
     if (!access_token) {
-      alert('로그인을 먼저 해주세요!');
+      alert("로그인을 먼저 해주세요!");
       return;
     }
 
@@ -52,36 +51,37 @@ const addPostAPI = (image, title, cateBig, cateSmall, region, productState, dead
     //   return;
     // }
 
-    const API = 'http://3.35.137.38/product';
+    const API = "http://3.35.137.38/product";
     fetch(API, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'access_token': `${access_token}`,
+        access_token: `${access_token}`,
       },
       body: formData,
-      })
-    
-    .then((res) => res.json())
-    .then((res) => {
-      console.log(res);
-    });
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+      });
 
     // history.push('/');
-  }
-}
+  };
+};
 
 export default handleActions(
   {
-    [ADD_POST]: (state, action) => produce(state, (draft) => {
-      // 데이터를 배열 맨 앞에 넣어줍니다.
-      draft.list.unshift(action.payload.post);
-    }),
-
-  }, initialState);
+    [ADD_POST]: (state, action) =>
+      produce(state, (draft) => {
+        // 데이터를 배열 맨 앞에 넣어줍니다.
+        draft.list.unshift(action.payload.post);
+      }),
+  },
+  initialState
+);
 
 const actionCreators = {
   addPostAPI,
   addPost,
 };
-    
+
 export { actionCreators };

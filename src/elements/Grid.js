@@ -1,4 +1,3 @@
-import { start } from "pretty-error";
 import React from "react";
 import styled from "styled-components";
 
@@ -137,6 +136,8 @@ const GridBox = styled.div`
   top: ${(props) => props.top};
   right: ${(props) => props.right};
   left: ${(props) => props.left};
+
+  box-sizing: border-box;
 
   svg {
     cursor: pointer;

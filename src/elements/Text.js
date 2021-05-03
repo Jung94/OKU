@@ -2,24 +2,71 @@ import React from "react";
 import styled from "styled-components";
 
 const Text = (props) => {
-  const { children, onClick, color, size, weight, flexGrow, marginB, marginT, h1, h2, h3, h4, h5, h6, title, subTitle, note, price, priceSm, textAlign } = props;
-  console.log(props);
+  const { children, onClick, color, size, weight, flexGrow, marginB, marginT, textAlign, h1, h2, h3, h4, h5, h6, h7, Title, subTitle, note, price, priceSm } = props;
+  // const weightStyles = { 600: bold, 500: medium };
+
   // h1, h2, h3, h4, h5, h6 디자인 시스템에 맞춘 폰트 크기
   if (h1) {
-    return <TextBox size="24px">{children}</TextBox>;
+    return (
+      <TextBox size="24px" weight={weight} marginB={marginB}>
+        {children}
+      </TextBox>
+    );
+  }
+  if (h2) {
+    return (
+      <TextBox size="22px" weight={weight} marginB={marginB}>
+        {children}
+      </TextBox>
+    );
+  }
+  if (h3) {
+    return (
+      <TextBox size="20px" weight={weight} marginB={marginB}>
+        {children}
+      </TextBox>
+    );
+  }
+  if (h4) {
+    return (
+      <TextBox size="18px" weight={weight} marginB={marginB}>
+        {children}
+      </TextBox>
+    );
+  }
+  if (h5) {
+    return (
+      <TextBox size="16px" weight={weight} marginB={marginB}>
+        {children}
+      </TextBox>
+    );
+  }
+  if (h6) {
+    return (
+      <TextBox size="14px" weight={weight} marginB={marginB}>
+        {children}
+      </TextBox>
+    );
+  }
+  if (h7) {
+    return (
+      <TextBox size="12px" weight={weight} marginB={marginB}>
+        {children}
+      </TextBox>
+    );
   }
 
   // 가격
   if (price) {
     return (
-      <TextBox size="24px" weight="700" onClick={onClick} color={color} flexGrow={flexGrow} textAlign={textAlign} marginB="1%" marginT="1%" {...props}>
+      <TextBox size="24px" weight="700" onClick={onClick} color={color} flexGrow={flexGrow} textAlign="right" marginB="1%" marginT="1%" {...props}>
         {children}
       </TextBox>
     );
   }
 
   // 제목
-  if (title) {
+  if (Title) {
     return (
       <TextBox full size="24px" weight="700" onClick={onClick} color={color} flexGrow={flexGrow} textAlign={textAlign} marginB="1%" marginT="1%" {...props}>
         {children}
@@ -38,7 +85,6 @@ const Text = (props) => {
 
   // 주석
   if (note) {
-    console.log(textAlign);
     return (
       <TextBox size="12px" weight="600" onClick={onClick} color="#808080" flexGrow={flexGrow} textAlign={textAlign} marginB="1%" marginT={marginT} {...props}>
         {children}

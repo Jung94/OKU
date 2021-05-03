@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
-import 'shared/css/App.css';
-import styled from 'styled-components';
+import "shared/css/App.css";
+import styled from "styled-components";
 
 import { actionCreators as userActions } from "redux/modules/user";
-import { ConnectedRouter } from 'connected-react-router';
-import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from "connected-react-router";
+import { Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { history } from 'redux/configureStore';
-import NotFound from 'shared/NotFound';
-import Header from 'components/Header';
-import Footer from 'components/Footer';
+import { history } from "redux/configureStore";
+import NotFound from "shared/NotFound";
+import Header from "components/Header";
+import Footer from "components/Footer";
 import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Mypage } from "pages/";
 
 const App = (props) => {
   const dispatch = useDispatch();
-  const is_login = localStorage.getItem("access_token") ? true : false ;
+  const is_login = localStorage.getItem("access_token") ? true : false;
 
   useEffect(() => {
     if (is_login) {
@@ -24,7 +24,7 @@ const App = (props) => {
 
   return (
     <div>
-      <Header/>
+      <Header />
       <Grid>
         <Wrap>
           <ConnectedRouter history={history}>
@@ -39,10 +39,10 @@ const App = (props) => {
               <Route path="/Mypage" exact component={Mypage} />
               <Route component={NotFound} />
             </Switch>
-          </ConnectedRouter>  
-        </Wrap>  
+          </ConnectedRouter>
+        </Wrap>
       </Grid>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

@@ -19,13 +19,14 @@ const initialState = {
   qna_list: {}, // []이 아닌 {}로 들어간다...
 };
 
+const PRODUCT_API = "http://3.35.137.38/product/detail/608ff18419fa4844b5192783";
+
 const setProductAllAPI = (_id) => {
   return function (dispatch, getState, { history }) {
     dispatch(loading(true));
     //  추후에 product 클릭 id를 가져와야함
     // _id
-    const API = "http://3.35.137.38/product/detail/608bef11f481147252a999d4";
-    fetch(API, {
+    fetch(PRODUCT_API, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -52,8 +53,7 @@ const setProductAllAPI = (_id) => {
 const setQnAAPI = () => {
   return function (dispatch, getState, { history }) {
     dispatch(loading(true));
-    const API = "http://3.35.137.38/product/detail/608bef11f481147252a999d4";
-    fetch(API, {
+    fetch(PRODUCT_API, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -78,8 +78,7 @@ const setQnAAPI = () => {
 const postQnAAPI = () => {
   return function (dispatch, getState, { history }) {
     dispatch(loading(true));
-    const API = "http://3.35.137.38/product/detail/608bef11f481147252a999d4";
-    fetch(API, {
+    fetch(PRODUCT_API, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

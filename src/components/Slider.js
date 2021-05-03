@@ -8,11 +8,11 @@ const Slider = (props) => {
   const [sliderFigure, setSliding] = useState(0);
 
   // image 배열 시도
-  // const tryList = [
-  //   "https://images.pexels.com/photos/7214940/pexels-photo-7214940.png?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-  //   // "https://images.pexels.com/photos/7144919/pexels-photo-7144919.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-  //   // "https://images.pexels.com/photos/7024051/pexels-photo-7024051.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
-  // ];
+  const qweList = [
+    "https://images.pexels.com/photos/7214940/pexels-photo-7214940.png?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+    "https://images.pexels.com/photos/7144919/pexels-photo-7144919.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+    "https://images.pexels.com/photos/7024051/pexels-photo-7024051.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260",
+  ];
 
   return (
     <SliderWrap {...props}>
@@ -26,57 +26,46 @@ const Slider = (props) => {
         </Slide>
         {/* 순서 버튼 (radio button) */}
         <BtnBox sliderFigure={sliderFigure}>
-          <BtnLabel>
-            {imgList &&
-              imgList.map((i, idx) => {
-                return (
+          {imgList &&
+            imgList.map((i, idx) => {
+              return (
+                <BtnLabel key={idx}>
                   <Btn
-                    key={idx}
                     type="radio"
                     onClick={() => {
                       setSliding(idx * 200);
                     }}
                   ></Btn>
-                );
-              })}
-          </BtnLabel>
+                </BtnLabel>
+              );
+            })}
         </BtnBox>
-        {/* 방향키 */}
-        <ArrBox>
-          {imgList &&
-            imgList.map((i, idx) => {
-              return (
-                <FontAwesomeIcon
-                  key={idx}
-                  icon={fasCLeft}
-                  onClick={() => {
-                    if (sliderFigure > 0) {
-                      setSliding(sliderFigure - 200);
-                    } else {
-                      setSliding(200 * idx);
-                    }
-                  }}
-                />
-              );
-            })}
-          {imgList &&
-            imgList.map((i, idx) => {
-              return (
-                <FontAwesomeIcon
-                  key={idx}
-                  icon={fasCRight}
-                  onClick={() => {
-                    if (sliderFigure <= 200 * (idx - 1)) {
-                      setSliding(sliderFigure + 200);
-                    } else {
-                      setSliding(0);
-                    }
-                  }}
-                />
-              );
-            })}
-        </ArrBox>
       </Slides>
+      {/* 방향키 */}
+      {imgList && imgList.length && (
+        <ArrBox>
+          <FontAwesomeIcon
+            icon={fasCLeft}
+            onClick={() => {
+              if (sliderFigure > 0) {
+                setSliding(sliderFigure - 200);
+              } else {
+                setSliding(200 * (imgList.length - 1));
+              }
+            }}
+          />
+          <FontAwesomeIcon
+            icon={fasCRight}
+            onClick={() => {
+              if (sliderFigure < 200 * (imgList.length - 1)) {
+                setSliding(sliderFigure + 200);
+              } else {
+                setSliding(0);
+              }
+            }}
+          />
+        </ArrBox>
+      )}
     </SliderWrap>
   );
 };
@@ -112,24 +101,36 @@ const Carousel = styled.div`
   transition: 700ms ease;
 `;
 
-//원형
+// 화살표
 const ArrBox = styled.div`
+  background-color: #00000044;
   display: flex;
   flex-wrap: wrap;
-  position: absolute;
-  height: inherit;
   //손보기
-  width: 50%;
-  padding: 1%;
+  z-index: 40;
+  height: 0;
   justify-content: space-between;
   align-content: center;
   svg {
-    width: 100%;
-    font-size: 3rem;
+    margin: 1%;
+    margin-bottom: 500px;
+    min-height: 30px;
+    min-width: 30px;
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    padding: 1%;
+    border-radius: 50%;
+    font-size: 20px;
     color: #ffffff88;
     z-index: 99;
     cursor: pointer;
+    transition: 300ms;
+    border: 1px solid #ffffff1a;
+
     :hover {
+      background-color: #ffffff1a;
+      border: 1px solid #ffffff22;
       color: whitesmoke;
     }
   }
@@ -154,15 +155,16 @@ const Btn = styled.input`
 `;
 
 const BtnLabel = styled.label`
-  background-color: #ffffff88;
   z-index: 99;
   border-radius: 10rem;
   padding: 0;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   transition: 300ms;
   cursor: pointer;
-  margin: auto 10px 20px 10px;
+  margin: auto 8px 20px 8px;
+  border: 1px solid #ffffff88;
+
   :hover {
     background-color: whitesmoke;
   }
