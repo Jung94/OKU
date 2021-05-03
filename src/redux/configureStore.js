@@ -7,12 +7,14 @@ import user from "redux/modules/user";
 import post from "redux/modules/post";
 import product from "redux/modules/product";
 import like from "redux/modules/like";
+import result from "redux/modules/result";
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   user: user,
   post: post,
+  result: result,
   product: product,
   like: like,
   router: connectRouter(history),

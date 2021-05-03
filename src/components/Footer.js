@@ -12,8 +12,8 @@ const Footer = (props) => {
 const AboutUs = styled.div`
 height : 100px;
 background : #FAD4AE;
-width : 1030px;
-margin : 0 auto;
+max-width: 1920px;
+height : 150px;
 `;
 
 export default Footer;

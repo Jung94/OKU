@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect }  from "react";
 import styled from "styled-components";
 import { Title, Image, Currentprice } from "components/Container";
+
+
+import { actionCreators as postActions } from "redux/modules/post";
+import { useDispatch, useSelector } from "react-redux";
 
 import T_1 from "images/T_1.jpg";
 import T_2 from "images/T_2.jpeg";
@@ -12,22 +16,37 @@ import T_7 from "images/T_7.jpg";
 
 // 최신등록상품 리스트
 const Card = (props) => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(postActions.getRecentProductsAPI());
+  }, []);
+  const _recent_product = useSelector((state) => state.post.recent_product);
+  console.log(_recent_product)
+
   const { title, img, currentprice, desc } = props;
 
   return (
     <Box>
       <h2>실시간 등록상품</h2>
       <Grid>
-        <Information>
-          <Image width="300px" height="300px" margin="40px 10px;">
-            <img src={img} />
-          </Image>
-          <Desc>
-            <Title>{title}</Title>
-            <Currentprice>{currentprice}</Currentprice>
-          </Desc>
-        </Information>
-        <Information>
+        {_recent_product.map((j, index) => {
+          console.log(_recent_product)
+                return (
+                  <Information key={index}>
+                    <Image width="300px" height="300px" margin="40px 10px;">
+                      <img src={j.img} />
+                    </Image>  
+                    <Desc>
+                      <Title>{j.title}</Title>
+                      <Currentprice>{j.currentprice}원</Currentprice>
+                    </Desc>
+                  </Information>
+                );
+              })}
+
+        {/* <Information>
           <Image width="300px" height="300px" margin="40px 10px;">
             <img src={img} />
           </Image>
@@ -45,7 +64,8 @@ const Card = (props) => {
             <Title>{title}</Title>
             <Currentprice>{currentprice}</Currentprice>
           </Desc>
-        </Information>
+        </Information> */}
+
       </Grid>
     </Box>
   );
@@ -67,6 +87,7 @@ const Information = styled.div`
 `;
 
 const Grid = styled.div`
+  max-width: 1030px;
   display: flex;
 `;
 

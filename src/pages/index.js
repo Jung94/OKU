@@ -8,6 +8,8 @@ import Signup from "./Signup";
 import Login from "./Login";
 import SocialLogin from "./SocialLogin";
 
+import Result from "./Result";
+
 import Mypage from "./Mypage";
 
-export { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Mypage };
+export { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, Mypage };

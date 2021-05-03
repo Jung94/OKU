@@ -32,7 +32,7 @@ else {
 }
 
 const RingDetail = styled.div`
-z-index: 1;
+z-index: 10;
 position : absolute;
 width  : 300px;
 box-sizing : border-box;
