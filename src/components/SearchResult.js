@@ -36,7 +36,7 @@ const SearchResult = (props) => {
 
 const ProductList = styled.div`
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-wrap: wrap;
     height: 100%;
     gap: 65px;
