@@ -10,11 +10,6 @@ export const pwMacth = (pw) => {
   return _reg.test(pw) && pw.search(/\s/) === -1 ? true : false;
 };
 
-//전화번호 체크 정규식
-// export const phoneCheck = (phone) => {
-//   let _reg = /^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/;
-//   return _reg.test(phone);
-
 //이메일 체크 정규식
 export const emailCheck = (email) => {
   let _reg = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;

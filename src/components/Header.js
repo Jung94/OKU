@@ -1,17 +1,25 @@
-import React, { useState, useSelector } from "react";
+import React from "react";
 import styled from "styled-components";
+import { history } from 'redux/configureStore';
+import { useSelector, useDispatch } from 'react-redux';
+import { actionCreators as productActions } from 'redux/modules/result';
 
 import ListBtn from 'components/ListBtn';
 import ListHover from 'components/ListHover';
 import DetailRing from 'components/DetailRing';
-
-import { history } from "../redux/configureStore";
 
 import MainLogo from "images/logo.png";
 import Submit from "images/search.png";
 import List from "images/list.png";
 
 const Header = (props) => {
+  const dispatch = useDispatch();
+  const [keyword, setKeyword] = React.useState('');
+
+  const SearchProduct = () => {
+    dispatch(productActions.getProductSearch(keyword));
+    history.push('/result');
+  };
 
   // const is_login = useSelector((state) => state.user.is_login);
 
@@ -92,7 +100,11 @@ const Header = (props) => {
 
         <Right>
           <div style={{ padding : "0 13px" }}>
-            <Search placeholder="상품명을 입력해주세요."></Search>
+            <Search type='text' placeholder='상품명을 입력해주세요.' 
+              onChange={(e) => {setKeyword(e.target.value)}}
+              onKeyPress={(e) => {
+                if(window.event.keyCode === 13) { SearchProduct() }
+              }} />
           </div>
           <img alt="등록이미지"
                 style={{

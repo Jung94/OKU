@@ -6,12 +6,14 @@ import { connectRouter } from "connected-react-router";
 import user from "redux/modules/user";
 import post from "redux/modules/post";
 import product from "redux/modules/product";
+import result from 'redux/modules/result';
 
 export const history = createBrowserHistory();
 
 const rootReducer = combineReducers({
   user: user,
   post: post,
+  result: result,
   product: product,
   router: connectRouter(history),
 });

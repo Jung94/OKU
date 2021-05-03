@@ -63,11 +63,11 @@ const loginAPI = (email, pw) => {
             headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            email: email,
-            password: pw,
-        })
+            },
+            body: JSON.stringify({
+                email: email,
+                password: pw,
+            })
         })
         .then((res) => res.json())
         .then((result) => {
