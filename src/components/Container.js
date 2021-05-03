@@ -7,15 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Slider from "react-slick";
 
-import T_1 from "images/T_1.jpg";
-import T_2 from "images/T_2.jpeg";
-import T_3 from "images/T_3.jpg";
-import T_4 from "images/T_4.jpg";
-import T_5 from "images/T_5.jpeg";
-import T_6 from "images/T_6.jpeg";
-import T_7 from "images/T_7.jpg";
-import { flatMap } from "lodash";
-
 // 왼쪽
 function PrevArrow(props) {
   const { className, style, onClick } = props;
@@ -54,9 +45,10 @@ const Container = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(postActions.getProductsAPI());
+    dispatch(postActions.getPopularProductsAPI());
   }, []);
-  const _product = useSelector((state) => state.post.product);
+  const _popular_product = useSelector((state) => state.post.popular_product);
+  console.log(_popular_product)
 
   const { title, img, deadLine, currentprice } = props;
 
@@ -83,7 +75,7 @@ const Container = (props) => {
         <div style={{ margin: "0px 50px 50px" }}>
           <Slide>
             <Slider {...settings}>
-              {_product.map((i, idx) => {
+              {_popular_product.map((i, idx) => {
                 return (
                   <Section key={idx}>
                     <Image>
@@ -124,11 +116,11 @@ const RightArrow = styled.div`
 
 const Main = styled.div`
   text-align: center;
+  margin-top: 92px;
 `;
 
 const Box = styled.div`
-  margin: 0 auto;
-  max-width: 1920px;
+margin: 0 auto;
 `;
 
 export const Slide = styled.div`
