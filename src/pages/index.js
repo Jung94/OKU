@@ -12,4 +12,6 @@ import Result from "./Result";
 
 import Mypage from "./Mypage";
 
-export { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, Mypage };
+import Chat from "./Chat";
+
+export { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, Mypage, Chat };

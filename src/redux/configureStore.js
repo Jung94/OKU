@@ -9,6 +9,7 @@ import product from "redux/modules/product";
 import like from "redux/modules/like";
 import result from "redux/modules/result";
 import upload from "redux/modules/upload";
+import chat from "redux/modules/chat";
 
 export const history = createBrowserHistory();
 
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   product: product,
   like: like,
   upload: upload,
+  chat: chat,
   router: connectRouter(history),
 });
 
