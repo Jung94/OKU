@@ -36,7 +36,7 @@ const Bid = (props) => {
               margin="8%"
             ></Input>
             <Grid is_flex>
-              <Button primaryNoBorder _onClick={close}>
+              <Button primaryNoBorder _onClick={close} margin="3%">
                 낙찰하기
               </Button>
             </Grid>
@@ -59,12 +59,10 @@ const Bid = (props) => {
             </h2>
             <h5>물음표 스타일은 일단 추후 일괄 적용</h5>
             <Line bottom margin="8% 0 0 0" />
-            <Text price marginB="8%" marginT="8%">
-              {priceComma(sucBid)}원
-            </Text>
+            <Text price>{priceComma(sucBid)}원</Text>
 
             <Grid is_flex>
-              <Button primaryNoBorder _onClick={close}>
+              <Button primaryNoBorder _onClick={close} margin="8% 20%">
                 낙찰하기
               </Button>
             </Grid>

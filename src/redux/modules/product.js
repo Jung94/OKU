@@ -22,7 +22,7 @@ const initialState = {
   question_list: [],
 };
 
-const _idTest = "609239b59cc98128bdb5884c";
+const _idTest = "608ff17819fa4844b519277f";
 
 const setProductAllAPI = (_id) => {
   return function (dispatch, getState, { history }) {
@@ -60,7 +60,7 @@ const setQnAAPI = () => {
         if (res.okay) {
           dispatch(setQuestion(res.result));
           dispatch(loading(false));
-          // console.log("🟢", res.result);
+          console.log("🟢", res.result);
         } else {
           console.log("해당 데이터가 준비되지 않았습니다.");
         }

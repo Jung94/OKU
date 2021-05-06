@@ -224,7 +224,7 @@ const Product = (props) => {
 const ProductWrap = styled.div`
   max-width: 1030px;
   margin: 0 auto;
-  margin-top: 50px;
+  margin-top: 160px;
   display: flex;
   flex-direction: column;
   padding: 0;

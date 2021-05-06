@@ -53,6 +53,7 @@ const Timer = (props) => {
   }
 
   if (timeProgress) {
+    console.log(prg);
     return (
       <>
         {deadline - timeNow > 0 ? (
