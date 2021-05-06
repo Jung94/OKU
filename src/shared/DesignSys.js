@@ -21,4 +21,4 @@ const Color = {
   // black white
 };
 
-export default { ...Color };
+export { Color };

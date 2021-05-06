@@ -26,10 +26,12 @@ const Modal = (props) => {
           입찰표 작성
         </Button>
         {modal ? (
-          <BidWrap modal>
-            <BidBack onClick={closeModal}></BidBack>
-            <Bid bid open={modal} close={closeModal} {...props}></Bid>
-          </BidWrap>
+          <ModalWrap modal>
+            <Screen onClick={closeModal}></Screen>
+            <ModalBox>
+              <Bid bid open={modal} close={closeModal} {...props}></Bid>
+            </ModalBox>
+          </ModalWrap>
         ) : (
           <></>
         )}
@@ -44,10 +46,12 @@ const Modal = (props) => {
           즉시 낙찰
         </Button>
         {modal ? (
-          <BidWrap modal>
-            <BidBack onClick={closeModal}></BidBack>
-            <Bid immediateBid open={modal} close={closeModal} {...props}></Bid>
-          </BidWrap>
+          <ModalWrap modal>
+            <Screen onClick={closeModal}></Screen>
+            <ModalBox>
+              <Bid immediateBid open={modal} close={closeModal} {...props}></Bid>
+            </ModalBox>
+          </ModalWrap>
         ) : (
           <></>
         )}
@@ -56,7 +60,7 @@ const Modal = (props) => {
   }
 };
 
-const BidWrap = styled.div`
+const ModalWrap = styled.div`
   display: flex;
 
   backdrop-filter: blur(2px);
@@ -104,7 +108,7 @@ const BidWrap = styled.div`
   }
 `;
 
-const BidBack = styled.div`
+const Screen = styled.div`
   display: flex;
   position: fixed;
   background-color: #00000033;
@@ -115,6 +119,19 @@ const BidBack = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
+`;
+
+const ModalBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: white;
+  box-shadow: 0 2px 30px #00000088;
+  border-radius: 16px;
+  width: 30vw;
+  min-width: 400px;
+  z-index: 9999;
 `;
 
 export default Modal;
