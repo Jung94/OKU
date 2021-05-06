@@ -17,28 +17,59 @@ import List from "images/list.png";
 const Header = (props) => {
   const dispatch = useDispatch();
   const [keyword, setKeyword] = React.useState("");
+  const [mainct, setMainct] = React.useState("");
+  const [subct, setSubct] = React.useState("");
 
   const SearchProduct = () => {
     dispatch(productActions.getProductSearch(keyword));
     history.push("/result");
   };
+  
+  const handleMainCategory = (e) => {
+    setMainct(e.value) 
+    if(mainct === "2D") 
+      { setSubct(option_2)
+      } else if(mainct ==="3D")
+      { setSubct(option_3)
+      } 
+    } 
 
+  const handleSubCategory = e => {
+    setSubct(e.value);
+    console.log(handleSubCategory)
+  } 
   // const is_login = useSelector((state) => state.user.is_login);
 
-  const option_1 = [
+  const MainCT = [
     { value: "2D", label: "2D" },
     { value: "3D", label: "3D" },
   ];
   const option_2 = [
-    { value: "피규어", label: "피규어" },
-    { value: "인형", label: "인형" },
-    { value: "앨범/CD/블루레이", label: "앨범/CD/블루레이" },
-    { value: "포토카드", label: "포토카드" },
-    { value: "포스터", label: "포스터" },
-    { value: "책", label: "책" },
-    { value: "문구", label: "문구" },
-    { value: "생활용품", label: "생활용품" },
+    { value: '피규어', label: '피규어' },
+    { value: '인형', label: '인형' },
+    { value: '키링/스트랩/아크릴', label: '키링/스트랩/아크릴' },
+    { value: '포스터/태피스트리', label: '포스터/태피스트리' },
+    { value: '문구/데스크 용품', label: '문구/데스크 용품' },
+    { value: '액세서리', label: '액세서리' },
+    { value: 'CD/블루레이', label: 'CD/블루레이' },
+    { value: '비공식굿즈', label: '비공식굿즈' },
+    { value: '기타', label: '기타' },
   ];
+
+  const option_3 = [
+    { value: '인형', label: '인형' },
+    { value: '키링/스트랩/아크릴', label: '키링/스트랩/아크릴' },
+    { value: '포토카드', label: '포토카드' },
+    { value: '포스터', label: '포스터' },
+    { value: '문구/데스크 용품', label: '문구/데스크 용품' },
+    { value: '액세서리', label: '액세서리' },
+    { value: '뷰티제품', label: '뷰티제품' },
+    { value: 'CD', label: 'CD' },
+    { value: '서적', label: '서적' },
+    { value: '비공식굿즈', label: '비공식굿즈' },
+    { value: '기타', label: '기타' },
+  ]
+
   return (
     <GridBox>
       <Nav>
@@ -77,12 +108,30 @@ const Header = (props) => {
               {/* 카테고리 리스트 방식 */}
               {/* <ListHover/> */}
               <ListBtn />
+
               <Mainselectbox>
-                <Select placeholder="대분류" options={option_1} />
+                <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find(obj => obj.value === MainCT)}  options={MainCT} />
               </Mainselectbox>
-              <SubSelectbox>
-                <Select placeholder="중분류" options={option_2} />
-              </SubSelectbox>
+              {mainct === "" && (
+                <SubSelectbox>
+                <Select placeholder="중분류" onChange={handleSubCategory}/>
+                </SubSelectbox>
+              )}
+
+              {/* 2D일 때 */}
+              {mainct === "2D" && (
+                <SubSelectbox>
+                <Select placeholder="중분류" onChange={handleSubCategory} options={option_2} />
+                </SubSelectbox>
+              ) 
+              }
+              {/* 3D일 때 */}
+              {mainct ==="3D" && (
+                <SubSelectbox>
+                <Select placeholder="중분류" onChange={handleSubCategory} options={option_3} />
+                </SubSelectbox> 
+              )}
+              
             </Category>
           </Left>
 

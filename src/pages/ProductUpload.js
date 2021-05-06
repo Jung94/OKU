@@ -17,15 +17,28 @@ const ProductUpload = (props) => {
     { value: '3D', label: '3D' },
   ]
   const D2CT = [
-    { value: '앨범', label: '앨범'},
-    { value: '굿즈', label: '굿즈' },
-    { value: '키링', label: '키링' },
-    
+    { value: '인형', label: '인형' },
+    { value: '키링/스트랩/아크릴', label: '키링/스트랩/아크릴' },
+    { value: '포토카드', label: '포토카드' },
+    { value: '포스터', label: '포스터' },
+    { value: '문구/데스크 용품', label: '문구/데스크 용품' },
+    { value: '액세서리', label: '액세서리' },
+    { value: '뷰티제품', label: '뷰티제품' },
+    { value: 'CD', label: 'CD' },
+    { value: '서적', label: '서적' },
+    { value: '비공식굿즈', label: '비공식굿즈' },
+    { value: '기타', label: '기타' },
   ]
   const D3CT = [
     { value: '피규어', label: '피규어' },
-    { value: '포토카드', label: '포토카드' },
-    { value: '포스터', label: '포스터' },
+    { value: '인형', label: '인형' },
+    { value: '키링/스트랩/아크릴', label: '키링/스트랩/아크릴' },
+    { value: '포스터/태피스트리', label: '포스터/태피스트리' },
+    { value: '문구/데스크 용품', label: '문구/데스크 용품' },
+    { value: '액세서리', label: '액세서리' },
+    { value: 'CD/블루레이', label: 'CD/블루레이' },
+    { value: '비공식굿즈', label: '비공식굿즈' },
+    { value: '기타', label: '기타' },
   ]
   const D4CT = [
     { value: '10800000', label: '3시간'},
@@ -78,6 +91,7 @@ const ProductUpload = (props) => {
 
   const handleCateSmall = e => {
     setCateSmall(e.value);
+    console.log(handleCateSmall)
   }
 
   const handleDeadline = e => {
@@ -176,7 +190,7 @@ const ProductUpload = (props) => {
             <p>카테고리<span style={{color: "red"}}>*</span></p>
           </Innerbox_L>
           <Innerbox_R style={{display: "flex", width: "100%", margin: "24px 0 14px"}}>
-            <div style={{width: "150px", margin: "0 20px 0 0"}}>
+            <div style={{width: "100px", margin: "0 20px 0 0"}}>
               <Select onChange={handleCateBig} options={MainCT} value={MainCT.find(obj => obj.value === cateBig)} placeholder="2D / 3D" />
             </div>
             {/* <div style={{width: "150px", margin: "0"}}>
@@ -184,14 +198,14 @@ const ProductUpload = (props) => {
             </div> */}
             {cateBig === "3D" && (
               <React.Fragment>
-                <div style={{width: "150px", margin: "0"}}>
+                <div style={{width: "200px", margin: "0"}}>
                   <Select onChange={handleCateSmall} value={D2CT.find(obj => obj.value === cateSmall)} placeholder="3D 상세 분류" options={D2CT} />
                 </div>
               </React.Fragment>
             )} 
             {cateBig === "2D" && (
               <React.Fragment>
-                <div style={{width: "150px", margin: "0"}}>
+                <div style={{width: "200px", margin: "0"}}>
                   <Select onChange={handleCateSmall} value={D3CT.find(obj => obj.value === cateSmall)} placeholder="2D 상세 분류" options={D3CT} />
                 </div>
               </React.Fragment>
