@@ -10,6 +10,7 @@ const Grid = (props) => {
 
     padding,
     is_flex,
+    dp_flex,
     __click,
     bg,
     bdr,
@@ -37,6 +38,7 @@ const Grid = (props) => {
   const styles = {
     padding: padding,
     is_flex: is_flex,
+    dp_flex: dp_flex,
     bg: bg ? bg : false,
     bdr: bdr ? bdr : false,
     bgimg: bgimg ? bgimg : false,
@@ -81,6 +83,7 @@ Grid.defaultProps = {
   isRoot: false,
   children: null,
   is_flex: false,
+  dp_flex: false,
   __click: null,
   bg: false,
   bdr: false,
@@ -126,6 +129,7 @@ const GridBox = styled.div`
 
   position: ${(props) => props.position};
   ${(props) => (props.is_flex ? `display:flex; align-items: center;` : "")};
+  ${(props) => (props.dp_flex ? `display:flex;` : "")};
   justify-content: ${(props) => (props.justify ? props.justify : "")};
 
   ${(props) => (props.column ? `flex-direction: column;` : `flex-direction: row;`)}

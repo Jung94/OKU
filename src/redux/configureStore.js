@@ -8,6 +8,7 @@ import post from "redux/modules/post";
 import product from "redux/modules/product";
 import like from "redux/modules/like";
 import result from "redux/modules/result";
+import upload from "redux/modules/upload";
 
 export const history = createBrowserHistory();
 
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   result: result,
   product: product,
   like: like,
+  upload: upload,
   router: connectRouter(history),
 });
 

@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { Color } from "shared/DesignSys";
+
 const Text = (props) => {
   const { children, onClick, color, size, flexGrow, marginB, marginT, textAlign, h1, h2, h3, h4, body, subBody, price } = props;
   const styles = { flexGrow: flexGrow, marginB: marginB, marginT: marginT, textAlign: textAlign };
@@ -9,7 +11,7 @@ const Text = (props) => {
   // h1 : 메인배너
   if (h1) {
     return (
-      <TextBox full size="45px" bold onClick={onClick} {...styles}>
+      <TextBox size="45px" bold onClick={onClick} {...styles}>
         {children}
       </TextBox>
     );
@@ -17,7 +19,7 @@ const Text = (props) => {
   // h2 : 카테고리 제목 / 상세페이지 상품명
   if (h2) {
     return (
-      <TextBox full size="35px" bold onClick={onClick} {...styles}>
+      <TextBox size="35px" bold onClick={onClick} {...styles}>
         {children}
       </TextBox>
     );
@@ -25,7 +27,7 @@ const Text = (props) => {
   // h3 : 상세페이지 카테고리 제목 / 버튼 폰트 크기와 동일
   if (h3) {
     return (
-      <TextBox full size="20px" bold onClick={onClick} {...styles}>
+      <TextBox size="20px" bold onClick={onClick} {...styles}>
         {children}
       </TextBox>
     );
@@ -33,7 +35,7 @@ const Text = (props) => {
   // sub h4: 가격명
   if (h4) {
     return (
-      <TextBox full size="16px" onClick={onClick} {...styles}>
+      <TextBox size="16px" onClick={onClick} {...styles}>
         {children}
       </TextBox>
     );

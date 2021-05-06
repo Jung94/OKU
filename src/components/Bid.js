@@ -26,7 +26,15 @@ const Bid = (props) => {
             </h2>
             <h5>물음표 스타일은 일단 추후 일괄 적용</h5>
             <Line bottom margin="8% 0 0 0" />
-            <Input value={input_priceComma(bidPrice)} onChange={onChangeBid} num width="75%" adornment="원" plcholder="입찰가를 입력해주세요!" margin="8%"></Input>
+            <Input
+              value={input_priceComma(bidPrice)}
+              onChange={onChangeBid}
+              num
+              width="75%"
+              adornment="원"
+              plcholder="입찰가를 입력해주세요!"
+              margin="8%"
+            ></Input>
             <Grid is_flex>
               <Button primaryNoBorder _onClick={close}>
                 낙찰하기
@@ -73,12 +81,7 @@ const BidBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  background-color: white;
-  box-shadow: 0 2px 30px #00000088;
-  width: 30vw;
-  min-width: 400px;
-  z-index: 9999;
+  width: 100%;
 `;
 
 export default Bid;

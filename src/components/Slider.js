@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronRight as fasCRight, faChevronLeft as fasCLeft } from "@fortawesome/free-solid-svg-icons";
+import { faCaretRight as fasCRight, faCaretLeft as fasCLeft } from "@fortawesome/free-solid-svg-icons";
+
+import { Color } from "shared/DesignSys";
 
 const Slider = (props) => {
-  const { imgList } = props;
+  const { imgList, flexGrow } = props;
   const [sliderFigure, setSliding] = useState(0);
 
   // image 배열 시도
@@ -76,17 +78,19 @@ const SliderWrap = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
+  border-radius: 16px;
 `;
 
 const Slides = styled.div`
   display: flex;
   justify-content: space-evenly;
-  height: 500px;
+  height: 35em;
 `;
 
 const Slide = styled.div`
   display: flexbox;
-  height: 500px;
+  height: 35em;
+
   width: 100%;
   transition: 700ms ease;
 
@@ -101,41 +105,6 @@ const Carousel = styled.div`
   transition: 700ms ease;
 `;
 
-// 화살표
-const ArrBox = styled.div`
-  background-color: #00000044;
-  display: flex;
-  flex-wrap: wrap;
-  //손보기
-  z-index: 40;
-  height: 0;
-  justify-content: space-between;
-  align-content: center;
-  svg {
-    margin: 1%;
-    margin-bottom: 500px;
-    min-height: 30px;
-    min-width: 30px;
-    height: 30px;
-    width: 30px;
-    text-align: center;
-    padding: 1%;
-    border-radius: 50%;
-    font-size: 20px;
-    color: #ffffff88;
-    z-index: 99;
-    cursor: pointer;
-    transition: 300ms;
-    border: 1px solid #ffffff1a;
-
-    :hover {
-      background-color: #ffffff1a;
-      border: 1px solid #ffffff22;
-      color: whitesmoke;
-    }
-  }
-`;
-
 const BtnBox = styled.div`
   display: flex;
   position: absolute;
@@ -143,10 +112,10 @@ const BtnBox = styled.div`
   width: inherit;
   ${(props) =>
     props.sliderFigure === 0
-      ? "& > label:nth-child(1) {background-color: whitesmoke;}"
+      ? `& > label:nth-child(1) {background-color: ${Color.Primary};}`
       : props.sliderFigure === 200
-      ? "& > label:nth-child(2) {background-color: whitesmoke;}"
-      : "& > label:nth-child(3) {background-color: whitesmoke;}"}
+      ? `& > label:nth-child(2) {background-color: ${Color.Primary};}`
+      : `& > label:nth-child(3) {background-color: ${Color.Primary};}`}
 `;
 
 const Btn = styled.input`
@@ -163,10 +132,40 @@ const BtnLabel = styled.label`
   transition: 300ms;
   cursor: pointer;
   margin: auto 8px 20px 8px;
-  border: 1px solid #ffffff88;
-
+  background-color: #ffffff;
   :hover {
-    background-color: whitesmoke;
+    background-color: ${Color.Primary};
+  }
+`;
+
+// 화살표
+const ArrBox = styled.div`
+  background-color: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  z-index: 10;
+  height: 0;
+  justify-content: space-between;
+  align-content: center;
+  svg {
+    -webkit-filter: saturate(2%);
+    filter: saturate(20%);
+    margin: 1%;
+    margin-bottom: 80%;
+    min-height: 30px;
+    min-width: 30px;
+    height: 90px;
+    width: 60px;
+    text-align: center;
+    padding: 1%;
+    font-size: 180px;
+    color: rgba(0, 0, 0, 0.24);
+    z-index: 99;
+    cursor: pointer;
+    transition: 300ms;
+    :hover {
+      color: ${Color.Primary}88;
+    }
   }
 `;
 

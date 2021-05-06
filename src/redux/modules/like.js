@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { is } from "../../../node_modules/css-select/index";
+import { API } from "shared/Api";
 
 // actions
 const LOADING = "LOADING";
@@ -21,13 +21,11 @@ const initialState = {
   productId: "",
 };
 
-const _API = "http://3.35.137.38";
-
 const getLikeAPI = () => {
   return function (dispatch, getState, { history }) {
     const access_token = localStorage.getItem("access_token");
     dispatch(loading(true));
-    fetch(`${_API}/user/pick`, {
+    fetch(`${API}/user/pick`, {
       method: "GET",
       headers: {
         access_token: `${access_token}`,
@@ -64,7 +62,7 @@ const addLikeAPI = (_id) => {
   return function (dispatch, getState, { history }) {
     dispatch(loading(true));
     const access_token = localStorage.getItem("access_token");
-    fetch(`${_API}/product/pick/${_id}`, {
+    fetch(`${API}/product/pick/${_id}`, {
       method: "POST",
       headers: {
         access_token: `${access_token}`,
@@ -86,7 +84,7 @@ const deleteLikeAPI = (_id) => {
   return function (dispatch, getState, { history }) {
     dispatch(loading(true));
     const access_token = localStorage.getItem("access_token");
-    fetch(`${_API}/user/pick/${_id}`, {
+    fetch(`${API}/user/pick/${_id}`, {
       method: "DELETE",
       headers: {
         access_token: access_token,

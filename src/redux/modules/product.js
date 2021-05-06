@@ -1,37 +1,36 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import { API } from "shared/Api";
 
 // actions
 const LOADING = "LOADING";
 const SET_PRODUCT_ALL = "SET_PRODUCT_ALL";
-const SET_QNA = "SET_QNA";
+const SET_QUESTION = "SET_QUESTION";
+const SET_ANSWER = "SET_ANSWER";
 const POST_QNA = "POST_QNA";
 
 //actionCreators
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 const setProductAll = createAction(SET_PRODUCT_ALL, (product_detail) => ({ product_detail }));
-const setQnA = createAction(SET_QNA, (qna) => ({ qna }));
+const setQuestion = createAction(SET_QUESTION, (question) => ({ question }));
+const setAnswer = createAction(SET_ANSWER, (answer) => ({ answer }));
 const postQnA = createAction(POST_QNA, () => ({}));
 
 const initialState = {
   is_loading: false,
   product_detail: [],
-  qna_list: {}, // []이 아닌 {}로 들어간다...
+  question_list: [],
 };
 
-const PRODUCT_API = "http://3.35.137.38/product/detail/608ff18419fa4844b5192783";
+const _idTest = "609239b59cc98128bdb5884c";
 
 const setProductAllAPI = (_id) => {
   return function (dispatch, getState, { history }) {
     dispatch(loading(true));
-    //  추후에 product 클릭 id를 가져와야함
+    // 추후에 product 클릭 id를 가져와야함
     // _id
-    fetch(PRODUCT_API, {
+    fetch(`${API}/product/detail/${_idTest}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
     })
       // fetch를 통해서는 json형태를 거치고 then과정을 해야한다.
       // Q. 이거 '비동기'관련 개념인가?
@@ -53,18 +52,15 @@ const setProductAllAPI = (_id) => {
 const setQnAAPI = () => {
   return function (dispatch, getState, { history }) {
     dispatch(loading(true));
-    fetch(PRODUCT_API, {
+    fetch(`${API}/product/quest/${_idTest}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
     })
       .then((res) => res.json())
       .then((res) => {
         if (res.okay) {
-          dispatch(setQnA(res.result));
+          dispatch(setQuestion(res.result));
           dispatch(loading(false));
+          // console.log("🟢", res.result);
         } else {
           console.log("해당 데이터가 준비되지 않았습니다.");
         }
@@ -75,20 +71,23 @@ const setQnAAPI = () => {
   };
 };
 
-const postQnAAPI = () => {
+const postQnAAPI = (_id) => {
   return function (dispatch, getState, { history }) {
     dispatch(loading(true));
-    fetch(PRODUCT_API, {
-      method: "GET",
+    const access_token = localStorage.getItem("access_token");
+    fetch(`${API}/product/quest/${_idTest}`, {
+      method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
+        access_token: `${access_token}`,
+      },
+      body: {
+        productId: _id,
       },
     })
       .then((res) => res.json())
       .then((res) => {
         if (res.okay) {
-          dispatch(setQnA(res.result));
+          dispatch(setQuestion(res.result));
           dispatch(loading(false));
         } else {
           console.log("해당 데이터가 준비되지 않았습니다.");
@@ -111,13 +110,19 @@ export default handleActions(
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
         draft.product_detail = action.payload.product_detail;
-        // console.log("🟡I'm product_detail status: ", draft.product_detail);
+        console.log("🟡I'm product_detail status: ", draft.product_detail);
       }),
-    [SET_QNA]: (state, action) =>
+    [SET_QUESTION]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
-        draft.qna_list = action.payload.qna;
-        // console.log("🟡I'm qna_list status: ", draft.qna_list);
+        draft.question_list = action.payload.question;
+        draft.answer_list = action.payload.answer;
+        // console.log("🟡I'm question_list status: ", draft.question_list);
+      }),
+    [SET_ANSWER]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
+        // console.log("🟡I'm answer_list status: ", draft.answer_list);
       }),
     [POST_QNA]: (state, action) => produce(state, (draft) => {}),
   },
@@ -127,8 +132,9 @@ export default handleActions(
 const actionCreators = {
   setProductAll,
   setProductAllAPI,
-  setQnA,
+  setQuestion,
   setQnAAPI,
+  setAnswer,
   postQnAAPI,
 };
 

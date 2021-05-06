@@ -22,7 +22,7 @@ const Modal = (props) => {
   if (bid) {
     return (
       <>
-        <Button {...styles} primaryNoBorder _onClick={openModal}>
+        <Button {...styles} primaryNoBorder _onClick={openModal} margin="10px 0">
           입찰표 작성
         </Button>
         {modal ? (
@@ -42,7 +42,7 @@ const Modal = (props) => {
   if (immediateBid) {
     return (
       <>
-        <Button {...styles} primaryNoBorder _onClick={openModal}>
+        <Button {...styles} primaryNoBorder _onClick={openModal} margin="0 0 0 5px">
           즉시 낙찰
         </Button>
         {modal ? (

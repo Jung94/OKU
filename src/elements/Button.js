@@ -5,8 +5,8 @@ import { Text } from "elements/";
 import { Color } from "shared/DesignSys";
 
 const Button = (props) => {
-  const { main, sub, _onClick, text, children } = props;
-  const styles = { onClick: _onClick, text: text };
+  const { main, sub, _onClick, text, children, margin } = props;
+  const styles = { onClick: _onClick, text: text, margin: margin };
   return (
     <>
       {sub ? (
@@ -29,6 +29,7 @@ const Button = (props) => {
 Button.defaultProps = {
   children: "I'm Button!",
   _onClick: () => {},
+  margin: false,
 };
 
 const Btn = styled.button`
@@ -42,9 +43,10 @@ const Btn = styled.button`
 
   flex-grow: 1;
   height: 50px;
-  margin: 1%;
   width: max-content;
   box-sizing: border-box;
+
+  margin: ${(props) => props.margin};
 
   cursor: pointer;
   transition: color 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275),

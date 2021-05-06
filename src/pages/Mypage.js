@@ -16,7 +16,7 @@ const Mypage = (props) => {
         <Button primaryNoBorder>회원 정보</Button>
       </Grid>
       <Grid is_flex column bg="#eee" padding="1%" margin="5% 0 0 0">
-        <Text title>찜 목록</Text>
+        <Text h3>찜 목록</Text>
         <Grid is_flex justify="space-between">
           <Thumnail></Thumnail>
           <Thumnail></Thumnail>
@@ -25,7 +25,7 @@ const Mypage = (props) => {
         </Grid>
       </Grid>
       <Grid is_flex column bg="#eee" padding="1%" margin="5% 0 0 0">
-        <Text title>구매 목록</Text>
+        <Text h3>구매 목록</Text>
         <Grid is_flex justify="space-between">
           <Thumnail></Thumnail>
           <Thumnail></Thumnail>
@@ -34,7 +34,7 @@ const Mypage = (props) => {
         </Grid>
       </Grid>
       <Grid is_flex column bg="#eee" padding="1%" margin="5% 0 0 0">
-        <Text title>대화 목록</Text>
+        <Text h3>대화 목록</Text>
         <Grid is_flex justify="space-between">
           <Thumnail></Thumnail>
           <Thumnail></Thumnail>
