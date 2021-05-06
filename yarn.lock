@@ -11588,7 +11588,7 @@ snapdragon@^0.8.1:
 
 socket.io-client@^4.0.1:
   version "4.0.1"
-  resolved "https://registry.npmjs.org/socket.io-client/-/socket.io-client-4.0.1.tgz"
+  resolved "https://registry.yarnpkg.com/socket.io-client/-/socket.io-client-4.0.1.tgz#8f3bf4ce9282dda1741a4ed0f726b412944e012b"
   integrity sha512-6AkaEG5zrVuSVW294cH1chioag9i1OqnCYjKwTc3EBGXbnyb98Lw7yMa40ifLjFj3y6fsFKsd0llbUZUCRf3Qw==
   dependencies:
     "@types/component-emitter" "^1.2.10"

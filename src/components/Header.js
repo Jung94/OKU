@@ -24,20 +24,20 @@ const Header = (props) => {
     dispatch(productActions.getProductSearch(keyword));
     history.push("/result");
   };
-  
-  const handleMainCategory = (e) => {
-    setMainct(e.value) 
-    if(mainct === "2D") 
-      { setSubct(option_2)
-      } else if(mainct ==="3D")
-      { setSubct(option_3)
-      } 
-    } 
 
-  const handleSubCategory = e => {
+  const handleMainCategory = (e) => {
+    setMainct(e.value);
+    if (mainct === "2D") {
+      setSubct(option_2);
+    } else if (mainct === "3D") {
+      setSubct(option_3);
+    }
+  };
+
+  const handleSubCategory = (e) => {
     setSubct(e.value);
-    console.log(handleSubCategory)
-  } 
+    console.log(handleSubCategory);
+  };
   // const is_login = useSelector((state) => state.user.is_login);
 
   const MainCT = [
@@ -45,30 +45,30 @@ const Header = (props) => {
     { value: "3D", label: "3D" },
   ];
   const option_2 = [
-    { value: '피규어', label: '피규어' },
-    { value: '인형', label: '인형' },
-    { value: '키링/스트랩/아크릴', label: '키링/스트랩/아크릴' },
-    { value: '포스터/태피스트리', label: '포스터/태피스트리' },
-    { value: '문구/데스크 용품', label: '문구/데스크 용품' },
-    { value: '액세서리', label: '액세서리' },
-    { value: 'CD/블루레이', label: 'CD/블루레이' },
-    { value: '비공식굿즈', label: '비공식굿즈' },
-    { value: '기타', label: '기타' },
+    { value: "피규어", label: "피규어" },
+    { value: "인형", label: "인형" },
+    { value: "키링/스트랩/아크릴", label: "키링/스트랩/아크릴" },
+    { value: "포스터/태피스트리", label: "포스터/태피스트리" },
+    { value: "문구/데스크 용품", label: "문구/데스크 용품" },
+    { value: "액세서리", label: "액세서리" },
+    { value: "CD/블루레이", label: "CD/블루레이" },
+    { value: "비공식굿즈", label: "비공식굿즈" },
+    { value: "기타", label: "기타" },
   ];
 
   const option_3 = [
-    { value: '인형', label: '인형' },
-    { value: '키링/스트랩/아크릴', label: '키링/스트랩/아크릴' },
-    { value: '포토카드', label: '포토카드' },
-    { value: '포스터', label: '포스터' },
-    { value: '문구/데스크 용품', label: '문구/데스크 용품' },
-    { value: '액세서리', label: '액세서리' },
-    { value: '뷰티제품', label: '뷰티제품' },
-    { value: 'CD', label: 'CD' },
-    { value: '서적', label: '서적' },
-    { value: '비공식굿즈', label: '비공식굿즈' },
-    { value: '기타', label: '기타' },
-  ]
+    { value: "인형", label: "인형" },
+    { value: "키링/스트랩/아크릴", label: "키링/스트랩/아크릴" },
+    { value: "포토카드", label: "포토카드" },
+    { value: "포스터", label: "포스터" },
+    { value: "문구/데스크 용품", label: "문구/데스크 용품" },
+    { value: "액세서리", label: "액세서리" },
+    { value: "뷰티제품", label: "뷰티제품" },
+    { value: "CD", label: "CD" },
+    { value: "서적", label: "서적" },
+    { value: "비공식굿즈", label: "비공식굿즈" },
+    { value: "기타", label: "기타" },
+  ];
 
   return (
     <GridBox>
@@ -110,28 +110,26 @@ const Header = (props) => {
               <ListBtn />
 
               <Mainselectbox>
-                <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find(obj => obj.value === MainCT)}  options={MainCT} />
+                <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} />
               </Mainselectbox>
               {mainct === "" && (
                 <SubSelectbox>
-                <Select placeholder="중분류" onChange={handleSubCategory}/>
+                  <Select placeholder="중분류" onChange={handleSubCategory} />
                 </SubSelectbox>
               )}
 
               {/* 2D일 때 */}
               {mainct === "2D" && (
                 <SubSelectbox>
-                <Select placeholder="중분류" onChange={handleSubCategory} options={option_2} />
+                  <Select placeholder="중분류" onChange={handleSubCategory} options={option_2} />
                 </SubSelectbox>
-              ) 
-              }
-              {/* 3D일 때 */}
-              {mainct ==="3D" && (
-                <SubSelectbox>
-                <Select placeholder="중분류" onChange={handleSubCategory} options={option_3} />
-                </SubSelectbox> 
               )}
-              
+              {/* 3D일 때 */}
+              {mainct === "3D" && (
+                <SubSelectbox>
+                  <Select placeholder="중분류" onChange={handleSubCategory} options={option_3} />
+                </SubSelectbox>
+              )}
             </Category>
           </Left>
 
@@ -201,6 +199,11 @@ const Header = (props) => {
 const GridBox = styled.div`
   max-width: 1920px;
   box-shadow: 0 4px 15px 0 rgba(111, 111, 111, 0.16);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
 `;
 
 const Nav = styled.div`
