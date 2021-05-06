@@ -9,7 +9,6 @@ import { input_priceComma } from "shared/common";
 import { Upload } from "components/";
 
 import DaumPostcode from "react-daum-postcode";
-import { file } from "../../../../../AppData/Local/Microsoft/TypeScript/4.2/node_modules/@babel/types/lib/index";
 
 // React.memo => re-render 방지용임
 const ProductUpload = React.memo((props) => {

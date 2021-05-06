@@ -1,5 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import axios from 'axios';
+
+import { setLocal, deleteLocal } from 'shared/Local';
 
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
@@ -55,6 +58,7 @@ const signupAPI = (email, pw, pwCheck, nickName, phone) => {
     }
 };
 
+//일반 로그인
 const loginAPI = (email, pw) => {
     return function (dispatch, getState, { history }) {
         const API = 'http://3.35.137.38/user/login';
@@ -92,6 +96,32 @@ const loginAPI = (email, pw) => {
         });
     }
 };
+
+// 카카오 로그인
+// const loginByKakao = (data) => async (dispatch, getState, { history }) => {
+//     try {
+//       // 카카오 로그인으로 받아온 토큰으로 서버에서 jwt 토근을 받아옴
+//       const res = await userAPI.loginByKakao(data);
+  
+//       const token = res.data.token;
+//       const username = res.data.username;
+//       const userId = res.data.userid;
+  
+//       // 받아온정보 쿠키저장
+//       setLocal('access_token', token);
+//       setLocal('nickname', username);
+//       setLocal('userId', userId);
+  
+//       // 헤더에 토큰 저장
+//       axios.defaults.headers.common['token'] = `${token}`;
+  
+//       // 토큰으로 유저정보 받아옴
+//       dispatch(fetchUserProfile(1));
+//     } catch (error) {
+//       console.error(error);
+//       dispatch(setLoginError(error.response.data.errorMessage));
+//     }
+// };
 
 const isLogin = () => {
     return function (dispatch, getState, { history }) {
