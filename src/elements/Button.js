@@ -1,16 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 
-import Color from "elements/DesignSys";
+import { Text } from "elements/";
+import { Color } from "shared/DesignSys";
 
 const Button = (props) => {
   const { main, sub, _onClick, text, children } = props;
   const styles = { onClick: _onClick, text: text };
-
   return (
     <>
       {sub ? (
         <Btn color="white" contrast={Color.Primary} {...styles}>
+          {text ? text : children}
+        </Btn>
+      ) : main ? (
+        <Btn color={Color.Primary} contrast="white" {...styles}>
           {text ? text : children}
         </Btn>
       ) : (
@@ -43,14 +47,19 @@ const Btn = styled.button`
   box-sizing: border-box;
 
   cursor: pointer;
-  transition: border 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: color 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    border 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   &:hover {
-    background: ${(props) => props.contrast};
+    background-color: ${(props) => props.contrast};
     color: ${(props) => props.color};
     border: 1px solid ${Color.Primary};
+    box-shadow: 0 0 0 3px ${Color.Primary}33;
     svg {
-      color: white;
+      color: ${(props) => props.color};
     }
+  }
+  &:active {
+    box-shadow: 0 0 0 3px ${Color.Primary}33;
   }
   svg {
     color: ${(props) => props.contrast};

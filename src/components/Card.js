@@ -1,6 +1,5 @@
 import React, { useEffect }  from "react";
 import styled from "styled-components";
-import { Title, Image, Currentprice } from "components/Container";
 
 
 import { actionCreators as postActions } from "redux/modules/post";
@@ -28,46 +27,36 @@ const Card = (props) => {
   const { title, img, currentprice, desc } = props;
 
   return (
-    <Box>
-      <h2>실시간 등록상품</h2>
+    <Wrap>
+      <Head>
+      <p style={{ fontSize: "45px", fontWeight:"bold"}}> 방금 등록됐다능~! <span style={{color : "#AE27FF"}}>최신상품</span></p>
+      </Head>
       <Grid>
+        <Cards>
         {_recent_product.map((j, index) => {
           console.log(_recent_product)
                 return (
                   <Information key={index}>
-                    <Image width="300px" height="300px" margin="40px 10px;">
-                      <img src={j.img} />
+                    <Image>
+                      <img src={j.img[0]} />
+                      <Dibs>
+                      </Dibs>
                     </Image>  
+
                     <Desc>
-                      <Title>{j.title}</Title>
-                      <Currentprice>{j.currentprice}원</Currentprice>
+                      <Title>
+                        {j.title}
+                      </Title>
+                      <Currentprice>
+                        {j.currentprice}원
+                      </Currentprice>
                     </Desc>
                   </Information>
                 );
               })}
-
-        {/* <Information>
-          <Image width="300px" height="300px" margin="40px 10px;">
-            <img src={img} />
-          </Image>
-          <Desc>
-            <Title>{title}</Title>
-            <Currentprice>{currentprice}</Currentprice>
-          </Desc>
-        </Information>
-
-        <Information>
-          <Image width="300px" height="300px" margin="40px 10px;">
-            <img src={img} />
-          </Image>
-          <Desc>
-            <Title>{title}</Title>
-            <Currentprice>{currentprice}</Currentprice>
-          </Desc>
-        </Information> */}
-
+        </Cards>
       </Grid>
-    </Box>
+    </Wrap>
   );
 };
 
@@ -77,22 +66,75 @@ Card.defaultProps = {
   currentprice: "198,000원",
 };
 
-const Box = styled.div`
-  margin: 30px auto;
-  max-width: 1030px;
-  background: #eee;
+const Wrap = styled.div`
+margin : 100px auto;
+max-width : 1030px;
 `;
-const Information = styled.div`
-  margin: auto;
+const Head = styled.div`
+display :flex;
+justify-content : space-between;
 `;
 
 const Grid = styled.div`
-  max-width: 1030px;
-  display: flex;
+display : flex;
+`;
+const Cards = styled.div`
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+grid-column-gap: 65px;
+grid-row-gap: 48px;
+margin-top : 45px 0 ;
+
 `;
 
-const Desc = styled.div`
-  margin: -30px 0 10px 10px;
+const Information =styled.div`
+width : 300px;
+height : 404px;
+`;
+
+const Image = styled.div`
+& > img {
+width : 300px; 
+height : 300px;
+border-radius : 30px 30px 0 0;
+}
+`;
+
+const Title = styled.div`
+margin : 0 142px 11px 25px;
+padding-top : 16px;
+text-overflow: ellipsis;
+overflow: hidden;
+white-space: nowrap;
+width : 250px;
+`;
+
+const Currentprice = styled.div`
+margin : 0 142px 21px 25px;
+`;
+
+const Dibs = styled.div`
+z-index: 999;
+width : 41px;
+height : 41px;
+background : #ae27ff;
+position : relative;
+margin : -60px 0 0 248px;
+border-radius : 50px;
+`;
+
+const Desc  = styled.div`
+font-size : 20px;
+font-weight : bold;
+color : #2e2e2e;
+width : 300px;
+min-height : 104px;
+background : #f2f2f2;
+border-radius : 0 0 30px 30px;
+text-align : left;
+box-sizing : border-box;
+margin :13px 0 0 0;
+
 `;
 
 export default Card;

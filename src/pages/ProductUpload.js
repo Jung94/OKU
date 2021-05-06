@@ -91,6 +91,7 @@ const ProductUpload = (props) => {
 
   const handleCateSmall = e => {
     setCateSmall(e.value);
+    console.log(handleCateSmall)
   }
 
   const handleDeadline = e => {
