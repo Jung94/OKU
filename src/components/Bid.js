@@ -1,45 +1,59 @@
 import React, { useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import styled from "styled-components";
 import { Grid, Input, Line, Button, Text } from "elements/";
+import { Timer } from "components/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle as fasQC } from "@fortawesome/free-solid-svg-icons";
 
 import { priceComma, input_priceComma } from "shared/common";
+import { actionCreators as bidActions } from "redux/modules/bid";
 
 const Bid = (props) => {
-  const { open, close, bid, immediateBid, sucBid } = props;
+  const dispatch = useDispatch();
+  const { open, close, bid, immediateBid, sucBid, deadLine, createAt, sellerunique, _id } = props;
 
   const [bidPrice, setBid] = useState("");
   const onChangeBid = useCallback((e) => setBid(e.target.value), []);
 
-  // console.log(close);
-  // console.log(open);
+  const addBid = () => {
+    dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
+  };
+  // 숫자로 보내기!
+  console.log(parseInt(bidPrice.replace(/,/g, "")));
+
+  const addSuccessbid = () => {
+    dispatch(bidActions.addSucbidAPI(sucBid, sellerunique, Date.now()));
+  };
 
   if (bid) {
     return (
       <>
         {open ? (
           <BidBox>
-            <h2 style={{ margin: "8% 0 0 0" }}>
+            <Text h2 marginT="9%" marginB="3%">
               입찰표 작성
               <FontAwesomeIcon icon={fasQC} />
-            </h2>
-            <h5>물음표 스타일은 일단 추후 일괄 적용</h5>
-            <Line bottom margin="8% 0 0 0" />
+            </Text>
+            <Grid textAlign="center" justify="space-between" width="45%">
+              <Text h3>
+                <Timer all deadLine={deadLine} purple />
+              </Text>
+              <Timer timeProgress deadLine={deadLine} createAt={createAt} />
+            </Grid>
             <Input
               value={input_priceComma(bidPrice)}
-              onChange={onChangeBid}
+              _onChange={onChangeBid}
               num
               width="75%"
+              margin="6% auto"
               adornment="원"
               plcholder="입찰가를 입력해주세요!"
-              margin="8%"
             ></Input>
-            <Grid is_flex>
-              <Button primaryNoBorder _onClick={close} margin="3%">
-                낙찰하기
-              </Button>
-            </Grid>
+            <Button _onClick={addBid} width="75%" margin="0 auto 9% auto">
+              입찰하기
+            </Button>
           </BidBox>
         ) : (
           <></>
@@ -53,19 +67,18 @@ const Bid = (props) => {
       <>
         {open ? (
           <BidBox {...props} open={open}>
-            <h2 style={{ margin: "8% 0 0 0" }}>
+            <Text h2 marginT="9%">
               즉시 입찰
               <FontAwesomeIcon icon={fasQC} />
-            </h2>
-            <h5>물음표 스타일은 일단 추후 일괄 적용</h5>
-            <Line bottom margin="8% 0 0 0" />
-            <Text price>{priceComma(sucBid)}원</Text>
-
-            <Grid is_flex>
-              <Button primaryNoBorder _onClick={close} margin="8% 20%">
-                낙찰하기
-              </Button>
-            </Grid>
+            </Text>
+            <Text h4>즉시 낙찰가에 낙찰이 진행됩니다!</Text>
+            <Text price lineHeight="400%">
+              {priceComma(sucBid)}
+              <Text won>원</Text>
+            </Text>
+            <Button _onClick={addSuccessbid} width="75%" margin="0 auto 9% auto">
+              즉시 낙찰하기
+            </Button>
           </BidBox>
         ) : (
           <></>

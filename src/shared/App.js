@@ -24,7 +24,7 @@ const App = (props) => {
 
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <Grid>
         <Wrap>
           <ConnectedRouter history={history}>
@@ -38,7 +38,7 @@ const App = (props) => {
               <Route path="/productupload" exact component={ProductUpload} />
               <Route path="/Mypage" exact component={Mypage} />
               <Route path="/result" exact component={Result} />
-              <Route path='/chat' exact component={Chat} />
+              <Route path="/chat" exact component={Chat} />
               <Route component={NotFound} />
             </Switch>
           </ConnectedRouter>

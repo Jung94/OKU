@@ -5,8 +5,8 @@ import { Text } from "elements/";
 import { Color } from "shared/DesignSys";
 
 const Button = (props) => {
-  const { main, sub, _onClick, text, children, margin } = props;
-  const styles = { onClick: _onClick, text: text, margin: margin };
+  const { main, sub, _onClick, text, children, width, margin } = props;
+  const styles = { onClick: _onClick, text: text, width: width, margin: margin };
   return (
     <>
       {sub ? (
@@ -30,6 +30,7 @@ Button.defaultProps = {
   children: "I'm Button!",
   _onClick: () => {},
   margin: false,
+  width: "max-content",
 };
 
 const Btn = styled.button`
@@ -43,7 +44,7 @@ const Btn = styled.button`
 
   flex-grow: 1;
   height: 50px;
-  width: max-content;
+  width: ${(props) => props.width};
   box-sizing: border-box;
 
   margin: ${(props) => props.margin};

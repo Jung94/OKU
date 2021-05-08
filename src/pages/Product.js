@@ -1,26 +1,27 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import styled from "styled-components";
 import { Grid, Input, Line, Button, Tag, Modal, Text } from "elements/";
 import { Slider, Timer, QnA } from "components/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faQuestionCircle as fasQC, faHeart as fasHeart, faPen as fasPen } from "@fortawesome/free-solid-svg-icons";
+import { faQuestionCircle as fasQC, faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 
 import { history } from "redux/configureStore";
 import { actionCreators as productActions } from "redux/modules/product";
+import { actionCreators as bidActions } from "redux/modules/bid";
 import { actionCreators as likeActions } from "redux/modules/like";
 import { priceComma } from "shared/common";
 import Loading from "shared/Loading";
 
+import moment from "moment";
+import "moment/locale/ko";
+
+import { Color } from "shared/DesignSys";
+
 const Product = (props) => {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(productActions.setProductAllAPI());
-    dispatch(likeActions.getLikeAPI());
-    // QnA컴포넌트에서 useEffect실행하면 무한루프에 빠진다 -> 공부포인트
-    dispatch(productActions.setQnAAPI());
-  }, []);
+  // onSale 처리 해야함
 
   const is_loading = useSelector((state) => state.product.is_loading);
   const productOK = useSelector((state) => state.product.product_detail);
@@ -29,13 +30,13 @@ const Product = (props) => {
     createAt,
     deliveryPrice,
     description,
-    likeCount,
-    likeUser,
     lowBid,
     sucBid,
     region,
+    sellerunique,
     smallCategory,
     bigCategory,
+    onSale,
     title,
     nickname,
     views,
@@ -44,9 +45,28 @@ const Product = (props) => {
     img,
     _id,
   } = useSelector((state) => state.product.product_detail);
+  console.log("🟣 : ", productOK);
   const _is_like = useSelector((state) => state.like.is_like);
 
-  const _question_list = useSelector((state) => state.product.question_list);
+  const _qna_list = useSelector((state) => state.product.qna_list);
+
+  const _bid_list = useSelector((state) => state.bid.bid_list);
+  console.log("입찰 리스트: ", _bid_list);
+
+  const [_contents, setReview] = useState("");
+  const onChangeContents = useCallback((e) => setReview(e.target.value), []);
+
+  const addQuestion = () => {
+    dispatch(productActions.addQuestionAPI(_id, _contents, sellerunique, nickname, Date.now()));
+  };
+
+  useEffect(() => {
+    dispatch(productActions.setProductAllAPI());
+    dispatch(likeActions.getLikeAPI());
+    // QnA컴포넌트에서 useEffect실행하면 무한루프에 빠진다 -> 공부포인트
+    dispatch(productActions.setQnAAPI());
+    dispatch(bidActions.setBidAPI());
+  }, [productOK._id, _bid_list.bid]);
 
   const helpPop = () => {
     alert("꺄");
@@ -80,37 +100,49 @@ const Product = (props) => {
           </Grid>
 
           <Grid width="33%" margin="0 0 0 10px">
-            <Grid textAlign="center" justify="space-between" margin="0 0 100px 0">
+            <Grid textAlign="center" justify="space-between" margin="0 0 30px 0">
               <Text h2>
-                <Timer all deadLine={deadLine} purple />
+                <Timer all {...productOK} purple />
               </Text>
               <Timer timeProgress deadLine={deadLine} createAt={createAt} />
             </Grid>
 
-            <Text h2>{title}</Text>
+            <Grid height="100px" margin="0 0 10px 0">
+              <Text h2>{title}</Text>
+            </Grid>
             <BidLabel>
-              <Text h3>현재 입찰 가격 </Text>
-              <Input output num value={lowBid && priceComma(lowBid)} adornment="원" />
-              <Text subBody textAlign="right">
-                상품&thinsp;00&emsp;조회수&thinsp;{views}
+              <Text h4 textAlign="right">
+                현재 입찰 가격
               </Text>
-              <Text h3>
+              <Text price textAlign="right">
+                {_bid_list.bid ? priceComma(_bid_list.bid) : priceComma(lowBid)}
+                <Text won>원</Text>
+              </Text>
+              <Line bottom margin="5px 0" />
+              <Grid height="30px">
+                <Text subBody textAlign="right" color={Color.Dark_4} lineHeight="220%">
+                  조회수&thinsp;{views}
+                </Text>
+              </Grid>
+              <Text h4 lineHeight="220%">
                 최소 낙찰/입찰가
                 <FontAwesomeIcon icon={fasQC} className="infoSvg" />
               </Text>
               <Input output num value={lowBid && priceComma(lowBid)} adornment="원" />
+              <Grid height="10px"></Grid>
 
-              <Text h3>
+              <Text h4 lineHeight="220%">
                 즉시 낙찰가
                 <FontAwesomeIcon icon={fasQC} className="infoSvg" />
               </Text>
               <Input output num value={sucBid && priceComma(sucBid)} adornment="원" />
-
-              <Text subBody textAlign="right">
-                * 이 가격을 제안하면 즉시 구매 가능합니다.
-              </Text>
+              <Grid height="50px">
+                <Text subBody textAlign="right" color={Color.Dark_4} lineHeight="220%">
+                  * 이 가격을 제안하면 즉시 구매 가능합니다.
+                </Text>
+              </Grid>
               <Grid is_flex>
-                <Modal bid />
+                <Modal bid {...productOK} />
               </Grid>
               <Grid is_flex>
                 {_is_like ? (
@@ -124,7 +156,7 @@ const Product = (props) => {
                     &thinsp;찜
                   </Button>
                 )}
-                <Modal immediateBid sucBid={sucBid} />
+                <Modal immediateBid {...productOK} />
               </Grid>
             </BidLabel>
           </Grid>
@@ -132,29 +164,47 @@ const Product = (props) => {
 
         <Grid dp_flex margin="0 0 10px 0">
           <Grid column width="66%" margin="0 10px 0 0">
-            <Text h3>상품정보</Text>
+            <Text h3 color={Color.Primary}>
+              상품정보
+            </Text>
             <Grid is_flex padding="10px">
-              <Grid flexGrow="1">
-                <Text h3>
+              <Grid flexGrow="2" margin="0 3% 0 0">
+                <Text h4 textAlign="left">
+                  카테고리
+                  <FontAwesomeIcon icon={fasQC} className="infoSvg" />
+                </Text>
+                <Input output value={`${bigCategory} > ${smallCategory}`} />
+              </Grid>
+              <Grid flexGrow="1" margin="0 3% 0 0">
+                <Text h4 textAlign="left">
                   상품상태
                   <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                 </Text>
-                {state}급
+                <Input output value={state} adornment="급" />
               </Grid>
-              <Grid flexGrow="2">
-                <Text h3>거래 지역</Text>
-                {region}
+              <Grid flexGrow="2" margin="0 3% 0 0">
+                <Text h4 textAlign="left">
+                  거래 지역
+                </Text>
+                <Input output value={region} />
               </Grid>
               <Grid flexGrow="1">
-                <Text h3>배송 수단</Text>
-                {deliveryPrice === true ? "배송비 별도" : "무료 배송 (또는 직거래)"}
+                <Text h4 textAlign="left">
+                  배송 수단
+                </Text>
+                <Input output value={deliveryPrice === true ? "배송비 별도" : "무료 배송 (또는 직거래)"} />
               </Grid>
             </Grid>
 
-            <Grid is_flex column padding="10px">
-              <Text h3>상품 설명</Text>
-              <Grid textAlign="left">{description}</Grid>
+            <Grid is_flex padding="10px">
+              <Grid flexGrow="1">
+                <Text h4 textAlign="left">
+                  상품 설명
+                </Text>
+                {description}
+              </Grid>
             </Grid>
+
             <Grid is_flex>
               <Tag>{tag}</Tag>
             </Grid>
@@ -168,21 +218,25 @@ const Product = (props) => {
           </Grid>
 
           <Grid column width="33%" margin="0 0 0 10px">
-            <Text h3>
-              실시간 낙찰 정보
+            <Text h3 color={Color.Primary}>
+              실시간 입찰 정보
               <FontAwesomeIcon icon={fasQC} className="infoSvg" />
             </Text>
 
-            {/* 입찰정보 */}
-            <LiveBid margin="5%">
-              <p>교촌치킨&thinsp;님</p>
-              <Text subBody marginT="auto" marginB="auto">
-                2분전
-              </Text>
-              <p className="bidPrice">30,000</p>
-            </LiveBid>
+            {/* 실시간 입찰 정보 */}
+            {_bid_list.map((b, idx) => (
+              <LiveBid key={idx} margin="5%">
+                <p>{b.nickName}&thinsp;님</p>
+                <Text subBody marginT="auto" marginB="auto">
+                  {moment(b.createAt).fromNow()}
+                </Text>
+                <p className="bidPrice">{b.bid}</p>
+              </LiveBid>
+            ))}
 
-            <Text h3>판매자 정보</Text>
+            <Text h4 textAlign="left">
+              판매자 정보
+            </Text>
             <Seller>
               <Grid is_flex margin="0 auto">
                 <Profile></Profile>
@@ -211,7 +265,13 @@ const Product = (props) => {
               </Grid>
             </Text>
           </Grid>
-          {_question_list.map((q, idx) => (
+          {/* qna등록 */}
+          <QnAPost>
+            <Profile></Profile>
+            <Input width="80%" margin="0 1% 0 0" _onChange={onChangeContents}></Input>
+            <Button _onClick={addQuestion}>등록</Button>
+          </QnAPost>
+          {_qna_list.map((q, idx) => (
             <QnA key={idx} {...q} />
           ))}
         </Grid>
@@ -310,6 +370,13 @@ const BidLabel = styled.div`
   background-color: white;
   text-align: left;
   margin-bottom: 1%;
+`;
+
+// 문의하기
+const QnAPost = styled.div`
+  ${(props) => (props.openPost ? "padding-bottom: 1%;" : "padding: 1%;")}
+  width: 100%;
+  display: flex;
 `;
 
 const WrapRatio = styled.div`

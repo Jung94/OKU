@@ -42,9 +42,10 @@ const addPostAPI = (image, title, cateBig, cateSmall, region, productState, dead
     }
     console.log(image);
     const formData = new FormData();
-    formData.append("img", image[0]);
-    formData.append("img", image[1]);
 
+    formData.append("img", image);
+    // formData.append("img", image[0]);
+    // formData.append("img", image[1]);
     formData.append("nickname", nickname);
     formData.append("title", title);
     formData.append("bigCategory", cateBig);
