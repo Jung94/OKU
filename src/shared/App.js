@@ -10,7 +10,8 @@ import { history } from "redux/configureStore";
 import NotFound from "shared/NotFound";
 import Header from "components/Header";
 import Footer from "components/Footer";
-import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, Mypage, Chat } from "pages/";
+import CategoryResult from 'pages/CategoryResult'
+import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, Mypage, Chat,  } from "pages/";
 
 const App = (props) => {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ const App = (props) => {
               <Route path="/product" exact component={Product} />
               <Route path="/productupload" exact component={ProductUpload} />
               <Route path="/Mypage" exact component={Mypage} />
+              <Route path='/category' exact component={CategoryResult} />
               <Route path="/result" exact component={Result} />
               <Route path="/chat" exact component={Chat} />
               <Route component={NotFound} />
