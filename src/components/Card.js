@@ -29,7 +29,7 @@ const Card = (props) => {
   return (
     <Wrap>
       <Head>
-      <p style={{ fontSize: "45px", fontWeight:"bold"}}> 방금 등록됐다능~! <span style={{color : "#AE27FF"}}>최신상품</span></p>
+      <p style={{ fontSize: "45px", fontWeight:"bold"}}>방금 등록된 굿즈 <span style={{color : "#AE27FF"}}> 어서오고~</span></p>
       </Head>
       <Grid>
         <Cards>
@@ -77,6 +77,7 @@ justify-content : space-between;
 
 const Grid = styled.div`
 display : flex;
+margin : 45px 0 0 0;
 `;
 const Cards = styled.div`
 display: grid;

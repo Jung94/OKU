@@ -183,7 +183,7 @@ const CheckBar = styled.p`
 const Wrap = styled.div`
     width: 280px;
     height: 100%;
-    margin: 0 auto;
+    margin: 142px auto 0;
     padding: 100px 0;
     box-sizing: border-box;
 `;

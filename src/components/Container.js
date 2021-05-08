@@ -130,7 +130,7 @@ const Container = (props) => {
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 2,
+    slidesToScroll: 1,
     autoplay: false,
     autoplaySpeed: 2500,
     pauseOnHover: true,
@@ -138,8 +138,8 @@ const Container = (props) => {
     className: "center",
     centerMode: true,
     centerPadding: "23%",
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+    nextArrow: <NextArrow/>,
+    prevArrow: <PrevArrow/>,
 
     responsive: [ // 반응형 웹 구현 옵션
       {
@@ -147,9 +147,8 @@ const Container = (props) => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: false,
-          nextArrow: <_NextArrow />,
-          prevArrow: <_PrevArrow />,
+          nextArrow: <_NextArrow/>,
+          prevArrow: <_PrevArrow/>,
         }
     },
       {
@@ -157,9 +156,8 @@ const Container = (props) => {
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
-            centerMode: false,
-            nextArrow: <NextArrow_ />,
-            prevArrow: <PrevArrow_ />,
+            nextArrow: <NextArrow_/>,
+            prevArrow: <PrevArrow_/>,
           }
       },
     ]
@@ -180,6 +178,7 @@ const Container = (props) => {
                     <Desc>
                       <Deadline>경매마감까지 {i.deadLine} 남았습니다.</Deadline>
                       <Currentprice>{i.currentprice}원</Currentprice>
+                      <Sucbid>{i.sucBid}원</Sucbid>
                     </Desc>
                   </Section>
                 );
@@ -229,7 +228,7 @@ const RightArrow_ = styled.div`
 `;
 const Main = styled.div`
   text-align: center;
-  margin: 92px 0;
+  margin: 242px 0;
   .slick-dots li button:before {
       color : #AE00FF;
   }
@@ -268,8 +267,14 @@ overflow : hidden;
     cursor : pointer;
     border-radius: 50px;
   }
+  // & : hover {
+  //   transform : scale(1.05);
+  //   transition : transform 0.5s;
+  // }
 `;
 const Currentprice = styled.div``;
 const Deadline = styled.div``;
+const Sucbid = styled.div`
+`;
 
 export default Container;

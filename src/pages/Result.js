@@ -23,7 +23,7 @@ const ResultContainer = styled.div`
     flex-direction: column;
     max-width: 1030px;
     height: 100%;
-    margin: 0 auto;
+    margin: 117px auto;
     barder: 1px solid #000;
 `;
 

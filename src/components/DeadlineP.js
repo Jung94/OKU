@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect }  from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
+
 import { actionCreators as postActions } from "redux/modules/post";
+import { useDispatch, useSelector } from "react-redux";
 
 import T_1 from "images/T_1.jpg"
 import T_2 from "images/T_2.jpeg"
@@ -21,79 +23,55 @@ const DeadlineP = (props) => {
 
     } = props;
 
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(postActions.getDeadlineProductAPI());
+    }, []);
+    const _deadline_product = useSelector((state) => state.post.deadline_product);
+    console.log(_deadline_product)
+
     return (    
         <Wrap>
             <Head>
-                <p style={{ fontSize: "45px", fontWeight:"bold"}}> 얼마 남지 않았다구 ! <span style={{color : "#AE27FF"}}>마감 임박 상품</span></p>
+                <p style={{ fontSize: "45px", fontWeight:"bold"}}>마감 임박 상품은 <span style={{color : "#AE27FF"}}>못참지~</span></p>
                 <p style={{marginTop:"41px", color:"#c0c0c0",fontSize: "16px", cursor:"pointer"}}>더보기</p>
             </Head>
-        <Grid>
-            <Cards>
-                    <Information>
-                    <Image style={{width:"300px", height:"300px"}}>
-                        <img src={T_2} />
-                    <Dibs>
-                    </Dibs>
-                    </Image>
+        <Grid>  
+            {_deadline_product ? 
+            <div style={{margin:"10px auto", fontSize:"20px"}}>
+                마감 임박 상품이 없습니다.
+            </div>  : 
+            _deadline_product.map((k, index) => {
+            return (
+                <Cards key={index}>
+                    <Information  >
+                        <Image style={{width:"300px", height:"300px"}}>
+                            <img src={k.img} />
+                            <Dibs>
+                            </Dibs>
+                        </Image>
 
-                    <Desc>
-                    <Title>
-                        하와이파이브오 인데 길어지면 뒤로 가버리네
-                    </Title>
-                    {/* <Deadline>
-                        경매마감까지 00 : 57 : 30 초 남았습니다
-                    </Deadline> */}
-                    <Currentprice>
-                        198,000원
-                    </Currentprice>
-                    
-                    </Desc>
+                        <Desc>
+                            <Title>
+                                {k.title}
+                            </Title>
+                            {/* <Deadline>
+                                경매마감까지 00 : 57 : 30 초 남았습니다
+                            </Deadline> */}
+                            <Currentprice>
+                                {k.currentprice}
+                            </Currentprice>
+                            <Sucbid>
+                                {k.sucBid}원
+                            </Sucbid>
+                        
+                        </Desc>
                     </Information>
-            </Cards>
-            <Cards>
-                    <Information>
-                    <Image style={{width:"300px", height:"300px"}}>
-                        <img src={T_3} />
-                    <Dibs>
-                    </Dibs>
-                    </Image>
-
-                    <Desc>
-                    <Title>
-                        프라이탁
-                    </Title>
-                    {/* <Deadline>
-                        경매마감까지 00 : 57 : 30 초 남았습니다
-                    </Deadline> */}
-                    <Currentprice>
-                        198,000원
-                    </Currentprice>
-                    
-                    </Desc>
-                    </Information>
-            </Cards>
-            <Cards>
-                    <Information>
-                    <Image style={{width:"300px", height:"300px"}}>
-                        <img src={T_4} />
-                    <Dibs>
-                    </Dibs>
-                    </Image>
-
-                    <Desc>
-                    <Title>
-                        프라이탁
-                    </Title>
-                    {/* <Deadline>
-                        경매마감까지 00 : 57 : 30 초 남았습니다
-                    </Deadline> */}
-                    <Currentprice>
-                        198,000원
-                    </Currentprice>
-                    
-                    </Desc>
-                    </Information>
-            </Cards>
+                </Cards>
+            )
+            })}
+            
         </Grid>                
     </Wrap>
     )
@@ -171,7 +149,9 @@ text-align : left;
 box-sizing : border-box;
 
 `;
-
+const Sucbid = styled.div`
+margin : 0 142px 21px 25px;
+`;
 
 
 export default DeadlineP

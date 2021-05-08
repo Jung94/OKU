@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useMemo } from "react";
 import styled from "styled-components";
 import { history } from "redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as productActions } from "redux/modules/result";
+import { actionCreators as userActions } from 'redux/modules/user';
 
 import { Grid, Input, Line, Button, Tag, Modal, Text } from "elements/";
 import Select from "react-select";
@@ -19,11 +20,21 @@ const Header = (props) => {
   const [keyword, setKeyword] = React.useState("");
   const [mainct, setMainct] = React.useState("");
   const [subct, setSubct] = React.useState("");
+  const is_login = useSelector((state) => state.user.is_login);
+
+  React.useEffect(() => {
+    dispatch(userActions.isLogin());
+    }, []);
 
   const SearchProduct = () => {
     dispatch(productActions.getProductSearch(keyword));
     history.push("/result");
   };
+
+  // const SearchProduct = () => {
+  //   dispatch(productActions.getProductSearch(keyword));
+  //   history.push("/result");
+  // };
 
   const handleMainCategory = (e) => {
     setMainct(e.value);
@@ -38,14 +49,16 @@ const Header = (props) => {
     setSubct(e.value);
     console.log(handleSubCategory);
   };
-  // const is_login = useSelector((state) => state.user.is_login);
+
+  
+
 
   const MainCT = [
     { value: "2D", label: "2D" },
     { value: "3D", label: "3D" },
   ];
   const option_2 = [
-    { value: "피규어", label: "피규어" },
+    { value: "피규어", label: "피규어"},
     { value: "인형", label: "인형" },
     { value: "키링/스트랩/아크릴", label: "키링/스트랩/아크릴" },
     { value: "포스터/태피스트리", label: "포스터/태피스트리" },
@@ -57,7 +70,7 @@ const Header = (props) => {
   ];
 
   const option_3 = [
-    { value: "인형", label: "인형" },
+    { value: "인형", label: "인형"},
     { value: "키링/스트랩/아크릴", label: "키링/스트랩/아크릴" },
     { value: "포토카드", label: "포토카드" },
     { value: "포스터", label: "포스터" },
@@ -69,6 +82,38 @@ const Header = (props) => {
     { value: "비공식굿즈", label: "비공식굿즈" },
     { value: "기타", label: "기타" },
   ];
+  const customStyles = useMemo(
+    () => ({
+      option: (provided, state) => ({
+        ...provided,
+        border: "0px solid",
+        color: state.data.color,
+      }),
+      control: (provided) => ({
+        ...provided,
+        border : "0px solid black",
+        
+      }),
+      singleValue: (provided, state) => ({
+        ...provided,
+        color: state.data.color,
+      }),
+      dropdownIndicator: (provided, state) => ({
+        ...provided,
+        color:"#AE27FF",
+        // content: "url(https://1.bp.blogspot.com/-zPYogI0ZcvA/YIv7xIest9I/AAAAAAAAPIA/Voq7TwepcsMjFb5EqjEXEf29wFPB9aM9gCLcBGAsYHQ/s320/%25ED%258C%25A8%25EC%258A%25A4%2B2.png)"
+      }),
+      input: (provided, state) => ({
+        ...provided,
+        color : "#AE27FF"
+    }),
+      indicatorSeparator: (provided, state) => ({
+        ...provided,
+        display : "none"
+  }),
+  }),
+    []
+  );
 
   return (
     <GridBox>
@@ -82,6 +127,8 @@ const Header = (props) => {
               <About_P>about OKU</About_P>
               <About_T>about Team</About_T>
               {/* 개인정보기능 */}
+              {is_login && (
+                <div style={{display : "flex"}}>
               <Signup
                 onClick={() => {
                   history.push("/Signup");
@@ -97,6 +144,16 @@ const Header = (props) => {
               >
                 로그인
               </Login>
+              </div>
+              )}
+              {!is_login && (
+                <div style={{display : "flex"}}>
+              
+              <Logout>
+                로그아웃
+              </Logout>
+              </div>
+              )}
               <Mypage>마이페이지</Mypage>
             </Information>
           </Right>
@@ -110,24 +167,24 @@ const Header = (props) => {
               <ListBtn />
 
               <Mainselectbox>
-                <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} />
+                <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
               </Mainselectbox>
               {mainct === "" && (
                 <SubSelectbox>
-                  <Select placeholder="중분류" onChange={handleSubCategory} />
+                  <Select placeholder="중분류" onChange={handleSubCategory} styles={customStyles} />
                 </SubSelectbox>
               )}
 
               {/* 2D일 때 */}
               {mainct === "2D" && (
                 <SubSelectbox>
-                  <Select placeholder="중분류" onChange={handleSubCategory} options={option_2} />
+                  <Select placeholder="중분류" onChange={handleSubCategory} options={option_2} styles={customStyles} />
                 </SubSelectbox>
               )}
               {/* 3D일 때 */}
               {mainct === "3D" && (
                 <SubSelectbox>
-                  <Select placeholder="중분류" onChange={handleSubCategory} options={option_3} />
+                  <Select placeholder="중분류" onChange={handleSubCategory} options={option_3} styles={customStyles} />
                 </SubSelectbox>
               )}
             </Category>
@@ -204,6 +261,7 @@ const GridBox = styled.div`
   left: 0;
   right: 0;
   z-index: 99999;
+  width : 100%;
 `;
 
 const Nav = styled.div`
@@ -211,6 +269,7 @@ const Nav = styled.div`
   height: 151px;
   padding: 30px 215px 27px;
   background-color: #ffffff;
+
 `;
 
 // 틀 내부 Grid
@@ -262,6 +321,13 @@ const Login = styled.p`
   margin-right: 21px;
   color: #868686;
 `;
+const Logout = styled.p`
+  font-size: 12px;
+  cursor: pointer;
+  margin-right: 21px;
+  color: #868686;
+`;
+
 const Mypage = styled.p`
   font-size: 12px;
   cursor: pointer;
