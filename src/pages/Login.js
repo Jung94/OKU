@@ -1,11 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
+import { KAKAO_JS_ID } from 'shared/common';
 import { history } from 'redux/configureStore';
 import { actionCreators as userActions } from 'redux/modules/user';
 
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
+import KaKaoLogin from 'react-kakao-login';
 
 const Login = (props) => {
 
@@ -13,17 +16,46 @@ const Login = (props) => {
 
     const [email, setEmail] = React.useState('');
     const [pw, setPw] = React.useState('');
+    const [kakao_email, setKakao_email] = React.useState('');
 
-    // 로그인 버튼 클릭 시
+    // 로그인
     const login = () => {
         
-        if (email === '' || pw === '') {
+        if (!email || !pw) {
             alert('이메일과 비밀번호를 입력해주세요');
-        return;
+            return;
         }
         
         dispatch(userActions.loginAPI(email, pw));
     }
+
+    // 카카오 로그인
+    const kakaoLoginSuccessHandler = (res) => {
+        
+        const kakao_email_agreement = res.profile.kakao_account.email_needs_agreement;
+        // 이메일 동의 여부
+        if (kakao_email_agreement) {
+            setKakao_email(res.profile.kakao_account.email);
+        }
+
+        const kakao_access_token = res.response.access_token;
+        const kakao_refresh_token = res.response.refresh_token;
+        const kakao_nickname = res.profile.kakao_account.profile.nickname;
+
+        console.log(kakao_email);
+        console.log(kakao_access_token);
+        console.log(kakao_refresh_token);
+        console.log(kakao_nickname);
+        // 카카오 로그인 후 받아온 정보들(토큰, 이메일, 닉네임) 서버에 전달
+        // dispatch(
+        //     userActions.loginByKakao({
+        //         kakao_token: kakao_access_token,
+        //         // kakao_refresh_token: kakao_refresh_token,
+        //         kakao_email: kakao_email,
+        //         kakao_nickname: kakao_nickname,
+        //     })
+        // );
+    };
 
     return (
         <Wrap>
@@ -76,9 +108,14 @@ const Login = (props) => {
             </SignupBox>
 
             <SocialBox>
-                <Naver/>
-                <Kakao/>
-                <Google/>
+                {/* <Naver/> */}
+                <KaKaoLogin token={KAKAO_JS_ID} 
+                    render={(props) => (
+                        <KakaoButton onClick={props.onClick}></KakaoButton>
+                    )}
+                    onSuccess={kakaoLoginSuccessHandler}
+                />
+                {/* <Google/> */}
             </SocialBox>
             
         </Wrap>
@@ -99,35 +136,46 @@ const SocialBox = styled.div`
     color: rgba(0, 0, 0, 0.5);
 `;
 
-const Naver = styled.div`
-    background: url("https://clova-phinf.pstatic.net/MjAxODAzMjlfOTIg/MDAxNTIyMjg3MzM3OTAy.WkiZikYhauL1hnpLWmCUBJvKjr6xnkmzP99rZPFXVwgg.mNH66A47eL0Mf8G34mPlwBFKP0nZBf2ZJn5D4Rvs8Vwg.PNG/image.png") no-repeat center;
-    background-size: cover;
-    background-position: center;
-    border-radius: 30px;
-    width: 32px;
-    height: 32px;
+// const Naver = styled.div`
+//     background: url("https://clova-phinf.pstatic.net/MjAxODAzMjlfOTIg/MDAxNTIyMjg3MzM3OTAy.WkiZikYhauL1hnpLWmCUBJvKjr6xnkmzP99rZPFXVwgg.mNH66A47eL0Mf8G34mPlwBFKP0nZBf2ZJn5D4Rvs8Vwg.PNG/image.png") no-repeat center;
+//     background-size: cover;
+//     background-position: center;
+//     border-radius: 30px;
+//     width: 32px;
+//     height: 32px;
+//     cursor: pointer;
+// `;
+
+const KakaoButton = styled.div`
     cursor: pointer;
+    width: 100%;
+    height: 45px;
+    background-color: #FEE500;
+    color: #000000;
+    border-radius: 12px;
+    background-image: url('kakao_login_large_wide.png');
+    background-size: cover;
 `;
 
-const Kakao = styled.div`
-    background: url("https://m.gelatofactory.co.kr/web/upload/img/m/ico-kakao.png") no-repeat center;
-    background-size: cover;
-    background-position: center;
-    border-radius: 30px;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-`;
+// const Kakao = styled.div`
+//     background: url("https://m.gelatofactory.co.kr/web/upload/img/m/ico-kakao.png") no-repeat center;
+//     background-size: cover;
+//     background-position: center;
+//     border-radius: 30px;
+//     width: 32px;
+//     height: 32px;
+//     cursor: pointer;
+// `;
 
-const Google = styled.div`
-    background: url("https://littledeep.com/wp-content/uploads/2020/09/google-icon-styl.png") no-repeat center;
-    background-size: cover;
-    background-position: center;
-    border-radius: 30px;
-    width: 32px;
-    height: 32px;
-    cursor: pointer;
-`;
+// const Google = styled.div`
+//     background: url("https://littledeep.com/wp-content/uploads/2020/09/google-icon-styl.png") no-repeat center;
+//     background-size: cover;
+//     background-position: center;
+//     border-radius: 30px;
+//     width: 32px;
+//     height: 32px;
+//     cursor: pointer;
+// `;
 
 const Check = styled.div`
     // border: 1px solid rgba(204, 204, 204, 0.5);
