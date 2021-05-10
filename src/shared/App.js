@@ -11,7 +11,7 @@ import NotFound from "shared/NotFound";
 import Header from "components/Header";
 import Footer from "components/Footer";
 import My from 'pages/My';
-import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, Mypage, Chat } from "pages/";
+import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, Mypage, Chat, CategoryResult  } from "pages/";
 
 const App = (props) => {
   const dispatch = useDispatch();
@@ -37,9 +37,9 @@ const App = (props) => {
               <Route path="/agreement" exact component={Agreement} />
               <Route path="/product" exact component={Product} />
               <Route path="/productupload" exact component={ProductUpload} />
-              
               <Route path="/mypage" exact component={Mypage} />
               <Route path="/result" exact component={Result} />
+              <Route path='/category' exact component={CategoryResult} />
               <Route path='/chat/:otherId/:myId/:otherName' exact component={Chat} />
               <Route path='/my' component={My}/>
               <Route component={NotFound} />

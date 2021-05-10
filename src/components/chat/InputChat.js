@@ -53,7 +53,7 @@ const ChatInput = ({ room }) => {
     }
 
     const time = new Date();
-    console.log(time);
+    // console.log(time);
     // 채팅 전송
     chatActions.socket.emit('send', {
       room: Info.room,

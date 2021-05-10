@@ -6,102 +6,39 @@ import { Color } from "shared/DesignSys";
 const Input = (props) => {
   // adorment는 input 오른쪽에 "원"
   // plcholder는 placeholder
-  const { output, width, margin, adornment, plcholder, num, children, value, onChange } = props;
-  const styles = { width: width, margin: margin, num: num, output: output };
+  const { output, width, margin, adornment, plcholder, num, children, value, _onChange } = props;
+  const styles = { onChange: _onChange, width: width, margin: margin, num: num, output: output };
   const inputEl = useRef();
   const [blur, setBlur] = useState(false);
   const [inputContent, setContent] = useState();
+
   if (output) {
     return (
-      <>
-        {adornment ? (
-          <InputBox
-            {...styles}
-            onClick={() => {
-              inputEl.current.focus();
-            }}
-          >
-            <input
-              ouput={output}
-              ref={inputEl}
-              placeholder={plcholder}
-              value={value}
-              onChange={onChange}
-              onFocus={() => setBlur(!blur)}
-              onBlur={() => setBlur(false)}
-            >
-              {children}
-            </input>
-            <span>{adornment}</span>
-          </InputBox>
-        ) : (
-          <InputBox
-            {...styles}
-            onClick={() => {
-              inputEl.current.focus();
-            }}
-          >
-            <input
-              ouput={output}
-              ref={inputEl}
-              placeholder={plcholder}
-              value={value}
-              onChange={onChange}
-              onFocus={() => setBlur(!blur)}
-              onBlur={() => setBlur(false)}
-            >
-              {children}
-            </input>
-          </InputBox>
-        )}
-      </>
+      <InputBox
+        {...styles}
+        onClick={() => {
+          inputEl.current.focus();
+        }}
+      >
+        <input
+          ouput={output}
+          ref={inputEl}
+          placeholder={plcholder}
+          value={value}
+          onChange={_onChange}
+          onFocus={() => setBlur(!blur)}
+          onBlur={() => setBlur(false)}
+        >
+          {children}
+        </input>
+        {adornment && <span>{adornment}</span>}
+      </InputBox>
     );
   }
 
   return (
     <>
-      {adornment ? (
-        blur ? (
-          <InputBox
-            {...styles}
-            focused
-            onClick={() => {
-              inputEl.current.focus();
-            }}
-          >
-            <input
-              ref={inputEl}
-              placeholder={plcholder}
-              value={value}
-              onChange={onChange}
-              onFocus={() => setBlur(!blur)}
-              onBlur={() => setBlur(false)}
-            >
-              {children}
-            </input>
-            <span>{adornment}</span>
-          </InputBox>
-        ) : (
-          <InputBox
-            {...styles}
-            onClick={() => {
-              inputEl.current.focus();
-            }}
-          >
-            <input
-              ref={inputEl}
-              placeholder={plcholder}
-              value={value}
-              onChange={onChange}
-              onFocus={() => setBlur(!blur)}
-              onBlur={() => setBlur(false)}
-            >
-              {children}
-            </input>
-            <span>{adornment}</span>
-          </InputBox>
-        )
-      ) : blur ? (
+      {blur ? (
         <InputBox
           {...styles}
           focused
@@ -109,9 +46,17 @@ const Input = (props) => {
             inputEl.current.focus();
           }}
         >
-          <input ref={inputEl} placeholder={plcholder} value={value} onChange={onChange} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
+          <input
+            ref={inputEl}
+            placeholder={plcholder}
+            value={value}
+            onChange={_onChange}
+            onFocus={() => setBlur(!blur)}
+            onBlur={() => setBlur(false)}
+          >
             {children}
           </input>
+          <span>{adornment}</span>
         </InputBox>
       ) : (
         <InputBox
@@ -120,13 +65,25 @@ const Input = (props) => {
             inputEl.current.focus();
           }}
         >
-          <input ref={inputEl} placeholder={plcholder} value={value} onChange={onChange} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
+          <input
+            ref={inputEl}
+            placeholder={plcholder}
+            value={value}
+            onChange={_onChange}
+            onFocus={() => setBlur(!blur)}
+            onBlur={() => setBlur(false)}
+          >
             {children}
           </input>
+          <span>{adornment}</span>
         </InputBox>
       )}
     </>
   );
+};
+
+Input.defaultProps = {
+  _onChange: () => {},
 };
 
 const InputBox = styled.div`

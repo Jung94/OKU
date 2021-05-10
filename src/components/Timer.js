@@ -8,12 +8,14 @@ import "moment/locale/ko";
 
 import { Grid } from "elements/";
 import { Color } from "shared/DesignSys";
+import { de } from "date-fns/locale";
 
 const Timer = (props) => {
   // day : '~일'
   // hms : '시:분:초'
-  const { day, hms, all, timeProgress, deadLine, createAt, purple, white } = props;
+  const { day, hms, all, timeProgress, deadLine, createAt, onSale, purple, white } = props;
   const colors = { purple: purple, white: white };
+  // console.log("🕒", onSale);
 
   // Date.now() 내장함수
   const [seconds, setSeconds] = useState(Date.now());
@@ -25,6 +27,7 @@ const Timer = (props) => {
 
   // data 받기
   const _deadline = deadLine; // 데이터 GET하면 받을 준비
+  const _createdAt = createAt; // 데이터 GET하면 받을 준비
   const deadline = moment(_deadline); // 데드라인
   const timeNow = moment(seconds); // 현재
 
@@ -36,9 +39,9 @@ const Timer = (props) => {
   const m_duration = moment.duration(deadline.diff(timeNow)).format("m");
   const s_duration = moment.duration(deadline.diff(timeNow)).format("s");
 
-  const fixedDuration = moment.duration(deadline.diff(createAt)).format("s");
-  const _progress = moment.duration(timeNow.diff(createAt)).format("s");
-  const prg = _progress.valueOf();
+  // 사실 moment()이거나 Date.parse나 같은거같음..
+  const bar = Math.floor(((Date.now() - Date.parse(_createdAt)) / (Date.parse(_deadline) - Date.parse(_createdAt))) * 100);
+  // console.log("🕒progress...: ", bar);
 
   if (day) {
     return <>{deadline - timeNow > 0 ? <TimerWrap {...colors}>D-{day_duration}</TimerWrap> : <div>경매 종료</div>}</>;
@@ -49,20 +52,30 @@ const Timer = (props) => {
   }
 
   if (all) {
-    return <>{deadline - timeNow > 0 ? <TimerWrap {...colors}>D-{duration}</TimerWrap> : <div>경매 종료</div>}</>;
+    return (
+      <>
+        {onSale && deadline - timeNow > 0 ? (
+          <TimerWrap {...colors}>
+            {day_duration > 0 && "D-"}
+            {duration}
+          </TimerWrap>
+        ) : (
+          <div>경매 종료</div>
+        )}
+      </>
+    );
   }
 
   if (timeProgress) {
     return (
       <>
-        {deadline - timeNow > 0 ? (
-          <>
-            <ProgressBar {...colors} flexGrow={prg}>
-              {prg}
-            </ProgressBar>
-          </>
+        {onSale && deadline - timeNow > 0 ? (
+          <Bar>
+            <ProgressBar color={Color.Primary} bar={bar} roundPrimary={5} />
+            <ProgressBar color={Color.Light_3} bar={100 - bar} roundLight={5} />
+          </Bar>
         ) : (
-          <div>경매 종료</div>
+          ""
         )}
       </>
     );
@@ -76,29 +89,32 @@ const TimerWrap = styled.div`
   height: 100%;
   font-weight: 700;
   color: ${(props) => (props.purple ? Color.Primary : props.white ? "#ffffff" : false)};
-  letter-spacing: 2px;
+  letter-spacing: 1px;
+  word-spacing: 15px;
 `;
 
 const ProgressBar = styled.div`
-  width: 100%;
-  height: 10px;
-  border-radius: 5rem;
-  background-color: ${Color.Primary};
+  padding: 0;
+  box-sizing: border-box;
+  ${(props) => (props.bar ? `width:${props.bar}%;` : "")}
+  display:flex;
+  text-align: center;
+  flex-direction: row;
+  height: 3px;
+  background-color: ${(props) => (props.color ? `${props.color};` : "")};
   font-weight: 700;
   color: ${(props) => (props.purple ? Color.Primary : props.white ? "#ffffff" : false)};
   letter-spacing: 2px;
-  /* flex-grow: ${(props) => props.flexGrow}; */
+  ${(props) => (props.roundPrimary ? `border-top-left-radius:${props.roundPrimary}rem;border-bottom-left-radius:${props.roundPrimary}rem;` : "")}
+  ${(props) => (props.roundLight ? `border-top-right-radius:${props.roundLight}rem;border-bottom-right-radius:${props.roundLight}rem;` : "")}
 `;
 
 const Bar = styled.div`
+  padding: 0;
+  box-sizing: border-box;
   width: 100%;
-  height: 10px;
-  border-radius: 5rem;
-  background-color: black;
-  font-weight: 700;
-  color: ${(props) => (props.purple ? Color.Primary : props.white ? "#ffffff" : false)};
-  letter-spacing: 2px;
-  flex-grow: ${(props) => props.flexGrow};
+  display: flex;
+  text-align: center;
 `;
 
 export default Timer;

@@ -48,7 +48,6 @@ const getLikeAPI = () => {
           console.log(likeResult);
           dispatch(loading(false));
         } else {
-          console.log(res.result);
           dispatch(loading(false));
         }
       })

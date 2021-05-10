@@ -29,10 +29,10 @@ const ProductUpload = React.memo((props) => {
     console.log(e.target.files);
     console.log(fileInput.current.files);
 
-    if (e.target.files) {
-      const fileInputArray = Array.from(e.target.files).map((f) => URL.createObjectURL(f));
-      console.log(fileInputArray);
-    }
+    // if (e.target.files) {
+    //   const fileInputArray = Array.from(e.target.files).map((f) => URL.createObjectURL(f));
+    //   console.log(fileInputArray);
+    // }
 
     // iterable 객체 안에 들어있는 파일
     console.log(fileInput.current.files[0]);
@@ -168,15 +168,28 @@ const ProductUpload = React.memo((props) => {
       window.alert("파일을 선택해주세요!");
       return;
     }
-    const imageArray = [];
-    if (fileInput.current.files[0]) {
-      fileInput.current.files.forEach((f) => {
-        imageArray.push({ ...f });
-      });
-    }
+    // const imageArray = [];
+    // if (fileInput.current.files[0]) {
+    //   fileInput.current.files.forEach((f) => {
+    //     imageArray.push({ ...f });
+    //   });
+    // }
     // const imageArray = [fileInput.current.files[0], fileInput.current.files[1], fileInput.current.files[2]];
     dispatch(
-      uploadActions.addPostAPI(imageArray, title, cateBig, cateSmall, region, productState, deadline, lowbid, sucbid, delivery, productDesc, tags)
+      uploadActions.addPostAPI(
+        fileInput.current.files[0],
+        title,
+        cateBig,
+        cateSmall,
+        region,
+        productState,
+        deadline,
+        lowbid,
+        sucbid,
+        delivery,
+        productDesc,
+        tags
+      )
     );
   };
 

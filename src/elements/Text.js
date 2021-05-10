@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { Color } from "shared/DesignSys";
 
 const Text = (props) => {
-  const { children, onClick, color, size, flexGrow, marginB, marginT, textAlign, h1, h2, h3, h4, body, subBody, price } = props;
-  const styles = { flexGrow: flexGrow, marginB: marginB, marginT: marginT, textAlign: textAlign };
+  const { children, onClick, color, size, flexGrow, marginB, marginT, textAlign, lineHeight, h1, h2, h3, h4, body, subBody, price, won } = props;
+  const styles = { color: color, flexGrow: flexGrow, marginB: marginB, marginT: marginT, textAlign: textAlign, lineHeight: lineHeight };
 
   // h1, h2, h3, SubHeading(h4) 디자인 시스템에 맞춘 폰트
   // h1 : 메인배너
@@ -24,7 +24,7 @@ const Text = (props) => {
       </TextBox>
     );
   }
-  // h3 : 상세페이지 카테고리 제목 / 버튼 폰트 크기와 동일
+  // h3 : 상세페이지 카테고리 제목 / 버튼 폰트 크기와 동일 - 20px
   if (h3) {
     return (
       <TextBox size="20px" bold onClick={onClick} {...styles}>
@@ -32,7 +32,7 @@ const Text = (props) => {
       </TextBox>
     );
   }
-  // sub h4: 가격명
+  // sub h4: 가격명 - 16px
   if (h4) {
     return (
       <TextBox size="16px" onClick={onClick} {...styles}>
@@ -61,22 +61,27 @@ const Text = (props) => {
   // 가격, 디자인 시스템에는 따로 없으나 코드에서 따로 뺌
   if (price) {
     return (
-      <TextBox size="20px" onClick={onClick} {...styles}>
+      <TextBox size="38px" bold onClick={onClick} {...styles}>
         {children}
       </TextBox>
     );
+  }
+  // 원
+  if (won) {
+    return <SpanBox {...styles}>{children}</SpanBox>;
   }
 };
 
 // body 기준 default임
 Text.defaultprops = {
-  color: false,
+  color: "black",
   size: "14px",
   weight: "400",
   flexGrow: false,
   marginB: false,
   marginT: false,
   textAlign: "left",
+  lineHeight: "100%",
   children: "",
   onClick: () => {},
 };
@@ -93,11 +98,16 @@ const TextBox = styled.div`
 
   font-size: ${(props) => (props.size ? props.size : "")};
   font-weight: ${(props) => (props.bold ? "700" : props.light ? "300" : "")};
-  line-height: ${(props) => (props.flexGrow ? props.flexGrow : "")};
+  line-height: ${(props) => (props.lineHeight ? props.lineHeight : "")};
   ${(props) => (props.textAlign ? `text-align:${props.textAlign};` : "")}
 
   word-spacing:-1.5px;
   letter-spacing: 0.25px;
+`;
+
+const SpanBox = styled.span`
+  font-size: 20px;
+  margin-left: 5px;
 `;
 
 export default Text;

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle as fasClose } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from "elements/";
 import { Bid } from "components/";
@@ -63,14 +65,13 @@ const Modal = (props) => {
 const ModalWrap = styled.div`
   display: flex;
 
-  backdrop-filter: blur(2px);
-  backdrop-filter: grayscale(10%);
+  backdrop-filter: blur(5px);
 
   align-items: center;
   justify-content: space-evenly;
-  background-color: #eeeee333;
+  background-color: rgba(0, 0, 0, 0.52);
   position: fixed;
-  z-index: 999;
+  z-index: 999999;
   top: 0;
   left: 0;
   right: 0;
@@ -111,7 +112,6 @@ const ModalWrap = styled.div`
 const Screen = styled.div`
   display: flex;
   position: fixed;
-  background-color: #00000033;
   z-index: 99;
   width: 100%;
   height: 100%;

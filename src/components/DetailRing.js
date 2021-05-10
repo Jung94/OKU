@@ -1,31 +1,77 @@
 import React, {useState} from "react";
 import styled from "styled-components";
 
-import {Badge} from "@material-ui/core";
 import List from "images/list.png";
 
 
 const DetailRing = (props) => {
 
     const [Ringshowing, setRingShowing] = useState(false);
+    // const [Boxshowing, setBoxShowing] = useState(false);
     const RingDetailShowing = () => setRingShowing(!Ringshowing);
 
-    const [is_read, setIsRead] = React.useState(true);
+    // const ShowBox = () => setBoxShowing(true);
 
+    // const HideBox = () => setBoxShowing(false)
 
 
 if (Ringshowing) {
     return (
-    <div>
+    <>
         {/* <Badge color="#" variant="dot" invisible={is_read}/> */}
         <NotiBadge onClick={RingDetailShowing}  src={List}></NotiBadge>
         
         <RingDetail>
-            <p><span style={{color :"red"}}>3분전</span> 최용현님과 채팅이 연결되었습니다. <br/> <a href="#">채팅하러가기</a></p>
-            <hr/>
-            <p><span style={{color :"red"}}>5분전</span> 최용현님과 거래성사 되었습니다.</p>
+        <Contents>
+            <Box>
+            <AlertTitle>
+                <TitleLeft>
+                    낙찰성사
+                </TitleLeft>
+                <TitleRight>
+                    1분전
+                </TitleRight>
+            </AlertTitle>
+            <AlertCotents>
+                    '손오공 드래곤볼'의 낙찰이 성사되었습니다.
+            </AlertCotents>
+            </Box>
+            <Line/>
+            <Box>
+            <AlertTitle>
+                <TitleLeft>
+                    입찰실패
+                </TitleLeft>
+                <TitleRight>
+                    10분전
+                </TitleRight>
+            </AlertTitle>
+            <AlertCotents>
+                    '손오공 드래곤볼'의 입찰이 실패하였습니다.
+            </AlertCotents>
+            </Box>
+            <Line/>
+            <Box>
+            <AlertTitle>
+                <TitleLeft>
+                    거래연결
+                </TitleLeft>
+                <TitleRight>
+                    10분전
+                </TitleRight>
+            </AlertTitle>
+            <AlertCotents>
+                    '손오공 드래곤볼'의 거래를 진행해주세요.
+            </AlertCotents>
+            <Chatting>
+            <p style={{fontSize:"12px"}}> 거래 채팅 진행하기</p>
+            </Chatting>
+            </Box>
+            <Line/>
+            </Contents>
         </RingDetail>
-    </div>
+        
+    </>
     );
 } 
 else {
@@ -41,13 +87,52 @@ z-index: 10;
 position : absolute;
 width  : 300px;
 box-sizing : border-box;
-background-color : #eee;
-text-align : left;
+background-color : #ffffff;
+border-radius : 0 0 15px 15px;
+box-shadow: 0 1.5px 5px 0 rgba(129, 129, 129, 0.16);
+margin : 24px 0 ;
+`;
+const Box = styled.div`
+margin : 9.2px 29px 9.2px 15px;
+cursor : Default;
+`;
+const Contents = styled.div`
+margin : 26px 0 103.6px 0;
 `;
 
 const NotiBadge = styled.img`
 
 `;
+const AlertTitle = styled.div`
+display: flex;
+justify-content : space-between;
 
+`;
+
+const TitleLeft = styled.span`
+color : #ae00ff;
+font-size : 14px; 
+
+`;
+const TitleRight = styled.span`
+color : #cacaca;
+font-size : 12px;
+`;
+const AlertCotents =styled.div`
+color : #707070;
+font-size : 14px;
+`;
+const Chatting =styled.button`
+width : 217.8px;
+height : 25px;
+border-radius : 7px;
+color : #ffffff;
+background : #ae00ff;
+border : 1px solid #ae00ff;
+cursor : pointer;
+`;
+const Line = styled.hr`
+border : 1px solid #c0c0c0;;
+`;
 
 export default DetailRing;

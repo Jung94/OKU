@@ -26,4 +26,9 @@ export const input_priceComma = (price) => {
   return price.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
-export const KAKAO_JS_ID = 'a6634d55e2a844f3e6e440e3d6fca337';
+//가격 콤마 정규식(input)
+export const stringTo = (price) => {
+  return price.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+};
+
+export const KAKAO_JS_ID = "a6634d55e2a844f3e6e440e3d6fca337";

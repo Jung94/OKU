@@ -26,23 +26,23 @@ const Slider = (props) => {
               return <Carousel key={idx} img={i} alt="상품 이미지" />;
             })}
         </Slide>
-        {/* 순서 버튼 (radio button) */}
-        <BtnBox sliderFigure={sliderFigure}>
-          {imgList &&
-            imgList.map((i, idx) => {
-              return (
-                <BtnLabel key={idx}>
-                  <Btn
-                    type="radio"
-                    onClick={() => {
-                      setSliding(idx * 200);
-                    }}
-                  ></Btn>
-                </BtnLabel>
-              );
-            })}
-        </BtnBox>
       </Slides>
+      {/* 순서 버튼 (radio button) */}
+      <BtnBox sliderFigure={sliderFigure}>
+        {imgList &&
+          imgList.map((i, idx) => {
+            return (
+              <BtnLabel key={idx}>
+                <Btn
+                  type="radio"
+                  onClick={() => {
+                    setSliding(idx * 200);
+                  }}
+                ></Btn>
+              </BtnLabel>
+            );
+          })}
+      </BtnBox>
       {/* 방향키 */}
       {imgList && imgList.length && (
         <ArrBox>
@@ -78,18 +78,18 @@ const SliderWrap = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 32px;
+  box-sizing: border-box;
 `;
 
 const Slides = styled.div`
   display: flex;
   justify-content: space-evenly;
-  height: 35em;
+  height: 100%;
 `;
 
 const Slide = styled.div`
   display: flexbox;
-  height: 35em;
 
   width: 100%;
   transition: 700ms ease;
@@ -101,21 +101,29 @@ const Carousel = styled.div`
   background: ${(props) => `url(${props.img})`};
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   width: 100%;
-  transition: 700ms ease;
+  height: 100%;
+  transition: transform 700ms ease;
+  /* :hover {
+    transform: scale(1.2);
+  } */
 `;
 
 const BtnBox = styled.div`
+  z-index: 10;
+  margin-top: -40px;
+  height: 0;
   display: flex;
-  position: absolute;
-  height: inherit;
-  width: inherit;
+  /* 다음 두줄이 핵심 */
+  align-items: center;
+  justify-content: center;
   ${(props) =>
     props.sliderFigure === 0
       ? `& > label:nth-child(1) {background-color: ${Color.Primary};}`
       : props.sliderFigure === 200
       ? `& > label:nth-child(2) {background-color: ${Color.Primary};}`
-      : `& > label:nth-child(3) {background-color: ${Color.Primary};}`}
+      : `& > label:nth-child(3) {background-color: ${Color.Primary};}`};
 `;
 
 const Btn = styled.input`

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect }   from 'react';
 import styled from "styled-components";
 
+import { actionCreators as postActions } from "redux/modules/post";
+import { useDispatch, useSelector } from "react-redux";
 
 import T_5 from "images/T_5.jpeg"
 import T_6 from "images/T_6.jpeg"
@@ -13,81 +15,54 @@ const Post = (props) => {
         img,
         currentprice,
         desc
-
     } = props;
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(postActions.getRecommendProductAPI());
+    }, []);
+    const _recommend_product = useSelector((state) => state.post.recommend_product);
     return (
         <Wrap>
             <Head>
-            <p style={{ fontSize: "45px", fontWeight:"bold"}}>덕후 MD가 <span style={{color : "#AE27FF"}}>추천하는 굿즈 </span></p>
+            <p style={{ fontSize: "45px", fontWeight:"bold"}}>관심가는 물건을 추천해주는 MD,  <span style={{color : "#AE27FF"}}>제법 젠틀해요 </span></p>
             <p style={{marginTop:"41px", color:"#c0c0c0",fontSize: "16px", cursor:"pointer"}}>더보기</p>
             </Head>
             <Grid>
-                <Cards>
+                {_recommend_product ?
+                <div style={{margin:"100px auto", color :"#c0c0c0 ", fontSize:"20px"}}>
+                MD 추천상품이 없습니다
+                </div>  : 
+                _recommend_product && _recommend_product.map((l, idx) => {
+                    return(
+                    <Cards key={idx}>
                         <Information>
                         <Image>
-                            <img src={T_5} />
+                            <img src={l.img} />
                         <Dibs>
                         </Dibs>
                         </Image>
 
                         <Desc>
                         <Title>
-                            프라이탁프라이탁프라이탁입니다
+                            {l.title}
                         </Title>
                         {/* <Deadline>
                             경매마감까지 00 : 57 : 30 초 남았습니다
                         </Deadline> */}
                         <Currentprice>
-                            198,000원
+                            {l.currentprice}
                         </Currentprice>
+                        <Sucbid>
+                                {l.sucBid}원
+                            </Sucbid>
                         
                         </Desc>
                         </Information>
-                </Cards>
-                <Cards>
-                        <Information>
-                        <Image>
-                            <img src={T_6} />
-                        <Dibs>
-                        </Dibs>
-                        </Image>
-
-                        <Desc>
-                        <Title>
-                            프라이탁
-                        </Title>
-                        {/* <Deadline>
-                            경매마감까지 00 : 57 : 30 초 남았습니다
-                        </Deadline> */}
-                        <Currentprice>
-                            198,000원
-                        </Currentprice>
-                        
-                        </Desc>
-                        </Information>
-                </Cards>
-                <Cards>
-                        <Information>
-                        <Image>
-                            <img src={T_7} />
-                        <Dibs>
-                        </Dibs>
-                        </Image>
-
-                        <Desc>
-                        <Title>
-                            프라이탁
-                        </Title>
-                        {/* <Deadline>
-                            경매마감까지 00 : 57 : 30 초 남았습니다
-                        </Deadline> */}
-                        <Currentprice>
-                            198,000원
-                        </Currentprice>
-                        
-                        </Desc>
-                        </Information>
-                </Cards>
+                    </Cards>
+                )
+                })}
             </Grid>                
         </Wrap>
     )
@@ -165,6 +140,9 @@ text-align : left;
 box-sizing : border-box;
 margin :13px 0 0 0;
 
+`;
+const Sucbid = styled.div`
+margin : 0 142px 21px 25px;
 `;
 
 

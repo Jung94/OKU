@@ -1,37 +1,43 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useCallback, useState } from "react";
+import { useDispatch } from "react-redux";
+
 import styled from "styled-components";
 import { Grid, Input, Line, Button, Text, Profile } from "elements/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle as fasQC, faHeart as fasHeart, faPen as fasPen } from "@fortawesome/free-solid-svg-icons";
+
+import moment from "moment";
+import "moment/locale/ko";
+
 import { actionCreators as productActions } from "redux/modules/product";
 
 const QnA = (props) => {
   const dispatch = useDispatch();
-  console.log("🟣", props);
-  const { _userId, contents, date, _id, nickname } = props;
+  // console.log("🔘QnA", props);
+  const { buyernickname, buyerprofile, sellernickname, contents, answer, createdAt, updatedAt, productId, sellerId, _id } = props;
+
+  const [_answer, setAnswer] = useState("");
+  const onChangeContents = useCallback((e) => setAnswer(e.target.value), []);
+
+  const addAnswer = () => {
+    dispatch(productActions.addAnswerAPI(_id, _answer, sellerId, Date.now()));
+  };
 
   const [openPost, setOpen] = useState(false);
 
   // if (_qna_list) {
   return (
     <>
-      {/* qna등록 */}
-      <QnAPost>
-        <Profile></Profile>
-        <Input width="80%" margin="0 1% 0 0"></Input>
-        <Button>등록</Button>
-      </QnAPost>
       {/* qna리스트 시작 */}
       <QnAWrap>
         <Grid is_flex>
-          <Profile></Profile>
+          <Profile img={buyerprofile}></Profile>
           <div style={{ flexGrow: "1" }}>
             <Grid is_flex justify="space-between">
               <Text h3 weight="600">
-                {_userId}
+                {buyernickname}
               </Text>
-              <Text subBody>{date}</Text>
+              <Text subBody>{moment(createdAt).fromNow()}</Text>
             </Grid>
             <Grid is_flex textAlign="left">
               {contents}
@@ -51,25 +57,29 @@ const QnA = (props) => {
           답글
         </OpenPostBtn>
         <Line bottom />
+        {/* {sellerId} */}
         {openPost && (
           <QnAWrap openPost>
             <Grid is_flex>
-              <Profile></Profile>
               <div style={{ flexGrow: "2" }}>
                 <Grid is_flex justify="space-between">
-                  <p style={{ fontWeight: "bold" }}></p>
-                  <Text subBody>2분전</Text>
+                  <p style={{ fontWeight: "bold" }}>{sellernickname}</p>
+                  <Text subBody>{answer && answer !== " " && moment(updatedAt).fromNow()}</Text>
                 </Grid>
                 <Grid is_flex textAlign="left">
-                  최상급 풀박 패키지에요 놓치면 후회함
+                  {answer}
                 </Grid>
               </div>
             </Grid>
 
             <QnAPost openPost>
-              <Profile></Profile>
-              <Input width="80%" margin="0 1% 0 0"></Input>
-              <Button>등록</Button>
+              <Input
+                plcholder="답변을 작성해주세요! 가장 마지막에 남긴 글만 등록됩니다."
+                width="80%"
+                margin="0 1% 0 0"
+                _onChange={onChangeContents}
+              ></Input>
+              <Button _onClick={addAnswer}>등록</Button>
             </QnAPost>
 
             <Line bottom />
@@ -81,7 +91,11 @@ const QnA = (props) => {
   // }
 };
 
-QnA.defaultProps = {};
+QnA.defaultProps = {
+  buyerprofile: false,
+  answer: false,
+  updatedAt: false,
+};
 
 // QNA
 const QnAWrap = styled.div`

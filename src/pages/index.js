@@ -14,4 +14,6 @@ import Mypage from "./Mypage";
 
 import Chat from "./Chat";
 
-export { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, Mypage, Chat };
+import CategoryResult from './CategoryResult'
+
+export { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, Mypage, Chat, CategoryResult };

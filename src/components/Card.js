@@ -22,19 +22,17 @@ const Card = (props) => {
     dispatch(postActions.getRecentProductsAPI());
   }, []);
   const _recent_product = useSelector((state) => state.post.recent_product);
-  console.log(_recent_product)
 
   const { title, img, currentprice, desc } = props;
 
   return (
     <Wrap>
       <Head>
-      <p style={{ fontSize: "45px", fontWeight:"bold"}}> 방금 등록됐다능~! <span style={{color : "#AE27FF"}}>최신상품</span></p>
+      <p style={{ fontSize: "45px", fontWeight:"bold"}}>방금 등록된 굿즈 <span style={{color : "#AE27FF"}}> 어서오고~</span></p>
       </Head>
       <Grid>
         <Cards>
         {_recent_product.map((j, index) => {
-          console.log(_recent_product)
                 return (
                   <Information key={index}>
                     <Image>
@@ -77,6 +75,7 @@ justify-content : space-between;
 
 const Grid = styled.div`
 display : flex;
+margin : 45px 0 0 0;
 `;
 const Cards = styled.div`
 display: grid;
