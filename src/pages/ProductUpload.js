@@ -1,12 +1,14 @@
-import React, { useRef, createRef, useCallback, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import { Button } from "elements/";
+import { Grid, Input, Line, Button, Tag, Text, Profile } from "elements/";
 import Select from "react-select";
-import { history } from "redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as uploadActions } from "redux/modules/upload";
 import { input_priceComma } from "shared/common";
 import { Upload } from "components/";
+
+import { Color } from "shared/DesignSys";
+import { MainCT, D2CT, D3CT, D4CT } from "shared/Category";
 
 import DaumPostcode from "react-daum-postcode";
 
@@ -14,15 +16,12 @@ import DaumPostcode from "react-daum-postcode";
 const ProductUpload = React.memo((props) => {
   const dispatch = useDispatch();
 
-  const fileInput = useRef();
-  const postalAddressInfo = useRef();
-  const addressInfo = useRef();
-  const detailAddressInfo = useRef();
-
-  const progress = useSelector((state) => state.upload.progress);
   const preview = useSelector((state) => state.upload.preview_image);
 
-  //   preview 설정
+  const fileInput = useRef();
+
+  const progress = useSelector((state) => state.upload.progress);
+
   const handleChange = (e) => {
     // e.target => input : input이 가진 files 객체를 살펴보기
     // 두 줄이 같다.
@@ -46,44 +45,9 @@ const ProductUpload = React.memo((props) => {
       dispatch(uploadActions.setPreview([reader.result]));
     };
   };
-
-  const MainCT = [
-    { value: "2D", label: "2D" },
-    { value: "3D", label: "3D" },
-  ];
-  const D2CT = [
-    { value: "인형", label: "인형" },
-    { value: "키링/스트랩/아크릴", label: "키링/스트랩/아크릴" },
-    { value: "포토카드", label: "포토카드" },
-    { value: "포스터", label: "포스터" },
-    { value: "문구/데스크 용품", label: "문구/데스크 용품" },
-    { value: "액세서리", label: "액세서리" },
-    { value: "뷰티제품", label: "뷰티제품" },
-    { value: "CD", label: "CD" },
-    { value: "서적", label: "서적" },
-    { value: "비공식굿즈", label: "비공식굿즈" },
-    { value: "기타", label: "기타" },
-  ];
-  const D3CT = [
-    { value: "피규어", label: "피규어" },
-    { value: "인형", label: "인형" },
-    { value: "키링/스트랩/아크릴", label: "키링/스트랩/아크릴" },
-    { value: "포스터/태피스트리", label: "포스터/태피스트리" },
-    { value: "문구/데스크 용품", label: "문구/데스크 용품" },
-    { value: "액세서리", label: "액세서리" },
-    { value: "CD/블루레이", label: "CD/블루레이" },
-    { value: "비공식굿즈", label: "비공식굿즈" },
-    { value: "기타", label: "기타" },
-  ];
-  const D4CT = [
-    { value: "10800000", label: "3시간" },
-    { value: "21600000", label: "6시간" },
-    { value: "43200000", label: "12시간" },
-    { value: "86400000", label: "1일" },
-    { value: "259200000", label: "3일" },
-    { value: "604800000", label: "7일" },
-    { value: "1209600000", label: "14일" },
-  ];
+  const postalAddressInfo = useRef();
+  const addressInfo = useRef();
+  const detailAddressInfo = useRef();
 
   const [title, setTitle] = useState("");
   const [cateBig, setCateBig] = useState("");
@@ -157,10 +121,6 @@ const ProductUpload = React.memo((props) => {
     setIsPostOpen(false);
   };
 
-  const _payment_info = {
-    userAddress: `${region}`,
-  };
-
   const addPost = () => {
     // console.log(title, cateBig, cateSmall, region);
     // console.log(productState, deadline, lowbid, sucbid, delivery, productDesc, tags);
@@ -194,249 +154,175 @@ const ProductUpload = React.memo((props) => {
   };
 
   return (
-    <Wrap>
-      <Title>상품등록</Title>
+    <UploadWrap>
+      <Grid margin="0 0 35px 0">
+        <Text h2 bold>
+          상품등록
+        </Text>
+      </Grid>
 
-      <Outerbox style={{ borderTop: "1px solid rgba(0, 0, 0, 0.4" }}>
-        <InnerboxL>
-          <p>
-            상품이미지<span style={{ color: "red" }}>*</span>
-          </p>
-        </InnerboxL>
-        <InnerboxR>
-          {preview ? (
-            preview.map((p, idx) => {
-              // console.log(p);
-              return <img key={idx} alt="상품이미지" style={{ width: "300px" }} src={p} />;
-            })
-          ) : (
-            <img alt="상품이미지" style={{ width: "300px" }} src={"http://via.placeholder.com/400x300"} />
-          )}
-          <label for="fileInput" style={{ display: "block", backgroundColor: "red", width: "30px", height: "30px" }}>
-            <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange} disabled={progress} ref={fileInput} multiple />
-          </label>
-        </InnerboxR>
-      </Outerbox>
+      <Grid margin="0 0 35px 0">
+        <Text h3 bold marginB="20px">
+          제목
+        </Text>
+        <Input
+          _onChange={(e) => {
+            setTitle(e.target.value);
+          }}
+          margin="6% auto"
+          adornment="0/25"
+          plcholder="최대 25자 작성 가능합니다."
+        ></Input>
+      </Grid>
 
-      <Outerbox>
-        <InnerboxL>
-          <p>
-            제목<span style={{ color: "red" }}>*</span>
-          </p>
-        </InnerboxL>
-        <InnerboxR style={{ margin: "20px 0 10px" }}>
-          <input
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-            placeholder="상품 제목을 입력해주세요."
-            style={{ width: "500px", height: "44px", fontSize: "16px", padding: "0 0 2px 10px" }}
-          ></input>
-          <a style={{ fontSize: "14px", color: "grey", margin: "10px" }}>0/25</a>
-        </InnerboxR>
-      </Outerbox>
-
-      <Outerbox>
-        <InnerboxL style={{ width: "190px" }}>
-          <p>
-            카테고리<span style={{ color: "red" }}>*</span>
-          </p>
-        </InnerboxL>
-        <InnerboxR style={{ display: "flex", width: "100%", margin: "24px 0 14px" }}>
-          <div style={{ width: "100px", margin: "0 20px 0 0" }}>
+      <Grid margin="0 0 35px 0">
+        <Text h3 bold marginB="20px">
+          카테고리
+        </Text>
+        <Grid is_flex>
+          <div style={{ width: "25%", margin: "0 20px 0 0" }}>
             <Select onChange={handleCateBig} options={MainCT} value={MainCT.find((obj) => obj.value === cateBig)} placeholder="2D / 3D" />
           </div>
-          {/* <div style={{width: "150px", margin: "0"}}>
-              <Select onChange={handleCateSmall} options={cate} value={cate.find(obj => obj.value === cateSmall)} placeholder="상세 분류" />
-            </div> */}
           {cateBig === "3D" && (
-            <React.Fragment>
-              <div style={{ width: "200px", margin: "0" }}>
-                <Select onChange={handleCateSmall} value={D2CT.find((obj) => obj.value === cateSmall)} placeholder="3D 상세 분류" options={D2CT} />
-              </div>
-            </React.Fragment>
+            <div style={{ width: "50%", margin: "0" }}>
+              <Select onChange={handleCateSmall} value={D2CT.find((obj) => obj.value === cateSmall)} placeholder="3D 상세 분류" options={D2CT} />
+            </div>
           )}
           {cateBig === "2D" && (
-            <React.Fragment>
-              <div style={{ width: "200px", margin: "0" }}>
-                <Select onChange={handleCateSmall} value={D3CT.find((obj) => obj.value === cateSmall)} placeholder="2D 상세 분류" options={D3CT} />
-              </div>
-            </React.Fragment>
+            <div style={{ width: "50%", margin: "0" }}>
+              <Select onChange={handleCateSmall} value={D3CT.find((obj) => obj.value === cateSmall)} placeholder="2D 상세 분류" options={D3CT} />
+            </div>
           )}
-        </InnerboxR>
-      </Outerbox>
+        </Grid>
+      </Grid>
 
-      <Outerbox style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.4" }}>
-        <InnerboxL>
-          <p>희망 거래 장소</p>
-        </InnerboxL>
-        <InnerboxR>
-          <div style={{ width: "100%", margin: "29px 0 0" }}>
-            <Button
-              text="주소 검색"
-              _onClick={() => {
-                setIsPostOpen(true);
-              }}
-            >
-              주소 검색
-            </Button>
-            <Button text="지하철 검색">지하철 검색</Button>
-          </div>
-          <div style={{ width: "100%", height: "50px", margin: "0 0 10px" }}>
-            <RegionBox>
-              <RegionInput
-                value={region}
-                onChange={(e) => {
-                  setRegion(e.target.value);
-                }}
-                type="text"
-                placeholder="희망 거래 장소를 입력해주세요."
-              ></RegionInput>
-            </RegionBox>
-          </div>
-        </InnerboxR>
-      </Outerbox>
-
-      <div style={{ marginBottom: "100px" }}></div>
-
-      <Outerbox style={{ borderTop: "1px solid rgba(0, 0, 0, 0.4" }}>
-        <InnerboxL>
-          <p>
-            상품 상태 등급<span style={{ color: "red" }}>*</span>
-          </p>
-        </InnerboxL>
-
-        <InnerboxR>
-          <form
-            onChange={(e) => {
-              setProductState(e.target.value);
+      <Grid margin="0 0 35px 0">
+        <Text h3 bold marginB="20px">
+          희망 거래 장소
+        </Text>
+        <Grid is_flex>
+          <Input
+            value={region}
+            _onChange={(e) => {
+              setRegion(e.target.value);
             }}
-            style={{ display: "flex", justifyContent: "flex-start", gap: "50px", width: "700px", margin: "30px 0 0" }}
-          >
-            <label>
-              <input type="radio" name="state" value="A급" style={{ margin: "0 8px 0 0" }} />
-              A급
-            </label>
-            <label>
-              <input type="radio" name="state" value="B급" style={{ margin: "0 8px 0 0" }} />
-              B급
-            </label>
-            <label>
-              <input type="radio" name="state" value="C급" style={{ margin: "0 8px 0 0" }} />
-              C급
-            </label>
-            <label>
-              <input type="radio" name="state" value="D급" style={{ margin: "0 8px 0 0" }} />
-              D급
-            </label>
-          </form>
-        </InnerboxR>
-      </Outerbox>
+            plcholder="거래를 진행하실 지역을 검색하세요."
+            width="70%"
+            margin="0 10px 0 0"
+            left
+          />
 
-      <Outerbox>
-        <InnerboxL style={{ width: "160px" }}>
-          <p>
-            경매 기간<span style={{ color: "red" }}>*</span>
-          </p>
-        </InnerboxL>
-        <InnerboxR style={{ width: "150px", margin: "23px 0 0" }}>
+          <Button
+            text="주소 검색"
+            _onClick={() => {
+              setIsPostOpen(true);
+            }}
+            margin="0 10px 0 0"
+          />
+          <Button text="지하철 검색" />
+        </Grid>
+      </Grid>
+
+      <Grid margin="0 0 35px 0">
+        <Text h3 bold marginB="20px">
+          상품이미지 (3장을 한번에 선택해주세요.)
+        </Text>
+        <label for="fileInput" style={{ display: "block", backgroundColor: "red", width: "30px", height: "30px" }}>
+          <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange} disabled={progress} ref={fileInput} multiple />
+        </label>
+        {preview &&
+          preview.map((p, idx) => {
+            return <Upload key={idx} {...p} />;
+          })}
+      </Grid>
+
+      <Grid margin="0 0 35px 0">
+        <Text h3 bold marginB="20px">
+          상품 상태 등급
+        </Text>
+        <form
+          onChange={(e) => {
+            setProductState(e.target.value);
+          }}
+          style={{ display: "flex", justifyContent: "space-between", width: "100%" }}
+        >
+          <Input radio name="state" value="A급" desc="포장지 파손 없는 미개봉 제품" />
+          <Input radio name="state" value="B급" desc="개봉되었으나 미전시품" />
+          <Input radio name="state" value="C급" desc="개봉되었고 전시된 제품" />
+          <Input radio name="state" value="D급" desc="포장지가 없고 사용감이 있는 제품" />
+        </form>
+      </Grid>
+
+      <Grid margin="0 0 35px 0">
+        <Text h3 bold marginB="20px">
+          상품 상세 정보
+        </Text>
+
+        <Input
+          text
+          onChange={(e) => {
+            setProductDesc(e.target.value);
+          }}
+          placeholder="상품 설명을 입력해주세요."
+          style={{ padding: "6px 10px", marginTop: "13px", width: "700px", height: "200px", fontSize: "14px" }}
+          rows="10"
+        ></Input>
+      </Grid>
+
+      <Grid margin="0 0 35px 0">
+        <Text h3 bold marginB="20px">
+          상품 연관 태그
+        </Text>
+        <Input
+          _onChange={(e) => {
+            setTags(e.target.value);
+          }}
+          type="text"
+          plcholder="태그는 띄어쓰기로 구분됩니다. ex. 피규어 포스터 카드"
+        />
+      </Grid>
+
+      <Grid dp_flex margin="0 0 35px 0" justify="space-between" gap="30px">
+        <Grid>
+          <Text h3 bold marginB="20px">
+            경매 기간
+          </Text>
           <Select onChange={handleDeadline} value={D4CT.find((obj) => obj.value === deadline)} placeholder="경매 기간" options={D4CT} />
-        </InnerboxR>
-      </Outerbox>
+        </Grid>
 
-      <Outerbox>
-        <InnerboxL>
-          <p>
-            최소입찰가<span style={{ color: "red" }}>*</span>
-          </p>
-        </InnerboxL>
-        <InnerboxR style={{ margin: "20px 0 0" }}>
-          <SignupBox>
-            <SignupInput
-              onChange={handleLowbid}
-              value={lowbidFake}
-              style={{ fontSize: "17px", padding: "2px 6px 0 0", textAlign: "right" }}
-              type="text"
-            />
-            <span>원</span>
-          </SignupBox>
-        </InnerboxR>
-      </Outerbox>
+        <Grid>
+          <Text h3 bold marginB="20px">
+            상품 배송 정보
+          </Text>
 
-      <Outerbox>
-        <InnerboxL>
-          <p>
-            즉시 낙찰가<span style={{ color: "red" }}>*</span>
-          </p>
-        </InnerboxL>
-        <InnerboxR style={{ margin: "20px 0 0" }}>
-          <SignupBox>
-            <SignupInput
-              onChange={handleSucbid}
-              value={sucbidFake}
-              style={{ fontSize: "17px", padding: "2px 6px 0 0", textAlign: "right" }}
-              type="text"
-            />
-            <span>원</span>
-          </SignupBox>
-        </InnerboxR>
-      </Outerbox>
-
-      <Outerbox>
-        <InnerboxL>
-          <p>
-            상품 배송 정보<span style={{ color: "red" }}>*</span>
-          </p>
-        </InnerboxL>
-        <InnerboxR>
-          <form onChange={handleDelivery} style={{ display: "flex", justifyContent: "flex-start", gap: "50px", width: "700px", margin: "30px 0 0" }}>
-            <label>
-              <input type="radio" name="delivery" value="무료 배송(혹은 직거래일 경우)" style={{ margin: "0 8px 0 0" }} />
-              무료 배송(or 직거래일 경우)
-            </label>
-            <label>
-              <input type="radio" name="delivery" value="배송비 별도" style={{ margin: "0 8px 0 0" }} />
-              배송비 별도
-            </label>
+          <form onChange={handleDelivery} style={{ display: "inline-flex", justifyContent: "space-between", gap: "50px" }}>
+            <Input radio name="delivery" value="무료 배송" desc="혹은 직거래일 경우" />
+            <Input radio name="delivery" value="배송비 별도" />
           </form>
-        </InnerboxR>
-      </Outerbox>
+        </Grid>
+      </Grid>
 
-      <Outerbox>
-        <InnerboxL>
-          <p>
-            상품 상세 정보<span style={{ color: "red" }}>*</span>
-          </p>
-        </InnerboxL>
-        <InnerboxR style={{ margin: "21px 0 17px" }}>
-          <textarea
-            onChange={(e) => {
-              setProductDesc(e.target.value);
-            }}
-            placeholder="상품 설명을 입력해주세요."
-            style={{ padding: "6px 10px", marginTop: "13px", width: "700px", height: "200px", fontSize: "14px" }}
-            rows="10"
-          ></textarea>
-        </InnerboxR>
-      </Outerbox>
+      <Grid dp_flex margin="0 0 35px 0" justify="space-between" gap="30px">
+        <Grid>
+          <Text h3 bold marginB="20px">
+            최소입찰가
+          </Text>
 
-      <Outerbox style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.4" }}>
-        <InnerboxL>
-          <p>상품 관련 태그</p>
-        </InnerboxL>
-        <InnerboxR>
-          <input
-            onChange={(e) => {
-              setTags(e.target.value);
-            }}
-            type="text"
-            placeholder="태그는 띄어쓰기로 구분됩니다. ex. 피규어 포스터 카드"
-            style={{ width: "700px", height: "40px", padding: "10px", margin: "22px 0 0", fontSize: "14px" }}
-          ></input>
-        </InnerboxR>
-      </Outerbox>
+          <Input num _onChange={handleLowbid} value={lowbidFake} adornment="원" />
+        </Grid>
 
-      <Button _onClick={addPost}>등록하기</Button>
+        <Grid>
+          <Text h3 bold marginB="20px">
+            즉시 낙찰가
+          </Text>
+
+          <Input num _onChange={handleSucbid} value={sucbidFake} adornment="원" />
+        </Grid>
+      </Grid>
+
+      <Button _onClick={addPost} width="100%" height="70px" margin="0 auto 9% auto">
+        등록하기
+      </Button>
 
       {isPostOpen && (
         <Modal>
@@ -446,18 +332,30 @@ const ProductUpload = React.memo((props) => {
           <ModalBack onClick={() => setIsPostOpen(false)}></ModalBack>
         </Modal>
       )}
-    </Wrap>
+    </UploadWrap>
   );
 });
 
-Upload.defaultProps = {
+ProductUpload.defaultProps = {
   onChange: (img) => {},
 };
+
+const UploadWrap = styled.div`
+  max-width: 1030px;
+  margin: 0 auto;
+  margin-top: 190px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+
+  margin-bottom: 100px;
+
+  text-align: left;
+`;
 
 const Modal = styled.div`
   display: flex;
   align-items: center;
-  animation: modal-bg-show 0.3s;
   position: fixed;
   top: 0;
   right: 0;
@@ -473,8 +371,6 @@ const ModalSection = styled.section`
   margin: 0 auto;
   border-radius: 0.3rem;
   background-color: #fff;
-  /* 팝업이 열릴때 스르륵 열리는 효과 */
-  animation: modal-show 0.3s;
   overflow: hidden;
   z-index: 99;
 `;
@@ -482,7 +378,6 @@ const ModalSection = styled.section`
 const ModalBack = styled.div`
   display: flex;
   align-items: center;
-  animation: modal-bg-show 0.3s;
   position: fixed;
   top: 0;
   right: 0;
@@ -490,112 +385,6 @@ const ModalBack = styled.div`
   left: 0;
   z-index: 96;
   background-color: transparent;
-`;
-
-const RegionBox = styled.div`
-  border-bottom: 1px solid rgba(204, 204, 204, 0.5);
-  width: 90%;
-  height: 40px;
-  margin: 4px 0 15px;
-  padding: 8px 0 0;
-  box-sizing: border-box;
-  overflow: hidden;
-
-  &:focus-within {
-    transition: 0.3s;
-    border-bottom: 1px solid #06afd6;
-  }
-`;
-
-const SignupBox = styled.div`
-  border-bottom: 1px solid rgba(204, 204, 204, 0.5);
-  width: 150px;
-  height: 40px;
-  margin: 0 0 15px;
-  padding: 8px 0 0;
-  box-sizing: border-box;
-  overflow: hidden;
-
-  &:focus-within {
-    transition: 0.3s;
-    border-bottom: 1px solid #06afd6;
-  }
-`;
-
-const RegionInput = styled.input`
-  border: none;
-  background-color: transparent;
-  box-sizing: border-box;
-  letter-spacing: -0.05em;
-  letter-spacing: 1px;
-  overflow: hidden;
-  color: #000;
-  font-size: 16px;
-  outline: none;
-  width: 97%;
-  height: 27px;
-
-  &::placeholder {
-    color: rgba(0, 0, 0, 0.4);
-    font-size: 0.9rem;
-  }
-`;
-
-const SignupInput = styled.input`
-  border: none;
-  background-color: transparent;
-  box-sizing: border-box;
-  letter-spacing: -0.05em;
-  letter-spacing: 0.5px;
-  overflow: hidden;
-  color: #000;
-  font-size: 14px;
-  outline: none;
-  width: 80%;
-
-  &::placeholder {
-    color: rgba(0, 0, 0, 0.4);
-    font-size: 0.8rem;
-  }
-`;
-
-const Wrap = styled.div`
-  // min-width: 1030px;
-  width: 1030px;
-  margin: 0 auto;
-  padding: 50px 0;
-  box-sizing: border-box;
-`;
-
-const Title = styled.h3`
-  font-weight: 500;
-  font-size: 21px;
-  width: 100%;
-  text-align: center;
-  margin: 0 0 40px;
-`;
-
-const Outerbox = styled.div`
-  box-sizing: border-box;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  display: flex;
-`;
-
-const InnerboxL = styled.div`
-  width: 190px;
-  padding: 30px 0 30px 10px;
-  box-sizing: border-box;
-  // border-right: 1px solid rgba(0, 0, 0, 0.1);
-`;
-
-const InnerboxR = styled.div`
-  width: 100%;
-  padding: 0 0 10px;
-  box-sizing: border-box;
-`;
-
-const GridSub = styled.div`
-  margin: 30px 0;
 `;
 
 export default ProductUpload;

@@ -1,25 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 
+import { Color } from "shared/DesignSys";
+
 const Tag = (props) => {
   const { children, top, bottom, margin, color } = props;
   return <TagBlock {...props}>#&thinsp;{children}</TagBlock>;
 };
 
-Tag.defaultProps = {
-  color: "#d2d2d2",
-};
+Tag.defaultProps = {};
 
 const TagBlock = styled.div`
-  background: linear-gradient(45deg, #33313188 30%, #5a565688 90%);
-  border: 1.8px solid #3331311a;
-  color: whitesmoke;
-  font-size: 0.75rem;
-  font-weight: 500;
+  background: ${Color.Tag};
+  color: white;
+  font-size: 14px;
   width: fit-content;
-  padding: 1% 2%;
+  padding: 0.75% 1% 0.75% 1.25%;
   margin: 0.5%;
-  border-radius: 10rem;
+  border-radius: 7px;
   user-select: none;
   cursor: pointer;
 `;

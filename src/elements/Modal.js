@@ -24,7 +24,7 @@ const Modal = (props) => {
   if (bid) {
     return (
       <>
-        <Button {...styles} primaryNoBorder _onClick={openModal} margin="10px 0">
+        <Button {...styles} _onClick={openModal} margin="10px 0">
           입찰표 작성
         </Button>
         {modal ? (
@@ -44,7 +44,7 @@ const Modal = (props) => {
   if (immediateBid) {
     return (
       <>
-        <Button {...styles} primaryNoBorder _onClick={openModal} margin="0 0 0 5px">
+        <Button {...styles} _onClick={openModal} margin="0 0 0 5px">
           즉시 낙찰
         </Button>
         {modal ? (
@@ -65,7 +65,7 @@ const Modal = (props) => {
 const ModalWrap = styled.div`
   display: flex;
 
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(2px);
 
   align-items: center;
   justify-content: space-evenly;
@@ -78,7 +78,7 @@ const ModalWrap = styled.div`
   bottom: 0;
 
   //유보!!!
-  animation: ${(props) => (props.modal ? "modal-show 200ms, modal-bg-show 200ms" : "modal-bg-close 2s")};
+  animation: ${(props) => (props.modal ? "modal-show 200ms, modal-bg-show 200ms" : "modal-bg-close 200ms")};
   @keyframes modal-show {
     from {
       opacity: 0;
@@ -103,8 +103,8 @@ const ModalWrap = styled.div`
       opacity: 1;
     }
     to {
+      margin-top: -50px;
       opacity: 0;
-      display: none;
     }
   }
 `;

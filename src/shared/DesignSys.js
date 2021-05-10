@@ -8,7 +8,8 @@ const Color = {
   Primary: "#AE00FF",
   Secondary_1: "#DF99FF",
   Secondary_2: "#F7E5FF",
-  // greys #dark
+  Tag: "#ce66ff",
+  // greys `#dark
   Dark_1: "#434343",
   Dark_2: "#5D5D5D",
   Dark_3: "#787878",

@@ -3,6 +3,8 @@ import { produce } from "immer";
 import "moment";
 import moment from "moment";
 
+import { actionCreators as loadingActions } from "redux/modules/loading";
+
 // actions
 const ADD_POST = "ADD_POST";
 const UPLOAD_PROGRESS = "UPLOAD_PROGRESS";

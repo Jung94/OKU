@@ -44,11 +44,11 @@ const Timer = (props) => {
   // console.log("🕒progress...: ", bar);
 
   if (day) {
-    return <>{deadline - timeNow > 0 ? <TimerWrap {...colors}>D-{day_duration}</TimerWrap> : <div>경매 종료</div>}</>;
+    return <>{deadline - timeNow > 0 ? <TimerWrap {...colors}>D-{day_duration}</TimerWrap> : <div>D-0 00:00:00</div>}</>;
   }
 
   if (hms) {
-    return <>{deadline - timeNow > 0 ? <TimerWrap {...colors}>{hms_duration}</TimerWrap> : <div>경매 종료</div>}</>;
+    return <>{deadline - timeNow > 0 ? <TimerWrap {...colors}>{hms_duration}</TimerWrap> : <div>D-0 00:00:00</div>}</>;
   }
 
   if (all) {
@@ -60,7 +60,7 @@ const Timer = (props) => {
             {duration}
           </TimerWrap>
         ) : (
-          <div>경매 종료</div>
+          <div>D-0 00:00:00</div>
         )}
       </>
     );

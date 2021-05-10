@@ -4,8 +4,37 @@ import styled from "styled-components";
 import { Color } from "shared/DesignSys";
 
 const Text = (props) => {
-  const { children, onClick, color, size, flexGrow, marginB, marginT, textAlign, lineHeight, h1, h2, h3, h4, body, subBody, price, won } = props;
-  const styles = { color: color, flexGrow: flexGrow, marginB: marginB, marginT: marginT, textAlign: textAlign, lineHeight: lineHeight };
+  const {
+    children,
+    onClick,
+    color,
+    size,
+    flexGrow,
+    margin,
+    marginB,
+    marginT,
+    textAlign,
+    lineHeight,
+    weight,
+    h1,
+    h2,
+    h3,
+    h4,
+    body,
+    subBody,
+    price,
+    won,
+  } = props;
+  const styles = {
+    color: color,
+    flexGrow: flexGrow,
+    margin: margin,
+    marginB: marginB,
+    marginT: marginT,
+    textAlign: textAlign,
+    lineHeight: lineHeight,
+    weight: weight,
+  };
 
   // h1, h2, h3, SubHeading(h4) 디자인 시스템에 맞춘 폰트
   // h1 : 메인배너
@@ -61,7 +90,7 @@ const Text = (props) => {
   // 가격, 디자인 시스템에는 따로 없으나 코드에서 따로 뺌
   if (price) {
     return (
-      <TextBox size="38px" bold onClick={onClick} {...styles}>
+      <TextBox size="35px" bold onClick={onClick} {...styles}>
         {children}
       </TextBox>
     );
@@ -78,6 +107,7 @@ Text.defaultprops = {
   size: "14px",
   weight: "400",
   flexGrow: false,
+  margin: false,
   marginB: false,
   marginT: false,
   textAlign: "left",
@@ -91,6 +121,7 @@ const TextBox = styled.div`
   flex-grow:${(props) => (props.flexGrow ? props.flexGrow : "")};
 
   height: fit-content;
+  margin: ${(props) => (props.margin ? props.margin : "")};
   margin-bottom: ${(props) => (props.marginB ? props.marginB : "")};
   margin-top: ${(props) => (props.marginT ? props.marginT : "")};
 
@@ -98,6 +129,7 @@ const TextBox = styled.div`
 
   font-size: ${(props) => (props.size ? props.size : "")};
   font-weight: ${(props) => (props.bold ? "700" : props.light ? "300" : "")};
+  font-weight: ${(props) => (props.weight ? props.weight : "")};
   line-height: ${(props) => (props.lineHeight ? props.lineHeight : "")};
   ${(props) => (props.textAlign ? `text-align:${props.textAlign};` : "")}
 

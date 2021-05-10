@@ -11,6 +11,8 @@ import "moment/locale/ko";
 
 import { actionCreators as productActions } from "redux/modules/product";
 
+import { Color } from "shared/DesignSys";
+
 const QnA = (props) => {
   const dispatch = useDispatch();
   // console.log("🔘QnA", props);
@@ -30,61 +32,66 @@ const QnA = (props) => {
     <>
       {/* qna리스트 시작 */}
       <QnAWrap>
-        <Grid is_flex>
-          <Profile img={buyerprofile}></Profile>
-          <div style={{ flexGrow: "1" }}>
-            <Grid is_flex justify="space-between">
-              <Text h3 weight="600">
+        <Grid dp_flex>
+          <Profile img={buyerprofile} />
+
+          <Grid is_flex column>
+            <Grid margin="1% 0">
+              <Text subBody textAlign="right" color={Color.Dark_4}>
+                {moment(createdAt).fromNow()}
+              </Text>
+              <Text h4 weight="700">
                 {buyernickname}
               </Text>
-              <Text subBody>{moment(createdAt).fromNow()}</Text>
+              <Grid is_flex textAlign="left">
+                {contents}
+              </Grid>
             </Grid>
-            <Grid is_flex textAlign="left">
-              {contents}
-            </Grid>
-          </div>
+
+            <OpenPostBtn
+              onClick={() => {
+                if (openPost === false) {
+                  setOpen(true);
+                } else {
+                  setOpen(false);
+                }
+              }}
+            >
+              <FontAwesomeIcon icon={fasPen} style={{ color: "grey", cursor: "pointer" }} />
+              답변하기
+            </OpenPostBtn>
+
+            {openPost && (
+              <AnswerWrap openPost>
+                <Grid is_flex>
+                  <Grid is_flex textAlign="left">
+                    {answer && (
+                      <Grid column>
+                        <Line bottom margin="10px 0" />
+                        <Grid is_flex textAlign="left" justify="space-between" margin="0 0 10px 0">
+                          {answer}
+                          <Text subBody color={Color.Dark_4}>
+                            {answer !== " " && moment(updatedAt).fromNow()}
+                          </Text>
+                        </Grid>
+                      </Grid>
+                    )}
+                  </Grid>
+                </Grid>
+
+                <QnAPost openPost>
+                  <Input
+                    text
+                    fnc={addAnswer}
+                    plcholder="답변을 작성해주세요! 가장 마지막에 남긴 글만 등록됩니다."
+                    width="100%"
+                    _onChange={onChangeContents}
+                  ></Input>
+                </QnAPost>
+              </AnswerWrap>
+            )}
+          </Grid>
         </Grid>
-        <OpenPostBtn
-          onClick={() => {
-            if (openPost === false) {
-              setOpen(true);
-            } else {
-              setOpen(false);
-            }
-          }}
-        >
-          <FontAwesomeIcon icon={fasPen} style={{ color: "grey", cursor: "pointer" }} />
-          답글
-        </OpenPostBtn>
-        <Line bottom />
-        {/* {sellerId} */}
-        {openPost && (
-          <QnAWrap openPost>
-            <Grid is_flex>
-              <div style={{ flexGrow: "2" }}>
-                <Grid is_flex justify="space-between">
-                  <p style={{ fontWeight: "bold" }}>{sellernickname}</p>
-                  <Text subBody>{answer && answer !== " " && moment(updatedAt).fromNow()}</Text>
-                </Grid>
-                <Grid is_flex textAlign="left">
-                  {answer}
-                </Grid>
-              </div>
-            </Grid>
-
-            <QnAPost openPost>
-              <Input
-                plcholder="답변을 작성해주세요! 가장 마지막에 남긴 글만 등록됩니다."
-                width="80%"
-                margin="0 1% 0 0"
-                _onChange={onChangeContents}
-              ></Input>
-              <Button _onClick={addAnswer}>등록</Button>
-            </QnAPost>
-
-            <Line bottom />
-          </QnAWrap>
-        )}
       </QnAWrap>
     </>
   );
@@ -99,17 +106,29 @@ QnA.defaultProps = {
 
 // QNA
 const QnAWrap = styled.div`
-  ${(props) => (props.openPost ? "background-color: #efefef;" : "padding: 1%;")}
+  width: 100%;
+  display: flex;
+  padding: 10px 30px;
+  flex-direction: column;
+  background-color: ${Color.Light_3};
+  border-radius: 16px;
+  margin-bottom: 10px;
+`;
+
+const AnswerWrap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
+  background-color: ${Color.Light_3};
+  border-radius: 16px;
+  margin-bottom: 10px;
 `;
 
 // 문의하기
 const QnAPost = styled.div`
-  ${(props) => (props.openPost ? "padding-bottom: 1%;" : "padding: 1%;")}
   width: 100%;
   display: flex;
+  justify-content: flex-end;
 `;
 
 // 누르면 열리는 버튼
@@ -117,8 +136,6 @@ const OpenPostBtn = styled.div`
   color: grey;
   font-size: 14px;
   cursor: pointer;
-  border: 1px solid grey;
-  width: 80px;
   padding: 5px 5px 5px 0;
   margin: auto 0 1% auto;
   svg {

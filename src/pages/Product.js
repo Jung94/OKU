@@ -2,14 +2,12 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import styled from "styled-components";
-import { Grid, Input, Line, Button, Tag, Modal, Text } from "elements/";
+import { Grid, Input, Line, Button, Tag, Modal, Text, Profile } from "elements/";
 import { Slider, Timer, QnA } from "components/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle as fasQC, faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 
-import { history } from "redux/configureStore";
 import { actionCreators as productActions } from "redux/modules/product";
-import { actionCreators as bidActions } from "redux/modules/bid";
 import { actionCreators as likeActions } from "redux/modules/like";
 import { priceComma } from "shared/common";
 import Loading from "shared/Loading";
@@ -19,13 +17,13 @@ import "moment/locale/ko";
 
 import { Color } from "shared/DesignSys";
 
-const Product = (props) => {
+const Product = React.memo((props) => {
   const dispatch = useDispatch();
   // onSale 처리 해야함
 
   const is_loading = useSelector((state) => state.product.is_loading);
   const productOK = useSelector((state) => state.product.product_detail);
-  const {
+  var {
     deadLine,
     createAt,
     deliveryPrice,
@@ -45,13 +43,17 @@ const Product = (props) => {
     img,
     _id,
   } = useSelector((state) => state.product.product_detail);
-  console.log("🟣 : ", productOK);
+  // console.log("🟣상품디테일: ", productOK);
   const _is_like = useSelector((state) => state.like.is_like);
-
   const _qna_list = useSelector((state) => state.product.qna_list);
-
+  const _related_list = useSelector((state) => state.product.related);
+  console.log("🟣: ", _related_list);
   const _bid_list = useSelector((state) => state.bid.bid_list);
-  console.log("입찰 리스트: ", _bid_list);
+  const _current = useSelector((state) => state.bid.current);
+  // console.log("🟣입찰 리스트: ", _bid_list[0]);
+
+  // console.log(tag);
+  // const _tag = tag.replace('"', "");
 
   const [_contents, setReview] = useState("");
   const onChangeContents = useCallback((e) => setReview(e.target.value), []);
@@ -61,12 +63,9 @@ const Product = (props) => {
   };
 
   useEffect(() => {
-    dispatch(productActions.setProductAllAPI());
-    dispatch(likeActions.getLikeAPI());
-    // QnA컴포넌트에서 useEffect실행하면 무한루프에 빠진다 -> 공부포인트
-    dispatch(productActions.setQnAAPI());
-    dispatch(bidActions.setBidAPI());
-  }, [productOK._id, _bid_list.bid]);
+    dispatch(productActions.setProductAllAPI("609566ecc795947ca9a342bd"));
+    // 여기서 컴포넌트 useEffect 실행하고, 자식 컴포넌트에서 useEffect실행하면 무한루프에 빠진다 -> 공부포인트
+  }, [productOK.onSale]);
 
   const helpPop = () => {
     alert("꺄");
@@ -87,7 +86,7 @@ const Product = (props) => {
   };
 
   if (is_loading) {
-    return <Loading></Loading>;
+    return <Loading />;
   }
 
   if (productOK) {
@@ -104,18 +103,20 @@ const Product = (props) => {
               <Text h2>
                 <Timer all {...productOK} purple />
               </Text>
-              <Timer timeProgress deadLine={deadLine} createAt={createAt} />
+              <Timer timeProgress {...productOK} />
             </Grid>
 
             <Grid height="100px" margin="0 0 10px 0">
-              <Text h2>{title}</Text>
+              <Text h2 bold>
+                {title}
+              </Text>
             </Grid>
             <BidLabel>
               <Text h4 textAlign="right">
                 현재 입찰 가격
               </Text>
               <Text price textAlign="right">
-              {_bid_list.bid ? priceComma(_bid_list.bid) : lowBid ? priceComma(lowBid) : ""}
+                {_current && priceComma(_current)}
                 <Text won>원</Text>
               </Text>
               <Line bottom margin="5px 0" />
@@ -162,63 +163,49 @@ const Product = (props) => {
           </Grid>
         </Grid>
 
-        <Grid dp_flex margin="0 0 10px 0">
-          <Grid column width="66%" margin="0 10px 0 0">
-            <Text h3 color={Color.Primary}>
+        <Grid dp_flex margin="0 0 20px 0">
+          <Grid width="66%" margin="0 10px 0 0">
+            <Text h3 color={Color.Primary} marginB="10px">
               상품정보
             </Text>
-            <Grid is_flex padding="10px">
-              <Grid flexGrow="2" margin="0 3% 0 0">
-                <Text h4 textAlign="left">
+            <Grid is_flex justify="space-around" padding="10px">
+              <Grid flexShrink="1" margin="0 10px 0 0">
+                <Text h4 textAlign="left" marginB="5%">
                   카테고리
                   <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                 </Text>
-                <Input output value={`${bigCategory} > ${smallCategory}`} />
+                <Input output info value={`${bigCategory} > ${smallCategory}`} />
               </Grid>
-              <Grid flexGrow="1" margin="0 3% 0 0">
-                <Text h4 textAlign="left">
+              <Grid flexShrink="3" margin="0 10px 0 0">
+                <Text h4 textAlign="left" marginB="5%">
                   상품상태
                   <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                 </Text>
-                <Input output value={state} adornment="급" />
+                <Input output info value={state} adornment="급" />
               </Grid>
-              <Grid flexGrow="2" margin="0 3% 0 0">
-                <Text h4 textAlign="left">
+              <Grid flexShrink="1" margin="0 10px 0 0">
+                <Text h4 textAlign="left" marginB="5%">
                   거래 지역
                 </Text>
-                <Input output value={region} />
+                <Input output info value={region} />
               </Grid>
-              <Grid flexGrow="1">
-                <Text h4 textAlign="left">
+              <Grid flexShrink="3" margin="0 10px 0 0">
+                <Text h4 textAlign="left" marginB="5%">
                   배송 수단
                 </Text>
-                <Input output value={deliveryPrice === true ? "배송비 별도" : "무료 배송 (또는 직거래)"} />
+                <Input output info value={deliveryPrice === true ? "배송비 별도" : "무료 배송"} />
               </Grid>
             </Grid>
-
+            <Line bottom margin="10px 0" />
             <Grid is_flex padding="10px">
-              <Grid flexGrow="1">
-                <Text h4 textAlign="left">
-                  상품 설명
-                </Text>
-                {description}
-              </Grid>
+              <Desc>{description}</Desc>
             </Grid>
 
-            <Grid is_flex>
-              <Tag>{tag}</Tag>
-            </Grid>
-
-            <Text h3>관련 상품</Text>
-            <ImgWrap>
-              <div>사진</div>
-              <div>사진</div>
-              <div>사진</div>
-            </ImgWrap>
+            <Grid is_flex>{tag && tag.map((t, idx) => <Tag key={idx}>{t}</Tag>)}</Grid>
           </Grid>
 
-          <Grid column width="33%" margin="0 0 0 10px">
-            <Text h3 color={Color.Primary}>
+          <Grid width="33%" margin="0 0 0 10px">
+            <Text h3 color={Color.Primary} marginB="10px">
               실시간 입찰 정보
               <FontAwesomeIcon icon={fasQC} className="infoSvg" />
             </Text>
@@ -226,65 +213,83 @@ const Product = (props) => {
             {/* 실시간 입찰 정보 */}
             {_bid_list.map((b, idx) => (
               <LiveBid key={idx} margin="5%">
-                <p>{b.nickName}&thinsp;님</p>
-                <Text subBody marginT="auto" marginB="auto">
+                <Text h4 flexGrow="1">
+                  {b.nickName}
+                </Text>
+                <Text h4 textAlign="right" flexGrow="6" margin="0 2% 0 0">
+                  {priceComma(b.bid)}&thinsp;원
+                </Text>
+                <Text subBody textAlign="right" marginT="auto" marginB="auto" color={Color.Dark_4} flexGrow="1">
                   {moment(b.createAt).fromNow()}
                 </Text>
-                <p className="bidPrice">{b.bid}</p>
               </LiveBid>
             ))}
+          </Grid>
+        </Grid>
 
-            <Text h4 textAlign="left">
+        <Grid dp_flex margin="0 0 20px 0">
+          <Grid width="66%" margin="0 10px 0 0">
+            <Text h3 color={Color.Primary} marginB="10px">
+              관련 상품
+            </Text>
+            <Grid is_flex>
+              {_related_list.map((r, idx) => (
+                <RelatedImg key={idx} img={r.img[0]}></RelatedImg>
+              ))}
+            </Grid>
+          </Grid>
+
+          <Grid width="33%" margin="0 0 0 0px">
+            <Text h3 color={Color.Primary} marginB="10px">
               판매자 정보
             </Text>
             <Seller>
-              <Grid is_flex margin="0 auto">
+              <Grid is_flex margin="0 0 2% 0">
                 <Profile></Profile>
-                <div style={{ textAlign: "left" }}>
-                  <Text h3 weight="600">
+                <div style={{ textAlign: "left", marginLeft: "3%" }}>
+                  <Text h4 marginB="5%" marginT="5%">
                     {nickname}
                   </Text>
                   <Text subBody>상품&thinsp;00&emsp;찜&thinsp;00</Text>
                 </div>
               </Grid>
-              <Line bottom margin="0 0 10px 0" />
-              <Text subBody textAlign="center">
-                상점으로 이동하기&ensp;>
-              </Text>
+              <Button width="100%">상점으로 이동하기&ensp;></Button>
             </Seller>
-            <Grid height="100%"></Grid>
           </Grid>
         </Grid>
 
         <Grid is_flex column margin="0 0 10px 0">
-          {/* qna제목 */}
           <Grid>
-            <Text h3>
-              <Grid is_flex justify="space-between">
-                Q&A
-              </Grid>
+            <Text h3 color={Color.Primary} marginB="10px">
+              Q&A
             </Text>
           </Grid>
-          {/* qna등록 */}
-          <QnAPost>
-            <Profile></Profile>
-            <Input width="80%" margin="0 1% 0 0" _onChange={onChangeContents}></Input>
-            <Button _onClick={addQuestion}>등록</Button>
-          </QnAPost>
-          {_qna_list.map((q, idx) => (
-            <QnA key={idx} {...q} />
-          ))}
+          <Grid margin="0 0 10px 0">
+            <Input
+              text
+              width="100%"
+              margin="0 0 10px 0"
+              plcholder="문의 내용을 입력해주세요."
+              adornment="0 / 100"
+              _onChange={onChangeContents}
+              fnc={addQuestion}
+              btn="등록하기"
+            ></Input>
+            {_qna_list.map((q, idx) => (
+              <QnA key={idx} {...q} />
+            ))}
+          </Grid>
         </Grid>
       </ProductWrap>
     );
   }
-};
+});
 
 // Product 컴포넌트 감싸기
 const ProductWrap = styled.div`
   max-width: 1030px;
   margin: 0 auto;
-  margin-top: 160px;
+  margin-top: 190px;
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -304,62 +309,50 @@ const ProductWrap = styled.div`
 `;
 
 // 관련 상품
-const ImgWrap = styled.div`
-  box-sizing: border-box;
-  overflow: auto;
-  display: flexbox;
-  padding: 10px;
-  div {
-    width: 100px;
-    height: 100px;
-    background-color: white;
-    margin-right: 5px;
-  }
+const RelatedImg = styled.div`
+  display: flex;
+  background: url(${(props) => props.img});
+  background-size: 120%;
+  background-position: center;
+  flex-grow: 1;
+  height: 10rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-right: 1%;
+  border-radius: 16px;
+  border: 0.5px solid ${Color.Light_3};
 `;
 
 // 실시간 낙찰 정보 => 디자인에 따라 낙찰 정보 확인용 component로 빼기 가능
 const LiveBid = styled.div`
-  margin-bottom: 1%;
+  margin-bottom: 3%;
   width: 100%;
-  padding: 2% 3%;
+  padding: 2% 5%;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
+  height: 50px;
   box-sizing: border-box;
-  // 박스 위치 확인용
-  background-color: white;
-  p:nth-child(1) {
-    font-weight: 700;
-    flex-grow: 1;
-    text-align: left;
-    margin: auto 0;
-  }
-  .bidPrice {
-    flex-grow: 20;
-    font-size: 20px;
-    font-weight: 700;
-    text-align: right;
-    margin: auto 0;
-  }
-`;
-
-// 프로필 사진
-const Profile = styled.div`
-  min-width: 40px;
-  height: 40px;
-  margin: 2%;
-  background-color: #f112ff;
-  border-radius: 10rem;
+  align-items: center;
+  background-color: ${Color.Light_3};
+  border-radius: 16px;
 `;
 
 // 판매자 카드 => 유저 카드로 재활용?
 const Seller = styled.div`
+  display: inline-flex;
   width: 100%;
-  background-color: white;
-  padding: 3%;
-  display: flex;
-  flex-direction: column;
+  align-items: center;
+  text-align: center;
   box-sizing: border-box;
+  border: 0.5px solid ${Color.Light_3};
+  border-radius: 16px;
+  padding: 3%;
+  height: 10rem;
+  flex-direction: column;
+  & > button {
+    height: 50px;
+  }
 `;
 
 // 제품 타이틀 및 가격표
@@ -372,15 +365,13 @@ const BidLabel = styled.div`
   margin-bottom: 1%;
 `;
 
-// 문의하기
-const QnAPost = styled.div`
-  ${(props) => (props.openPost ? "padding-bottom: 1%;" : "padding: 1%;")}
-  width: 100%;
-  display: flex;
-`;
-
-const WrapRatio = styled.div`
-  display: flex;
+// 상품설명
+const Desc = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
 `;
 
 export default Product;

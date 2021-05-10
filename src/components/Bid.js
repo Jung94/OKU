@@ -12,7 +12,7 @@ import { actionCreators as bidActions } from "redux/modules/bid";
 
 const Bid = (props) => {
   const dispatch = useDispatch();
-  const { open, close, bid, immediateBid, sucBid, deadLine, createAt, sellerunique, _id } = props;
+  const { open, close, bid, immediateBid, sucBid, deadLine, createAt, sellerunique, _id, onSale } = props;
 
   const [bidPrice, setBid] = useState("");
   const onChangeBid = useCallback((e) => setBid(e.target.value), []);
@@ -21,7 +21,7 @@ const Bid = (props) => {
     dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
   };
   // 숫자로 보내기!
-  console.log(parseInt(bidPrice.replace(/,/g, "")));
+  // console.log(parseInt(bidPrice.replace(/,/g, "")));
 
   const addSuccessbid = () => {
     dispatch(bidActions.addSucbidAPI(sucBid, sellerunique, Date.now()));
@@ -38,9 +38,9 @@ const Bid = (props) => {
             </Text>
             <Grid textAlign="center" justify="space-between" width="45%">
               <Text h3>
-                <Timer all deadLine={deadLine} purple />
+                <Timer all deadLine={deadLine} onSale={onSale} purple />
               </Text>
-              <Timer timeProgress deadLine={deadLine} createAt={createAt} />
+              <Timer timeProgress deadLine={deadLine} createAt={createAt} onSale={onSale} />
             </Grid>
             <Input
               value={input_priceComma(bidPrice)}
@@ -50,7 +50,7 @@ const Bid = (props) => {
               margin="6% auto"
               adornment="원"
               plcholder="입찰가를 입력해주세요!"
-            ></Input>
+            />
             <Button _onClick={addBid} width="75%" margin="0 auto 9% auto">
               입찰하기
             </Button>
