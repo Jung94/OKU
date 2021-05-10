@@ -23,7 +23,6 @@ const Post = (props) => {
         dispatch(postActions.getRecommendProductAPI());
     }, []);
     const _recommend_product = useSelector((state) => state.post.recommend_product);
-    console.log(_recommend_product);
     return (
         <Wrap>
             <Head>
@@ -31,11 +30,11 @@ const Post = (props) => {
             <p style={{marginTop:"41px", color:"#c0c0c0",fontSize: "16px", cursor:"pointer"}}>더보기</p>
             </Head>
             <Grid>
-                {!_recommend_product ?
-                <div style={{margin:"10px auto", fontSize:"20px"}}>
-                MD 추천상품이 없습니다.
+                {_recommend_product ?
+                <div style={{margin:"100px auto", color :"#c0c0c0 ", fontSize:"20px"}}>
+                MD 추천상품이 없습니다
                 </div>  : 
-                _recommend_product.map((l, idx) => {
+                _recommend_product && _recommend_product.map((l, idx) => {
                     return(
                     <Cards key={idx}>
                         <Information>

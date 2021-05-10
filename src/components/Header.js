@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { history } from "redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as productActions } from "redux/modules/result";
+import { actionCreators as categoryActions } from 'redux/modules/post';
 import { actionCreators as userActions } from 'redux/modules/user';
 
 import { Grid, Input, Line, Button, Tag, Modal, Text } from "elements/";
@@ -40,14 +41,18 @@ const Header = (props) => {
     setMainct(e.value);
     if (mainct === "2D") {
       setSubct(option_2);
-    } else if (mainct === "3D") {
+      dispatch(categoryActions.getProductMainCategotAPI(mainct)) 
+    } 
+    else if (mainct === "3D") {
       setSubct(option_3);
+      dispatch(categoryActions.getProductMainCategotAPI(mainct))
     }
   };
 
   const handleSubCategory = (e) => {
     setSubct(e.value);
     console.log(handleSubCategory);
+    dispatch(categoryActions.getProductSubCategotAPI(mainct,subct))
   };
 
   
@@ -127,7 +132,8 @@ const Header = (props) => {
               <About_P>about OKU</About_P>
               <About_T>about Team</About_T>
               {/* 개인정보기능 */}
-              {is_login && (
+              {/* 로그인 전 */}
+              {!is_login && (
                 <div style={{display : "flex"}}>
               <Signup
                 onClick={() => {
@@ -146,7 +152,8 @@ const Header = (props) => {
               </Login>
               </div>
               )}
-              {!is_login && (
+              {/* 로그인 후  */}
+              {is_login && (
                 <div style={{display : "flex"}}>
               
               <Logout>

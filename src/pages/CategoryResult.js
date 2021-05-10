@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useSelector } from "react-redux";
 
+import {actionCreators as categoryActions} from 'redux/modules/post'
 import { history } from 'redux/configureStore';
 
 
 const CategoryResult = (props) => {
+    const mainCategory = useSelector((state) => state.post.mainKeyword);
+    const subCategory = useSelector((state) => state.post.subKeyword);
+
     return (
         <CategorySelect>
         <ResultText>
-            <span>{ "${MainCategory},${SubCategory}"} 검색 결과</span>
+            <span>{ `${mainCategory}${subCategory}`} 검색 결과</span>
         </ResultText>
         <CategorySelect/>
     </CategorySelect>

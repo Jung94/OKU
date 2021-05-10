@@ -115,7 +115,7 @@ const Product = (props) => {
                 현재 입찰 가격
               </Text>
               <Text price textAlign="right">
-                {_bid_list.bid ? priceComma(_bid_list.bid) : priceComma(lowBid)}
+              {_bid_list.bid ? priceComma(_bid_list.bid) : lowBid ? priceComma(lowBid) : ""}
                 <Text won>원</Text>
               </Text>
               <Line bottom margin="5px 0" />

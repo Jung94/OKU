@@ -5,13 +5,6 @@ import Slider from "react-slick";
 import { actionCreators as postActions } from "redux/modules/post";
 import { useDispatch, useSelector } from "react-redux";
 
-import T_1 from "images/T_1.jpg"
-import T_2 from "images/T_2.jpeg"
-import T_3 from "images/T_3.jpg"
-import T_4 from "images/T_4.jpg"
-import T_5 from "images/T_5.jpeg"
-import T_6 from "images/T_6.jpeg"
-import T_7 from "images/T_7.jpg"
 
 
 // 마감임박상품
@@ -29,7 +22,6 @@ const DeadlineP = (props) => {
         dispatch(postActions.getDeadlineProductAPI());
     }, []);
     const _deadline_product = useSelector((state) => state.post.deadline_product);
-    console.log(_deadline_product)
 
     return (    
         <Wrap>
@@ -39,8 +31,8 @@ const DeadlineP = (props) => {
             </Head>
         <Grid>  
             {_deadline_product ? 
-            <div style={{margin:"10px auto", fontSize:"20px"}}>
-                마감 임박 상품이 없습니다.
+            <div style={{margin:"100px auto", color :"#c0c0c0 ", fontSize:"20px"}}>
+                마감임박 상품이 없습니다
             </div>  : 
             _deadline_product.map((k, index) => {
             return (

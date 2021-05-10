@@ -115,11 +115,12 @@ function NextArrow_(props) {
 const Container = (props) => {
   const dispatch = useDispatch();
 
+  // 렌더될 때 ~ 한다
   useEffect(() => {
+    // useEffect 랑 친한 얘
     dispatch(postActions.getPopularProductsAPI());
   }, []);
   const _popular_product = useSelector((state) => state.post.popular_product);
-  console.log(_popular_product)
 
   const { title, img, deadLine, currentprice } = props;
 

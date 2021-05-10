@@ -22,7 +22,6 @@ const Card = (props) => {
     dispatch(postActions.getRecentProductsAPI());
   }, []);
   const _recent_product = useSelector((state) => state.post.recent_product);
-  console.log(_recent_product)
 
   const { title, img, currentprice, desc } = props;
 
@@ -34,7 +33,6 @@ const Card = (props) => {
       <Grid>
         <Cards>
         {_recent_product.map((j, index) => {
-          console.log(_recent_product)
                 return (
                   <Information key={index}>
                     <Image>

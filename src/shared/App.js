@@ -10,8 +10,7 @@ import { history } from "redux/configureStore";
 import NotFound from "shared/NotFound";
 import Header from "components/Header";
 import Footer from "components/Footer";
-import CategoryResult from 'pages/CategoryResult'
-import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, Mypage, Chat,  } from "pages/";
+import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, Mypage, Chat, CategoryResult  } from "pages/";
 
 const App = (props) => {
   const dispatch = useDispatch();
@@ -25,7 +24,7 @@ const App = (props) => {
 
   return (
     <div>
-      {/* <Header /> */}
+      <Header />
       <Grid>
         <Wrap>
           <ConnectedRouter history={history}>
