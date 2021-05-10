@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Sider from 'components/chat/Sidebar';
 import Main from 'components/chat/Main';
-import Btns from 'components/chat/Btns';
 import InputChat from 'components/chat/InputChat';
 import { useSelector } from 'react-redux';
 import { actionCreators as chatActions } from 'redux/modules/chat';
@@ -11,65 +10,77 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Chat = (props) => {
+  const { history } = props;
   // 로컬에 저장된 토큰 조회
   const is_login = localStorage.getItem("access_token") ? true : false;
 
-//   const makeRoom = [props.match.params.otherId, props.match.params.myId].sort();
+  // 토큰이 없을 경우 사용을 못하게 로그인 화면으로 이동시키기
+  // if (!is_login) {
+  //   swal({
+  //     title: '토큰이 만료되었거나 잘못된 접근입니다.',
+  //     text: '다시 로그인 해주세요!',
+  //     icon: 'error',
+  //   });
+    // 로그인창으로 이동
+    // history.replace('/');
+  // }
+
+  const makeRoom = [props.match.params.otherId, props.match.params.myId].sort();
 //   // 방
-//   const room = makeRoom[0] + '-' + makeRoom[1];
+  const room = makeRoom[0] + '-' + makeRoom[1];
+  // const room = '6093c3035d07fc3d5d22d804-6095ebfeb9e2a10ba16ea9db';
 //   // 대화 상대 이름
-//   const targetName = props.match.params.otherName;
+  const targetName = props.match.params.otherName;
   // 내 이름
   const username = useSelector((state) => state.user.user);
   // 방 생성 정보
   const Info = {
-    // room: room,
+    room: room,
     username: username,
   };
 
-  // useEffect(() => {
-  //   // 웹소켓 연결
-  //   chatActions.socket.connect();
-  //   return () => {
-  //     // 채팅 페이지 나가면 웹소켓 연결 해제
-  //     chatActions.socket.disconnect();
-  //   };
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
+  useEffect(() => {    
+    // 웹소켓 연결
+    chatActions.socket.connect();
+    return () => {
+      // 채팅 페이지 나가면 웹소켓 연결 해제
+      chatActions.socket.disconnect();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      // 채팅 방 나가기
+      chatActions.socket.emit('leave', { room: room });
+    };
+  }, [room]);
+
+  //   웹소켓 연결이 성공하면 채팅 방 생성
+  if (chatActions.socket) {
+    chatActions.socket.emit('join', Info);
+  }
 
   return (
     <>
       <Wrap>
         <MainContent>
           <MainLeft>
-            <Sider 
-            // room={room}
-            />
+            <Sider room={room} />
           </MainLeft>
           <MainRight>
-            <Main />
-            <MainBtn>
-              <Btns />
-              <InputChat />
-            </MainBtn>
-            
-            {/* {chatActions.socket ? (
+            {chatActions.socket ? (
               <>
-                <ChatMain targetName={targetName} room={room} />
-                <ChatInput room={room} />
+                <Main targetName={targetName} room={room} />
+                  <MainBtn>
+                    <InputChat room={room} />
+                  </MainBtn>
               </>
             ) : (
-              <Spin
-                size='large'
-                tip='Loading...'
-                style={{
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  transform: 'translate(-50%, -50%)',
-                }}
-              />
-            )} */}
+              <div>
+                empty
+              </div>
+            )}
           </MainRight>
         </MainContent>
       </Wrap>
@@ -79,6 +90,7 @@ const Chat = (props) => {
 
 const Wrap = styled.div`
   // border: 1px solid #000;
+  margin: 150px;
   display: flex;
   align-items: center;
   justify-content: center;

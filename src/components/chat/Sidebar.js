@@ -8,7 +8,7 @@ import { actionCreators as chatActions } from 'redux/modules/chat';
 const Sidebar = ({ room }) => {
   const dispatch = useDispatch();
   const [ search, setSearch ] = useState('');
-  const uid = useSelector((state) => state.user.user?.uid);
+  const uid = localStorage.getItem("uid");
   const users = useSelector((state) => state.chat.user_list);
 
   useEffect(() => {
@@ -23,20 +23,54 @@ const Sidebar = ({ room }) => {
     // 베지 및 알림
     dispatch(chatActions.globalAddChatList(room));
     return () => {
-      // 언마운트 시 socket off
+    //   // 언마운트 시 socket off
       chatActions.globalSocket.off();
     };
   }, [dispatch, room]);
 
   return (
     <>
-      <Wrap>
+      {/* <Wrap>
         <Header>
           거래자 채팅 목록
         </Header>
         <Main>
           <Card />
           <Card />
+        </Main>
+      </Wrap> */}
+      <Wrap>
+        <Header>
+          거래자 채팅 목록
+        </Header>
+        <Main>
+          {users.map((val, idx) => {
+            console.log(val.is_badge);
+            return (
+              <Box 
+                key={idx + 'msg'}
+                onClick={() => {
+                  // 채팅 페이지 이동
+                  history.push(`/chat/${val.sellerunique === uid ? val.soldById : val.sellerunique}/${uid}/${val.sellerunique === uid ? val.soldBy : val.nickname}`);
+                  // dispatch(chatActions.badgeOff(val.id));
+                }}
+              >
+                <>
+                  <ProfileImg>
+                    {/* {val.profile_img === ' ' ? val.nickname[0] : null} */}
+                  </ProfileImg>
+                  <TextBox>
+                    <Up>
+                      <Name>{val.sellerunique === uid ? val.soldBy : val.nickname}</Name>
+                      <Time>오전 11:11</Time>
+                    </Up>
+                    <Msg>난 제주도로 떠날거야. 너도 나와 함께 가지 않으련?
+                    </Msg>
+                  </TextBox>
+                </>
+              </Box>
+            );
+          })}
         </Main>
       </Wrap>
     </>
@@ -78,6 +112,93 @@ const Main = styled.div`
   background: #fff;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
+`;
+
+const Box = styled.div`
+  display: flex;
+  gap: 10px;
+  width: 285.4px;
+  height: 103px;
+  padding: 14px 20px 12px;
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+`;
+
+const ProfileImg = styled.div`
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+//   background-image: url("${(props) => props.img}");
+  background-image: url('https://img.icons8.com/cotton/2x/gender-neutral-user--v2.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+`;
+
+const TextBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+//   border: 1px solid red;
+  width: 190px;
+  height: 100%;
+  background: #fff;
+`;
+
+const Up = styled.div`
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  max-width: 190px;
+  height: 23px;
+  background: #fff;
+  margin: 8px 0 0;
+`;
+
+const Name = styled.div`
+//   border: 1px solid green;
+  position: absolute;
+  width: 110px;
+  height: 21px;
+  font-size: 16px;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  bottom: 0;
+  left: 0;
+`;
+
+const Time = styled.div`
+//   border: 1px solid green;
+  display: inline-block;
+  position: absolute;
+  width: 80px;
+  height: 16px;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 12px;
+  font-weight: 400;
+  text-align: right;
+  bottom: 0;
+  right: 0;
+`;
+
+const Msg = styled.div`
+//   border: 1px solid red;
+  max-width: 190px;
+  height: 30px;
+  background: #fff;
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: normal;
+  text-align: left;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export default Sidebar;

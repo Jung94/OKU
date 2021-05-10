@@ -8,7 +8,7 @@ import { actionCreators as userActions } from 'redux/modules/user';
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-import KaKaoLogin from 'react-kakao-login';
+import KakaoLogin from 'react-kakao-login';
 
 const Login = (props) => {
 
@@ -16,7 +16,6 @@ const Login = (props) => {
 
     const [email, setEmail] = React.useState('');
     const [pw, setPw] = React.useState('');
-    const [kakao_email, setKakao_email] = React.useState('');
 
     // 로그인
     const login = () => {
@@ -30,22 +29,18 @@ const Login = (props) => {
     }
 
     // 카카오 로그인
-    const kakaoLoginSuccessHandler = (res) => {
-        
-        const kakao_email_agreement = res.profile.kakao_account.email_needs_agreement;
-        // 이메일 동의 여부
-        if (kakao_email_agreement) {
-            setKakao_email(res.profile.kakao_account.email);
-        }
-
+    const kakaoLoginClickHandler = (res) => {
+              
         const kakao_access_token = res.response.access_token;
         const kakao_refresh_token = res.response.refresh_token;
         const kakao_nickname = res.profile.kakao_account.profile.nickname;
+        const kakao_email = res.profile.kakao_account.email;
 
-        console.log(kakao_email);
-        console.log(kakao_access_token);
-        console.log(kakao_refresh_token);
-        console.log(kakao_nickname);
+        // console.log(kakao_access_token);
+        // console.log(kakao_refresh_token);
+        // console.log(kakao_nickname);
+        // console.log(kakao_email);
+
         // 카카오 로그인 후 받아온 정보들(토큰, 이메일, 닉네임) 서버에 전달
         // dispatch(
         //     userActions.loginByKakao({
@@ -56,6 +51,8 @@ const Login = (props) => {
         //     })
         // );
     };
+
+    // const kakaoLoginClickHandler
 
     return (
         <Wrap>
@@ -109,12 +106,14 @@ const Login = (props) => {
 
             <SocialBox>
                 {/* <Naver/> */}
-                <KaKaoLogin token={KAKAO_JS_ID} 
+                <KakaoLogin 
+                    token={KAKAO_JS_ID} 
                     render={(props) => (
-                        <KakaoButton onClick={props.onClick}></KakaoButton>
+                        <KakaoBtn onClick={props.onClick}></KakaoBtn>
                     )}
-                    onSuccess={kakaoLoginSuccessHandler}
-                />
+                    onSuccess={kakaoLoginClickHandler}
+                    getProfile={true}
+                ></KakaoLogin>
                 {/* <Google/> */}
             </SocialBox>
             
@@ -136,17 +135,7 @@ const SocialBox = styled.div`
     color: rgba(0, 0, 0, 0.5);
 `;
 
-// const Naver = styled.div`
-//     background: url("https://clova-phinf.pstatic.net/MjAxODAzMjlfOTIg/MDAxNTIyMjg3MzM3OTAy.WkiZikYhauL1hnpLWmCUBJvKjr6xnkmzP99rZPFXVwgg.mNH66A47eL0Mf8G34mPlwBFKP0nZBf2ZJn5D4Rvs8Vwg.PNG/image.png") no-repeat center;
-//     background-size: cover;
-//     background-position: center;
-//     border-radius: 30px;
-//     width: 32px;
-//     height: 32px;
-//     cursor: pointer;
-// `;
-
-const KakaoButton = styled.div`
+const KakaoBtn = styled.div`
     cursor: pointer;
     width: 100%;
     height: 45px;
@@ -155,20 +144,14 @@ const KakaoButton = styled.div`
     border-radius: 12px;
     background-image: url('kakao_login_large_wide.png');
     background-size: cover;
+
+    &:hover{
+        box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.2)
+    }
 `;
 
 // const Kakao = styled.div`
 //     background: url("https://m.gelatofactory.co.kr/web/upload/img/m/ico-kakao.png") no-repeat center;
-//     background-size: cover;
-//     background-position: center;
-//     border-radius: 30px;
-//     width: 32px;
-//     height: 32px;
-//     cursor: pointer;
-// `;
-
-// const Google = styled.div`
-//     background: url("https://littledeep.com/wp-content/uploads/2020/09/google-icon-styl.png") no-repeat center;
 //     background-size: cover;
 //     background-position: center;
 //     border-radius: 30px;
@@ -229,11 +212,12 @@ const CheckBar = styled.p`
 `;
     
 const Wrap = styled.div`
-    width: 280px;
+    width: 300px;
     height: 100%;
-    margin: 0 auto;
+    margin: 200px auto 0;
     padding: 100px 0;
     box-sizing: border-box;
+    // border: 1px solid red;
 `;
 
 const Title = styled.h3`
@@ -300,12 +284,12 @@ const LoginInput = styled.input`
 const LoginButton = styled.button`
     border: 0;
     border-radius: 30px;
-    background-color: #06afd6;
+    background-color: #ae00ff;
     color: #fff;
     width: 100%;
     height: 50px;
     margin: 15px 0 0 0;
-    padding: 0 0 1.5px 0;
+    padding: 0;
     font-size: 16px;
     font-weight: 700;
     cursor: pointer;
@@ -314,8 +298,8 @@ const LoginButton = styled.button`
     &:hover {
         transition: 0.2s;
         background-color: transparent;
-        border: 1px solid #06afd6;
-        color: #06afd6;
+        border: 1px solid #ae00ff;
+        color: #ae00ff;
     }
 `; 
 

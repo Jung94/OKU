@@ -4,7 +4,7 @@ import { Grid, Input, Line, Button, Tag, Modal, Text } from "elements/";
 
 const Mypage = (props) => {
   return (
-    <MypageWrap>
+    <Wrap>
       <Profile></Profile>
       <Text h1 weight="600" textAlign="center" marginB="1%">
         홍길동
@@ -42,13 +42,13 @@ const Mypage = (props) => {
           <Thumnail></Thumnail>
         </Grid>
       </Grid>
-    </MypageWrap>
+    </Wrap>
   );
 };
 
-const MypageWrap = styled.div`
+const Wrap = styled.div`
   max-width: 1030px;
-  margin: 0 auto;
+  margin: 200px auto 100px;
 
   display: flex;
   flex-direction: column;

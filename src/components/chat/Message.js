@@ -2,13 +2,45 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
+import moment from "moment"; 
+import "moment/locale/ko";
+
 const Message = (props) => {
 
     const me = useSelector((state) => state.user.user);
-
+    const time = moment(props.time).format("hh:mm");
+    
     return (
         <>
-          <Box>
+          {me.user !== props.user ? (
+            <>
+              <Box>
+                <ProfileImg></ProfileImg>
+                <TextBox>
+                  <Up>
+                    <Name>{props.user}</Name>
+                    <Time>{time}</Time>
+                  </Up>
+                  <Msg>{props.msg}</Msg>
+                </TextBox>
+              </Box>
+            </>
+          ) : (
+            <>
+              <BoxR>
+                <TextBoxR>
+                  <UpR>
+                    <TimeR>{time}</TimeR>
+                    <NameR>{me.user}</NameR>
+                  </UpR>
+                  <MsgR>{props.msg}</MsgR>
+                </TextBoxR>
+                <ProfileImgR></ProfileImgR>
+              </BoxR>
+            </>
+          )
+        }
+          {/* <Box>
             <ProfileImg></ProfileImg>
             <TextBox>
               <Up>
@@ -40,29 +72,7 @@ const Message = (props) => {
               </MsgR>
             </TextBoxR>
             <ProfileImgR></ProfileImgR>
-          </BoxR>
-          <BoxR>
-            <TextBoxR>
-              <UpR>
-                <TimeR>오전 11:11</TimeR>
-                <NameR>동동이</NameR>
-              </UpR>
-              <MsgR>난 제주도로 떠날거야. 너도 나와 함께 가지 않으련?난 제주도로 떠날거야. 너도 나와 함께 가지 않
-              </MsgR>
-            </TextBoxR>
-            <ProfileImgR></ProfileImgR>
-          </BoxR>
-          <BoxR>
-            <TextBoxR>
-              <UpR>
-                <TimeR>오전 11:11</TimeR>
-                <NameR>동동이</NameR>
-              </UpR>
-              <MsgR>난 제주도로 떠날거야. 너도 나와 함께 가지 않으련?난 제주도로 떠날거야. 너도 나와 함께 가지 않
-              </MsgR>
-            </TextBoxR>
-            <ProfileImgR></ProfileImgR>
-          </BoxR>
+          </BoxR> */}
         </>
     );
 };

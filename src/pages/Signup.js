@@ -400,7 +400,7 @@ const InfoUl = styled.ul`
 
 const Wrap = styled.div`
   width: 280px;
-  margin: 0 auto;
+  margin: 200px auto 0;
   padding: 50px 0;
   box-sizing: border-box;
 `;

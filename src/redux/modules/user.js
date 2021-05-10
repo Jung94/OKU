@@ -11,7 +11,7 @@ const LOGIN_CHECK = 'LOGIN_CHECK';
 
 const logIn = createAction(LOG_IN, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
-const setUser = createAction(SET_USER, (user) => ({ user }));
+const setUser = createAction(SET_USER, (user, uid) => ({ user, uid }));
 const loginCheck = createAction(LOGIN_CHECK, (token) => ({ token }));
 
 const initialState = {
@@ -79,13 +79,13 @@ const loginAPI = (email, pw) => {
             //성공시 토큰, 유저 정보 저장
             if (result.access_token) {
                 let token = result.access_token;
-                let nickname = result.nickname;
+                let user = result.nickname;
+                let uid = result.userId;
                 localStorage.setItem('access_token', token);
-                localStorage.setItem('nickname', nickname);
+                localStorage.setItem('nickname', user);
+                localStorage.setItem('uid', uid);
                 window.alert('로그인을 완료하였습니다!');
-                dispatch(setUser({
-                    user: nickname,
-                }));
+                dispatch(setUser(user, uid));
                 history.push('/');
                 } else if (result.msg === 'password False' || 'email False') {
                     window.alert('이메일과 비밀번호가 일치하지 않습니다.');
@@ -127,12 +127,14 @@ const isLogin = () => {
     return function (dispatch, getState, { history }) {
         const token = localStorage.getItem('access_token');
         const nickname = localStorage.getItem('nickname');
+        const uid = localStorage.getItem('uid');
 
         if (!token || !nickname) {
             return;
         }
         dispatch(setUser({
             user: nickname,
+            uid: uid,
         }));
 }
 }
@@ -153,6 +155,7 @@ export default handleActions(
 
         [SET_USER]: (state, action) => produce(state, (draft) => {
             draft.user = action.payload.user;
+            draft.uid = action.payload.uid;
             draft.is_login = true;
         }),
 

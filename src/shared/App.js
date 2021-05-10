@@ -4,12 +4,13 @@ import styled from "styled-components";
 
 import { actionCreators as userActions } from "redux/modules/user";
 import { ConnectedRouter } from "connected-react-router";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useRoutes, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { history } from "redux/configureStore";
 import NotFound from "shared/NotFound";
 import Header from "components/Header";
 import Footer from "components/Footer";
+import My from 'pages/My';
 import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, Mypage, Chat } from "pages/";
 
 const App = (props) => {
@@ -36,9 +37,11 @@ const App = (props) => {
               <Route path="/agreement" exact component={Agreement} />
               <Route path="/product" exact component={Product} />
               <Route path="/productupload" exact component={ProductUpload} />
-              <Route path="/Mypage" exact component={Mypage} />
+              
+              <Route path="/mypage" exact component={Mypage} />
               <Route path="/result" exact component={Result} />
-              <Route path='/chat' exact component={Chat} />
+              <Route path='/chat/:otherId/:myId/:otherName' exact component={Chat} />
+              <Route path='/my' component={My}/>
               <Route component={NotFound} />
             </Switch>
           </ConnectedRouter>

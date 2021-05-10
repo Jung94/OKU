@@ -28,18 +28,24 @@ const initialState = {
 };
 
 // 소켓 설정(전역으로 사용하기위해 export)
-const socket = socketIOClient(`http://3.35.137.38/chat`);
-const globalSocket = socketIOClient(`http://3.35.137.38/`);
+const socket = socketIOClient(`${config.api}/chat`);
+const globalSocket = socketIOClient(`${config.api}/`);
 
 // 유저 목록 조회
 const middlewareUsers = () => {
   return function (dispatch) {
+    let access_token = localStorage.getItem("access_token");
+    
     axios({
       method: 'get',
-      url: `http://3.35.137.38/member`,
+      url: `${config.api}/member`,
+      headers: {
+        access_token: `${access_token}`,
+      },
     })
       .then((res) => {
-        const users = res.data.users.map((val) => {
+        
+        const users = res.data.targets.map((val) => {
           // 알림 배지 여부를 위해 처리
           return { ...val, is_badge: false };
         });
@@ -74,7 +80,8 @@ const addChatList = () => {
 const globalAddChatList = (room) => {
   return function (dispatch, getState) {
     globalSocket.on('globalReceive', (res) => {
-      const myId = getState().user.user.uid;
+      // const myId = getState().user.user.uid;
+      const myId = localStorage.getItem("uid");
       const receive_val = res.room.split('-');
 
       // 나한태 오는 알림일 경우
