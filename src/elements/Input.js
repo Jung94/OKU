@@ -235,8 +235,7 @@ const InputBox = styled.div`
     padding-right: 10px;
     width: 100%;
     align-items: center;
-    ${(props) => (props.info ? "font-size: 16px; text-align: center;" : "font-size: 20px;")}
-    ${(props) => (props.left ? "font-size: 16px; text-align: left;" : "font-size: 20px;")}
+    ${(props) => (props.info ? "font-size: 16px; text-align: center;" : props.left ? "font-size: 16px; text-align: left;" : "font-size: 20px;")}
     font-weight: 400;
     ${(props) => (props.num ? "text-align: right;" : "")}
     &:focus {

@@ -34,6 +34,8 @@ Button.defaultProps = {
 };
 
 const Btn = styled.button`
+  user-select: none;
+
   background-color: ${(props) => props.color};
   border: 1px solid ${Color.Primary};
   border-radius: 16px;

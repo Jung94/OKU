@@ -6,6 +6,11 @@ import { Color } from "shared/DesignSys";
 const Profile = (props) => {
   const { img, size } = props;
   const styles = { img: img, size: size };
+
+  if (img === "public/profile.png") {
+    return <ProfileBlock img="https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg" size={size} />;
+  }
+
   return <ProfileBlock {...styles} />;
 };
 
@@ -18,7 +23,6 @@ const ProfileBlock = styled.div`
   background: url(${(props) => props.img});
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: ${Color.Secondary_1};
 
   min-width: ${(props) => props.size};
   height: ${(props) => props.size};

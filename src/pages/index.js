@@ -10,10 +10,9 @@ import SocialLogin from "./SocialLogin";
 
 import Result from "./Result";
 
-import Mypage from "./Mypage";
-
 import Chat from "./Chat";
 
-import CategoryResult from './CategoryResult'
+import CategoryResult from "./CategoryResult";
+import My from "./My";
 
-export { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, Mypage, Chat, CategoryResult };
+export { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, Chat, CategoryResult, My };

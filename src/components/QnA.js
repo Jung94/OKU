@@ -48,6 +48,26 @@ const QnA = (props) => {
               </Grid>
             </Grid>
 
+            <Line bottom color={Color.Light_4} margin="20px 0 10px 0" />
+
+            <Grid is_flex textAlign="left">
+              {answer && (
+                <Grid column>
+                  <Line bottom margin="10px 0" />
+                  <Grid is_flex textAlign="left" justify="space-between" margin="0 0 10px 0">
+                    <AnswerNick>
+                      <svg width="10px" height="10px" viewBox="0 0 39.63 42.11">
+                        <polygon points="28.89 21.89 24.91 26.11 28.09 29.1 5.8 29.1 5.8 0 0 0 0 34.9 28.09 34.9 24.91 37.89 28.89 42.11 39.63 32 28.89 21.89" />
+                      </svg>
+                      {answer}
+                    </AnswerNick>
+                    <Text subBody color={Color.Dark_4}>
+                      {answer !== " " && moment(updatedAt).fromNow()}
+                    </Text>
+                  </Grid>
+                </Grid>
+              )}
+            </Grid>
             <OpenPostBtn
               onClick={() => {
                 if (openPost === false) {
@@ -63,22 +83,7 @@ const QnA = (props) => {
 
             {openPost && (
               <AnswerWrap openPost>
-                <Grid is_flex>
-                  <Grid is_flex textAlign="left">
-                    {answer && (
-                      <Grid column>
-                        <Line bottom margin="10px 0" />
-                        <Grid is_flex textAlign="left" justify="space-between" margin="0 0 10px 0">
-                          {answer}
-                          <Text subBody color={Color.Dark_4}>
-                            {answer !== " " && moment(updatedAt).fromNow()}
-                          </Text>
-                        </Grid>
-                      </Grid>
-                    )}
-                  </Grid>
-                </Grid>
-
+                {/* <svg id="레이어_1" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39.63 42.11"><title>무제-1</title><polygon points="28.89 21.89 24.91 26.11 28.09 29.1 5.8 29.1 5.8 0 0 0 0 34.9 28.09 34.9 24.91 37.89 28.89 42.11 39.63 32 28.89 21.89"/></svg> */}
                 <QnAPost openPost>
                   <Input
                     text
@@ -86,6 +91,7 @@ const QnA = (props) => {
                     plcholder="답변을 작성해주세요! 가장 마지막에 남긴 글만 등록됩니다."
                     width="100%"
                     _onChange={onChangeContents}
+                    btn="등록하기"
                   ></Input>
                 </QnAPost>
               </AnswerWrap>
@@ -149,6 +155,15 @@ const OpenPostBtn = styled.div`
       color: #dedede;
       transform: scale(1.2) rotate(20deg);
     }
+  }
+`;
+
+const AnswerNick = styled.div`
+  svg {
+    vertical-align: 3px;
+    polygon {
+    }
+    color: ${Color.Light_4};
   }
 `;
 

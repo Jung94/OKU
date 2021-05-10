@@ -35,6 +35,8 @@ const Grid = (props) => {
     flexShrink,
 
     gap,
+
+    className,
   } = props;
 
   const styles = {
@@ -65,6 +67,8 @@ const Grid = (props) => {
     justify: justify,
     flexShrink: flexShrink,
     gap: gap,
+
+    className: className,
   };
 
   if (__click) {
@@ -110,6 +114,7 @@ Grid.defaultProps = {
   justify: false,
   flexShrink: false,
   gap: false,
+  className: false,
 };
 
 const GridBox = styled.div`

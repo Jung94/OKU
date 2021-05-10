@@ -143,7 +143,7 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
       productId: _id,
       sellerId: sellerunique,
     };
-    fetch(`${API}/product/quest/${_idTest}`, {
+    fetch(`${API}/product/quest/${_id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -154,6 +154,7 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
       .then((res) => res.json())
       .then((res) => {
         if (res.okay) {
+          console.log("문의글이 등록되었습니다.");
           dispatch(addQuestion(draft));
           dispatch(loadingActions.loading(false));
         } else {
