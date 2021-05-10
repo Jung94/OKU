@@ -161,7 +161,11 @@ const Header = (props) => {
               </Logout>
               </div>
               )}
-              <Mypage>마이페이지</Mypage>
+              <Mypage 
+              onClick={() => {
+                  history.push("/my");
+                }}
+              >마이페이지</Mypage>
             </Information>
           </Right>
         </Top>
@@ -240,7 +244,11 @@ const Header = (props) => {
                 <DetailRing />
               </Ring>
               <p>|</p>
-              <Chat>
+              <Chat
+                onClick={() => {
+                  history.push("/chat");
+                }}
+              >
                 <img src={List} />
               </Chat>
               <p>|</p>

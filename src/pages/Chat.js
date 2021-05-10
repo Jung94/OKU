@@ -78,7 +78,7 @@ const Chat = (props) => {
               </>
             ) : (
               <div>
-                empty
+                ddddd
               </div>
             )}
           </MainRight>
@@ -90,7 +90,7 @@ const Chat = (props) => {
 
 const Wrap = styled.div`
   // border: 1px solid #000;
-  margin: 150px;
+  margin: 150px 0 0;
   display: flex;
   align-items: center;
   justify-content: center;

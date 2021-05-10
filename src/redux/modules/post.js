@@ -116,7 +116,7 @@ const getRecommendProductAPI = () => {
         else if (resp.data.result) {
           dispatch(setRecommendProducts(resp.data.result));
         } else {
-          window.alert("MD추천상품 데이터가 없습니다");
+          // window.alert("MD추천상품 데이터가 없습니다");
         }
       })
       .catch((e) => console.log(e));

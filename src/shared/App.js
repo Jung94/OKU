@@ -40,6 +40,7 @@ const App = (props) => {
               <Route path="/mypage" exact component={Mypage} />
               <Route path="/result" exact component={Result} />
               <Route path='/category' exact component={CategoryResult} />
+              <Route path='/chat' exact component={Chat} />
               <Route path='/chat/:otherId/:myId/:otherName' exact component={Chat} />
               <Route path='/my' component={My}/>
               <Route component={NotFound} />

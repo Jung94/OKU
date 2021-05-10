@@ -40,16 +40,20 @@ const MainChat = ({targetName}) => {
         <Message />
       </ChatBox> */}
       {loading ? (
-        <>empty</>
+        <>
+          {/* empty */}
+        </>
       ) : (
         <>
           <Header>
-            {targetName}님과 대화
+            {targetName}
           </Header>
           <ChatBox>
             {msgList.length === 0 ? (
               <EmptyPost>
-                Empty
+                <div>
+                  경매 성공 시 구매자 또는 경매자와의 채팅이 가능하다구요!
+                </div>
               </EmptyPost>
             ) : null}
             {msgList.map((val, idx) => {
@@ -73,6 +77,15 @@ const EmptyPost = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: default;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  & div {
+    font-size: 18px;
+    font-weight: 500;
+  }
 `;
 
 const ChatBox = styled.div`

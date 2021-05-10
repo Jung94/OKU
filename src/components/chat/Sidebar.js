@@ -7,9 +7,10 @@ import { actionCreators as chatActions } from 'redux/modules/chat';
 
 const Sidebar = ({ room }) => {
   const dispatch = useDispatch();
-  const [ search, setSearch ] = useState('');
+  const [ update, setUpdate ] = useState('');
   const uid = localStorage.getItem("uid");
   const users = useSelector((state) => state.chat.user_list);
+  const msgList = useSelector((state) => state.chat.chat_list);
 
   useEffect(() => {
     // 전체 유저 조회
@@ -23,7 +24,7 @@ const Sidebar = ({ room }) => {
     // 베지 및 알림
     dispatch(chatActions.globalAddChatList(room));
     return () => {
-    //   // 언마운트 시 socket off
+      // 언마운트 시 socket off
       chatActions.globalSocket.off();
     };
   }, [dispatch, room]);
@@ -44,38 +45,58 @@ const Sidebar = ({ room }) => {
           거래자 채팅 목록
         </Header>
         <Main>
-          {users.map((val, idx) => {
-            console.log(val.is_badge);
-            return (
-              <Box 
-                key={idx + 'msg'}
-                onClick={() => {
-                  // 채팅 페이지 이동
-                  history.push(`/chat/${val.sellerunique === uid ? val.soldById : val.sellerunique}/${uid}/${val.sellerunique === uid ? val.soldBy : val.nickname}`);
-                  // dispatch(chatActions.badgeOff(val.id));
-                }}
-              >
-                <>
-                  <ProfileImg>
-                    {/* {val.profile_img === ' ' ? val.nickname[0] : null} */}
-                  </ProfileImg>
-                  <TextBox>
-                    <Up>
-                      <Name>{val.sellerunique === uid ? val.soldBy : val.nickname}</Name>
-                      <Time>오전 11:11</Time>
-                    </Up>
-                    <Msg>난 제주도로 떠날거야. 너도 나와 함께 가지 않으련?
-                    </Msg>
-                  </TextBox>
-                </>
-              </Box>
-            );
-          })}
+          {users.length ? (
+            <>
+              {users.map((val, idx) => {
+                // console.log(val);
+                return (
+                  <Box 
+                    key={idx + 'msg'}
+                    onClick={() => {
+                      // 채팅 페이지 이동
+                      history.push(`/chat/${val.sellerunique === uid ? val.soldById : val.sellerunique}/${uid}/${val.sellerunique === uid ? val.soldBy : val.nickname}`);
+                      // dispatch(chatActions.badgeOff(val.id));
+                    }}
+                  >
+                    <>
+                      <ProfileImg>
+                        {/* {val.profile_img === ' ' ? val.nickname[0] : null} */}
+                      </ProfileImg>
+                      <TextBox>
+                        <Up>
+                          <Name>{val.sellerunique === uid ? val.soldBy : val.nickname}</Name>
+                          <Time>오전 11:11</Time>
+                        </Up>
+                        <Msg>{update}</Msg>
+                      </TextBox>
+                    </>
+                  </Box>
+                );
+              })}
+            </>
+          ) : (
+            <Empty>
+              <div>요이요이~</div>
+              <div>거래자가 없다구욧!!</div>
+            </Empty>
+          )}
+          
         </Main>
       </Wrap>
     </>
   );
 };
+
+const Empty = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 270px 0 0;
+
+  & div {
+    font-size: 16px;
+  }
+`;
 
 const Wrap = styled.div`
   width: 285.4px;
@@ -117,7 +138,8 @@ const Main = styled.div`
 const Box = styled.div`
   display: flex;
   gap: 10px;
-  width: 285.4px;
+  // width: 285.4px;
+  min-width: 267px;
   height: 103px;
   padding: 14px 20px 12px;
   background: #fff;

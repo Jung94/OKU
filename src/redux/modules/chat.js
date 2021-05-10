@@ -38,18 +38,23 @@ const middlewareUsers = () => {
     
     axios({
       method: 'get',
-      url: `${config.api}/member`,
+      url: `${config.api}/chat/member`,
       headers: {
         access_token: `${access_token}`,
       },
     })
       .then((res) => {
         
-        const users = res.data.targets.map((val) => {
-          // 알림 배지 여부를 위해 처리
-          return { ...val, is_badge: false };
-        });
-        dispatch(user_list(users));
+        if (res.data.targets !== false) {
+          const users = res.data.targets.map((val) => {
+            // 알림 배지 여부를 위해 처리
+            return { ...val, is_badge: false };
+          });
+          
+          dispatch(user_list(users));
+        } else {
+          return;
+        }
       })
       .catch((e) => {
         console.log(e);
