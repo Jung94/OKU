@@ -135,6 +135,8 @@ const TextBox = styled.div`
 
   word-spacing:-1.5px;
   letter-spacing: 0.25px;
+
+  ${(props) => (props.onClick ? "cursor:pointer;" : "")}
 `;
 
 const SpanBox = styled.span`

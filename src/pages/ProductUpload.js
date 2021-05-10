@@ -7,6 +7,9 @@ import { actionCreators as uploadActions } from "redux/modules/upload";
 import { input_priceComma } from "shared/common";
 import { Upload } from "components/";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircle as faCircle } from "@fortawesome/free-solid-svg-icons";
+
 import { Color } from "shared/DesignSys";
 import { MainCT, D2CT, D3CT, D4CT } from "shared/Category";
 
@@ -160,9 +163,9 @@ const ProductUpload = React.memo((props) => {
           상품등록
         </Text>
       </Grid>
-
       <Grid margin="0 0 35px 0">
         <Text h3 bold marginB="20px">
+          <FontAwesomeIcon icon={faCircle} className="cirSvg" />
           제목
         </Text>
         <Input
@@ -174,9 +177,9 @@ const ProductUpload = React.memo((props) => {
           plcholder="최대 25자 작성 가능합니다."
         ></Input>
       </Grid>
-
       <Grid margin="0 0 35px 0">
         <Text h3 bold marginB="20px">
+          <FontAwesomeIcon icon={faCircle} className="cirSvg" />
           카테고리
         </Text>
         <Grid is_flex>
@@ -195,7 +198,6 @@ const ProductUpload = React.memo((props) => {
           )}
         </Grid>
       </Grid>
-
       <Grid margin="0 0 35px 0">
         <Text h3 bold marginB="20px">
           희망 거래 장소
@@ -219,25 +221,35 @@ const ProductUpload = React.memo((props) => {
             }}
             margin="0 10px 0 0"
           />
-          <Button text="지하철 검색" />
         </Grid>
       </Grid>
-
       <Grid margin="0 0 35px 0">
         <Text h3 bold marginB="20px">
-          상품이미지 (3장을 한번에 선택해주세요.)
+          <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+          상품이미지
         </Text>
-        <label for="fileInput" style={{ display: "block", backgroundColor: "red", width: "30px", height: "30px" }}>
-          <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange} disabled={progress} ref={fileInput} multiple />
-        </label>
+        <Grid is_flex gap="20px">
+          <PreviewBtn for="fileInput">
+            업로드 하기
+            <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange} disabled={progress} ref={fileInput} multiple />
+          </PreviewBtn>
+          <PreviewBtn for="fileInput">
+            업로드 하기
+            <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange} disabled={progress} ref={fileInput} multiple />
+          </PreviewBtn>
+          <PreviewBtn for="fileInput">
+            업로드 하기
+            <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange} disabled={progress} ref={fileInput} multiple />
+          </PreviewBtn>
+        </Grid>
         {preview &&
           preview.map((p, idx) => {
             return <Upload key={idx} {...p} />;
           })}
       </Grid>
-
       <Grid margin="0 0 35px 0">
         <Text h3 bold marginB="20px">
+          <FontAwesomeIcon icon={faCircle} className="cirSvg" />
           상품 상태 등급
         </Text>
         <form
@@ -252,9 +264,9 @@ const ProductUpload = React.memo((props) => {
           <Input radio name="state" value="D급" desc="포장지가 없고 사용감이 있는 제품" />
         </form>
       </Grid>
-
       <Grid margin="0 0 35px 0">
         <Text h3 bold marginB="20px">
+          <FontAwesomeIcon icon={faCircle} className="cirSvg" />
           상품 상세 정보
         </Text>
 
@@ -263,12 +275,11 @@ const ProductUpload = React.memo((props) => {
           onChange={(e) => {
             setProductDesc(e.target.value);
           }}
-          placeholder="상품 설명을 입력해주세요."
+          plcholder="상품에 대해 추가적으로 기입할 정보를 입력해주세요."
           style={{ padding: "6px 10px", marginTop: "13px", width: "700px", height: "200px", fontSize: "14px" }}
           rows="10"
         ></Input>
       </Grid>
-
       <Grid margin="0 0 35px 0">
         <Text h3 bold marginB="20px">
           상품 연관 태그
@@ -278,13 +289,13 @@ const ProductUpload = React.memo((props) => {
             setTags(e.target.value);
           }}
           type="text"
-          plcholder="태그는 띄어쓰기로 구분됩니다. ex. 피규어 포스터 카드"
+          plcholder="태그는 해쉬태그로 달아주세요. ex. #피규어#포스터#카드"
         />
       </Grid>
-
       <Grid dp_flex margin="0 0 35px 0" justify="space-between" gap="30px">
         <Grid>
           <Text h3 bold marginB="20px">
+            <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             경매 기간
           </Text>
           <Select onChange={handleDeadline} value={D4CT.find((obj) => obj.value === deadline)} placeholder="경매 기간" options={D4CT} />
@@ -292,6 +303,7 @@ const ProductUpload = React.memo((props) => {
 
         <Grid>
           <Text h3 bold marginB="20px">
+            <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             상품 배송 정보
           </Text>
 
@@ -301,10 +313,10 @@ const ProductUpload = React.memo((props) => {
           </form>
         </Grid>
       </Grid>
-
       <Grid dp_flex margin="0 0 35px 0" justify="space-between" gap="30px">
         <Grid>
           <Text h3 bold marginB="20px">
+            <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             최소입찰가
           </Text>
 
@@ -313,17 +325,19 @@ const ProductUpload = React.memo((props) => {
 
         <Grid>
           <Text h3 bold marginB="20px">
+            <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             즉시 낙찰가
           </Text>
 
-          <Input num _onChange={handleSucbid} value={sucbidFake} adornment="원" />
+          <Input num _onChange={handleSucbid} value={sucbidFake} adornment="원" plcholder="최소입찰가보다 높아야 합니다." />
         </Grid>
       </Grid>
-
+      <Grid is_flex justify="center" textAlign="center" margin="20px">
+        <Input radio value="상품 등록시 약관에 동의해주세요."></Input>
+      </Grid>
       <Button _onClick={addPost} width="100%" height="70px" margin="0 auto 9% auto">
         등록하기
       </Button>
-
       {isPostOpen && (
         <Modal>
           <ModalSection>
@@ -348,9 +362,17 @@ const UploadWrap = styled.div`
   flex-direction: column;
   padding: 0;
 
-  margin-bottom: 100px;
+  margin-bottom: 50px;
 
   text-align: left;
+
+  .cirSvg {
+    color: ${Color.Primary};
+    font-size: 8px;
+    vertical-align: 17px;
+    margin-left: -13px;
+    margin-right: 3px;
+  }
 `;
 
 const Modal = styled.div`
@@ -385,6 +407,17 @@ const ModalBack = styled.div`
   left: 0;
   z-index: 96;
   background-color: transparent;
+`;
+
+const PreviewBtn = styled.label`
+  display: flex;
+  width: 180px;
+  height: 180px;
+  border-radius: 16px;
+  background-color: ${Color.Light_3};
+  align-items: center;
+  justify-content: center;
+  color: ${Color.Dark_4};
 `;
 
 export default ProductUpload;

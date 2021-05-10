@@ -1,49 +1,55 @@
 import React from "react";
 import styled from "styled-components";
-import FLogo from 'images/FooterLogo.png'
+import { Text, Grid } from "elements/";
+import FLogo from "images/FooterLogo.png";
+import { Color } from "shared/DesignSys";
 
 const Footer = (props) => {
-    return (
-        <AboutUs>
-            <Main>
-            <Image>
-                <img src={FLogo} />
-            </Image>
-            <Slogan>
-                0부터 9까지 모든 It's OK! OKU
-            </Slogan>
-
-            </Main>
-        </AboutUs>
-    )
+  return (
+    <FooterWrap>
+      <FooterContent>
+        <Image>
+          <img src={FLogo} />
+        </Image>
+        0부터 9까지 모든 It's OK! OKU
+      </FooterContent>
+    </FooterWrap>
+  );
 };
 
-const AboutUs = styled.div`
-height: 151px;
-background : #f5f5f5;
-max-width: 1920px;
+const FooterWrap = styled.footer`
+  max-width: 100%;
+  width: 100%;
+  left: 0;
+  right: 0;
+  height: 151px;
+  z-index: -1;
+  background: ${Color.Light_1};
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 45px;
+  box-sizing: border-box;
 `;
 
-const Main = styled.div`
-display : flex;
-justify-content: space-between;
-margin : 0 auto;
-width : 1400px;
+const FooterContent = styled.footer`
+  max-width: 1490px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-`;
-const Slogan =styled.div`
-font-size : 20px;
-color : #a7a7a7;
-margin-top : 59px;
+  font-size: 20px;
+  font-weight: 500;
+  color: ${Color.Dark_4};
 `;
 
 const Image = styled.div`
-
-margin : 55px 0 0 0;
-& > img{
-width: 105.2px;
-height : 52.6px;
-}
+  & > img {
+    width: 105.2px;
+    height: 52.6px;
+  }
 `;
 
 export default Footer;

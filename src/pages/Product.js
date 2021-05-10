@@ -19,7 +19,6 @@ import { Color } from "shared/DesignSys";
 
 const Product = React.memo((props) => {
   const dispatch = useDispatch();
-  // onSale 처리 해야함
 
   const is_loading = useSelector((state) => state.product.is_loading);
   const productOK = useSelector((state) => state.product.product_detail);
@@ -41,20 +40,22 @@ const Product = React.memo((props) => {
     state,
     tag,
     img,
-    _id,
+    // _id,
   } = useSelector((state) => state.product.product_detail);
   // console.log("🟣상품디테일: ", productOK);
   const _is_like = useSelector((state) => state.like.is_like);
   const _qna_list = useSelector((state) => state.product.qna_list);
   const _related_list = useSelector((state) => state.product.related);
-  console.log("🟣: ", _related_list);
+  // console.log("🟣: ", _related_list);
   const _bid_list = useSelector((state) => state.bid.bid_list);
+  // console.log("🟣: ", _bid_list);
   const _current = useSelector((state) => state.bid.current);
   // console.log("🟣입찰 리스트: ", _bid_list[0]);
 
   // console.log(tag);
   // const _tag = tag.replace('"', "");
 
+  const _id = "6098a7b6d6e26c538b14da0a";
   const [_contents, setReview] = useState("");
   const onChangeContents = useCallback((e) => setReview(e.target.value), []);
 
@@ -63,7 +64,7 @@ const Product = React.memo((props) => {
   };
 
   useEffect(() => {
-    dispatch(productActions.setProductAllAPI("609566ecc795947ca9a342bd"));
+    dispatch(productActions.setProductAllAPI(_id));
     // 여기서 컴포넌트 useEffect 실행하고, 자식 컴포넌트에서 useEffect실행하면 무한루프에 빠진다 -> 공부포인트
   }, [productOK.onSale]);
 
@@ -116,7 +117,7 @@ const Product = React.memo((props) => {
                 현재 입찰 가격
               </Text>
               <Text price textAlign="right">
-                {_current && priceComma(_current)}
+                {_current ? priceComma(_current) : lowBid && priceComma(lowBid)}
                 <Text won>원</Text>
               </Text>
               <Line bottom margin="5px 0" />
@@ -181,7 +182,7 @@ const Product = React.memo((props) => {
                   상품상태
                   <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                 </Text>
-                <Input output info value={state} adornment="급" />
+                <Input output info value={state && state.split("급")[0]} adornment="급" />
               </Grid>
               <Grid flexShrink="1" margin="0 10px 0 0">
                 <Text h4 textAlign="left" marginB="5%">
@@ -211,19 +212,26 @@ const Product = React.memo((props) => {
             </Text>
 
             {/* 실시간 입찰 정보 */}
-            {_bid_list.map((b, idx) => (
-              <LiveBid key={idx} margin="5%">
-                <Text h4 flexGrow="1">
-                  {b.nickName}
-                </Text>
-                <Text h4 textAlign="right" flexGrow="6" margin="0 2% 0 0">
-                  {priceComma(b.bid)}&thinsp;원
-                </Text>
-                <Text subBody textAlign="right" marginT="auto" marginB="auto" color={Color.Dark_4} flexGrow="1">
-                  {moment(b.createAt).fromNow()}
-                </Text>
-              </LiveBid>
-            ))}
+            {_bid_list && _bid_list.length > 0 ? (
+              _bid_list.map((b, idx) => (
+                <LiveBid key={idx} margin="5%">
+                  <Text h4 flexGrow="1">
+                    {b.nickName}
+                  </Text>
+                  <Text h4 textAlign="right" flexGrow="6" margin="0 2% 0 0">
+                    {priceComma(b.bid)}&thinsp;원
+                  </Text>
+                  <Text subBody textAlign="right" marginT="auto" marginB="auto" color={Color.Dark_4} flexGrow="1">
+                    {moment(b.createAt).fromNow()}
+                  </Text>
+                </LiveBid>
+              ))
+            ) : (
+              <Blank>
+                입찰 정보가 없습니다.
+                <br />이 상품의 첫 입찰자가 되어주세요!
+              </Blank>
+            )}
           </Grid>
         </Grid>
 
@@ -372,6 +380,19 @@ const Desc = styled.div`
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
   display: -webkit-box;
+`;
+
+// 상품설명
+const Blank = styled.div`
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  text-align: center;
+  justify-content: space-evenly;
+  color: ${Color.Light_4};
+  margin: auto;
+  height: 80%;
+  user-select: none;
 `;
 
 export default Product;
