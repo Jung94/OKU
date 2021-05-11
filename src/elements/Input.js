@@ -65,7 +65,6 @@ const Input = (props) => {
   };
   const inputEl = useRef();
   const [blur, setBlur] = useState(false);
-  console.log(checked);
 
   //   <Input
   //   check

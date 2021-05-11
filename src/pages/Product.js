@@ -52,12 +52,8 @@ const Product = React.memo((props) => {
   const _current = useSelector((state) => state.bid.current);
   // console.log("🟣입찰 리스트: ", _bid_list[0]);
 
-  // console.log(tag);
-  // const _tag = tag.replace('"', "");
-  // 71979367c6ef070a6e65dd3f
-  // const id = props.match.params.id;
-  // const _id = "60995e158e8f8a644168c751";
-  const _id = "6099825a8e8f8a644168c760";
+
+  const _id = props.match.params.id;
   const [_contents, setReview] = useState("");
   const onChangeContents = useCallback((e) => setReview(e.target.value), []);
 
@@ -69,10 +65,6 @@ const Product = React.memo((props) => {
     dispatch(productActions.setProductAllAPI(_id));
     // 여기서 컴포넌트 useEffect 실행하고, 자식 컴포넌트에서 useEffect실행하면 무한루프에 빠진다 -> 공부포인트
   }, [productOK.onSale]);
-
-  const helpPop = () => {
-    alert("꺄");
-  };
 
   const userLike = () => {
     // if (is_login) {

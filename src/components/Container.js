@@ -148,6 +148,7 @@ const Container = (props) => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          centerMode: false,
           nextArrow: <_NextArrow/>,
           prevArrow: <_PrevArrow/>,
         }
@@ -157,6 +158,7 @@ const Container = (props) => {
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
+            centerMode: false,
             nextArrow: <NextArrow_/>,
             prevArrow: <PrevArrow_/>,
           }
@@ -183,7 +185,7 @@ const Container = (props) => {
                     </Image>
                     <Desc>
                       <Deadline>경매마감까지 {i.deadLine} 남았습니다.</Deadline>
-                      <Currentprice>{i.currentprice}원</Currentprice>
+                      <Currentprice>{i.currentprice}</Currentprice>
                       <Sucbid>{i.sucBid}원</Sucbid>
                     </Desc>
                   </Section>
