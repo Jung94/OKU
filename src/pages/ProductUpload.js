@@ -5,7 +5,8 @@ import Select from "react-select";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as uploadActions } from "redux/modules/upload";
 import { input_priceComma } from "shared/common";
-import { Upload } from "components/";
+// import { Upload } from "components/";
+import Upload from "shared/Upload";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircle as faCircle } from "@fortawesome/free-solid-svg-icons";
@@ -19,35 +20,80 @@ import DaumPostcode from "react-daum-postcode";
 const ProductUpload = React.memo((props) => {
   const dispatch = useDispatch();
 
-  const preview = useSelector((state) => state.upload.preview_image);
-
+  const preview1 = useSelector((state) => state.upload.preview1);
+  const preview2 = useSelector((state) => state.upload.preview2);
+  const preview3 = useSelector((state) => state.upload.preview3);
+  
   const fileInput = useRef();
-
+  const fileInput1 = useRef();
+  const fileInput2 = useRef();
+  
   const progress = useSelector((state) => state.upload.progress);
 
-  const handleChange = (e) => {
-    // e.target => input : input이 가진 files 객체를 살펴보기
-    // 두 줄이 같다.
-    console.log(e.target.files);
-    console.log(fileInput.current.files);
+  // const handleChange = (e) => {
+    
+  //   const fileArr = e.target.files;
+    
+  //   let fileURLs = [];
+   
+  //   let file;
+  //   let filesLength = fileArr.length > 3 ? 3 : fileArr.length;
 
-    // if (e.target.files) {
-    //   const fileInputArray = Array.from(e.target.files).map((f) => URL.createObjectURL(f));
-    //   console.log(fileInputArray);
-    // }
+  //   for (let i = 0; i < filesLength; i++) {
+  //     file = fileArr[i];
+    
+  //     let reader = new FileReader();
+      
+  //     reader.onloadend = () => {
+  //       // console.log(reader.result);
+  //       fileURLs[i] = reader.result;
+  //       // setDetailImgs([...fileURLs]);
+  //       dispatch(uploadActions.setPreview([...fileURLs]));
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // }
 
-    // iterable 객체 안에 들어있는 파일
-    console.log(fileInput.current.files[0]);
+  const handleChange1 = (e) => {
+
     const reader = new FileReader();
-
-    const file = e.target.files[0];
+    const file = fileInput.current.files[0];
+    console.log(file);
     reader.readAsDataURL(file); // 파일 내용을 읽어오기
-
+    
     // 읽기가 끝나면 발생하는 이벤트 핸들러
     reader.onloadend = () => {
-      dispatch(uploadActions.setPreview([reader.result]));
+      
+      dispatch(uploadActions.setPreview1(reader.result));
     };
   };
+  const handleChange2 = (e) => {
+
+    const reader = new FileReader();
+    const file = fileInput1.current.files[0];
+    console.log(file);
+    reader.readAsDataURL(file); // 파일 내용을 읽어오기
+    
+    // 읽기가 끝나면 발생하는 이벤트 핸들러
+    reader.onloadend = () => {
+      
+      dispatch(uploadActions.setPreview2(reader.result));
+    };
+  };
+  const handleChange3 = (e) => {
+
+    const reader = new FileReader();
+    const file = fileInput2.current.files[0];
+    console.log(file);
+    reader.readAsDataURL(file); // 파일 내용을 읽어오기
+    
+    // 읽기가 끝나면 발생하는 이벤트 핸들러
+    reader.onloadend = () => {
+      
+      dispatch(uploadActions.setPreview3(reader.result));
+    };
+  };
+
   const postalAddressInfo = useRef();
   const addressInfo = useRef();
   const detailAddressInfo = useRef();
@@ -125,22 +171,34 @@ const ProductUpload = React.memo((props) => {
   };
 
   const addPost = () => {
-    // console.log(title, cateBig, cateSmall, region);
-    // console.log(productState, deadline, lowbid, sucbid, delivery, productDesc, tags);
-    if (!fileInput.current || fileInput.current.files.length === 0) {
+
+    if (!fileInput.current.files[0] && !fileInput1.current.files[0] && !fileInput2.current.files[0]) {
       window.alert("파일을 선택해주세요!");
       return;
     }
-    // const imageArray = [];
-    // if (fileInput.current.files[0]) {
-    //   fileInput.current.files.forEach((f) => {
-    //     imageArray.push({ ...f });
-    //   });
+
+    // const ss = {
+    //   image1 : preview1[0],
+    //   image2 : preview2[0],
+    //   image3 : preview3[0],
+    //   title : title,
+    //   cateBig : cateBig,
+    //   cateSmall : cateSmall,
+    //   region : region,
+    //   productState : productState,
+    //   deadline : deadline,
+    //   lowbid : lowbid,
+    //   sucbid : sucbid,
+    //   delivery : delivery,
+    //   productDesc : productDesc,
+    //   tags : tags
     // }
-    // const imageArray = [fileInput.current.files[0], fileInput.current.files[1], fileInput.current.files[2]];
+
     dispatch(
       uploadActions.addPostAPI(
         fileInput.current.files[0],
+        fileInput1.current.files[0],
+        fileInput2.current.files[0],
         title,
         cateBig,
         cateSmall,
@@ -229,23 +287,23 @@ const ProductUpload = React.memo((props) => {
           상품이미지
         </Text>
         <Grid is_flex gap="20px">
-          <PreviewBtn for="fileInput">
-            업로드 하기
-            <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange} disabled={progress} ref={fileInput} multiple />
-          </PreviewBtn>
-          <PreviewBtn for="fileInput">
-            업로드 하기
-            <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange} disabled={progress} ref={fileInput} multiple />
-          </PreviewBtn>
-          <PreviewBtn for="fileInput">
-            업로드 하기
-            <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange} disabled={progress} ref={fileInput} multiple />
-          </PreviewBtn>
+          <PreviewBtn2 for="fileInput" src={preview1.length ? preview1 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg" }>
+            {/* 업로드 하기 */}
+            <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange1} disabled={progress} ref={fileInput} />
+          </PreviewBtn2>
+          <PreviewBtn2 for="fileInput1" src={preview2.length ? preview2 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}>
+            {/* 업로드 하기 */}
+            <input style={{ display: "none" }} id="fileInput1" type="file" onChange={handleChange2} disabled={progress} ref={fileInput1} />
+          </PreviewBtn2>
+          <PreviewBtn2 for="fileInput2" src={preview3.length ? preview3 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}>
+            {/* 업로드 하기 */}
+            <input style={{ display: "none" }} id="fileInput2" type="file" onChange={handleChange3} disabled={progress} ref={fileInput2} />
+          </PreviewBtn2>
         </Grid>
-        {preview &&
+        {/* {preview &&
           preview.map((p, idx) => {
             return <Upload key={idx} {...p} />;
-          })}
+          })} */}
       </Grid>
       <Grid margin="0 0 35px 0">
         <Text h3 bold marginB="20px">
@@ -272,7 +330,7 @@ const ProductUpload = React.memo((props) => {
 
         <Input
           text
-          onChange={(e) => {
+          _onChange={(e) => {
             setProductDesc(e.target.value);
           }}
           plcholder="상품에 대해 추가적으로 기입할 정보를 입력해주세요."
@@ -418,6 +476,24 @@ const PreviewBtn = styled.label`
   align-items: center;
   justify-content: center;
   color: ${Color.Dark_4};
+  background-image: url("${(props) => props.src}");
+  background-size: cover;
+  background-position: center;
+`;
+
+const PreviewBtn2 = styled.label`
+  display: flex;
+  width: 180px;
+  height: 180px;
+  border-radius: 16px;
+  // background-color: ${Color.Light_3};
+  border: 1px solid ${Color.Light_4};
+  align-items: center;
+  justify-content: center;
+  color: ${Color.Dark_4};
+  background-image: url("${(props) => props.src}");
+  background-size: cover;
+  background-position: center;
 `;
 
 export default ProductUpload;

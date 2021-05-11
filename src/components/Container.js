@@ -170,9 +170,14 @@ const Container = (props) => {
           <Slide>
             <Slider {...settings}>
               {_popular_product.map((i, idx) => {
+                console.log(i);
                 return (
-                  <Section key={idx}>
-                    <Image>
+                  <Section key={idx} onClick={
+                      () => {
+                        history.push(`product/detail/${i._id}`);
+                      }
+                    } {...i}>
+                    <Image >
                       <img src={i.img[0]} />
                       <Title>{i.title}</Title>
                     </Image>

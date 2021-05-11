@@ -34,6 +34,7 @@ const App = (props) => {
             <Route path="/signup" exact component={Signup} />
             <Route path="/agreement" exact component={Agreement} />
             <Route path="/product" exact component={Product} />
+            <Route path="/product/detail/:id" exact component={Product} />
             <Route path="/productupload" exact component={ProductUpload} />
             <Route path="/result" exact component={Result} />
             <Route path="/category" exact component={CategoryResult} />

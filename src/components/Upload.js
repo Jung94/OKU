@@ -20,6 +20,8 @@ Upload.defaultProps = {
   src: "http://via.placeholder.com/400x300",
 };
 
-const ImagePrv = styled.div``;
+const ImagePrv = styled.div`
+
+`;
 
 export default Upload;
