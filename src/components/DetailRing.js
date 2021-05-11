@@ -1,9 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+
+import { history } from "../redux/configureStore";
+import { actionCreators as postActions } from "redux/modules/post";
+import { useDispatch, useSelector } from "react-redux";
 
 import List from "images/list.png";
 
 const DetailRing = (props) => {
+  const dispatch = useDispatch();
+
+  // 렌더될 때 ~ 한다
+  useEffect(() => {
+    // useEffect 랑 친한 얘
+    dispatch(postActions.getAlertAPI());
+  }, []);
+  const _alert = useSelector((state) => state.post.all_alert);
+  console.log("🧡",_alert)
   const [Ringshowing, setRingShowing] = useState(false);
   // const [Boxshowing, setBoxShowing] = useState(false);
   const RingDetailShowing = () => setRingShowing(!Ringshowing);

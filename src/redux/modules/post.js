@@ -16,6 +16,9 @@ const SET_MAINKEYWORD = "SET_MAINKEYWORD";
 const SET_SUBCATEGORY = "SET_SUBCATEGORY";
 const SET_SUBKEYWORD = "SET_SUBKEYWORD";
 
+// 알림
+const SET_ALERT = "SET_ALERT";
+
 
 // actionCreator
 // 메인 상품 리스트
@@ -30,6 +33,9 @@ const setMainKeyword = createAction(SET_MAINKEYWORD, (mainKeyword) => ({ mainKey
 const setProductSubCategory = createAction(SET_SUBCATEGORY, (subCategory) => ({ subCategory }));
 const setSubKeyword = createAction(SET_SUBKEYWORD, (subKeyword) => ({ subKeyword }));
 
+// 알림
+const setAlert = createAction(SET_ALERT, (alert) => ({ alert }))
+
 //initialState
 const initialState = {
   popular_product: [],
@@ -40,7 +46,9 @@ const initialState = {
   main_category: [],
   sub_category: [],
   mainKeyword : '',
-  subCategory : '',
+  subKeyword : '',
+
+  all_alert : [],
 };
 
 // axios
@@ -153,6 +161,21 @@ const getProductSubCategotAPI = (mainCategory ,subCategory) => {
   };
 };
 
+// 알림
+const Alert_API = "http://3.35.137.38/bid/alert";
+
+const getAlertAPI = () => {
+  return function (dispatch, getState, { history }) {
+    axios
+      .get(Alert_API)
+      .then((resp) => {
+          dispatch(setAlert(resp));
+      })
+      .catch((e) => console.log(e));
+  };
+};
+
+
 // Reducer 를 실행하기위해 액션크리에이터
 export default handleActions(
   {
@@ -184,9 +207,15 @@ export default handleActions(
     [SET_SUBCATEGORY]: (state, action) =>
       produce(state, (draft) => {
         // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
-        draft.sain_category = action.payload.subCategory;
+        draft.sub_category = action.payload.subCategory;
       }),
-  },
+      [SET_ALERT]: (state, action) =>
+      produce(state, (draft) => {
+        // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
+        draft.all_alert = action.payload.alert;
+      }),  
+    },
+
   initialState
 );
 // 리듀서 적기 디스패치, 유즈스테이트 하기
@@ -198,6 +227,7 @@ const actionCreators = {
 
   getProductMainCategotAPI,
   getProductSubCategotAPI,
+  getAlertAPI
 };
 
 export { actionCreators };
