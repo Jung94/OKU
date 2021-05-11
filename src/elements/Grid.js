@@ -33,6 +33,7 @@ const Grid = (props) => {
     wrap,
     justify,
     flexShrink,
+    wordBreak,
 
     gap,
 
@@ -66,6 +67,7 @@ const Grid = (props) => {
     wrap: wrap,
     justify: justify,
     flexShrink: flexShrink,
+    wordBreak: wordBreak,
     gap: gap,
 
     className: className,
@@ -115,12 +117,16 @@ Grid.defaultProps = {
   flexShrink: false,
   gap: false,
   className: false,
+  overflow: false,
+  wordBreak: false,
 };
 
 const GridBox = styled.div`
   z-index: ${(props) => props.zIndex};
   ${(props) => (props.flexShrink ? `flex-shrink:${props.flexShrink};` : `width: ${props.width};`)}
   gap: ${(props) => props.gap};
+  overflow: ${(props) => props.overflow};
+  word-break: ${(props) => props.wordBreak};
 
   height: ${(props) => (props.height ? props.height : "")};
 

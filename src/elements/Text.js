@@ -24,6 +24,8 @@ const Text = (props) => {
     subBody,
     price,
     won,
+    width,
+    border,
   } = props;
   const styles = {
     color: color,
@@ -34,6 +36,8 @@ const Text = (props) => {
     textAlign: textAlign,
     lineHeight: lineHeight,
     weight: weight,
+    width:width,
+    border:border,
   };
 
   // h1, h2, h3, SubHeading(h4) 디자인 시스템에 맞춘 폰트
@@ -110,6 +114,8 @@ Text.defaultprops = {
   margin: false,
   marginB: false,
   marginT: false,
+  width: false,
+  border: false,
   textAlign: "left",
   lineHeight: "100%",
   children: "",
@@ -121,6 +127,8 @@ const TextBox = styled.div`
   flex-grow:${(props) => (props.flexGrow ? props.flexGrow : "")};
 
   height: fit-content;
+  width: ${(props) => props.width};
+  border: ${(props) => props.border};
   margin: ${(props) => (props.margin ? props.margin : "")};
   margin-bottom: ${(props) => (props.marginB ? props.marginB : "")};
   margin-top: ${(props) => (props.marginT ? props.marginT : "")};

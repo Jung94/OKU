@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import styled from "styled-components";
 import { Grid, Input, Line, Button, Tag, Modal, Text, Profile } from "elements/";
@@ -9,6 +10,7 @@ import { faQuestionCircle as fasQC, faHeart as fasHeart } from "@fortawesome/fre
 
 import { actionCreators as productActions } from "redux/modules/product";
 import { actionCreators as likeActions } from "redux/modules/like";
+import RelatedProduct from 'components/global/RelatedProduct';
 import { priceComma } from "shared/common";
 import Loading from "shared/Loading";
 
@@ -17,8 +19,10 @@ import "moment/locale/ko";
 
 import { Color } from "shared/DesignSys";
 
-const Product = React.memo((props) => {
+const Product = (props) => {
   const dispatch = useDispatch();
+  const _id = props.match.params.id;
+  const history = props.history;
 
   const is_loading = useSelector((state) => state.product.is_loading);
   const productOK = useSelector((state) => state.product.product_detail);
@@ -42,7 +46,7 @@ const Product = React.memo((props) => {
     img,
     // _id,
   } = useSelector((state) => state.product.product_detail);
-  // console.log("🟣상품디테일: ", productOK);
+  
   const _is_like = useSelector((state) => state.like.is_like);
   const _qna_list = useSelector((state) => state.product.qna_list);
   const _related_list = useSelector((state) => state.product.related);
@@ -57,7 +61,7 @@ const Product = React.memo((props) => {
   // 71979367c6ef070a6e65dd3f
   // const id = props.match.params.id;
   // const _id = "60995e158e8f8a644168c751";
-  const _id = "6099825a8e8f8a644168c760";
+  // const _id = "6099825a8e8f8a644168c760";
   const [_contents, setReview] = useState("");
   const onChangeContents = useCallback((e) => setReview(e.target.value), []);
 
@@ -109,13 +113,13 @@ const Product = React.memo((props) => {
               <Timer timeProgress {...productOK} />
             </Grid>
 
-            <Grid height="100px" margin="0 0 10px 0">
+            <Grid height="100px" margin="0 0 10px 0" overflow="hidden" wordBreak="break-all">
               <Text h2 bold>
                 {title}
               </Text>
             </Grid>
             <BidLabel>
-              <Text h4 textAlign="right">
+              <Text h4 textAlign="right" marginB="2px">
                 현재 입찰 가격
               </Text>
               <Text price textAlign="right">
@@ -223,7 +227,7 @@ const Product = React.memo((props) => {
                   <Text h4 textAlign="right" flexGrow="6" margin="0 2% 0 0">
                     {priceComma(b.bid)}&thinsp;원
                   </Text>
-                  <Text subBody textAlign="right" marginT="auto" marginB="auto" color={Color.Dark_4} flexGrow="1">
+                  <Text subBody width="34px" textAlign="right" marginT="auto" marginB="auto" color={Color.Dark_4} flexGrow="1">
                     {moment(b.createAt).fromNow()}
                   </Text>
                 </LiveBid>
@@ -243,9 +247,13 @@ const Product = React.memo((props) => {
               관련 상품
             </Text>
             <Grid is_flex>
-              {_related_list.map((r, idx) => (
-                <RelatedImg key={idx} img={r.img[0]}></RelatedImg>
-              ))}
+              {_related_list.map((r, idx) => {
+                console.log(r);
+                return (
+                  
+                  <RelatedProduct key={idx} img={r.img[0]} title={r.title} lowBid={r.lowBid} _onClick={() => {history.push(`/product/detail/${r._id}`);}} />
+                );
+              })}
             </Grid>
           </Grid>
 
@@ -293,7 +301,7 @@ const Product = React.memo((props) => {
       </ProductWrap>
     );
   }
-});
+};
 
 // Product 컴포넌트 감싸기
 const ProductWrap = styled.div`
@@ -316,21 +324,6 @@ const ProductWrap = styled.div`
       transform: scale(1.2) rotate(20deg);
     }
   }
-`;
-
-// 관련 상품
-const RelatedImg = styled.div`
-  display: flex;
-  background: url(${(props) => props.img});
-  background-size: 120%;
-  background-position: center;
-  flex-grow: 1;
-  height: 10rem;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-right: 1%;
-  border-radius: 16px;
-  border: 0.5px solid ${Color.Light_3};
 `;
 
 // 실시간 낙찰 정보 => 디자인에 따라 낙찰 정보 확인용 component로 빼기 가능
