@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import styled from "styled-components";
 import { history } from "redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
@@ -24,16 +24,23 @@ import { Color } from "shared/DesignSys";
 
 const Header = (props) => {
   const dispatch = useDispatch();
-  const [keyword, setKeyword] = React.useState("");
-  const [mainct, setMainct] = React.useState("");
-  const [subct, setSubct] = React.useState("");
   const is_login = useSelector((state) => state.user.is_login);
+
+  const [keyword, setKeyword] = useState("");
+  const [mainct, setMainct] = useState("");
+  const [subct, setSubct] = useState("");
 
   useEffect(() => {
     dispatch(userActions.isLogin());
     window.addEventListener("scroll", headerChange);
     return () => window.removeEventListener("scroll", headerChange);
   }, []);
+
+  const logout = () => {
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      dispatch(userActions.isLogout());
+    }
+  };
 
   const SearchProduct = () => {
     dispatch(productActions.getProductSearch(keyword));
@@ -138,13 +145,7 @@ const Header = (props) => {
             <ListBtn />
 
             <Mainselectbox>
-              <Select
-                placeholder="대분류"
-                onChange={handleMainCategory}
-                value={MainCT.find((obj) => obj.value === MainCT)}
-                options={MainCT}
-                styles={customStyles}
-              />
+              <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
             </Mainselectbox>
             {mainct === "" && (
               <SubSelectbox>
@@ -200,7 +201,7 @@ const Header = (props) => {
                   >
                     회원가입
                   </Text>
-                  <p style={{ fontSize: "12px", color: "#868686" }}>/</p>
+                  <p style={{ fontSize: "12px", color: "#868686" }}>&thinsp;/&thinsp;</p>
                   <Text
                     subBody
                     color={Color.Dark_4}
@@ -214,15 +215,15 @@ const Header = (props) => {
               )}
               {/* 로그인 후  */}
               {is_login && (
-                <div style={{ display: "flex" }}>
-                  <Text subBody color={Color.Dark_4}>
+                <>
+                  <Text subBody color={Color.Dark_4} onClick={logout}>
                     로그아웃
                   </Text>
-                </div>
+                  <Text subBody color={Color.Dark_4} onClick={() => history.push("/my/shopping")}>
+                    마이페이지
+                  </Text>
+                </>
               )}
-              <Text subBody color={Color.Dark_4} onClick={() => history.push("/my/shopping")}>
-                마이페이지
-              </Text>
             </Grid>
 
             <Grid is_flex justify="flex-end">

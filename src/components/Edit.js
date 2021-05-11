@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle as fasQC } from "@fortawesome/free-solid-svg-icons";
 
 import { actionCreators as mypageActions } from "redux/modules/mypage";
+import { Color } from "shared/DesignSys";
 
 const Edit = (props) => {
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ const Edit = (props) => {
             <input style={{ display: "none" }} id="fileInput" type="file" accept="image/*" ref={fileInput} />
             <Profile size="150px" img={_user.profile} nomargin />
           </label>
-          <Text subBody margin="10px">
+          <Text subBody margin="10px" color={Color.Light_4}>
             사진을 누르면 수정이 가능합니다.
           </Text>
           <Input

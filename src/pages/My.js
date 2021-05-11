@@ -25,7 +25,7 @@ const My = (props) => {
       dispatch(mypageActions.setProfileAPI());
       dispatch(mypageActions.setInfoAPI());
       dispatch(mypageActions.setMystoreAPI());
-      dispatch(likeActions.getLikeAPI());
+      dispatch(likeActions.getMyLikeAPI());
     }
   }, []);
 
@@ -84,11 +84,11 @@ const Wrap = styled.div`
 const Modi = styled.div`
   width: 150px;
   height: 150px;
-  display: flex;
+  display: flexbox;
   align-items: flex-end;
   .setting {
     margin-left: -35px;
-    margin-bottom: 5px;
+    margin-bottom: -125px;
     color: white;
     background-color: ${Color.Primary};
     width: 32px;

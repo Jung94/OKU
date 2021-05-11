@@ -10,7 +10,7 @@ import { faQuestionCircle as fasQC, faHeart as fasHeart } from "@fortawesome/fre
 
 import { actionCreators as productActions } from "redux/modules/product";
 import { actionCreators as likeActions } from "redux/modules/like";
-import RelatedProduct from 'components/global/RelatedProduct';
+import RelatedProduct from "components/global/RelatedProduct";
 import { priceComma } from "shared/common";
 import Loading from "shared/Loading";
 
@@ -46,7 +46,7 @@ const Product = (props) => {
     img,
     // _id,
   } = useSelector((state) => state.product.product_detail);
-  
+
   const _is_like = useSelector((state) => state.like.is_like);
   const _qna_list = useSelector((state) => state.product.qna_list);
   const _related_list = useSelector((state) => state.product.related);
@@ -56,7 +56,6 @@ const Product = (props) => {
   const _current = useSelector((state) => state.bid.current);
   // console.log("🟣입찰 리스트: ", _bid_list[0]);
 
-  const _id = props.match.params.id;
   const [_contents, setReview] = useState("");
   const onChangeContents = useCallback((e) => setReview(e.target.value), []);
 
@@ -241,8 +240,15 @@ const Product = (props) => {
               {_related_list.map((r, idx) => {
                 console.log(r);
                 return (
-                  
-                  <RelatedProduct key={idx} img={r.img[0]} title={r.title} lowBid={r.lowBid} _onClick={() => {history.push(`/product/detail/${r._id}`);}} />
+                  <RelatedProduct
+                    key={idx}
+                    img={r.img[0]}
+                    title={r.title}
+                    lowBid={r.lowBid}
+                    _onClick={() => {
+                      history.push(`/product/detail/${r._id}`);
+                    }}
+                  />
                 );
               })}
             </Grid>
@@ -274,16 +280,7 @@ const Product = (props) => {
             </Text>
           </Grid>
           <Grid margin="0 0 10px 0">
-            <Input
-              text
-              width="100%"
-              margin="0 0 10px 0"
-              plcholder="문의 내용을 입력해주세요."
-              adornment="0 / 100"
-              _onChange={onChangeContents}
-              fnc={addQuestion}
-              btn="등록하기"
-            ></Input>
+            <Input text width="100%" margin="0 0 10px 0" plcholder="문의 내용을 입력해주세요." adornment="0 / 100" _onChange={onChangeContents} fnc={addQuestion} btn="등록하기"></Input>
             {_qna_list.map((q, idx) => (
               <QnA key={idx} {...q} />
             ))}

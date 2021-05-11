@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { KAKAO_JS_ID } from "shared/common";
 import { history } from "redux/configureStore";
 import { actionCreators as userActions } from "redux/modules/user";
@@ -16,23 +16,49 @@ import KakaoLogin from "react-kakao-login";
 
 const Login = (props) => {
   const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.user.is_login);
+  const login_msg = useSelector((state) => state.user.login_msg);
 
-  const [email, setEmail] = React.useState("");
-  const [pw, setPw] = React.useState("");
+  // 아이디 저장
+  let saved_id = window.localStorage.getItem("saved_id");
+  const [email, setEmail] = useState(saved_id ? saved_id : "");
+  const [pw, setPw] = useState("");
 
   // 로그인 체크박스
   const [autoLogin, setAuto] = useState(false); // 자동 로그인
   const [saveId, setId] = useState(false); // 아이디 저장
 
-  // 로그인
-  const login = () => {
-    if (!email || !pw) {
-      alert("이메일과 비밀번호를 입력해주세요");
-      return;
-    }
+  const _id = useRef();
+  const _pwd = useRef();
 
-    dispatch(userActions.loginAPI(email, pw));
+  // 회원가입 warning 메시지
+  const [warning, setWarning] = useState({ _id_wrng: false, _pwd_wrng: false, _wrng: false });
+  const { _id_wrng, _pwd_wrng, _wrng } = warning;
+
+  // 로그인 화면 에러 처리 UX
+  const login = () => {
+    setWarning({ _id_wrng: false, _pwd_wrng: false }); // 로그인 시도를 여러번 할 수 있으므로
+    if (!email && !pw) {
+      setWarning({ _id_wrng: true, _pwd_wrng: true });
+      _id.current.focus();
+    } else if (!email) {
+      setWarning({ _id_wrng: true });
+      _id.current.focus();
+    } else if (!pw) {
+      setWarning({ _pwd_wrng: true });
+      _pwd.current.focus();
+    } else {
+      dispatch(userActions.loginAPI(email, pw, autoLogin, saveId));
+      if (login_msg) {
+        _id.current.focus();
+        setWarning({ _wrng: true });
+      }
+    }
   };
+
+  useEffect(() => {
+    _id.current.focus();
+  }, []);
 
   // 카카오 로그인
   const kakaoLoginClickHandler = (res) => {
@@ -59,6 +85,11 @@ const Login = (props) => {
 
   // const kakaoLoginClickHandler
 
+  // 로그인 되어있을때 로그인 페이지 접근 방지
+  if (is_login) {
+    history.push("/my/shopping");
+  }
+
   return (
     <Wrap>
       <Text h2 textAlign="center" marginB="20px">
@@ -69,10 +100,10 @@ const Login = (props) => {
         <br />
         회원가입을 통해 더욱 편리하게 OKU의 다양한 상품을 구경하세요.
       </Text>
-
       <LoginBox>
-        <FontAwesomeIcon icon={faUser} color={Color.Light_3} />
+        {/* <FontAwesomeIcon icon={faUser} color={Color.Light_3} /> */}
         <LoginInput
+          value={email}
           type="text"
           placeholder="ID"
           id="loginInput"
@@ -84,11 +115,16 @@ const Login = (props) => {
               login();
             }
           }}
-        ></LoginInput>
+          ref={_id}
+        />
       </LoginBox>
-
+      {_id_wrng && (
+        <Text subBody color={Color.Primary} marginB="20px">
+          ID를 다시 확인해주세요!
+        </Text>
+      )}
       <LoginBox>
-        <FontAwesomeIcon icon={faLock} color={Color.Light_3} />
+        {/* <FontAwesomeIcon icon={faLock} color={Color.Light_3} /> */}
         <LoginInput
           type="password"
           placeholder="PASSWORD"
@@ -100,8 +136,19 @@ const Login = (props) => {
               login();
             }
           }}
-        ></LoginInput>
+          ref={_pwd}
+        />
       </LoginBox>
+      {_pwd_wrng && (
+        <Text subBody color={Color.Primary} marginB="20px">
+          비밀번호를 다시 확인해주세요!
+        </Text>
+      )}
+      {_wrng && (
+        <Text subBody color={Color.Primary} marginB="20px">
+          존재하지 않는 아이디이거나, 잘못된 비밀번호입니다.
+        </Text>
+      )}
 
       <Check>
         <Input
@@ -128,44 +175,35 @@ const Login = (props) => {
           }}
           desc="아이디 저장"
         />
-        {/* 
-      <CheckIdPw>
-        <a>아이디</a>
-        <CheckBar>|</CheckBar>
-        <a>비밀번호</a>
-        <span>찾기</span>
-      </CheckIdPw> */}
-      </Check>
 
+        {/* <CheckIdPw>
+          <a>아이디</a>
+          <CheckBar>|</CheckBar>
+          <a>비밀번호</a>
+          <span>찾기</span>
+        </CheckIdPw> */}
+      </Check>
       <Button _onClick={login} width="100%" margin="20px 0">
         로그인
       </Button>
-
-      <Text subBody textAlign="center" color={Color.Dark_4}>
+      <SocialBox>
+        {/* <Naver/> */}
+        <KakaoLogin token={KAKAO_JS_ID} render={(props) => <KakaoBtn onClick={props.onClick}></KakaoBtn>} onSuccess={kakaoLoginClickHandler} getProfile={true}></KakaoLogin>
+        {/* <Google/> */}
+      </SocialBox>
+      <Text subBody textAlign="center" marginT="20px" color={Color.Dark_4}>
         아직 OKU 회원이 아니신가요?
       </Text>
-
       <Text subBody weight="700" textAlign="center" color={Color.Primary} marginT="5px" marginB="10px" onClick={() => history.push("/signup")}>
         회원가입하러 가기
       </Text>
-
-      <SocialBox>
-        {/* <Naver/> */}
-        <KakaoLogin
-          token={KAKAO_JS_ID}
-          render={(props) => <KakaoBtn onClick={props.onClick}></KakaoBtn>}
-          onSuccess={kakaoLoginClickHandler}
-          getProfile={true}
-        ></KakaoLogin>
-        {/* <Google/> */}
-      </SocialBox>
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
   width: 350px;
-  min-height: 42vh;
+  min-height: 63vh;
   height: 100%;
   margin: 230px auto auto;
   box-sizing: border-box;
@@ -174,8 +212,6 @@ const Wrap = styled.div`
 const SocialBox = styled.div`
   // border: 1px solid rgba(204, 204, 204, 0.5);
   width: 100%;
-  height: 100px;
-  margin: 16px 0;
   padding: 0;
   box-sizing: border-box;
   display: flex;
@@ -198,8 +234,7 @@ const KakaoBtn = styled.div`
 
   border: 1px solid #fee50000;
 
-  transition: border 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275), background-size 1000ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
-    box-shadow 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: border 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275), background-size 1000ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   &:hover {
     box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.2);
@@ -225,8 +260,8 @@ const Check = styled.div`
   padding: 0;
   box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
-  font-size: 12px;
+  justify-content: flex-start;
+  gap: 30px;
   color: rgba(0, 0, 0, 0.5);
 `;
 
@@ -288,6 +323,7 @@ const LoginInput = styled.input`
   &::placeholder {
     color: rgba(0, 0, 0, 0.3);
     font-size: 12px;
+    user-select: none;
   }
 `;
 

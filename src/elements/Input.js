@@ -20,32 +20,7 @@ const Input = (props) => {
   // radio -> 상품 업로드
   // check -> 로그인
 
-  const {
-    output,
-    text,
-    check,
-    radio,
-    info,
-    left,
-    disabled,
-    checked,
-    width,
-    margin,
-    adornment,
-    plcholder,
-    num,
-    children,
-    value,
-    name,
-    id,
-    _onChange,
-    _onKeyPress,
-    _onClick,
-    type,
-    fnc,
-    btn,
-    desc,
-  } = props;
+  const { output, text, check, radio, info, left, disabled, checked, maxLength, width, margin, adornment, plcholder, num, children, value, name, id, _onChange, _onKeyPress, _onClick, type, fnc, btn, desc } = props;
 
   const styles = {
     name: name,
@@ -53,6 +28,7 @@ const Input = (props) => {
     onKeyPress: _onKeyPress,
     onClick: _onClick,
     type: type,
+    maxLength: maxLength,
     id: id,
     disabled: disabled,
     checked: checked,
@@ -66,19 +42,6 @@ const Input = (props) => {
   const inputEl = useRef();
   const [blur, setBlur] = useState(false);
 
-  //   <Input
-  //   check
-  //   checked={saveId}
-  //   _onClick={() => {
-  //     if (saveId) {
-  //       setId(false);
-  //     } else {
-  //       setId(true);
-  //     }
-  //   }}
-  //   desc="아이디 저장"
-  // />
-
   if (output) {
     return (
       <InputBox
@@ -87,19 +50,7 @@ const Input = (props) => {
           inputEl.current.focus();
         }}
       >
-        <input
-          type={type}
-          ouput={output}
-          info={info}
-          ref={inputEl}
-          placeholder={plcholder}
-          name={name}
-          value={value}
-          onChange={_onChange}
-          onKeyPress={_onKeyPress}
-          onFocus={() => setBlur(!blur)}
-          onBlur={() => setBlur(false)}
-        >
+        <input type={type} ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
           {children}
         </input>
         {adornment && <span>{adornment}</span>}
@@ -115,23 +66,12 @@ const Input = (props) => {
           inputEl.current.focus();
         }}
       >
-        <input
-          type="radio"
-          ouput={output}
-          info={info}
-          ref={inputEl}
-          placeholder={plcholder}
-          name={name}
-          value={value}
-          onChange={_onChange}
-          onFocus={() => setBlur(!blur)}
-          onBlur={() => setBlur(false)}
-        >
+        <input type="radio" ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value} onChange={_onChange} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
           {children}
         </input>
         <span className="checkmark" />
         <div>
-          &ensp;{value}&ensp;
+          {value && <>&ensp;{value}</>}&ensp;
           <Text subBody color={Color.Dark_4}>
             {desc}
           </Text>
@@ -151,44 +91,19 @@ const Input = (props) => {
         {checked ? (
           <svg width="25" height="25" viewBox="0 0 25 25" fill="none">
             <rect x="0" y="0" width="25" height="25" rx="7" fill={Color.Primary} />
-            <path
-              d="M6.92444 12.4281L11.2176 18.2825L19.3162 8.23248"
-              stroke="white"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+            <path d="M6.92444 12.4281L11.2176 18.2825L19.3162 8.23248" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         ) : (
           <svg width="25" height="25" viewBox="0 0 25 25" fill="none">
             <rect x="0" y="0" width="25" height="25" rx="7" fill={Color.Light_3} />
-            <path
-              d="M6.92444 11.6981L11.2176 17.5525L19.3162 7.5025"
-              stroke="white"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
+            <path d="M6.92444 11.6981L11.2176 17.5525L19.3162 7.5025" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         )}
-        <input
-          type="checkbox"
-          checked={checked}
-          ouput={output}
-          info={info}
-          ref={inputEl}
-          placeholder={plcholder}
-          name={name}
-          value={value}
-          onClick={_onClick}
-          onChange={_onChange}
-          onFocus={() => setBlur(!blur)}
-          onBlur={() => setBlur(false)}
-        >
+        <input type="checkbox" checked={checked} ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value} onClick={_onClick} onChange={_onChange} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
           {children}
         </input>
         <div>
-          &ensp;{value}&ensp;
+          {value && <>&ensp;{value}</>}&ensp;
           <Text subBody color={Color.Dark_4}>
             {desc}
           </Text>
@@ -208,16 +123,7 @@ const Input = (props) => {
               inputEl.current.focus();
             }}
           >
-            <textarea
-              type={type}
-              ref={inputEl}
-              placeholder={plcholder}
-              value={value}
-              onChange={_onChange}
-              onKeyPress={_onKeyPress}
-              onFocus={() => setBlur(!blur)}
-              onBlur={() => setBlur(false)}
-            >
+            <textarea type={type} ref={inputEl} placeholder={plcholder} value={value} maxLength={maxLength} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
               {children}
             </textarea>
             {btn && (
@@ -238,14 +144,7 @@ const Input = (props) => {
               inputEl.current.focus();
             }}
           >
-            <textarea
-              ref={inputEl}
-              placeholder={plcholder}
-              value={value}
-              onChange={_onChange}
-              onFocus={() => setBlur(!blur)}
-              onBlur={() => setBlur(false)}
-            >
+            <textarea type={type} ref={inputEl} placeholder={plcholder} value={value} maxLength={maxLength} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
               {children}
             </textarea>
             {btn && (
@@ -274,17 +173,7 @@ const Input = (props) => {
             inputEl.current.focus();
           }}
         >
-          <input
-            id={id}
-            type={type}
-            ref={inputEl}
-            placeholder={plcholder}
-            value={value}
-            onChange={_onChange}
-            onKeyPress={_onKeyPress}
-            onFocus={() => setBlur(!blur)}
-            onBlur={() => setBlur(false)}
-          >
+          <input id={id} type={type} ref={inputEl} placeholder={plcholder} value={value} maxLength={maxLength} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
             {children}
           </input>
           <span>{adornment}</span>
@@ -296,15 +185,7 @@ const Input = (props) => {
             inputEl.current.focus();
           }}
         >
-          <input
-            type={type}
-            ref={inputEl}
-            placeholder={plcholder}
-            value={value}
-            onChange={_onChange}
-            onFocus={() => setBlur(!blur)}
-            onBlur={() => setBlur(false)}
-          >
+          <input id={id} type={type} ref={inputEl} placeholder={plcholder} value={value} maxLength={maxLength} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
             {children}
           </input>
           <span>{adornment}</span>
@@ -357,6 +238,7 @@ const InputBox = styled.div`
     font-weight: 400;
     align-items: center;
     padding: auto 0;
+    width: max-content;
   }
 `;
 
@@ -369,6 +251,9 @@ const RadioCheck = styled.label`
   user-select: none;
   transition: background-color 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   :hover {
+    svg {
+      box-shadow: 0 0 0 3px ${Color.Primary}33;
+    }
     span {
       box-shadow: 0 0 0 3px ${Color.Primary}33;
       background-color: ${Color.Light_2};
@@ -416,6 +301,9 @@ const CheckBox = styled.label`
   user-select: none;
   transition: background-color 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   :hover {
+    svg {
+      box-shadow: 0 0 0 3px ${Color.Primary}33;
+    }
     span {
       box-shadow: 0 0 0 3px ${Color.Primary}33;
       background-color: ${Color.Light_2};
@@ -463,7 +351,6 @@ const TextareaBox = styled.div`
   ${(props) => (props.output ? `background-color: ${Color.Light_3}; user-select: none; height: 50px;` : "background-color: white;")}
   textarea {
     box-sizing: border-box;
-
     width: 100%;
     background-color: transparent;
     ::placeholder {

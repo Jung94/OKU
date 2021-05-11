@@ -9,8 +9,6 @@ const Myshop = (props) => {
   console.log(_like_list);
   return (
     <Wrap>
-      <Input check></Input>
-      <Input check></Input>
       <Text h3 textAlign="left">
         찜 목록
       </Text>

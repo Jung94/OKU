@@ -20,30 +20,32 @@ import DaumPostcode from "react-daum-postcode";
 const ProductUpload = React.memo((props) => {
   const dispatch = useDispatch();
 
+  const [agree, setAgree] = useState(false); // 이용약관 동의
+
   const preview1 = useSelector((state) => state.upload.preview1);
   const preview2 = useSelector((state) => state.upload.preview2);
   const preview3 = useSelector((state) => state.upload.preview3);
-  
+
   const fileInput = useRef();
   const fileInput1 = useRef();
   const fileInput2 = useRef();
-  
+
   const progress = useSelector((state) => state.upload.progress);
 
   // const handleChange = (e) => {
-    
+
   //   const fileArr = e.target.files;
-    
+
   //   let fileURLs = [];
-   
+
   //   let file;
   //   let filesLength = fileArr.length > 3 ? 3 : fileArr.length;
 
   //   for (let i = 0; i < filesLength; i++) {
   //     file = fileArr[i];
-    
+
   //     let reader = new FileReader();
-      
+
   //     reader.onloadend = () => {
   //       // console.log(reader.result);
   //       fileURLs[i] = reader.result;
@@ -55,41 +57,35 @@ const ProductUpload = React.memo((props) => {
   // }
 
   const handleChange1 = (e) => {
-
     const reader = new FileReader();
     const file = fileInput.current.files[0];
     console.log(file);
     reader.readAsDataURL(file); // 파일 내용을 읽어오기
-    
+
     // 읽기가 끝나면 발생하는 이벤트 핸들러
     reader.onloadend = () => {
-      
       dispatch(uploadActions.setPreview1(reader.result));
     };
   };
   const handleChange2 = (e) => {
-
     const reader = new FileReader();
     const file = fileInput1.current.files[0];
     console.log(file);
     reader.readAsDataURL(file); // 파일 내용을 읽어오기
-    
+
     // 읽기가 끝나면 발생하는 이벤트 핸들러
     reader.onloadend = () => {
-      
       dispatch(uploadActions.setPreview2(reader.result));
     };
   };
   const handleChange3 = (e) => {
-
     const reader = new FileReader();
     const file = fileInput2.current.files[0];
     console.log(file);
     reader.readAsDataURL(file); // 파일 내용을 읽어오기
-    
+
     // 읽기가 끝나면 발생하는 이벤트 핸들러
     reader.onloadend = () => {
-      
       dispatch(uploadActions.setPreview3(reader.result));
     };
   };
@@ -171,7 +167,6 @@ const ProductUpload = React.memo((props) => {
   };
 
   const addPost = () => {
-
     if (!fileInput.current.files[0] && !fileInput1.current.files[0] && !fileInput2.current.files[0]) {
       window.alert("파일을 선택해주세요!");
       return;
@@ -194,25 +189,10 @@ const ProductUpload = React.memo((props) => {
     //   tags : tags
     // }
 
-    dispatch(
-      uploadActions.addPostAPI(
-        fileInput.current.files[0],
-        fileInput1.current.files[0],
-        fileInput2.current.files[0],
-        title,
-        cateBig,
-        cateSmall,
-        region,
-        productState,
-        deadline,
-        lowbid,
-        sucbid,
-        delivery,
-        productDesc,
-        tags
-      )
-    );
+    dispatch(uploadActions.addPostAPI(fileInput.current.files[0], fileInput1.current.files[0], fileInput2.current.files[0], title, cateBig, cateSmall, region, productState, deadline, lowbid, sucbid, delivery, productDesc, tags));
   };
+
+  const [count, setCount] = useState("");
 
   return (
     <UploadWrap>
@@ -229,9 +209,11 @@ const ProductUpload = React.memo((props) => {
         <Input
           _onChange={(e) => {
             setTitle(e.target.value);
+            setCount(e.target.value);
           }}
           margin="6% auto"
-          adornment="0/25"
+          adornment={`${count.length} / 25`}
+          maxLength="25"
           plcholder="최대 25자 작성 가능합니다."
         ></Input>
       </Grid>
@@ -287,7 +269,7 @@ const ProductUpload = React.memo((props) => {
           상품이미지
         </Text>
         <Grid is_flex gap="20px">
-          <PreviewBtn2 for="fileInput" src={preview1.length ? preview1 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg" }>
+          <PreviewBtn2 for="fileInput" src={preview1.length ? preview1 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}>
             {/* 업로드 하기 */}
             <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange1} disabled={progress} ref={fileInput} />
           </PreviewBtn2>
@@ -391,7 +373,18 @@ const ProductUpload = React.memo((props) => {
         </Grid>
       </Grid>
       <Grid is_flex justify="center" textAlign="center" margin="20px">
-        <Input radio value="상품 등록시 약관에 동의해주세요."></Input>
+        <Input
+          check
+          checked={agree}
+          _onClick={() => {
+            if (agree) {
+              setAgree(false);
+            } else {
+              setAgree(true);
+            }
+          }}
+          value="상품 등록시 약관에 동의해주세요."
+        />
       </Grid>
       <Button _onClick={addPost} width="100%" height="70px" margin="0 auto 9% auto">
         등록하기
@@ -428,7 +421,7 @@ const UploadWrap = styled.div`
     color: ${Color.Primary};
     font-size: 8px;
     vertical-align: 17px;
-    margin-left: -13px;
+    margin-left: -12px;
     margin-right: 3px;
   }
 `;

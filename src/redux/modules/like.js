@@ -9,10 +9,14 @@ const GET_LIKE = "GET_LIKE"; //좋아요 DB 불러오기
 const ADD_LIKE = "ADD_LIKE"; //좋아요 추가하기
 const DELETE_LIKE = "DELETE_LIKE"; //좋아요 삭제하기
 
+const GET_MY_LIKE = "GET_MY_LIKE"; //좋아요 삭제하기
+
 //actionCreators
 const getLike = createAction(GET_LIKE, (like) => ({ like }));
 const addLike = createAction(ADD_LIKE, (like) => ({ like }));
 const deleteLike = createAction(DELETE_LIKE, (productId) => ({ productId }));
+
+const getMyLike = createAction(GET_MY_LIKE, (like) => ({ like }));
 
 const initialState = {
   is_loading: false,
@@ -44,6 +48,42 @@ const getLikeAPI = () => {
             );
           });
           dispatch(getLike(likeResult));
+        } else {
+        }
+      })
+      .catch((error) => {
+        console.log("getLikeAPI에 문제가 있습니다.", error);
+      });
+  };
+};
+
+const getMyLikeAPI = () => {
+  return function (dispatch, getState, { history }) {
+    const access_token = localStorage.getItem("access_token");
+    fetch(`${API}/user/pick`, {
+      method: "GET",
+      headers: {
+        access_token: `${access_token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.okay && res.result.length > 0) {
+          // 유저 한명당 좋아요 개수 제한 없는 상태
+          // 배열 그대로 받으면 좋아요가 여러개임
+          // 중복 productId 제거하기
+          const likeResult = res.result.filter((r, idx) => {
+            return (
+              res.result.findIndex((_r, _idx) => {
+                return r.productId === _r.productId;
+              }) === idx
+            );
+          });
+          if (likeResult.length < 4) {
+            dispatch(getLike(likeResult.slice(0, -1)));
+          } else {
+            dispatch(getLike(likeResult.slice(0, 4)));
+          }
         } else {
         }
       })
@@ -130,6 +170,7 @@ const actionCreators = {
   getLikeAPI,
   addLikeAPI,
   deleteLikeAPI,
+  getMyLikeAPI,
 };
 
 export { actionCreators };
