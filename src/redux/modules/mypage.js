@@ -6,15 +6,22 @@ import { actionCreators as loadingActions } from "redux/modules/loading";
 
 // actions
 const SET_PROFILE = "SET_PROFILE";
-const EDIT_PROFILE = "EDIT_PROFILE";
+const SET_INFO = "SET_INFO";
+const SET_MYSELLING = "SET_MYSELLING";
+const SET_PREVIEW = "SET_PREVIEW";
 
 //actionCreators
 const setProfile = createAction(SET_PROFILE, (user) => ({ user }));
-const editProfile = createAction(EDIT_PROFILE, (nickname, profile) => ({ nickname, profile }));
+const setInfo = createAction(SET_INFO, (user) => ({ user }));
+const setMystore = createAction(SET_MYSELLING, (selling_list, sold_list) => ({ selling_list, sold_list }));
+const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }));
 
 const initialState = {
   is_loading: false,
   user: {},
+  user_info: {},
+  my_selling: [],
+  my_sold: [],
 };
 
 const setProfileAPI = () => {
@@ -28,7 +35,6 @@ const setProfileAPI = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         if (res.okay) {
           let _user = { nickname: res.nickname, profile: res.profile };
           dispatch(setProfile(_user));
@@ -37,7 +43,7 @@ const setProfileAPI = () => {
         }
       })
       .catch((error) => {
-        console.log("setProductAllAPI에 문제가 있습니다.", error);
+        console.log("setProfileAPI에 문제가 있습니다.", error);
       });
   };
 };
@@ -49,7 +55,6 @@ const editProfileAPI = (nickname, profile) => {
     const formData = new FormData();
     formData.append("nick", nickname);
     formData.append("img", profile);
-
     fetch(`${API}/user/mypronick`, {
       method: "PUT",
       headers: {
@@ -59,8 +64,22 @@ const editProfileAPI = (nickname, profile) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         if (res.okay) {
+          if (res.profileImg === profile) {
+            let draft = { nickname: nickname, profile: res.profileImg };
+            dispatch(setProfile(draft));
+          } else if (!profile) {
+            let original = getState().mypage.user.profile;
+            let draft = { nickname: nickname, profile: original };
+            dispatch(setProfile(draft));
+          } else {
+            const reader = new FileReader();
+            reader.readAsDataURL(profile); // 파일 내용을 읽어오기
+            reader.onloadend = () => {
+              let draft = { nickname: nickname, profile: reader.result };
+              dispatch(setProfile(draft));
+            };
+          }
         } else {
           console.log("해당 데이터가 준비되지 않았습니다.");
         }
@@ -72,6 +91,62 @@ const editProfileAPI = (nickname, profile) => {
   };
 };
 
+const setInfoAPI = () => {
+  return function (dispatch, getState, { history }) {
+    const access_token = localStorage.getItem("access_token");
+    fetch(`${API}/user/myinfo`, {
+      method: "GET",
+      headers: {
+        access_token: `${access_token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.okay) {
+          dispatch(setInfo(res.user));
+        } else {
+          console.log("해당 데이터가 준비되지 않았습니다.");
+        }
+      })
+      .catch((error) => {
+        console.log("setInfoAPI에 문제가 있습니다.", error);
+      });
+  };
+};
+
+const setMystoreAPI = () => {
+  return function (dispatch, getState, { history }) {
+    const access_token = localStorage.getItem("access_token");
+    fetch(`${API}/user/myproduct`, {
+      method: "GET",
+      headers: {
+        access_token: `${access_token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.okay) {
+          let selling = [];
+          let sold = [];
+          const all = res.result;
+          all.forEach((r) => {
+            if (r.onSale) {
+              selling.push(r);
+            } else {
+              sold.push(r);
+            }
+          });
+          dispatch(setMystore(selling, sold));
+        } else {
+          console.log("해당 데이터가 준비되지 않았습니다.");
+        }
+      })
+      .catch((error) => {
+        console.log("setInfoAPI에 문제가 있습니다.", error);
+      });
+  };
+};
+
 export default handleActions(
   {
     [SET_PROFILE]: (state, action) =>
@@ -79,10 +154,21 @@ export default handleActions(
         draft.is_loading = action.payload.is_loading;
         draft.user = action.payload.user;
       }),
-    [EDIT_PROFILE]: (state, action) =>
+    [SET_INFO]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
-        draft.user = action.payload.user;
+        draft.user_info = action.payload.user;
+      }),
+    [SET_MYSELLING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
+        draft.my_selling = action.payload.selling_list;
+        draft.my_sold = action.payload.sold_list;
+      }),
+    [SET_PREVIEW]: (state, action) =>
+      produce(state, (draft) => {
+        draft.preview_image = action.payload.preview;
+        draft.progress = true;
       }),
   },
   initialState
@@ -91,8 +177,12 @@ export default handleActions(
 const actionCreators = {
   setProfile,
   setProfileAPI,
-  editProfile,
   editProfileAPI,
+  setPreview,
+  setInfo,
+  setInfoAPI,
+  setMystore,
+  setMystoreAPI,
 };
 
 export { actionCreators };

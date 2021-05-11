@@ -12,6 +12,7 @@ import upload from "redux/modules/upload";
 import chat from "redux/modules/chat";
 import mypage from "redux/modules/mypage";
 import bid from "redux/modules/bid";
+import header from "redux/modules/header";
 import loading from "redux/modules/loading";
 
 export const history = createBrowserHistory();
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   chat: chat,
   mypage: mypage,
   bid: bid,
+  header: header,
   loading: loading,
   router: connectRouter(history),
 });

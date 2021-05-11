@@ -1,85 +1,92 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+
+import { Grid, Input, Line, Button, Tag, Modal, Text, Profile } from "elements/";
 
 const Mystore = () => {
+  const my_selling = useSelector((state) => state.mypage.my_selling);
+  const my_sold = useSelector((state) => state.mypage.my_sold);
+  const my_review = [];
 
   return (
     <Wrap>
+      <Text h3 textAlign="left">
+        판매 중인 상품
+      </Text>
       <StoreBox>
-        <h2 style={{textAlign: "left"}}>상점</h2>
-        <StoreList>
-        </StoreList>
+        {my_selling &&
+          my_selling.map((s, idx) => (
+            <Card key={idx}>
+              <img alt={s.description} src={s.img[0]} />
+              <p>{s.title}</p>
+            </Card>
+          ))}
       </StoreBox>
-      <ProductBox>
-        <h2 style={{textAlign: "left"}}>판매 중인 상품</h2>
-        <ProductList>
-        </ProductList>
-      </ProductBox>
+      <Text h3 textAlign="left">
+        판매 완료 상품
+      </Text>
+      <StoreBox>
+        {my_sold &&
+          my_sold.map((s, idx) => (
+            <Card key={idx}>
+              <img alt={s.description} src={s.img[0]} />
+              <p>{s.title}</p>
+            </Card>
+          ))}
+      </StoreBox>
+      <Text h3 textAlign="left">
+        내 상점 후기
+      </Text>
+
       <ReviewBox>
-        <h2 style={{textAlign: "left"}}>내 상점 후기</h2>
-        <ReviewList>
-        </ReviewList>
+        {my_review &&
+          my_review.map((r, idx) => (
+            <Review key={idx}>
+              <img alt={r.description} src={r.img[0]} />
+              <p>{r.title}</p>
+            </Review>
+          ))}
       </ReviewBox>
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
-//   border: 1px solid red;
   max-width: 1030px;
+  width: 100%;
+  min-height: 180px;
   display: flex;
   gap: 50px;
   flex-direction: column;
 `;
 
 const StoreBox = styled.div`
-  border: 1px solid red;
-  display: flex;
-  gap: 20px;
-  flex-direction: column;
-  width: 1030px;
-  height: 300px;
-  padding: 30px;
-  background: #eee;
-`;
-
-const StoreList = styled.div`
-  border: 1px solid red;
+  display: inline-flex;
+  justify-content: flex-start;
+  gap: 50px;
   width: 100%;
-  height: 100%;
-  background: #fff;
 `;
 
-const ProductBox = styled.div`
-  border: 1px solid red;
-  display: flex;
-  gap: 20px;
-  flex-direction: column;
-  width: 1030px;
-  height: 300px;
-  padding: 30px;
-  background: #eee;
-`;
-
-const ProductList = styled.div`
-  border: 1px solid red;
-  width: 100%;
-  height: 100%;
-  background: #fff;
+const Card = styled.div`
+  width: 220px;
+  height: 220px;
+  img {
+    border-radius: 16px;
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+  }
 `;
 
 const ReviewBox = styled.div`
-  border: 1px solid red;
-  display: flex;
-  gap: 20px;
-  flex-direction: column;
-  width: 1030px;
-  height: 300px;
-  padding: 30px;
-  background: #eee;
+  display: inline-flex;
+  justify-content: flex-start;
+  gap: 50px;
+  width: 100%;
 `;
 
-const ReviewList = styled.div`
+const Review = styled.div`
   border: 1px solid red;
   width: 100%;
   height: 100%;

@@ -18,6 +18,8 @@ import DetailRing from "components/DetailRing";
 import MainLogo from "images/logo.png";
 import Submit from "images/search.png";
 import List from "images/list.png";
+
+import { MainCT, D2CT, D3CT, D4CT } from "shared/Category";
 import { Color } from "shared/DesignSys";
 
 const Header = (props) => {
@@ -46,10 +48,10 @@ const Header = (props) => {
   const handleMainCategory = (e) => {
     setMainct(e.value);
     if (mainct === "2D") {
-      setSubct(option_2);
+      setSubct(D2CT);
       dispatch(categoryActions.getProductMainCategotAPI(mainct));
     } else if (mainct === "3D") {
-      setSubct(option_3);
+      setSubct(D3CT);
       dispatch(categoryActions.getProductMainCategotAPI(mainct));
     }
   };
@@ -59,36 +61,6 @@ const Header = (props) => {
     console.log(handleSubCategory);
     dispatch(categoryActions.getProductSubCategotAPI(mainct, subct));
   };
-
-  const MainCT = [
-    { value: "2D", label: "2D" },
-    { value: "3D", label: "3D" },
-  ];
-  const option_2 = [
-    { value: "피규어", label: "피규어" },
-    { value: "인형", label: "인형" },
-    { value: "키링/스트랩/아크릴", label: "키링/스트랩/아크릴" },
-    { value: "포스터/태피스트리", label: "포스터/태피스트리" },
-    { value: "문구/데스크 용품", label: "문구/데스크 용품" },
-    { value: "액세서리", label: "액세서리" },
-    { value: "CD/블루레이", label: "CD/블루레이" },
-    { value: "비공식굿즈", label: "비공식굿즈" },
-    { value: "기타", label: "기타" },
-  ];
-
-  const option_3 = [
-    { value: "인형", label: "인형" },
-    { value: "키링/스트랩/아크릴", label: "키링/스트랩/아크릴" },
-    { value: "포토카드", label: "포토카드" },
-    { value: "포스터", label: "포스터" },
-    { value: "문구/데스크 용품", label: "문구/데스크 용품" },
-    { value: "액세서리", label: "액세서리" },
-    { value: "뷰티제품", label: "뷰티제품" },
-    { value: "CD", label: "CD" },
-    { value: "서적", label: "서적" },
-    { value: "비공식굿즈", label: "비공식굿즈" },
-    { value: "기타", label: "기타" },
-  ];
 
   const customStyles = useMemo(
     () => ({
@@ -124,33 +96,34 @@ const Header = (props) => {
 
   // 이거 나중에 정리해야함
   const headerChange = () => {
-    const navbox = document.querySelector(".nav");
+    // const navbox = document.querySelector(".nav");
+    // if (window.scrollY > 170) {
+    //   navbox.style.position = "fixed";
+    //   navbox.style.zIndex = "9999";
+    //   navbox.style.backgroundColor = "#ffffff";
+    //   navbox.style.boxShadow = "0 4px 15px 0 rgba(111, 111, 111, 0.16)";
+    //   navbox.style.height = "89px";
+    //   navbox.style.opacity = "100%";
+    //   navbox.style.display = "flex";
+    // } else {
+    //   navbox.style.opacity = "0";
+    //   navbox.style.backgroundColor = "#ffffff00";
+    //   navbox.style.boxShadow = "0 0 0 #00000000";
+    //   navbox.style.height = "0px";
+    //   navbox.style.overflow = "hidden";
+    //   navbox.style.display = "none";
+    // }
+    // const navinbox = document.querySelector(".navin");
+    const centerlogo = document.querySelector(".centerlogo");
     if (window.scrollY > 170) {
-      navbox.style.position = "fixed";
-      navbox.style.zIndex = "9999";
-      navbox.style.backgroundColor = "#ffffff";
-      navbox.style.boxShadow = "0 4px 15px 0 rgba(111, 111, 111, 0.16)";
-      navbox.style.height = "89px";
-      navbox.style.opacity = "100%";
-      navbox.style.display = "flex";
+      // centerlogo.style.zIndex = "9999";
+      centerlogo.style.width = "70px";
+      // centerlogo.style.opacity = "100%";
+      // centerlogo.style.display = "flex";
     } else {
-      navbox.style.opacity = "0";
-      navbox.style.backgroundColor = "#ffffff00";
-      navbox.style.boxShadow = "0 0 0 #00000000";
-      navbox.style.height = "0px";
-      navbox.style.overflow = "hidden";
-      navbox.style.display = "none";
-    }
-    const navinbox = document.querySelector(".navin");
-    if (window.scrollY > 170) {
-      navinbox.style.zIndex = "9999";
-      navinbox.style.height = "65px";
-      navinbox.style.opacity = "100%";
-      navinbox.style.display = "flex";
-    } else {
-      navinbox.style.opacity = "0";
-      navinbox.style.height = "0px";
-      navinbox.style.overflow = "hidden";
+      // centerlogo.style.opacity = "0";
+      centerlogo.style.width = "0px";
+      // centerlogo.style.overflow = "hidden";
     }
   };
 
@@ -182,18 +155,18 @@ const Header = (props) => {
             {/* 2D일 때 */}
             {mainct === "2D" && (
               <SubSelectbox>
-                <Select placeholder="중분류" onChange={handleSubCategory} options={option_2} styles={customStyles} />
+                <Select placeholder="중분류" onChange={handleSubCategory} options={D2CT} styles={customStyles} />
               </SubSelectbox>
             )}
             {/* 3D일 때 */}
             {mainct === "3D" && (
               <SubSelectbox>
-                <Select placeholder="중분류" onChange={handleSubCategory} options={option_3} styles={customStyles} />
+                <Select placeholder="중분류" onChange={handleSubCategory} options={D3CT} styles={customStyles} />
               </SubSelectbox>
             )}
           </Grid>
 
-          <Grid is_flex justify="center" width="33%">
+          <Grid is_flex justify="center" width="33%" className="centerlogo">
             {/* 로고 */}
             <img
               alt="로고이미지"
@@ -310,11 +283,10 @@ const Header = (props) => {
         </Fix>
       </HeaderWrap>
 
-      <HeaderWrap className="nav">
-        <Scroll className="navin">
+      {/* <HeaderWrap className="nav"> */}
+      {/* <Scroll className="navin">
           <Grid is_flex width="50%">
             <Grid is_flex justify="center" padding="0 60px 0 0" flexShrink="1">
-              {/* 로고 */}
               <img
                 alt="로고이미지"
                 style={{ width: "86.6px", cursor: "pointer" }}
@@ -325,8 +297,6 @@ const Header = (props) => {
               />
             </Grid>
             <Grid is_flex>
-              {/* 카테고리 리스트 방식 */}
-              {/* <ListHover/> */}
               <Text h3>카테고리</Text>
               <ListBtn />
 
@@ -345,16 +315,14 @@ const Header = (props) => {
                 </SubSelectbox>
               )}
 
-              {/* 2D일 때 */}
               {mainct === "2D" && (
                 <SubSelectbox>
-                  <Select placeholder="중분류" onChange={handleSubCategory} options={option_2} styles={customStyles} />
+                  <Select placeholder="중분류" onChange={handleSubCategory} options={D2CT} styles={customStyles} />
                 </SubSelectbox>
               )}
-              {/* 3D일 때 */}
               {mainct === "3D" && (
                 <SubSelectbox>
-                  <Select placeholder="중분류" onChange={handleSubCategory} options={option_3} styles={customStyles} />
+                  <Select placeholder="중분류" onChange={handleSubCategory} options={D3CT} styles={customStyles} />
                 </SubSelectbox>
               )}
             </Grid>
@@ -362,7 +330,6 @@ const Header = (props) => {
 
           <Grid is_flex column width="50%">
             <Grid is_flex justify="flex-end">
-              {/* 기능버튼 */}
               <SearchWrap>
                 <Search
                   type="text"
@@ -395,10 +362,14 @@ const Header = (props) => {
                   }}
                 >
                   <FontAwesomeIcon icon={faBars} />
-                  <Text h4 
-                  onClick={() => {
-                    history.push("/chat");
-                  }}>채팅</Text>
+                  <Text
+                    h4
+                    onClick={() => {
+                      history.push("/chat");
+                    }}
+                  >
+                    채팅
+                  </Text>
                 </Grid>
 
                 <Grid
@@ -419,8 +390,8 @@ const Header = (props) => {
               </IconWrap>
             </Grid>
           </Grid>
-        </Scroll>
-      </HeaderWrap>
+        </Scroll> */}
+      {/* </HeaderWrap> */}
     </>
   );
 };

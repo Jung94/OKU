@@ -10,12 +10,28 @@ import { Color } from "shared/DesignSys";
 
 const Myinfo = () => {
   const dispatch = useDispatch();
+  const { email, nickname, number } = useSelector((state) => state.mypage.user_info);
 
-  useEffect(() => {
-    // 여기서 컴포넌트 useEffect 실행하고, 자식 컴포넌트에서 useEffect실행하면 무한루프에 빠진다 -> 공부포인트
-  }, []);
-
-  return <Grid></Grid>;
+  return (
+    <Wrap>
+      <Text h4>
+        {email}
+        <br />
+        {nickname}
+        <br />
+        {number}
+      </Text>
+    </Wrap>
+  );
 };
+
+const Wrap = styled.div`
+  max-width: 1030px;
+  width: 100%;
+  min-height: 180px;
+  display: flex;
+  gap: 50px;
+  flex-direction: column;
+`;
 
 export default Myinfo;

@@ -1,0 +1,10 @@
+          <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="25" height="25" rx="7" fill="#DADADA" />
+            <path
+              d="M6.92444 11.6981L11.2176 17.5525L19.3162 7.5025"
+              stroke="white"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>

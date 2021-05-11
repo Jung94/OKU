@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle as fasClose } from "@fortawesome/free-solid-svg-icons";
-
+import { faTimesCircle as fasClose, faEllipsisV as fasModi } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "elements/";
-import { Bid } from "components/";
+import { Bid, Edit } from "components/";
 
 const Modal = (props) => {
-  const { top, bottom, margin, color, text, bid, immediateBid, sucBid } = props;
+  const { top, bottom, margin, color, text, bid, immediateBid, sucBid, setting } = props;
   const styles = { top: top, bottom: bottom, margin: margin, color: color, text: text };
   const [modal, setModal] = useState(false);
 
@@ -52,6 +51,24 @@ const Modal = (props) => {
             <Screen onClick={closeModal}></Screen>
             <ModalBox>
               <Bid immediateBid open={modal} close={closeModal} {...props}></Bid>
+            </ModalBox>
+          </ModalWrap>
+        ) : (
+          <></>
+        )}
+      </>
+    );
+  }
+
+  if (setting) {
+    return (
+      <>
+        <FontAwesomeIcon icon={fasModi} onClick={openModal} className="setting" />
+        {modal ? (
+          <ModalWrap modal>
+            <Screen onClick={closeModal}></Screen>
+            <ModalBox>
+              <Edit open={modal} close={closeModal}></Edit>
             </ModalBox>
           </ModalWrap>
         ) : (

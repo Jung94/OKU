@@ -11,7 +11,7 @@ const Footer = (props) => {
         <Image>
           <img src={FLogo} />
         </Image>
-        0부터 9까지 모든 It's OK! OKU
+        0부터 9까지 뭐든 It's OK! OKU
       </FooterContent>
     </FooterWrap>
   );

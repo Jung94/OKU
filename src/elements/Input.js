@@ -11,13 +11,24 @@ import { Color } from "shared/DesignSys";
 const Input = (props) => {
   // adorment는 input 오른쪽에 "원"
   // plcholder는 placeholder
+  // onClick...등은 항상 _ 붙이세요!
+  // Input type은 type 자체로 쓸 수 있고, output / radio / check / (일반 버튼)
+
+  // 사용법 참고 할 곳
+  // output -> 디테일
+  // 일반 -> 디테일
+  // radio -> 상품 업로드
+  // check -> 로그인
+
   const {
     output,
     text,
+    check,
+    radio,
     info,
     left,
-    radio,
     disabled,
+    checked,
     width,
     margin,
     adornment,
@@ -26,15 +37,48 @@ const Input = (props) => {
     children,
     value,
     name,
+    id,
     _onChange,
+    _onKeyPress,
+    _onClick,
+    type,
     fnc,
     btn,
     desc,
   } = props;
-  const styles = { name: name, onChange: _onChange, width: width, margin: margin, num: num, info: info, left: left, output: output };
+
+  const styles = {
+    name: name,
+    onChange: _onChange,
+    onKeyPress: _onKeyPress,
+    onClick: _onClick,
+    type: type,
+    id: id,
+    disabled: disabled,
+    checked: checked,
+    width: width,
+    margin: margin,
+    num: num,
+    info: info,
+    left: left,
+    output: output,
+  };
   const inputEl = useRef();
   const [blur, setBlur] = useState(false);
-  const [inputContent, setContent] = useState();
+  console.log(checked);
+
+  //   <Input
+  //   check
+  //   checked={saveId}
+  //   _onClick={() => {
+  //     if (saveId) {
+  //       setId(false);
+  //     } else {
+  //       setId(true);
+  //     }
+  //   }}
+  //   desc="아이디 저장"
+  // />
 
   if (output) {
     return (
@@ -45,6 +89,7 @@ const Input = (props) => {
         }}
       >
         <input
+          type={type}
           ouput={output}
           info={info}
           ref={inputEl}
@@ -52,6 +97,7 @@ const Input = (props) => {
           name={name}
           value={value}
           onChange={_onChange}
+          onKeyPress={_onKeyPress}
           onFocus={() => setBlur(!blur)}
           onBlur={() => setBlur(false)}
         >
@@ -95,6 +141,63 @@ const Input = (props) => {
     );
   }
 
+  if (check) {
+    return (
+      <CheckBox
+        {...styles}
+        onClick={() => {
+          inputEl.current.focus();
+        }}
+      >
+        {checked ? (
+          <svg width="25" height="25" viewBox="0 0 25 25" fill="none">
+            <rect x="0" y="0" width="25" height="25" rx="7" fill={Color.Primary} />
+            <path
+              d="M6.92444 12.4281L11.2176 18.2825L19.3162 8.23248"
+              stroke="white"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        ) : (
+          <svg width="25" height="25" viewBox="0 0 25 25" fill="none">
+            <rect x="0" y="0" width="25" height="25" rx="7" fill={Color.Light_3} />
+            <path
+              d="M6.92444 11.6981L11.2176 17.5525L19.3162 7.5025"
+              stroke="white"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        )}
+        <input
+          type="checkbox"
+          checked={checked}
+          ouput={output}
+          info={info}
+          ref={inputEl}
+          placeholder={plcholder}
+          name={name}
+          value={value}
+          onClick={_onClick}
+          onChange={_onChange}
+          onFocus={() => setBlur(!blur)}
+          onBlur={() => setBlur(false)}
+        >
+          {children}
+        </input>
+        <div>
+          &ensp;{value}&ensp;
+          <Text subBody color={Color.Dark_4}>
+            {desc}
+          </Text>
+        </div>
+      </CheckBox>
+    );
+  }
+
   if (text) {
     return (
       <>
@@ -107,10 +210,12 @@ const Input = (props) => {
             }}
           >
             <textarea
+              type={type}
               ref={inputEl}
               placeholder={plcholder}
               value={value}
               onChange={_onChange}
+              onKeyPress={_onKeyPress}
               onFocus={() => setBlur(!blur)}
               onBlur={() => setBlur(false)}
             >
@@ -171,10 +276,13 @@ const Input = (props) => {
           }}
         >
           <input
+            id={id}
+            type={type}
             ref={inputEl}
             placeholder={plcholder}
             value={value}
             onChange={_onChange}
+            onKeyPress={_onKeyPress}
             onFocus={() => setBlur(!blur)}
             onBlur={() => setBlur(false)}
           >
@@ -190,6 +298,7 @@ const Input = (props) => {
           }}
         >
           <input
+            type={type}
             ref={inputEl}
             placeholder={plcholder}
             value={value}
@@ -208,6 +317,7 @@ const Input = (props) => {
 
 Input.defaultProps = {
   _onChange: () => {},
+  _onKeyPress: () => {},
 };
 
 const InputBox = styled.div`
@@ -286,6 +396,46 @@ const RadioCheck = styled.label`
     width: 20px;
     background-color: ${Color.Light_3};
     border-radius: 50%;
+    transition: box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    :hover {
+      box-shadow: 0 0 0 3px ${Color.Primary}33;
+    }
+  }
+  // desc
+  div {
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const CheckBox = styled.label`
+  align-items: center;
+  display: flex;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition: background-color 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  :hover {
+    span {
+      box-shadow: 0 0 0 3px ${Color.Primary}33;
+      background-color: ${Color.Light_2};
+    }
+  }
+  input {
+    opacity: 0;
+    height: 0;
+    width: 0;
+    &:focus {
+      outline: none;
+    }
+  }
+  svg {
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+    height: 20px;
+    width: 20px;
     transition: box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
     :hover {
       box-shadow: 0 0 0 3px ${Color.Primary}33;

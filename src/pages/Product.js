@@ -54,8 +54,10 @@ const Product = React.memo((props) => {
 
   // console.log(tag);
   // const _tag = tag.replace('"', "");
-
-  const _id = "6098a7b6d6e26c538b14da0a";
+  // 71979367c6ef070a6e65dd3f
+  // const id = props.match.params.id;
+  // const _id = "60995e158e8f8a644168c751";
+  const _id = "6099825a8e8f8a644168c760";
   const [_contents, setReview] = useState("");
   const onChangeContents = useCallback((e) => setReview(e.target.value), []);
 

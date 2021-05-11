@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { Color } from "shared/DesignSys";
 
 const Profile = (props) => {
-  const { img, size } = props;
-  const styles = { img: img, size: size };
+  const { img, size, nomargin } = props;
+  const styles = { img: img, size: size, nomargin: nomargin };
 
   if (img === "public/profile.png") {
     return <ProfileBlock img="https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg" size={size} />;
@@ -27,7 +27,7 @@ const ProfileBlock = styled.div`
   min-width: ${(props) => props.size};
   height: ${(props) => props.size};
 
-  margin: 2%;
+  ${(props) => (props.nomargin ? "" : "margin: 2%;")}
   border-radius: 10rem;
 
   box-shadow: 0 0 5px 0 ${Color.Light_4};

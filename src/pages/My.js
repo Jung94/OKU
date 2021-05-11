@@ -2,43 +2,50 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Text, Profile, Button } from "elements/";
+import { Grid, Text, Profile, Button, Modal } from "elements/";
 import Menus from "./Menus";
+import Loading from "shared/Loading";
 
 import { actionCreators as mypageActions } from "redux/modules/mypage";
+import { actionCreators as likeActions } from "redux/modules/like";
+
+import { Color } from "shared/DesignSys";
 
 const My = (props) => {
   const dispatch = useDispatch();
-  const { history } = props;
+  const { history, location, match } = props;
+  var nowLocation = location.pathname.split("/")[2];
+
   const access_token = localStorage.getItem("access_token");
   const _user = useSelector((state) => state.mypage.user);
-  console.log(_user);
+  const is_loading = useSelector((state) => state.product.is_loading);
 
   useEffect(() => {
     if (access_token) {
       dispatch(mypageActions.setProfileAPI());
+      dispatch(mypageActions.setInfoAPI());
+      dispatch(mypageActions.setMystoreAPI());
+      dispatch(likeActions.getLikeAPI());
     }
   }, []);
 
+  if (is_loading) {
+    return <Loading />;
+  }
   return (
     <Wrap>
-      <Profile size="150px" img={_user.profile}></Profile>
-      <Text h2 weight="600" textAlign="center" marginB="1%">
+      <Modi>
+        <Profile size="150px" img={_user.profile} nomargin />
+        <Modal setting {..._user} />
+      </Modi>
+      <Text h2 weight="600" textAlign="center" marginT="2%">
         {_user.nickname}
       </Text>
       <BtnBox>
-        <Link to="/my/shopping">
-          <Button>마이 쇼핑</Button>
-        </Link>
-        <Link to="/my/store">
-          <Button>내 상점</Button>
-        </Link>
-        <Link to="/my/alert">
-          <Button>알림</Button>
-        </Link>
-        <Link to="/my/info">
-          <Button>회원 정보</Button>
-        </Link>
+        <Link to="/my/shopping">{nowLocation === "shopping" ? <Button>마이 쇼핑</Button> : <Button sub>마이 쇼핑</Button>}</Link>
+        <Link to="/my/store">{nowLocation === "store" ? <Button>내 상점</Button> : <Button sub>내 상점</Button>}</Link>
+        <Link to="/my/alert">{nowLocation === "alert" ? <Button>알림</Button> : <Button sub>알림</Button>}</Link>
+        <Link to="/my/info">{nowLocation === "info" ? <Button>회원 정보</Button> : <Button sub>회원 정보</Button>}</Link>
       </BtnBox>
       <Route
         path="/my"
@@ -74,16 +81,22 @@ const Wrap = styled.div`
   justify-content: space-between;
 `;
 
-const Profile_ = styled.div`
-  min-width: 150px;
+const Modi = styled.div`
+  width: 150px;
   height: 150px;
-  margin: 20px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 50%;
-  background-image: url("https://img.icons8.com/cotton/2x/gender-neutral-user--v2.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  .setting {
+    margin-left: -35px;
+    margin-bottom: 5px;
+    color: white;
+    background-color: ${Color.Primary};
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+  }
 `;
 
 const BtnBox = styled.div`

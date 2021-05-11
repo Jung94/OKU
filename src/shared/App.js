@@ -30,15 +30,15 @@ const App = (props) => {
           <Switch>
             <Route path="/" exact component={Home} />
             <Route path="/login" exact component={Login} />
-            <Route path="/sociallogin" exact component={SocialLogin} />
             <Route path="/signup" exact component={Signup} />
+            <Route path="/sociallogin" exact component={SocialLogin} />
             <Route path="/agreement" exact component={Agreement} />
             <Route path="/product" exact component={Product} />
             <Route path="/product/detail/:id" exact component={Product} />
             <Route path="/productupload" exact component={ProductUpload} />
             <Route path="/result" exact component={Result} />
             <Route path="/category" exact component={CategoryResult} />
-            <Route path='/chat' exact component={Chat} />
+            <Route path="/chat" exact component={Chat} />
             <Route path="/chat/:otherId/:myId/:otherName" exact component={Chat} />
             <Route path="/my" component={My} />
             <Route component={NotFound} />

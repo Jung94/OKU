@@ -5,5 +5,6 @@ import Timer from "./Timer";
 import Bid from "./Bid";
 import QnA from "./QnA";
 import Upload from "./Upload";
+import Edit from "./Edit";
 
-export { Header, Footer, Slider, Timer, Bid, QnA, Upload };
+export { Header, Footer, Slider, Timer, Bid, QnA, Upload, Edit };

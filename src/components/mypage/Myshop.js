@@ -1,66 +1,61 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { Route } from "react-router-dom";
+import { Grid, Input, Line, Button, Tag, Modal, Text, Profile } from "elements/";
 
-const Myshop = () => {
-
+const Myshop = (props) => {
+  const _like_list = useSelector((state) => state.like.like_list);
+  console.log(_like_list);
   return (
     <Wrap>
+      <Input check></Input>
+      <Input check></Input>
+      <Text h3 textAlign="left">
+        찜 목록
+      </Text>
       <LikeBox>
-        <h2 style={{textAlign: "left"}}>찜 목록</h2>
-        <LikeList>
-        </LikeList>
+        {_like_list &&
+          _like_list.map((l, idx) => (
+            <Card key={idx}>
+              <img alt={l.productId} src={l.productImage} />
+              {/* <p>{l.title}</p> */}
+            </Card>
+          ))}
       </LikeBox>
-      <BuyBox>
-        <h2 style={{textAlign: "left"}}>구매 목록</h2>
-        <BuyList>
-        </BuyList>
-      </BuyBox>
+      <Text h3 textAlign="left">
+        구매 목록
+      </Text>
+      <LikeBox></LikeBox>
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
-//   border: 1px solid red;
   max-width: 1030px;
+  width: 100%;
+  min-height: 180px;
   display: flex;
   gap: 50px;
   flex-direction: column;
 `;
 
 const LikeBox = styled.div`
-  border: 1px solid red;
-  display: flex;
-  gap: 20px;
-  flex-direction: column;
-  width: 1030px;
-  height: 300px;
-  padding: 30px;
-  background: #eee;
-`;
-
-const LikeList = styled.div`
-  border: 1px solid red;
+  display: inline-flex;
+  justify-content: flex-start;
+  gap: 50px;
   width: 100%;
-  height: 100%;
-  background: #fff;
 `;
 
-const BuyBox = styled.div`
-  border: 1px solid red;
-  display: flex;
-  gap: 20px;
-  flex-direction: column;
-  width: 1030px;
-  height: 300px;
-  padding: 30px;
-  background: #eee;
-`;
-
-const BuyList = styled.div`
-  border: 1px solid red;
-  width: 100%;
-  height: 100%;
-  background: #fff;
+const Card = styled.div`
+  width: 220px;
+  height: 220px;
+  img {
+    border-radius: 16px;
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+  }
 `;
 
 export default Myshop;
