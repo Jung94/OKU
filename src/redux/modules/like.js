@@ -8,17 +8,20 @@ import { actionCreators as loadingActions } from "redux/modules/loading";
 const GET_LIKE = "GET_LIKE"; //좋아요 있는지 확인하기
 const ADD_LIKE = "ADD_LIKE"; //좋아요 추가하기
 const DELETE_LIKE = "DELETE_LIKE"; //좋아요 삭제하기
-const GET_MY_LIKE_LIST = "GET_MY_LIKE_LIST"; //좋아요 리스트 가져오기
+const GET_MY_LIKE_LIST = "GET_MY_LIKE_LIST"; // 마이페이지 좋아요 리스트 가져오기
+const GET_LIKE_LIST = "GET_LIKE_LIST"; // 모든 좋아요 리스트
 
 //actionCreators
 const getLike = createAction(GET_LIKE, (likeOrNot) => ({ likeOrNot }));
 const addLike = createAction(ADD_LIKE, (like) => ({ like }));
 const deleteLike = createAction(DELETE_LIKE, (productId) => ({ productId }));
 const getMyLikeList = createAction(GET_MY_LIKE_LIST, (like_list) => ({ like_list }));
+const getLikeList = createAction(GET_LIKE_LIST, (like_list) => ({ like_list }));
 
 const initialState = {
   is_loading: false,
   is_like: false,
+  my_like_list: [],
   like_list: [],
   productId: 0,
 };
@@ -85,6 +88,7 @@ const getMyLikeListAPI = () => {
             );
           });
           // 4개만 받아오기
+          dispatch(getLikeList(likeResult));
           if (likeResult.length === 0) {
             dispatch(getMyLikeList([]));
           } else if (likeResult.length < 5) {
@@ -169,8 +173,15 @@ export default handleActions(
         if (!action.payload.like_list) {
           return;
         }
+        draft.my_like_list = action.payload.like_list;
+        // console.log("💗드래프트", draft.my_like_list);
+      }),
+    [GET_LIKE_LIST]: (state, action) =>
+      produce(state, (draft) => {
+        if (!action.payload.like_list) {
+          return;
+        }
         draft.like_list = action.payload.like_list;
-        // console.log("💗드래프트", draft.like_list);
       }),
   },
   initialState
