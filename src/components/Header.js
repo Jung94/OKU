@@ -48,6 +48,7 @@ const Header = (props) => {
     history.push("/result");
   };
 
+
   // const SearchProduct = () => {
   //   dispatch(productActions.getProductSearch(keyword));
   //   history.push("/result");
@@ -67,7 +68,8 @@ const Header = (props) => {
   const handleSubCategory = (e) => {
     setSubct(e.value);
     console.log(handleSubCategory);
-    dispatch(categoryActions.getProductSubCategotAPI(mainct, subct));
+    dispatch(categoryActions.getProductSubCategotAPI(mainct, subct, keyword));
+    history.push("/category")
   };
 
   const customStyles = useMemo(
@@ -150,7 +152,7 @@ const Header = (props) => {
             </Mainselectbox>
             {mainct === "" && (
               <SubSelectbox>
-                <Select placeholder="중분류" onChange={handleSubCategory} styles={customStyles} />
+                <Select placeholder="중분류" onClick={handleSubCategory} styles={customStyles} />
               </SubSelectbox>
             )}
 

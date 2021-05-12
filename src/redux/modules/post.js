@@ -132,10 +132,10 @@ const getRecommendProductAPI = () => {
 };
 
 // 대분류
-const getProductMainCategotAPI = (mainCategory) => {
-  const ProductMainCategory_API = `http://3.35.137.38/product/Category/${mainCategory}`;
+const getProductMainCategotAPI = (mainKeyword) => {
+  const ProductMainCategory_API = `http://3.35.137.38/product/Category/${mainKeyword}`;
   return function (dispatch, getState, { history }) {
-    dispatch(setMainKeyword(mainCategory))
+    dispatch(setMainKeyword(mainKeyword))
     axios
       .get(ProductMainCategory_API)
       .then((resp) => {
@@ -147,10 +147,10 @@ const getProductMainCategotAPI = (mainCategory) => {
 };
 
 // 중분류
-const getProductSubCategotAPI = (mainCategory ,subCategory) => {
-  const ProductSubCategory_API = `http://3.35.137.38/product/Category/${mainCategory}/${subCategory}`;
+const getProductSubCategotAPI = (mainKeyword ,subKeyword) => {
+  const ProductSubCategory_API = `http://3.35.137.38/product/Category/${mainKeyword}/${subKeyword}`;
   return function (dispatch, getState, { history }) {
-    dispatch(setSubKeyword(subCategory))
+    dispatch(setSubKeyword(subKeyword))
     axios
       .get(ProductSubCategory_API)
       .then((resp) => {
@@ -209,6 +209,16 @@ export default handleActions(
         // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
         draft.sub_category = action.payload.subCategory;
       }),
+      [SET_MAINKEYWORD]: (state, action) =>
+      produce(state, (draft) => {
+        // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
+        draft.mainKeyword = action.payload.mainKeyword;
+      }),  
+      [SET_SUBKEYWORD]: (state, action) =>
+      produce(state, (draft) => {
+        // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
+        draft.subKeyword = action.payload.subKeyword;
+      }),  
       [SET_ALERT]: (state, action) =>
       produce(state, (draft) => {
         // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다

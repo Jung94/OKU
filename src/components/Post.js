@@ -20,7 +20,9 @@ const Post = (props) => {
         <Wrap>
             <Head>
             <p style={{ fontSize: "45px", fontWeight:"bold"}}>관심가는 물건을 추천해주는 MD,  <span style={{color : "#AE27FF"}}>제법 젠틀해요 </span></p>
-            <p style={{marginTop:"41px", color:"#c0c0c0",fontSize: "16px", cursor:"pointer"}}>더보기</p>
+            <p onClick={()=> {
+                history.push("/MdList")
+            }}  style={{marginTop:"41px", color:"#c0c0c0",fontSize: "16px", cursor:"pointer"}}>더보기</p>
             </Head>
             <Grid>
                 {!_recommend_product ?
