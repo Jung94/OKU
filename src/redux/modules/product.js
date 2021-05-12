@@ -55,7 +55,7 @@ const setProductAllAPI = (_id) => {
           dispatch(bidActions.setBidAPI(_id, res.result.lowBid));
           dispatch(setQnAAPI(_id));
           dispatch(likeActions.getLikeAPI(_id));
-          dispatch(setRelatedAPI(res.result.bigCategory));
+          dispatch(setRelatedAPI(_id, res.result.bigCategory));
         } else {
           console.log("해당 데이터가 준비되지 않았습니다.");
         }
@@ -69,7 +69,7 @@ const setProductAllAPI = (_id) => {
   };
 };
 
-const setRelatedAPI = (keyword) => {
+const setRelatedAPI = (_id, keyword) => {
   return function (dispatch, getState, { history }) {
     // const page = getState().movie.search_page;
     fetch(`http://3.35.137.38/product/Category/${keyword}`, {
@@ -82,7 +82,13 @@ const setRelatedAPI = (keyword) => {
       .then((res) => res.json())
       .then((res) => {
         // console.log(res.result);
-        dispatch(setRelated(res.result));
+        if (!res.result) {
+          return;
+        } else {
+          const filtered = res.result.filter((r) => r._id !== _id);
+          dispatch(setRelated(filtered));
+          console.log(filtered);
+        }
       })
       .catch((err) => console.log("setRelatedAPI 문제가 있습니다.", err));
   };
