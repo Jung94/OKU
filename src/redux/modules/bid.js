@@ -14,10 +14,12 @@ import { actionCreators as loadingActions } from "redux/modules/loading";
 const SET_BID = "SET_BID";
 const ADD_BID = "ADD_BID";
 const SET_CURRENT = "SET_CURRENT";
+const WARNING_BID = "WARNING_BID";
 
 //actionCreators
 const setBid = createAction(SET_BID, (bid_list) => ({ bid_list }));
 const addBid = createAction(ADD_BID, (new_bid) => ({ new_bid }));
+const warningBid = createAction(WARNING_BID, (warning_bid) => ({ warning_bid }));
 const setCurrent = createAction(SET_CURRENT, (current) => ({ current }));
 
 const initialState = {
@@ -25,6 +27,7 @@ const initialState = {
   bid_list: [],
   new_bid: {},
   current: false,
+  bid_before: '',
 };
 
 const setBidAPI = (_id) => {
@@ -62,6 +65,13 @@ const addBidAPI = (bidPrice, createAt) => {
     dispatch(loadingActions.loading(true));
     let id = getState().product.productId;
     const access_token = localStorage.getItem("access_token");
+    if (!access_token) {
+      if (window.confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?")) {
+        history.replace('/login');
+      }
+      return;
+    }
+    
     fetch(`${API}/bid/bidtry/${id}`, {
       method: "POST",
       headers: {
@@ -73,9 +83,22 @@ const addBidAPI = (bidPrice, createAt) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res) {
+        console.log(res.result);
+        if (res.result === 'before' || res.result === 'lowBid') {
+          console.log(res.result);
+          dispatch(warningBid('before'));
+          return;
+        } else if(res.result === 'time') {
+          console.log(res.result);
+          dispatch(warningBid('time'));
+          return;
+        } else if (res.result._id) {
+          console.log(res.result);
+          dispatch(warningBid('success'));
           dispatch(addBid({ bid: res.result.bid, nickName: res.result.nickName, createAt: res.result.createAt }));
+          dispatch(setCurrent(res.result.bid));
           dispatch(loadingActions.loading(false));
+          return;
         } else {
           console.log("해당 데이터가 준비되지 않았습니다.");
           dispatch(loadingActions.loading(false));
@@ -138,9 +161,14 @@ export default handleActions(
       produce(state, (draft) => {
         draft.current = action.payload.current;
       }),
+    [WARNING_BID]: (state, action) =>
+      produce(state, (draft) => {
+        draft.bid_before = action.payload.warning_bid;
+      }),
   },
   initialState
 );
+
 
 const actionCreators = {
   setBidAPI,

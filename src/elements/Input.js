@@ -20,7 +20,7 @@ const Input = (props) => {
   // radio -> 상품 업로드
   // check -> 로그인
 
-  const { output, text, check, radio, info, left, disabled, checked, maxLength, width, margin, adornment, plcholder, num, children, value, name, id, _onChange, _onKeyPress, _onClick, type, fnc, btn, desc } = props;
+  const { output, text, check, radio, info, left, disabled, checked, maxLength, width, margin, adornment, plcholder, num, children, value, name, id, _onChange, _onKeyPress, _onClick, _onBlur, type, fnc, btn, desc } = props;
 
   const styles = {
     name: name,
@@ -185,7 +185,7 @@ const Input = (props) => {
             inputEl.current.focus();
           }}
         >
-          <input id={id} type={type} ref={inputEl} placeholder={plcholder} value={value} maxLength={maxLength} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
+          <input id={id} type={type} ref={inputEl} placeholder={plcholder} value={value} maxLength={maxLength} onBlur={_onBlur} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
             {children}
           </input>
           <span>{adornment}</span>
@@ -198,6 +198,7 @@ const Input = (props) => {
 Input.defaultProps = {
   _onChange: () => {},
   _onKeyPress: () => {},
+  _onBlur: () => {},
 };
 
 const InputBox = styled.div`

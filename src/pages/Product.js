@@ -11,6 +11,7 @@ import { faQuestionCircle as fasQC, faHeart as fasHeart } from "@fortawesome/fre
 import { actionCreators as productActions } from "redux/modules/product";
 import { actionCreators as likeActions } from "redux/modules/like";
 import RelatedProduct from "components/global/RelatedProduct";
+import { actionCreators as bidActions } from "redux/modules/bid";
 import { priceComma } from "shared/common";
 import Loading from "shared/Loading";
 
@@ -65,8 +66,7 @@ const Product = (props) => {
 
   useEffect(() => {
     dispatch(productActions.setProductAllAPI(_id));
-    // 여기서 컴포넌트 useEffect 실행하고, 자식 컴포넌트에서 useEffect실행하면 무한루프에 빠진다 -> 공부포인트
-  }, [productOK.onSale]);
+  }, [productOK.onSale, _id]);
 
   const userLike = () => {
     // if (is_login) {
@@ -238,7 +238,7 @@ const Product = (props) => {
             </Text>
             <Grid is_flex>
               {_related_list.map((r, idx) => {
-                console.log(r);
+                // console.log(r);
                 return (
                   <RelatedProduct
                     key={idx}
@@ -265,7 +265,6 @@ const Product = (props) => {
                   <Text h4 marginB="5%" marginT="5%">
                     {nickname}
                   </Text>
-                  <Text subBody>상품&thinsp;00&emsp;찜&thinsp;00</Text>
                 </div>
               </Grid>
               <Button width="100%">상점으로 이동하기&ensp;></Button>
