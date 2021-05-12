@@ -30,7 +30,7 @@ const initialState = {
   bid_before: "",
 };
 
-const setBidAPI = (_id) => {
+const setBidAPI = (_id, lowBid) => {
   return function (dispatch, getState, { history }) {
     // let id = getState().product.productId;
     fetch(`${API}/bid/bidinfo/${_id}`, {
@@ -43,8 +43,11 @@ const setBidAPI = (_id) => {
           _prebid.sort(function (a, b) {
             return a.createAt > b.createAt ? -1 : a.createAt < b.createAt ? 1 : 0;
           });
-          if (_prebid.length < 5) {
-            dispatch(setBid(_prebid.slice(0, -1)));
+          if (_prebid.length === 0) {
+            dispatch(setBid(_prebid));
+            dispatch(setCurrent(lowBid));
+          } else if (_prebid.length < 5) {
+            dispatch(setBid(_prebid));
             dispatch(setCurrent(_prebid[0].bid));
           } else {
             dispatch(setBid(_prebid.slice(0, 5)));

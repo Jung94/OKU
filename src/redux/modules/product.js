@@ -50,9 +50,9 @@ const setProductAllAPI = (_id) => {
         if (res.okay) {
           // 프로덕트 디테일 세팅시 필요한 api 한꺼번에 실행 (immer 활용하기 일환일까?)
           // => 로딩 액션 여러번 실행되지 않게 됨
-          console.log("♥상품♥: ", res.result);
+          console.log("💨 상품디테일 💨", res.result);
           dispatch(setProductAll(res.result._id, res.result));
-          dispatch(bidActions.setBidAPI(_id));
+          dispatch(bidActions.setBidAPI(_id, res.result.lowBid));
           dispatch(setQnAAPI(_id));
           dispatch(likeActions.getLikeAPI(_id));
           dispatch(setRelatedAPI(res.result.bigCategory));
