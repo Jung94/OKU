@@ -14,7 +14,7 @@ const GET_MY_LIKE_LIST = "GET_MY_LIKE_LIST"; //좋아요 리스트 가져오기
 const getLike = createAction(GET_LIKE, (likeOrNot) => ({ likeOrNot }));
 const addLike = createAction(ADD_LIKE, (like) => ({ like }));
 const deleteLike = createAction(DELETE_LIKE, (productId) => ({ productId }));
-const getMyLikeList = createAction(GET_MY_LIKE_LIST, (like) => ({ like }));
+const getMyLikeList = createAction(GET_MY_LIKE_LIST, (like_list) => ({ like_list }));
 
 const initialState = {
   is_loading: false,
@@ -85,10 +85,10 @@ const getMyLikeListAPI = () => {
             );
           });
           // 4개만 받아오기
-          if ((likeResult.length = 4)) {
+          if (likeResult.length === 0) {
             dispatch(getMyLikeList([]));
-          } else if (likeResult.length < 4) {
-            dispatch(getMyLikeList(likeResult.slice(0, -1)));
+          } else if (likeResult.length < 5) {
+            dispatch(getMyLikeList(likeResult));
           } else {
             dispatch(getMyLikeList(likeResult.slice(0, 4)));
           }
@@ -96,7 +96,7 @@ const getMyLikeListAPI = () => {
         }
       })
       .catch((error) => {
-        console.log("getLikeAPI에 문제가 있습니다.", error);
+        console.log("getMyLikeListAPI에 문제가 있습니다.", error);
       });
   };
 };
@@ -166,13 +166,11 @@ export default handleActions(
       }),
     [GET_MY_LIKE_LIST]: (state, action) =>
       produce(state, (draft) => {
-        if (action.payload.like === []) {
-          draft.is_like = false;
-          draft.like_list = action.payload.like;
-        } else {
-          draft.is_like = true;
-          draft.like_list = action.payload.like;
+        if (!action.payload.like_list) {
+          return;
         }
+        draft.like_list = action.payload.like_list;
+        // console.log("💗드래프트", draft.like_list);
       }),
   },
   initialState
