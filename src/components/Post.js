@@ -28,8 +28,7 @@ const Post = (props) => {
                 MD 추천상품이 없습니다
                 </div>  : 
                 _recommend_product && _recommend_product.map((l, idx) => {
-                    console.log("dddd", _recommend_product)
-                    return (<PostCard key={idx} img={l.img} title={l.title} currentprice={l.currentprice} sucBid={l.sucBid} _onClick={() => {history.push(`product/detail/${l._id}`)}} />
+                    return (<PostCard  key={idx} img={l.img} title={l.title} currentprice={l.currentprice} sucBid={l.sucBid} _onClick={() => {history.push(`product/detail/${l._id}`)}} />
                 )})}
             </Grid>                
         </Wrap>
