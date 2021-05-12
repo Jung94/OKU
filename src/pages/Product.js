@@ -173,14 +173,14 @@ const Product = (props) => {
                 </Text>
                 <Input output info value={`${bigCategory} > ${smallCategory}`} />
               </Grid>
-              <Grid flexShrink="3" margin="0 10px 0 0">
+              <Grid flexShrink="4" margin="0 10px 0 0">
                 <Text h4 textAlign="left" marginB="5%">
                   상품상태
                   <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                 </Text>
                 <Input output info value={state && state.split("급")[0]} adornment="급" />
               </Grid>
-              <Grid flexShrink="1" margin="0 10px 0 0">
+              <Grid flexShrink="3" margin="0 10px 0 0">
                 <Text h4 textAlign="left" marginB="5%">
                   거래 지역
                 </Text>

@@ -10,11 +10,14 @@ import { faQuestionCircle as fasQC } from "@fortawesome/free-solid-svg-icons";
 
 import { priceComma, input_priceComma } from "shared/common";
 import { actionCreators as bidActions } from "redux/modules/bid";
+import { actionCreators as productActions } from "redux/modules/product";
 
 const Bid = (props) => {
   const dispatch = useDispatch();
+  const history = props.history;
   const p_id = props._id;
   const { open, close, bid, immediateBid, sucBid, deadLine, createAt, sellerunique, _id, onSale } = props;
+  const productOK = useSelector((state) => state.product.product_detail);
 
   const [bidPrice, setBid] = useState("");
   const onChangeBid = useCallback((e) => setBid(e.target.value), []);
@@ -37,10 +40,10 @@ const Bid = (props) => {
       bidInfo.current.style.display = 'block';
       console.log('마감 시간이 종료되었어요..');
       return;
-    } else {
-      console.log('정상이에요!');
+    } else if (bid_before === 'success') {
+      console.log(bid_before);
       bidInfo.current.style.display = 'none';
-    }
+    } 
 
   }, [bid_before]);
 
@@ -73,7 +76,8 @@ const Bid = (props) => {
               </Text>
               <Timer timeProgress deadLine={deadLine} createAt={createAt} onSale={onSale} />
             </Grid>
-            <Price>{priceComma(_current)}원</Price>
+            {_current ? (<Price>{priceComma(_current)}원</Price>) : <Price>{priceComma(productOK.lowBid)}원</Price>}
+            {/* <Price>{priceComma(_current)}원</Price> */}
             <Input
               value={input_priceComma(bidPrice)}
               _onChange={onChangeBid}

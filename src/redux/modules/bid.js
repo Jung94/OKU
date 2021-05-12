@@ -51,7 +51,7 @@ const setBidAPI = (_id) => {
             dispatch(setCurrent(_prebid[0].bid));
           }
         } else {
-          console.log(res.msg);
+          // console.log(res.msg);
         }
       })
       .catch((error) => {
