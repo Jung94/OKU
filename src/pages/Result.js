@@ -22,8 +22,8 @@ const ResultContainer = styled.div`
   flex-direction: column;
   max-width: 1030px;
   height: 100%;
-  margin: 0 auto;
-  border: 1px solid #000;
+  gap: 50px;
+  margin: 200px auto 100px;
 `;
 
 const ResultText = styled.div`

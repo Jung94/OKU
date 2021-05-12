@@ -4,7 +4,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const ProductCard = (props) => {
-    const { title, url, lowBid } = props;
+    const { title, url, lowBid, _onClick } = props;
 
     const styles = {
         // margin : margin,
@@ -12,7 +12,7 @@ const ProductCard = (props) => {
 
 
     return(
-        <Product {...styles} >
+        <Product {...styles} onClick={_onClick} >
             {/* <Detail>
                 <FontAwesomeIcon icon={faSearch} />
             </Detail> */}
@@ -31,7 +31,7 @@ const ProductCard = (props) => {
 
 ProductCard.defaultProps = {
     title : '',
-    url : 'https://lh3.googleusercontent.com/proxy/Ov20N6xcC-XwdBAZf2JPBItzM8oPzPIDzoB9g0P9stNrJNRa2XnaY2OqCp4tGryTOxmh2PfkSBvh0k-yLT5_M8eGZtTd1T8Dd38',
+    url : '',
 };
 
 

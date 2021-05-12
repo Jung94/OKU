@@ -65,6 +65,7 @@ const Product = (props) => {
   };
 
   useEffect(() => {
+    console.log(_id);
     dispatch(productActions.setProductAllAPI(_id));
   }, [productOK.onSale, _id]);
 
@@ -180,13 +181,13 @@ const Product = (props) => {
                 </Text>
                 <Input output info value={state && state.split("급")[0]} adornment="급" />
               </Grid>
-              <Grid flexShrink="3" margin="0 10px 0 0">
+              <Grid flexShrink="1" margin="0 10px 0 0">
                 <Text h4 textAlign="left" marginB="5%">
                   거래 지역
                 </Text>
                 <Input output info value={region} />
               </Grid>
-              <Grid flexShrink="3" margin="0 10px 0 0">
+              <Grid flexShrink="2" margin="0 10px 0 0">
                 <Text h4 textAlign="left" marginB="5%">
                   배송 수단
                 </Text>

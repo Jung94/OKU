@@ -26,7 +26,9 @@ const SearchResult = (props) => {
     <ProductList>
       {search_list.map((p, idx) => {
         let real = input_priceComma(`${p.lowBid}`);
-        return <ProductCard key={idx} title={p.title} url={p.img[0]} lowBid={real} />;
+        return <ProductCard key={idx} title={p.title} url={p.img[0]} lowBid={real} 
+          _onClick={() => {history.push(`/product/detail/${p._id}`);}}
+        />;
       })}
     </ProductList>
   );
