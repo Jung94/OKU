@@ -169,7 +169,7 @@ const getAlertAPI = () => {
     axios
       .get(Alert_API)
       .then((resp) => {
-          dispatch(setAlert(resp));
+          dispatch(setAlert(resp.data));
       })
       .catch((e) => console.log(e));
   };

@@ -1,17 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+
+import { actionCreators as likeActions } from "redux/modules/like";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle as fasQC, faHeart as fasHeart, faPen as fasPen } from "@fortawesome/free-solid-svg-icons";
 
 const PostCard = (props) => {
+    // const _id = props.match.params.id
+    const dispatch = useDispatch();
     const {img, title, currentprice, sucBid, _onClick  } = props;
+    const _is_like = useSelector((state) => state.like.is_like);
+
+    const userLike = () => {
+        // if (is_login) {
+        if (!_is_like) {
+          // 좋아요 한 적이 없으면 false이므로
+          dispatch(likeActions.addLikeAPI(_id)); // 좋아요 실행
+        } else {
+          // 좋아요 한 적이 있으면 true
+          dispatch(likeActions.deleteLikeAPI(_id)); // 좋아요 해제 실행
+        }
+        // } else {
+        //   window.alert("로그인해주세요!");
+        // }
+      };
+
+
     return (
         <Cards>
             <Information>
             <Image onClick={_onClick}>
                 <img src={img} />
             <Dibs>
-                <FontAwesomeIcon style={{color : "#eac7ff", fontSize : "41px" }} icon={fasHeart}  />
+                {!_is_like ? (
+                <div onClick={userLike}>
+                    <FontAwesomeIcon style={{color : "#eac7ff", fontSize : "41px" }} icon={fasHeart}  />
+                </div>
+                ) : (
+                <div onClick={userLike}>
+                    <FontAwesomeIcon style={{color : "#ae27ff", fontSize : "41px" }} icon={fasHeart}  />
+                </div>
+                )
+                }
             </Dibs>
             </Image>
 
