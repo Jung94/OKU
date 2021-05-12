@@ -19,34 +19,38 @@ const Login = (props) => {
   const is_login = useSelector((state) => state.user.is_login);
   const login_msg = useSelector((state) => state.user.login_msg);
 
-  // 아이디 저장
+  // 저장된 아이디 세팅
   let saved_id = window.localStorage.getItem("saved_id");
   const [email, setEmail] = useState(saved_id ? saved_id : "");
   const [pw, setPw] = useState("");
+
+  useEffect(() => {
+    _id.current.focus();
+  }, []);
+
+  const _id = useRef();
+  const _pw = useRef();
 
   // 로그인 체크박스
   const [autoLogin, setAuto] = useState(false); // 자동 로그인
   const [saveId, setId] = useState(false); // 아이디 저장
 
-  const _id = useRef();
-  const _pwd = useRef();
-
   // 회원가입 warning 메시지
-  const [warning, setWarning] = useState({ _id_wrng: false, _pwd_wrng: false, _wrng: false });
-  const { _id_wrng, _pwd_wrng, _wrng } = warning;
+  const [warning, setWarning] = useState({ _id_wrng: false, _pw_wrng: false, _wrng: false });
+  const { _id_wrng, _pw_wrng, _wrng } = warning;
 
   // 로그인 화면 에러 처리 UX
   const login = () => {
-    setWarning({ _id_wrng: false, _pwd_wrng: false }); // 로그인 시도를 여러번 할 수 있으므로
+    setWarning({ _id_wrng: false, _pw_wrng: false }); // 로그인 시도를 여러번 할 수 있으므로
     if (!email && !pw) {
-      setWarning({ _id_wrng: true, _pwd_wrng: true });
+      setWarning({ _id_wrng: true, _pw_wrng: true });
       _id.current.focus();
     } else if (!email) {
       setWarning({ _id_wrng: true });
       _id.current.focus();
     } else if (!pw) {
-      setWarning({ _pwd_wrng: true });
-      _pwd.current.focus();
+      setWarning({ _pw_wrng: true });
+      _pw.current.focus();
     } else {
       dispatch(userActions.loginAPI(email, pw, autoLogin, saveId));
       if (login_msg) {
@@ -55,10 +59,6 @@ const Login = (props) => {
       }
     }
   };
-
-  useEffect(() => {
-    _id.current.focus();
-  }, []);
 
   // 카카오 로그인
   const kakaoLoginClickHandler = (res) => {
@@ -105,7 +105,7 @@ const Login = (props) => {
         <LoginInput
           value={email}
           type="text"
-          placeholder="ID"
+          placeholder="EMAIL"
           id="loginInput"
           onChange={(e) => {
             setEmail(e.target.value);
@@ -136,10 +136,10 @@ const Login = (props) => {
               login();
             }
           }}
-          ref={_pwd}
+          ref={_pw}
         />
       </LoginBox>
-      {_pwd_wrng && (
+      {_pw_wrng && (
         <Text subBody color={Color.Primary} marginB="20px">
           비밀번호를 다시 확인해주세요!
         </Text>

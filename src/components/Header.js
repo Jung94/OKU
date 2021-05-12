@@ -25,7 +25,8 @@ import { Color } from "shared/DesignSys";
 const Header = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
-
+  const { display } = props;
+  console.log(display);
   const [keyword, setKeyword] = useState("");
   const [mainct, setMainct] = useState("");
   const [subct, setSubct] = useState("");
@@ -136,7 +137,7 @@ const Header = (props) => {
 
   return (
     <>
-      <HeaderWrap>
+      <HeaderWrap display={display}>
         <Fix>
           <Grid is_flex width="33%">
             {/* 카테고리 리스트 방식 */}
@@ -196,7 +197,7 @@ const Header = (props) => {
                     subBody
                     color={Color.Dark_4}
                     onClick={() => {
-                      history.push("/Signup");
+                      history.replace("/Signup");
                     }}
                   >
                     회원가입
@@ -401,7 +402,8 @@ const HeaderWrap = styled.header`
   max-width: 100%;
   width: 100%;
   position: absolute;
-  display: flex;
+  /* display: ${(props) => (props.display === false ? "none" : "flex")}; */
+  ${(props) => (props.display === false ? "display : none;" : "display : flex;")}
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;

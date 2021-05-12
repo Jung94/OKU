@@ -26,8 +26,8 @@ const initialState = {
   is_loading: false,
   bid_list: [],
   new_bid: {},
-  current: false,
-  bid_before: '',
+  current: 0,
+  bid_before: "",
 };
 
 const setBidAPI = (_id) => {
@@ -67,11 +67,11 @@ const addBidAPI = (bidPrice, createAt) => {
     const access_token = localStorage.getItem("access_token");
     if (!access_token) {
       if (window.confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?")) {
-        history.replace('/login');
+        history.replace("/login");
       }
       return;
     }
-    
+
     fetch(`${API}/bid/bidtry/${id}`, {
       method: "POST",
       headers: {
@@ -84,17 +84,17 @@ const addBidAPI = (bidPrice, createAt) => {
       .then((res) => res.json())
       .then((res) => {
         console.log(res.result);
-        if (res.result === 'before' || res.result === 'lowBid') {
+        if (res.result === "before" || res.result === "lowBid") {
           console.log(res.result);
-          dispatch(warningBid('before'));
+          dispatch(warningBid("before"));
           return;
-        } else if(res.result === 'time') {
+        } else if (res.result === "time") {
           console.log(res.result);
-          dispatch(warningBid('time'));
+          dispatch(warningBid("time"));
           return;
         } else if (res.result._id) {
           console.log(res.result);
-          dispatch(warningBid('success'));
+          dispatch(warningBid("success"));
           dispatch(addBid({ bid: res.result.bid, nickName: res.result.nickName, createAt: res.result.createAt }));
           dispatch(setCurrent(res.result.bid));
           dispatch(loadingActions.loading(false));
@@ -168,7 +168,6 @@ export default handleActions(
   },
   initialState
 );
-
 
 const actionCreators = {
   setBidAPI,

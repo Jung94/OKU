@@ -1,12 +1,17 @@
 import React, { useRef, useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
+import { useSelector, useDispatch } from "react-redux";
+
 import { history } from "redux/configureStore";
-import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "redux/modules/user";
+import { actionCreators as headerActions } from "redux/modules/header";
+
 import { emailCheck } from "shared/common";
 
 import { Grid, Input, Line, Button, Tag, Modal, Text, Profile } from "elements/";
 import { Color } from "shared/DesignSys";
+
+import MainLogo from "images/logo.png";
 
 import { faEye as farEye } from "@fortawesome/free-regular-svg-icons";
 import { faUser as farUser } from "@fortawesome/free-regular-svg-icons";
@@ -15,20 +20,26 @@ import { faEyeSlash as farEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import { faAddressCard as farAddressCard } from "@fortawesome/free-regular-svg-icons";
 import { faUser, faLock, faEnvelope, faPhone, faAddressCard } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import _ from "lodash";
 
 // import DaumPostcode from 'react-daum-postcode';
 
 const Signup = (props) => {
   const dispatch = useDispatch();
+  const is_login = useSelector((state) => state.user.is_login);
 
-  const postCodeStyle = {
-    display: "block",
-    position: "absolute",
-    top: "50px",
-    zIndex: "100",
-    padding: "7px",
-  };
+  useEffect(() => {
+    _id.current.focus();
+    dispatch(headerActions.setHeader(false));
+  }, []);
 
+  const [email, setEmail] = useState("");
+  const [pw, setPw] = useState("");
+  const [pwCheck, setPwCheck] = useState("");
+  const [nickName, setNickName] = useState("");
+  const [phone, setPhone] = useState("");
+
+  // 비밀번호 인풋 내용 state
   const [show, setShow] = useState(false); // show = 비밀번호 인풋에 작성한 비밀번호
   const [show2, setShow2] = useState(false); // show2 = 비밀번호 확인 인풋에 작성한 비밀번호
 
@@ -42,29 +53,132 @@ const Signup = (props) => {
     setShow2(show2 ? false : true);
   };
 
-  const [email, setEmail] = useState("");
-  const [pw, setPw] = useState("");
-  const [pwCheck, setPwCheck] = useState("");
-  const [nickName, setNickName] = useState("");
-  const [phone, setPhone] = useState("");
+  // 주소 숨겨두기
+  const address = () => {
+    const postCodeStyle = {
+      display: "block",
+      position: "absolute",
+      top: "50px",
+      zIndex: "100",
+      padding: "7px",
+    };
 
-  // const [postalAddress, setPostalAddress] = useState('');
-  // const [address, setAddress] = useState('');
-  // const [detailAddress, setDetailAddress] = useState('');
+    // const [postalAddress, setPostalAddress] = useState('');
+    // const [address, setAddress] = useState('');
+    // const [detailAddress, setDetailAddress] = useState('');
+    // const postalAddressInfo = useRef();
+    // const addressInfo = useRef();
+    // const detailAddressInfo = useRef();
+    // const [messagePostalAddress, setMessagePostalAddress] = useState('');
+    // const [messageAddress, setMessageAddress] = useState('');
+    // const [messageDetailAddress, setMessageDetailAddress] = useState('');
+    // // 우편주소 작성 없이 포커스 아웃 되었을 때
+    // const checkPostalAddress = () => {
+    //   if (postalAddress === '') {
+    //     setMessagePostalAddress('·우편주소를 입력해주세요.');
+    //     postalAddressInfo.current.style.display = 'block';
+    //     return;
+    //   } else {
+    //     postalAddressInfo.current.style.display = 'none';
+    //   }
+    // }
+    // // 주소 작성 없이 포커스 아웃 되었을 때
+    // const checkAddress = () => {
+    //   if (address === '') {
+    //     setMessageAddress('·주소를 입력해주세요.');
+    //     addressInfo.current.style.display = 'block';
+    //     return;
+    //   } else {
+    //     addressInfo.current.style.display = 'none';
+    //   }
+    // }
+    // // 상세주소 작성 없이 포커스 아웃 되었을 때
+    // const checkDetailAddress = () => {
+    //   if (address === '') {
+    //     setMessageDetailAddress('·상세주소를 입력해주세요.');
+    //     detailAddressInfo.current.style.display = 'block';
+    //     return;
+    //   } else {
+    //     detailAddressInfo.current.style.display = 'none';
+    //   }
+    // }
+    // 주소 검색 한 것 받음
+    // const [isZoneCode, setIsZoneCode] = useState();
+    // const [isAddress, setIsAddress] = useState();
+    // const [isPostOpen, setIsPostOpen] = useState(false); // 주소창 열고 닫기
+    // 상세주소
+    // const [isAddressPlus, setIsAddressPlus] = useState("");
+    // const onChangeAddressPlus = useCallback(
+    //   (e) => setIsAddressPlus(e.target.value),
+    //   []
+    // );
+    // // 우편번호 / 주소 찾기
+    // const handleComplete = (data) => {
+    //   let fullAddress = data.address;
+    //   let extraAddress = "";
+    //   if (data.addressType === "R") {
+    //     if (data.bname !== "") {
+    //       extraAddress += data.bname;
+    //     }
+    //     if (data.buildingName !== "") {
+    //       extraAddress +=
+    //         extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+    //     }
+    //     fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    //   }
+    //   setPostalAddress(data.zonecode);
+    //   setAddress(fullAddress);
+    //   setIsPostOpen(false);
+    // };
+    // const _payment_info = {
+    //   userAddress: `${postalAddress} ${address} ${detailAddress}`
+    // };
+  };
+
+  const _id = useRef();
+  const _pw = useRef();
+  const _pwChk = useRef();
+  const _nick = useRef();
+  const _ph = useRef();
 
   // 회원가입 버튼 클릭 시
   const signUp = () => {
-    if (email === "" || pw === "" || pwCheck === "" || nickName === "" || phone === "") {
-      alert("입력되지 않은 항목이 있습니다.");
-      return;
+    if (email === "") {
+      _id.current.focus();
+      setMessageEmail("이메일을 입력해주세요.");
+    } else if (pw === "") {
+      _pw.current.focus();
+      setMessagePw("비밀번호를 입력해주세요.");
+    } else if (pwCheck === "") {
+      _pwChk.current.focus();
+      setMessagePwCheck("비밀번호를 한번 더 입력해주세요.");
+    } else if (nickName === "") {
+      _nick.current.focus();
+    } else if (phone === "") {
+      _ph.current.focus();
     }
 
-    if (pw !== pwCheck) {
-      alert("비밀번호를 확인해주세요.");
-      return;
+    // if (email === "") {
+    //   _id.current.focus();
+    // } else if (email === "") {
+    //   _id.current.focus();
+    // } else if (email === "") {
+    //   _id.current.focus();
+    // } else if (email === "") {
+    //   _id.current.focus();
+    // } else if (email === "") {
+    //   _id.current.focus();
+    // } else if (email === "") {
+    //   _id.current.focus();
+    // } else if (pw !== pwCheck) {
+    //   alert("비밀번호를 확인해주세요.");
+    //   return;
+    // }
+    else if (!agree) {
+      alert("이용약관에 동의해 주시기 바랍니다.");
+    } else {
+      dispatch(userActions.signupAPI(email, pw, pwCheck, nickName, phone));
     }
-
-    dispatch(userActions.signupAPI(email, pw, pwCheck, nickName, phone));
   };
 
   // 이메일 사용 가능 여부 확인. 이메일 인풋 포커스 아웃 시
@@ -75,11 +189,9 @@ const Signup = (props) => {
       .then((res) => {
         let result = res.result;
         if (result === false) {
-          emailInfo.current.style.color = "#ee3a57";
-          setMessageEmail("·이미 등록된 이메일입니다. 다시 작성해 주십시오!");
+          setMessageEmail("이미 등록된 이메일입니다. 다시 작성해 주세요.");
         } else {
-          setMessageEmail("·사용이 가능한 이메일입니다.");
-          emailInfo.current.style.color = "#06afd6";
+          setMessageEmail("✔ 사용 가능한 이메일입니다!");
         }
       });
   };
@@ -92,24 +204,12 @@ const Signup = (props) => {
       .then((res) => {
         let result = res.result;
         if (result === false) {
-          nicknameInfo.current.style.color = "#ee3a57";
-          setMessageNickname("·이미 등록된 닉네임입니다. 다시 작성해 주십시오!");
+          setMessageNickname("이미 존재하는 닉네임입니다.");
         } else {
-          setMessageNickname("·사용이 가능한 닉네임입니다.");
-          nicknameInfo.current.style.color = "#06afd6";
+          setMessageNickname("✔ 사용 가능한 닉네임입니다.");
         }
       });
   };
-
-  const emailInfo = useRef();
-  const pwInfo = useRef();
-  const pwCheckInfo = useRef();
-  const nicknameInfo = useRef();
-  const phoneInfo = useRef();
-
-  // const postalAddressInfo = useRef();
-  // const addressInfo = useRef();
-  // const detailAddressInfo = useRef();
 
   const [messageEmail, setMessageEmail] = useState("");
   const [messagePw, setMessagePw] = useState("");
@@ -120,240 +220,189 @@ const Signup = (props) => {
   // 이용약관 동의 체크박스
   const [agree, setAgree] = useState(false);
 
-  // const [messagePostalAddress, setMessagePostalAddress] = useState('');
-  // const [messageAddress, setMessageAddress] = useState('');
-  // const [messageDetailAddress, setMessageDetailAddress] = useState('');
-
   // 이메일 작성 없을 경우 또는 이메일 형식에 맞지 않을 경우, 포커스 아웃 되면 동작
   const checkEm = () => {
     if (email === "") {
-      setMessageEmail("·이메일을 입력해주세요.");
-      emailInfo.current.style.color = "#ee3a57";
-      emailInfo.current.style.display = "block";
-      return;
-    } else {
-      emailInfo.current.style.display = "none";
+    } else if (!emailCheck(email)) {
+      setMessageEmail("이메일 형식에 맞게 작성해 주시기 바랍니다.");
+    } else if (checkEmailAPI(email)) {
     }
-
-    if (!emailCheck(email)) {
-      setMessageEmail("·이메일 형식을 지켜주세요!");
-      emailInfo.current.style.color = "#ee3a57";
-      emailInfo.current.style.display = "block";
-      return;
-    } else {
-      emailInfo.current.style.display = "none";
-    }
-    emailInfo.current.style.display = "block";
-    checkEmailAPI(email);
   };
 
   // 비밀번호 작성 없이 포커스 아웃 되었을 때
   const checkPw = () => {
-    if (pw === "") {
-      setMessagePw("·비밀번호를 입력해주세요.");
-      pwInfo.current.style.display = "block";
-      return;
+    if (!pw) {
+      setMessagePw("");
+    } else if (pw === "") {
+      setMessagePw("");
     } else {
-      pwInfo.current.style.display = "none";
+      setMessagePw("✔ 사용 가능한 비밀번호입니다!");
     }
   };
 
   // 비밀번호 확인 작성 없을 경우 또는 앞서 작성한 비밀번호 내용과 다를 경우, 포커스 아웃 되었을 때
   const doubleCheckPw = () => {
-    if (pwCheck === "") {
-      setMessagePwCheck("·한 번 더 비밀번호를 입력해주세요.");
-      pwCheckInfo.current.style.display = "block";
-      return;
-    } else {
-      pwCheckInfo.current.style.display = "none";
-    }
-
-    if (pw !== pwCheck) {
-      setMessagePwCheck("·동일한 비밀번호를 입력해주세요.");
-      pwCheckInfo.current.style.display = "block";
-      return;
-    } else {
-      pwCheckInfo.current.style.display = "none";
+    if (pw === "") {
+      setMessagePw("비밀번호를 먼저 입력해주세요.");
+    } else if (pw !== "" && !pwCheck) {
+      setMessagePwCheck("");
+    } else if (pw !== pwCheck) {
+      setMessagePwCheck("비밀번호를 다시 확인해주세요.");
+    } else if (pw === pwCheck) {
+      setMessagePwCheck("✔ 비밀번호가 확인되었습니다.");
     }
   };
 
   // 닉네임 작성 없이 포커스 아웃 되었을 때
   const checkNickname = () => {
     if (nickName === "") {
-      setMessageNickname("·닉네임을 입력해주세요.");
-      nicknameInfo.current.style.display = "block";
-      return;
+      setMessageNickname("");
     } else {
-      nicknameInfo.current.style.display = "none";
+      checkNicknameAPI(nickName);
     }
-    nicknameInfo.current.style.display = "block";
-    checkNicknameAPI(nickName);
   };
 
-  // 전화번호 작성 없이 포커스 아웃 되었을 때
+  // 전화번호 작성 없이 포커스 아웃 되었을 때 (전화번호 인증시 보충해야함)
   const checkPhone = () => {
     if (phone === "") {
-      setMessagePhone("·전화번호를 입력해주세요.");
-      phoneInfo.current.style.display = "block";
-      return;
+      setMessagePhone("");
     } else {
-      phoneInfo.current.style.display = "none";
     }
   };
 
-  // // 우편주소 작성 없이 포커스 아웃 되었을 때
-  // const checkPostalAddress = () => {
-  //   if (postalAddress === '') {
-  //     setMessagePostalAddress('·우편주소를 입력해주세요.');
-  //     postalAddressInfo.current.style.display = 'block';
-  //     return;
-  //   } else {
-  //     postalAddressInfo.current.style.display = 'none';
-  //   }
-  // }
-
-  // // 주소 작성 없이 포커스 아웃 되었을 때
-  // const checkAddress = () => {
-  //   if (address === '') {
-  //     setMessageAddress('·주소를 입력해주세요.');
-  //     addressInfo.current.style.display = 'block';
-  //     return;
-  //   } else {
-  //     addressInfo.current.style.display = 'none';
-  //   }
-  // }
-
-  // // 상세주소 작성 없이 포커스 아웃 되었을 때
-  // const checkDetailAddress = () => {
-  //   if (address === '') {
-  //     setMessageDetailAddress('·상세주소를 입력해주세요.');
-  //     detailAddressInfo.current.style.display = 'block';
-  //     return;
-  //   } else {
-  //     detailAddressInfo.current.style.display = 'none';
-  //   }
-  // }
-
-  // 주소 검색 한 것 받음
-  // const [isZoneCode, setIsZoneCode] = useState();
-  // const [isAddress, setIsAddress] = useState();
-  // const [isPostOpen, setIsPostOpen] = useState(false); // 주소창 열고 닫기
-
-  // 상세주소
-  // const [isAddressPlus, setIsAddressPlus] = useState("");
-  // const onChangeAddressPlus = useCallback(
-  //   (e) => setIsAddressPlus(e.target.value),
-  //   []
-  // );
-
-  // // 우편번호 / 주소 찾기
-  // const handleComplete = (data) => {
-  //   let fullAddress = data.address;
-  //   let extraAddress = "";
-
-  //   if (data.addressType === "R") {
-  //     if (data.bname !== "") {
-  //       extraAddress += data.bname;
-  //     }
-  //     if (data.buildingName !== "") {
-  //       extraAddress +=
-  //         extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-  //     }
-  //     fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-  //   }
-  //   setPostalAddress(data.zonecode);
-  //   setAddress(fullAddress);
-  //   setIsPostOpen(false);
-  // };
-
-  // const _payment_info = {
-  //   userAddress: `${postalAddress} ${address} ${detailAddress}`
-  // };
+  // 로그인 되어있을때 회원가입 페이지 접근 방지
+  if (is_login) {
+    history.push("/my/shopping");
+  }
 
   return (
-    <Wrap>
-      <Text h2 textAlign="center" marginB="20px">
-        회원가입
-      </Text>
-
-      <SignupBox>
-        {/* <FontAwesomeIcon icon={farEnvelope} color={Color.Light_3} /> */}
-        <SignupInput
-          type="text"
-          placeholder="이메일"
-          onChange={(e) => {
-            setEmail(e.target.value);
+    <>
+      <Grid is_flex justify="flex-end" width="85%">
+        <Text subBody color={Color.Dark_4} margin="20px">
+          about OKU
+        </Text>
+        <Text subBody color={Color.Dark_4}>
+          about Team
+        </Text>
+      </Grid>
+      <Grid is_flex column margin="20px 0">
+        <img
+          alt="로고이미지"
+          style={{ width: "117.8px", cursor: "pointer", zIndex: "1", margin: "20px" }}
+          src={MainLogo}
+          onClick={() => {
+            history.replace("/");
           }}
-          onBlur={checkEm}
         />
-      </SignupBox>
-      <InfoUl ref={emailInfo}>
-        <li>{messageEmail}</li>
-      </InfoUl>
+        <Text subBody textAlign="center" color={Color.Primary} marginB="20px">
+          오쿠는 각자의 덕질 취향을 존중하는 "덕후들을 위한" 굿즈 경매 사이트입니다.
+          <br />
+          덕질 생활을 더욱 편리하고 행복하게 즐기세요!
+        </Text>
+      </Grid>
+      <Wrap>
+        <Text h4 marginB="10px">
+          아이디
+        </Text>
+        <SignupBox>
+          {/* <FontAwesomeIcon icon={farEnvelope} color={Color.Light_3} /> */}
+          <SignupInput
+            type="text"
+            placeholder="EMAIL"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            onFocus={() => {
+              setMessageEmail("");
+            }}
+            onBlur={checkEm}
+            ref={_id}
+          />
+        </SignupBox>
+        <Text subBody color={Color.Primary} marginB="20px">
+          {messageEmail}
+        </Text>
 
-      <SignupBox>
-        {/* <FontAwesomeIcon icon={faLock} color={Color.Light_3} /> */}
-        <PwdInput
-          type={show ? "text" : "password"}
-          placeholder="비밀번호"
-          onChange={(e) => {
-            setPw(e.target.value);
-          }}
-          onBlur={checkPw}
-        />
-        <IconEyeSpan onClick={changeEye}>{show ? <FontAwesomeIcon icon={farEyeSlash} /> : <FontAwesomeIcon icon={farEye} />}</IconEyeSpan>
-      </SignupBox>
-      <InfoUl ref={pwInfo}>
-        <li>{messagePw}</li>
-      </InfoUl>
+        <Text h4 marginB="10px">
+          비밀번호
+        </Text>
+        <SignupBox>
+          {/* <FontAwesomeIcon icon={faLock} color={Color.Light_3} /> */}
+          <PwdInput
+            type={show ? "text" : "password"}
+            placeholder="PASSWORD"
+            onChange={(e) => {
+              setPw(e.target.value);
+            }}
+            onBlur={checkPw}
+            ref={_pw}
+          />
+          <IconEyeSpan onClick={changeEye}>{show ? <FontAwesomeIcon icon={farEyeSlash} /> : <FontAwesomeIcon icon={farEye} />}</IconEyeSpan>
+        </SignupBox>
+        <Text subBody color={Color.Primary} marginB="20px">
+          {messagePw}
+        </Text>
 
-      <SignupBox>
-        {/* <FontAwesomeIcon icon={faLock} color={Color.Light_3} /> */}
-        <PwdInput
-          type={show2 ? "text" : "password"}
-          placeholder="비밀번호 확인"
-          onChange={(e) => {
-            setPwCheck(e.target.value);
-          }}
-          onBlur={doubleCheckPw}
-        />
-        <IconEyeSpan onClick={changeEye2}>{show2 ? <FontAwesomeIcon icon={farEyeSlash} /> : <FontAwesomeIcon icon={farEye} />}</IconEyeSpan>
-      </SignupBox>
-      <InfoUl ref={pwCheckInfo}>
-        <li>{messagePwCheck}</li>
-      </InfoUl>
+        <Text h4 marginB="10px">
+          비밀번호 확인
+        </Text>
+        <SignupBox>
+          {/* <FontAwesomeIcon icon={faLock} color={Color.Light_3} /> */}
+          <PwdInput
+            type={show2 ? "text" : "password"}
+            placeholder="PASSWORD CHECK"
+            onChange={(e) => {
+              setPwCheck(e.target.value);
+            }}
+            onFocus={doubleCheckPw}
+            onBlur={doubleCheckPw}
+            ref={_pwChk}
+          />
+          <IconEyeSpan onClick={changeEye2}>{show2 ? <FontAwesomeIcon icon={farEyeSlash} /> : <FontAwesomeIcon icon={farEye} />}</IconEyeSpan>
+        </SignupBox>
+        <Text subBody color={Color.Primary} marginB="20px">
+          {messagePwCheck}
+        </Text>
 
-      <SignupBox>
-        {/* <FontAwesomeIcon icon={farUser} color={Color.Light_3} /> */}
-        <SignupInput
-          type="text"
-          placeholder="닉네임"
-          onChange={(e) => {
-            setNickName(e.target.value);
-          }}
-          onBlur={checkNickname}
-        />
-      </SignupBox>
-      <InfoUl ref={nicknameInfo}>
-        <li>{messageNickname}</li>
-      </InfoUl>
+        <Text h4 marginB="10px">
+          닉네임
+        </Text>
+        <SignupBox>
+          {/* <FontAwesomeIcon icon={farUser} color={Color.Light_3} /> */}
+          <SignupInput
+            type="text"
+            placeholder="NICKNAME"
+            onChange={(e) => {
+              setNickName(e.target.value);
+            }}
+            onBlur={checkNickname}
+            ref={_nick}
+          />
+        </SignupBox>
+        <Text subBody color={Color.Primary} marginB="20px">
+          {messageNickname}
+        </Text>
 
-      <SignupBox>
-        {/* <FontAwesomeIcon icon={faPhone} color={Color.Light_3} /> */}
-        <SignupInput
-          type="text"
-          placeholder="전화번호"
-          onChange={(e) => {
-            setPhone(e.target.value);
-          }}
-          onBlur={checkPhone}
-        />
-      </SignupBox>
-      <InfoUl ref={phoneInfo}>
-        <li>{messagePhone}</li>
-      </InfoUl>
+        <Text h4 marginB="10px">
+          전화번호
+        </Text>
+        <SignupBox>
+          {/* <FontAwesomeIcon icon={faPhone} color={Color.Light_3} /> */}
+          <SignupInput
+            type="text"
+            placeholder="PHONE NUMBER"
+            onChange={(e) => {
+              setPhone(e.target.value);
+            }}
+            onBlur={checkPhone}
+            ref={_ph}
+          />
+        </SignupBox>
+        <Text subBody color={Color.Primary} marginB="20px">
+          {messagePhone}
+        </Text>
 
-      {/* <SignupBox>
+        {/* <SignupBox>
         <IconSpan>
           <FontAwesomeIcon icon={farAddressCard} />
         </IconSpan>
@@ -383,28 +432,30 @@ const Signup = (props) => {
       <InfoUl ref={detailAddressInfo}>
         <li>{messageDetailAddress}</li>
       </InfoUl> */}
-      <Input
-        check
-        checked={agree}
-        _onClick={() => {
-          if (agree) {
-            setAgree(false);
-          } else {
-            setAgree(true);
-          }
-        }}
-        desc="회원가입시 이용약관에 동의해주세요."
-      />
-      <Button _onClick={signUp} width="100%" margin="20px 0">
-        회원가입
-      </Button>
-      <Text subBody textAlign="center" color={Color.Dark_4}>
-        이미 OKU 회원이시라면?
-      </Text>
-      <Text subBody weight="700" textAlign="center" color={Color.Primary} marginT="5px" marginB="10px" onClick={() => history.push("/login")}>
-        로그인하러 가기
-      </Text>
-      {/* {isPostOpen && 
+        <Grid is_flex column>
+          <Input
+            check
+            checked={agree}
+            _onClick={() => {
+              if (agree) {
+                setAgree(false);
+              } else {
+                setAgree(true);
+              }
+            }}
+            desc="회원가입시 OKU 이용약관에 동의해 주시기 바랍니다."
+          />
+        </Grid>
+        <Button _onClick={signUp} width="100%" margin="20px 0">
+          회원가입
+        </Button>
+        <Text subBody textAlign="center" color={Color.Dark_4}>
+          이미 OKU 회원이시라면?
+        </Text>
+        <Text subBody weight="700" textAlign="center" color={Color.Primary} marginT="5px" marginB="10px" onClick={() => history.push("/login")}>
+          로그인하러 가기
+        </Text>
+        {/* {isPostOpen && 
         <Modal>
           <ModalSection>
             <DaumPostcode onComplete={handleComplete} />
@@ -413,7 +464,8 @@ const Signup = (props) => {
           </ModalBack>
         </Modal>
       } */}
-    </Wrap>
+      </Wrap>
+    </>
   );
 };
 
@@ -421,7 +473,7 @@ const Wrap = styled.div`
   width: 350px;
   min-height: 63vh;
   height: 100%;
-  margin: 230px auto auto;
+  margin: 0 auto 50px auto;
   box-sizing: border-box;
 `;
 
@@ -438,22 +490,64 @@ const InfoUl = styled.ul`
 `;
 
 const SignupBox = styled.div`
-  border-bottom: 2px solid ${Color.Light_3};
+  border: 1px solid ${Color.Light_3};
+  border-radius: 16px;
   width: 100%;
-  height: 46px;
+  height: 50px;
   margin: 10px 0;
-  padding: 8px 0;
+  padding: 10px;
   box-sizing: border-box;
   overflow: hidden;
+  align-items: center;
+  transition: border 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
   &:focus-within {
-    transition: border-bottom 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border-bottom: 2px solid ${Color.Primary};
+    border: 1px solid ${Color.Primary};
+    box-shadow: 0 0 0 3px ${Color.Primary}33;
   }
   svg {
     width: 26px;
     align-items: center;
     color: ${Color.Light_3};
     margin-right: 10px;
+  }
+`;
+
+const SignupInput = styled.input`
+  border: none;
+  background-color: transparent;
+  box-sizing: border-box;
+  letter-spacing: 0.5px;
+  overflow: hidden;
+  color: #000;
+  font-size: 16px;
+  width: 90%;
+  outline: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 12px;
+    user-select: none;
+  }
+`;
+
+const PwdInput = styled.input`
+  border: none;
+  background-color: transparent;
+  box-sizing: border-box;
+  letter-spacing: 0.5px;
+  overflow: hidden;
+  color: #000;
+  font-size: 14px;
+  width: 80%;
+  outline: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 12px;
+    user-select: none;
   }
 `;
 
@@ -475,40 +569,9 @@ const IconEyeSpan = styled.span`
   color: rgba(0, 0, 0, 0.4);
 `;
 
-const SignupInput = styled.input`
-  border: none;
-  background-color: transparent;
-  box-sizing: border-box;
-  letter-spacing: 0.5px;
-  overflow: hidden;
-  color: #000;
-  font-size: 14px;
-  width: 90%;
-  outline: none;
-
-  &::placeholder {
-    color: rgba(0, 0, 0, 0.3);
-    font-size: 12px;
-    user-select: none;
-  }
-`;
-
-const PwdInput = styled.input`
-  border: none;
-  background-color: transparent;
-  box-sizing: border-box;
-  letter-spacing: 0.5px;
-  overflow: hidden;
-  color: #000;
-  font-size: 14px;
-  width: 90%;
-  outline: none;
-
-  &::placeholder {
-    color: rgba(0, 0, 0, 0.3);
-    font-size: 12px;
-    user-select: none;
-  }
+const Agree = styled.div`
+  text-align: center;
+  margin: 0 auto;
 `;
 
 // const Modal = styled.div`

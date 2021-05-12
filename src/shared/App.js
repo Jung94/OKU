@@ -3,9 +3,10 @@ import "shared/css/App.css";
 import styled from "styled-components";
 
 import { actionCreators as userActions } from "redux/modules/user";
+import { useSelector, useDispatch } from "react-redux";
+
 import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch, useRoutes, Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { history } from "redux/configureStore";
 
 import NotFound from "shared/NotFound";
@@ -15,6 +16,7 @@ import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Re
 const App = (props) => {
   const dispatch = useDispatch();
   const is_login = localStorage.getItem("access_token") ? true : false;
+  const header_display = useSelector((state) => state.header.header_display);
 
   useEffect(() => {
     if (is_login) {
@@ -24,7 +26,7 @@ const App = (props) => {
 
   return (
     <Wrap>
-      <Header />
+      <Header display={header_display} />
       <Grid>
         <ConnectedRouter history={history}>
           <Switch>

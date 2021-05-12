@@ -45,13 +45,8 @@ const Input = (props) => {
 
   if (output) {
     return (
-      <InputBox
-        {...styles}
-        onClick={() => {
-          inputEl.current.focus();
-        }}
-      >
-        <input type={type} ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={_onFocus} onBlur={_onBlur}>
+      <InputBox {...styles}>
+        <input type={type} ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value}>
           {children}
         </input>
         {adornment && <span>{adornment}</span>}
@@ -174,11 +169,15 @@ const InputBox = styled.div`
   border-radius: 16px;
   padding: 10px;
   transition: border 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  ${(props) => (props.output ? `background-color: ${Color.Light_3}; user-select: none; height: 50px;` : "background-color: white;")}
-  &:focus-within {
+  ${(props) =>
+    props.output
+      ? `background-color: ${Color.Light_3}; user-select: none; height: 50px;`
+      : `background-color: white;
+      &:focus-within {
     border: 1px solid ${Color.Primary};
     box-shadow: 0 0 0 3px ${Color.Primary}33;
-  }
+  }`}
+
   input {
     background-color: transparent;
     ::placeholder {
@@ -193,9 +192,9 @@ const InputBox = styled.div`
     padding-right: 10px;
     width: 100%;
     align-items: center;
-    ${(props) => (props.info ? "font-size: 16px; text-align: center;" : props.left ? "font-size: 16px; text-align: left;" : "font-size: 20px;")}
     font-weight: 400;
-    ${(props) => (props.num ? "text-align: right;" : "")}
+    ${(props) => (props.info ? "font-size: 16px; text-align: center;" : props.left ? "font-size: 16px; text-align: left;" : "font-size: 20px;")}
+    ${(props) => (props.num ? `text-align: right; ` : "")}
     &:focus {
       outline: none;
     }
