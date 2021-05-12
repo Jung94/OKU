@@ -54,7 +54,7 @@ const setProductAllAPI = (_id) => {
           dispatch(setProductAll(res.result._id, res.result));
           dispatch(bidActions.setBidAPI(_id));
           dispatch(setQnAAPI(_id));
-          dispatch(likeActions.getLikeAPI());
+          dispatch(likeActions.getLikeAPI(_id));
           dispatch(setRelatedAPI(res.result.bigCategory));
         } else {
           console.log("해당 데이터가 준비되지 않았습니다.");
@@ -84,7 +84,7 @@ const setRelatedAPI = (keyword) => {
         // console.log(res.result);
         dispatch(setRelated(res.result));
       })
-      .catch((err) => console.log("setProductAllAPI에 문제가 있습니다.", err));
+      .catch((err) => console.log("setRelatedAPI 문제가 있습니다.", err));
   };
 };
 
