@@ -20,13 +20,15 @@ const Input = (props) => {
   // radio -> 상품 업로드
   // check -> 로그인
 
-  const { output, text, check, radio, info, left, disabled, checked, maxLength, width, margin, adornment, plcholder, num, children, value, name, id, _onChange, _onKeyPress, _onClick, type, fnc, btn, desc } = props;
+  const { output, text, check, radio, info, left, disabled, checked, maxLength, width, margin, adornment, plcholder, num, children, value, name, id, _onClick, _onChange, _onKeyPress, _onFocus, _onBlur, type, fnc, btn, desc } = props;
 
   const styles = {
     name: name,
+    onClick: _onClick,
     onChange: _onChange,
     onKeyPress: _onKeyPress,
-    onClick: _onClick,
+    onFocus: _onFocus,
+    onBlur: _onBlur,
     type: type,
     maxLength: maxLength,
     id: id,
@@ -40,7 +42,6 @@ const Input = (props) => {
     output: output,
   };
   const inputEl = useRef();
-  const [blur, setBlur] = useState(false);
 
   if (output) {
     return (
@@ -50,7 +51,7 @@ const Input = (props) => {
           inputEl.current.focus();
         }}
       >
-        <input type={type} ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
+        <input type={type} ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={_onFocus} onBlur={_onBlur}>
           {children}
         </input>
         {adornment && <span>{adornment}</span>}
@@ -66,7 +67,7 @@ const Input = (props) => {
           inputEl.current.focus();
         }}
       >
-        <input type="radio" ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value} onChange={_onChange} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
+        <input type="radio" ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value} onChange={_onChange} onFocus={_onFocus} onBlur={_onBlur}>
           {children}
         </input>
         <span className="checkmark" />
@@ -99,7 +100,7 @@ const Input = (props) => {
             <path d="M6.92444 11.6981L11.2176 17.5525L19.3162 7.5025" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         )}
-        <input type="checkbox" checked={checked} ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value} onClick={_onClick} onChange={_onChange} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
+        <input type="checkbox" checked={checked} ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value} onClick={_onClick} onChange={_onChange} onFocus={_onFocus} onBlur={_onBlur}>
           {children}
         </input>
         <div>
@@ -115,89 +116,53 @@ const Input = (props) => {
   if (text) {
     return (
       <>
-        {blur ? (
-          <TextareaBox
-            {...styles}
-            focused
-            onClick={() => {
-              inputEl.current.focus();
-            }}
-          >
-            <textarea type={type} ref={inputEl} placeholder={plcholder} value={value} maxLength={maxLength} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
-              {children}
-            </textarea>
-            {btn && (
-              <div>
-                <Text h4 color={Color.Light_3}>
-                  {adornment}
-                </Text>
-                <Button width="30%" _onClick={fnc} margin="0 0 0 10px ">
-                  {btn}
-                </Button>
-              </div>
-            )}
-          </TextareaBox>
-        ) : (
-          <TextareaBox
-            {...styles}
-            onClick={() => {
-              inputEl.current.focus();
-            }}
-          >
-            <textarea type={type} ref={inputEl} placeholder={plcholder} value={value} maxLength={maxLength} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
-              {children}
-            </textarea>
-            {btn && (
-              <div>
-                <Text h4 color={Color.Light_3}>
-                  {adornment}
-                </Text>
-                <Button width="30%" _onClick={fnc} margin="0 0 0 10px ">
-                  {btn}
-                </Button>
-              </div>
-            )}
-          </TextareaBox>
-        )}
+        <TextareaBox
+          {...styles}
+          onClick={() => {
+            inputEl.current.focus();
+          }}
+        >
+          <textarea type={type} ref={inputEl} placeholder={plcholder} value={value} maxLength={maxLength} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={_onFocus} onBlur={_onBlur}>
+            {children}
+          </textarea>
+          {btn && (
+            <div>
+              <Text h4 color={Color.Light_3}>
+                {adornment}
+              </Text>
+              <Button width="30%" _onClick={fnc} margin="0 0 0 10px ">
+                {btn}
+              </Button>
+            </div>
+          )}
+        </TextareaBox>
       </>
     );
   }
 
   return (
     <>
-      {blur ? (
-        <InputBox
-          {...styles}
-          focused
-          onClick={() => {
-            inputEl.current.focus();
-          }}
-        >
-          <input id={id} type={type} ref={inputEl} placeholder={plcholder} value={value} maxLength={maxLength} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
-            {children}
-          </input>
-          <span>{adornment}</span>
-        </InputBox>
-      ) : (
-        <InputBox
-          {...styles}
-          onClick={() => {
-            inputEl.current.focus();
-          }}
-        >
-          <input id={id} type={type} ref={inputEl} placeholder={plcholder} value={value} maxLength={maxLength} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={() => setBlur(!blur)} onBlur={() => setBlur(false)}>
-            {children}
-          </input>
-          <span>{adornment}</span>
-        </InputBox>
-      )}
+      <InputBox
+        {...styles}
+        onClick={() => {
+          inputEl.current.focus();
+        }}
+      >
+        <input id={id} type={type} ref={inputEl} placeholder={plcholder} value={value} maxLength={maxLength} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={_onFocus} onBlur={_onBlur}>
+          {children}
+        </input>
+        <span>{adornment}</span>
+      </InputBox>
     </>
   );
 };
 
 Input.defaultProps = {
+  _onClick: () => {},
   _onChange: () => {},
   _onKeyPress: () => {},
+  _onFocus: () => {},
+  _onBlur: () => {},
 };
 
 const InputBox = styled.div`
@@ -208,9 +173,12 @@ const InputBox = styled.div`
   align-items: center;
   border-radius: 16px;
   padding: 10px;
-  ${(props) => (props.focused ? `border: 1px solid ${Color.Primary}; box-shadow: 0 0 0 3px ${Color.Primary}33;` : "")}
   transition: border 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   ${(props) => (props.output ? `background-color: ${Color.Light_3}; user-select: none; height: 50px;` : "background-color: white;")}
+  &:focus-within {
+    border: 1px solid ${Color.Primary};
+    box-shadow: 0 0 0 3px ${Color.Primary}33;
+  }
   input {
     background-color: transparent;
     ::placeholder {
@@ -346,9 +314,12 @@ const TextareaBox = styled.div`
   border-radius: 16px;
   padding: 25px;
   box-sizing: border-box;
-  ${(props) => (props.focused ? `border: 1px solid ${Color.Primary}; box-shadow: 0 0 0 3px ${Color.Primary}33;` : "")}
   transition: border 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   ${(props) => (props.output ? `background-color: ${Color.Light_3}; user-select: none; height: 50px;` : "background-color: white;")}
+  &:focus-within {
+    border: 1px solid ${Color.Primary};
+    box-shadow: 0 0 0 3px ${Color.Primary}33;
+  }
   textarea {
     box-sizing: border-box;
     width: 100%;
