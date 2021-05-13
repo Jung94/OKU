@@ -89,6 +89,9 @@ const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, p
       .then((res) => res.json())
       .then((res) => {
         dispatch(uploadProgress(false));
+        dispatch(setPreview1([]));
+        dispatch(setPreview2([]));
+        dispatch(setPreview3([]));
         alert(res.msg);
         history.replace('/');
       })

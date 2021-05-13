@@ -147,6 +147,10 @@ const ProductUpload = React.memo((props) => {
     }
   };
 
+  const handleAgree = () => {
+    setAgree(true);
+  };
+
   // const [isAddress, setIsAddress] = useState();
   const [isPostOpen, setIsPostOpen] = useState(false); // 주소창 열고 닫기
 
@@ -169,8 +173,19 @@ const ProductUpload = React.memo((props) => {
   };
 
   const addPost = () => {
+    console.log(agree);
     if (!fileInput.current.files[0] && !fileInput1.current.files[0] && !fileInput2.current.files[0]) {
       window.alert("파일을 선택해주세요!");
+      return;
+    }
+
+    if ( !title || !cateBig || !cateSmall || !productState || !deadline || !lowbid || !sucbid || !delivery || !productDesc ) {
+      window.alert("필수항목을 입력해주세요!");
+      return;
+    }
+    
+    if ( !agree ) {
+      window.alert("약관에 동의해주세요!");
       return;
     }
 
@@ -384,6 +399,7 @@ const ProductUpload = React.memo((props) => {
         <Input
           check
           checked={agree}
+          _onChange={handleAgree}
           _onClick={() => {
             if (agree) {
               setAgree(false);
