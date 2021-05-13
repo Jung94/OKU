@@ -26,7 +26,7 @@ justify-content: center;
 flex-direction: column;
 max-width: 1030px;
 height: 100%;
-margin: 117px auto;
+margin: 117px auto 0;
 barder: 1px solid #000;
 `;
 

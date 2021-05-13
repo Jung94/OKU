@@ -16,7 +16,6 @@ import { Timer } from "components/";
 import { Color } from "shared/DesignSys";
 
 const PostCard = (props) => {
-  // const _id = props.match.params.id;
   const dispatch = useDispatch();
   const { img, title, currentprice, sucBid, _onClick, _id } = props;
   const _is_like = useSelector((state) => state.like.is_like);

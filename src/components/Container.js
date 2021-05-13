@@ -2,14 +2,18 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 
+import MainCard from 'components/MainCard'
+
 import { actionCreators as postActions } from "redux/modules/post";
 import { useDispatch, useSelector } from "react-redux";
 
+import { Timer } from "components/";
 import Slider from "react-slick";
+import { input_priceComma } from "shared/common";
 
 // 왼쪽
 function PrevArrow(props) {
-  const { className, style, onClick } = props;
+  const { className, style, onClick,  lowBid } = props;
   return (
     <LeftArrow
       className={className}
@@ -172,24 +176,33 @@ const Container = (props) => {
             <Slider {...settings}>
               {_popular_product.map((i, idx) => {
                 // console.log(i);
+                let real = input_priceComma(`${i.lowBid}`);
                 return (
-                  <Section
-                    key={idx}
-                    onClick={() => {
-                      history.push(`product/detail/${i._id}`);
-                    }}
-                    {...i}
-                  >
-                    <Image>
-                      <img src={i.img[0]} />
-                      <Title>{i.title}</Title>
-                    </Image>
-                    <Desc>
-                      <Deadline>경매마감까지 {i.deadLine} 남았습니다.</Deadline>
-                      <Currentprice>{i.currentprice}</Currentprice>
-                      <Sucbid>{i.sucBid}원</Sucbid>
-                    </Desc>
-                  </Section>
+                  <MainCard lowBid={real} key={idx} {...i} _onClick={() => {history.push(`product/detail/${i._id}`)}} />
+                  // <Section
+                  //   key={idx}
+                  //   onClick={() => {
+                  //     history.push(`product/detail/${i._id}`);
+                  //   }}
+                  //   {...i}
+                  // >
+                  //   <Image style={{ backgroundImage : `url(`+ i.img + `)` }} >
+                  //     {/* <img src={i.img[0]} /> */}
+                  //     <Desc>
+                  //     <Title>{i.title}</Title>
+                  //     <Bottom>
+                  //     <Deadline style={{ backgroundColor: "white", padding: "5px", height: "0" }}>
+                  //       {i.deadLine}
+                  //         <Timer all deadLine={i.deadLine} {...props} purple />
+                          
+                  //     </Deadline>
+                  //     {/* <Currentprice>{i.currentprice}</Currentprice> */}
+                  //     <Sucbid lowBid={real}>{i.sucBid}원</Sucbid>
+                      
+                  //     </Bottom>
+                  //   </Desc>
+                  //   </Image>
+                  // </Section>
                 );
               })}
             </Slider>
@@ -245,38 +258,8 @@ const Main = styled.div`
 
 const Box = styled.div``;
 
-const Slide = styled.div``;
-const Section = styled.div`
-  display: flex;
+const Slide = styled.div`
 `;
-const Desc = styled.div``;
-const Title = styled.div`
-  font-size: 45px;
-  margin 0 0 0 100px;
-  height : 64px;
-  font-weight: bold;
-  text-align : left;
-  top : 30%;
-  width: 300px;
-  position : relative;
-`;
-const Image = styled.div`
-  overflow: hidden;
-  & > img {
-    position: relative;
-    width: 700px;
-    height: 700px;
-    margin: 0 auto;
-    cursor: pointer;
-    border-radius: 50px;
-  }
-  // & : hover {
-  //   transform : scale(1.05);
-  //   transition : transform 0.5s;
-  // }
-`;
-const Currentprice = styled.div``;
-const Deadline = styled.div``;
-const Sucbid = styled.div``;
+
 
 export default Container;
