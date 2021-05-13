@@ -20,7 +20,7 @@ const Input = (props) => {
   // radio -> 상품 업로드
   // check -> 로그인
 
-  const { output, text, check, radio, info, left, disabled, checked, maxLength, width, margin, adornment, plcholder, num, children, value, name, id, _onClick, _onChange, _onKeyPress, _onFocus, _onBlur, type, fnc, btn, desc } = props;
+  const { output, text, check, radio, info, left, disabled, checked, maxLength, width, height, margin, adornment, plcholder, num, children, value, name, id, _onClick, _onChange, _onKeyPress, _onFocus, _onBlur, type, fnc, btn, desc } = props;
 
   const styles = {
     name: name,
@@ -35,6 +35,7 @@ const Input = (props) => {
     disabled: disabled,
     checked: checked,
     width: width,
+    height: height,
     margin: margin,
     num: num,
     info: info,
@@ -45,13 +46,8 @@ const Input = (props) => {
 
   if (output) {
     return (
-      <InputBox
-        {...styles}
-        onClick={() => {
-          inputEl.current.focus();
-        }}
-      >
-        <input type={type} ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={_onFocus} onBlur={_onBlur}>
+      <InputBox {...styles}>
+        <input type={type} ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value}>
           {children}
         </input>
         {adornment && <span>{adornment}</span>}
@@ -174,11 +170,15 @@ const InputBox = styled.div`
   border-radius: 16px;
   padding: 10px;
   transition: border 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  ${(props) => (props.output ? `background-color: ${Color.Light_3}; user-select: none; height: 50px;` : "background-color: white;")}
-  &:focus-within {
+  ${(props) =>
+    props.output
+      ? `background-color: ${Color.Light_3}; user-select: none; height: 50px;`
+      : `background-color: white;
+      &:focus-within {
     border: 1px solid ${Color.Primary};
     box-shadow: 0 0 0 3px ${Color.Primary}33;
-  }
+  }`}
+
   input {
     background-color: transparent;
     ::placeholder {
@@ -193,9 +193,9 @@ const InputBox = styled.div`
     padding-right: 10px;
     width: 100%;
     align-items: center;
-    ${(props) => (props.info ? "font-size: 16px; text-align: center;" : props.left ? "font-size: 16px; text-align: left;" : "font-size: 20px;")}
     font-weight: 400;
-    ${(props) => (props.num ? "text-align: right;" : "")}
+    ${(props) => (props.info ? "font-size: 16px; text-align: center;" : props.left ? "font-size: 16px; text-align: left;" : "font-size: 20px;")}
+    ${(props) => (props.num ? `text-align: right; ` : "")}
     &:focus {
       outline: none;
     }
@@ -305,8 +305,9 @@ const CheckBox = styled.label`
 
 const TextareaBox = styled.div`
   width: ${(props) => (props.width ? props.width : "")};
+  height: 100px;
   margin: ${(props) => (props.margin ? props.margin : "")};
-  min-height: 146px;
+  min-height: 100px;
   border: 1px solid ${Color.Light_3};
   display: flex;
   flex-direction: column;

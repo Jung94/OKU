@@ -39,7 +39,18 @@ const ProductList = styled.div`
   justify-content: flex-start;
   flex-wrap: wrap;
   height: 100%;
-  gap: 65px;
+  gap: 33px;
+  // border: 1px solid red;
+
+  // @media only screen and (min-width : 1224px) {
+  //   height: 80%;
+  //   gap: 65px;
+  // }
+
+  @media only screen and (min-width : 1824px) {
+    height: 80%;
+    gap: 65px;
+  }
 `;
 
 export default SearchResult;

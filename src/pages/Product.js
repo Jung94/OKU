@@ -53,7 +53,7 @@ const Product = (props) => {
   const _related_list = useSelector((state) => state.product.related);
   // console.log("🟣: ", _related_list);
   const _bid_list = useSelector((state) => state.bid.bid_list);
-  // console.log("🟣: ", _bid_list);
+  console.log("🟣: ", _bid_list);
   const _current = useSelector((state) => state.bid.current);
   // console.log("🟣입찰 리스트: ", _bid_list[0]);
 
@@ -202,7 +202,7 @@ const Product = (props) => {
             <Grid is_flex>{tag && tag.map((t, idx) => <Tag key={idx}>{t}</Tag>)}</Grid>
           </Grid>
 
-          <Grid width="33%" margin="0 0 0 10px">
+          <Grid width="33%" margin="0 0 0 10px" overflow="hidden" max_height="240px">
             <Text h3 color={Color.Primary} marginB="10px">
               실시간 입찰 정보
               <FontAwesomeIcon icon={fasQC} className="infoSvg" />
@@ -273,14 +273,14 @@ const Product = (props) => {
           </Grid>
         </Grid>
 
-        <Grid is_flex column margin="0 0 10px 0">
+        <Grid is_flex column margin="0 0 10px 0" bdr="1px solid blue">
           <Grid>
             <Text h3 color={Color.Primary} marginB="10px">
               Q&A
             </Text>
           </Grid>
-          <Grid margin="0 0 10px 0">
-            <Input text width="100%" margin="0 0 10px 0" plcholder="문의 내용을 입력해주세요." adornment="0 / 100" _onChange={onChangeContents} fnc={addQuestion} btn="등록하기"></Input>
+          <Grid margin="0 0 10px 0" bdr="1px solid red" >
+            <Input text width="100%" margin="0 0 10px 0" height="20%" plcholder="문의 내용을 입력해주세요." adornment="0 / 100" _onChange={onChangeContents} fnc={addQuestion} btn="등록하기"></Input>
             {_qna_list.map((q, idx) => (
               <QnA key={idx} {...q} />
             ))}

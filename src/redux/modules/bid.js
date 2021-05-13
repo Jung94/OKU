@@ -26,11 +26,11 @@ const initialState = {
   is_loading: false,
   bid_list: [],
   new_bid: {},
-  current: false,
-  bid_before: '',
+  current: 0,
+  bid_before: "",
 };
 
-const setBidAPI = (_id) => {
+const setBidAPI = (_id, lowBid) => {
   return function (dispatch, getState, { history }) {
     // let id = getState().product.productId;
     fetch(`${API}/bid/bidinfo/${_id}`, {
@@ -38,20 +38,32 @@ const setBidAPI = (_id) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res.prebid) {
+        // 입찰자가 있을때 응답
+        // okay: true, prebid: Array(2)
+        if (res.okay) {
           let _prebid = res.prebid;
           _prebid.sort(function (a, b) {
             return a.createAt > b.createAt ? -1 : a.createAt < b.createAt ? 1 : 0;
           });
-          if (_prebid.length < 5) {
-            dispatch(setBid(_prebid.slice(0, -1)));
+          if (_prebid.length === 0) {
+            dispatch(setBid([]));
+            dispatch(setCurrent(lowBid));
+          } else if (_prebid.length < 5) {
+            dispatch(setBid(_prebid));
             dispatch(setCurrent(_prebid[0].bid));
           } else {
             dispatch(setBid(_prebid.slice(0, 5)));
             dispatch(setCurrent(_prebid[0].bid));
           }
         } else {
-          // console.log(res.msg);
+          // 새로고침 없이 상품 정보 불러올 때 입찰정보가 로딩이 안된 이유는 이곳에 있다
+          // 입찰 내역이 없을때 다음과 같이 응답이 옴
+          // okay: false, msg: "현재입찰자가 없습니다."
+          // 여기서 디스패치를 안해주어서 입찰내역이 안뜬거임
+          // console.log("입찰 내역이 없음!");
+          console.log(lowBid);
+          dispatch(setBid([]));
+          dispatch(setCurrent(lowBid));
         }
       })
       .catch((error) => {
@@ -67,11 +79,11 @@ const addBidAPI = (bidPrice, createAt) => {
     const access_token = localStorage.getItem("access_token");
     if (!access_token) {
       if (window.confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하시겠습니까?")) {
-        history.replace('/login');
+        history.replace("/login");
       }
       return;
     }
-    
+
     fetch(`${API}/bid/bidtry/${id}`, {
       method: "POST",
       headers: {
@@ -84,17 +96,17 @@ const addBidAPI = (bidPrice, createAt) => {
       .then((res) => res.json())
       .then((res) => {
         console.log(res.result);
-        if (res.result === 'before' || res.result === 'lowBid') {
+        if (res.result === "before" || res.result === "lowBid") {
           console.log(res.result);
-          dispatch(warningBid('before'));
+          dispatch(warningBid("before"));
           return;
-        } else if(res.result === 'time') {
+        } else if (res.result === "time") {
           console.log(res.result);
-          dispatch(warningBid('time'));
+          dispatch(warningBid("time"));
           return;
         } else if (res.result._id) {
           console.log(res.result);
-          dispatch(warningBid('success'));
+          dispatch(warningBid("success"));
           dispatch(addBid({ bid: res.result.bid, nickName: res.result.nickName, createAt: res.result.createAt }));
           dispatch(setCurrent(res.result.bid));
           dispatch(loadingActions.loading(false));
@@ -168,7 +180,6 @@ export default handleActions(
   },
   initialState
 );
-
 
 const actionCreators = {
   setBidAPI,

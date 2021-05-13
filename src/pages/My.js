@@ -25,7 +25,7 @@ const My = (props) => {
       dispatch(mypageActions.setProfileAPI());
       dispatch(mypageActions.setInfoAPI());
       dispatch(mypageActions.setMystoreAPI());
-      dispatch(likeActions.getMyLikeAPI());
+      dispatch(likeActions.getMyLikeListAPI());
     }
   }, []);
 

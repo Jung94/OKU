@@ -3,14 +3,17 @@ import styled from 'styled-components';
 import Sider from 'components/chat/Sidebar';
 import Main from 'components/chat/Main';
 import InputChat from 'components/chat/InputChat';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as chatActions } from 'redux/modules/chat';
+import { actionCreators as headerActions } from "redux/modules/header";
 
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Chat = (props) => {
+  const dispatch = useDispatch();
   const { history } = props;
+  
   // 로컬에 저장된 토큰 조회
   const is_login = localStorage.getItem("access_token") ? true : false;
 
@@ -39,7 +42,8 @@ const Chat = (props) => {
     username: username,
   };
 
-  useEffect(() => {    
+  useEffect(() => {  
+    dispatch(headerActions.setFooter(false));  
     // 웹소켓 연결
     chatActions.socket.connect();
     return () => {
@@ -89,21 +93,35 @@ const Chat = (props) => {
 }
 
 const Wrap = styled.div`
-  // border: 1px solid #000;
+  border: 1px solid #000;
   margin: 150px 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media only screen and (min-width : 1824px) {
+    
+  }
 `;
 
 const MainContent = styled.section`
-  // border: 1px solid #000;
+  border: 1px solid red;
   display: flex;
   gap: 2px;
   max-width: 1030px;
   max-height: 730px;
   box-sizing: border-box;
   margin: 85.6px 0 85.6px;
+
+  @media only screen and (min-width : 1824px) {
+    border: 1px solid red;
+    display: flex;
+    gap: 2px;
+    max-width: 1030px;
+    max-height: 730px;
+    box-sizing: border-box;
+    margin: 85.6px 0 85.6px;
+  }
 `;
 
 const MainLeft = styled.section`

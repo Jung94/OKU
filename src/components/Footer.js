@@ -5,8 +5,9 @@ import FLogo from "images/FooterLogo.png";
 import { Color } from "shared/DesignSys";
 
 const Footer = (props) => {
+  const { display } = props;
   return (
-    <FooterWrap>
+    <FooterWrap display={display}>
       <FooterContent>
         <Image>
           <img src={FLogo} />
@@ -26,7 +27,7 @@ const FooterWrap = styled.footer`
   z-index: -1;
   background: ${Color.Light_1};
   position: absolute;
-  display: flex;
+  ${(props) => (props.display === false ? "display : none;" : "display : flex;")}
   flex-direction: column;
   align-items: center;
   padding-top: 45px;
