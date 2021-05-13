@@ -29,7 +29,9 @@ const DeadlineP = (props) => {
         <Wrap>
             <Head>
                 <p style={{ fontSize: "45px", fontWeight:"bold"}}>마감 임박 상품은 <span style={{color : "#AE27FF"}}>못참지~</span></p>
-                <p style={{marginTop:"41px", color:"#c0c0c0",fontSize: "16px", cursor:"pointer"}}>더보기</p>
+                <p onClick={()=>{
+                    history.push("/DeadlineList")
+                }} style={{marginTop:"41px", color:"#c0c0c0",fontSize: "16px", cursor:"pointer"}}>더보기</p>
             </Head>
         <Grid>  
             {_deadline_product ? 
@@ -37,7 +39,7 @@ const DeadlineP = (props) => {
                 마감임박 상품이 없습니다
             </div>  : 
             _deadline_product.map((k, index) => {
-            return <PostCard key={index} img={k.img} title={k.title} currentprice={k.currentprice} Sucbid={k.Sucbid} _onClick={() => {history.push(`product/detail/${k._id}`)}} />
+            return <PostCard key={index} {...k} _onClick={() => {history.push(`product/detail/${k._id}`)}} />
             })}
             
         </Grid>                

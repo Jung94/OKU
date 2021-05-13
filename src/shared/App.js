@@ -11,7 +11,7 @@ import { history } from "redux/configureStore";
 
 import NotFound from "shared/NotFound";
 import { Header, Footer } from "components/";
-import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, My, Chat, CategoryResult } from "pages/";
+import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, My, Chat, CategoryResult, MdList, DeadList } from "pages/";
 
 const App = (props) => {
   const dispatch = useDispatch();
@@ -41,6 +41,8 @@ const App = (props) => {
             <Route path="/productupload" exact component={ProductUpload} />
             <Route path="/result" exact component={Result} />
             <Route path="/category" exact component={CategoryResult} />
+            <Route path="/MDList" exact component={MdList} />
+            <Route path="/DeadlineList" exact component={DeadList} />
             <Route path="/chat" exact component={Chat} />
             <Route path="/chat/:otherId/:myId/:otherName" exact component={Chat} />
             <Route path="/my" component={My} />

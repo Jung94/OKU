@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from "react-redux";
+import CategoryFilter from 'components/CategoryFilter'
 
-import {actionCreators as categoryActions} from 'redux/modules/post'
-import { history } from 'redux/configureStore';
 
 
 const CategoryResult = (props) => {
@@ -13,8 +12,9 @@ const CategoryResult = (props) => {
     return (
         <CategorySelect>
         <ResultText>
-            <span>{ `${mainCategory}${subCategory}`} 검색 결과</span>
+            <span>{`"${mainCategory},  ${subCategory}"`} 필터링 결과</span>
         </ResultText>
+        <CategoryFilter/>
         <CategorySelect/>
     </CategorySelect>
     );
