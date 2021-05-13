@@ -19,14 +19,13 @@ import MainLogo from "images/logo.png";
 import Submit from "images/search.png";
 import List from "images/list.png";
 
-import { MainCT, D2CT, D3CT, D4CT } from "shared/Category";
+import { MainCT, D2CT, D3CT } from "shared/Category";
 import { Color } from "shared/DesignSys";
 
 const Header = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const { display } = props;
-  console.log(display);
   const [keyword, setKeyword] = useState("");
   const [mainct, setMainct] = useState("");
   const [subct, setSubct] = useState("");
@@ -48,6 +47,7 @@ const Header = (props) => {
     history.push("/result");
   };
 
+
   // const SearchProduct = () => {
   //   dispatch(productActions.getProductSearch(keyword));
   //   history.push("/result");
@@ -55,19 +55,20 @@ const Header = (props) => {
 
   const handleMainCategory = (e) => {
     setMainct(e.value);
-    if (mainct === "2D") {
+    if (e.value === "3D") {
       setSubct(D2CT);
-      dispatch(categoryActions.getProductMainCategotAPI(mainct));
-    } else if (mainct === "3D") {
+      dispatch(categoryActions.getProductMainCategotAPI(e.value));
+    } else if (e.value === "2D") {
       setSubct(D3CT);
-      dispatch(categoryActions.getProductMainCategotAPI(mainct));
+      dispatch(categoryActions.getProductMainCategotAPI(e.value));
     }
   };
 
   const handleSubCategory = (e) => {
     setSubct(e.value);
     console.log(handleSubCategory);
-    dispatch(categoryActions.getProductSubCategotAPI(mainct, subct));
+    dispatch(categoryActions.getProductSubCategotAPI(mainct, e.value));
+    history.push("/category")
   };
 
   const customStyles = useMemo(
@@ -150,7 +151,7 @@ const Header = (props) => {
             </Mainselectbox>
             {mainct === "" && (
               <SubSelectbox>
-                <Select placeholder="중분류" onChange={handleSubCategory} styles={customStyles} />
+                <Select placeholder="중분류" onClick={handleSubCategory} styles={customStyles} />
               </SubSelectbox>
             )}
 

@@ -87,7 +87,7 @@ const setRelatedAPI = (_id, keyword) => {
         } else {
           const filtered = res.result.filter((r) => r._id !== _id);
           dispatch(setRelated(filtered));
-          console.log(filtered);
+          // console.log(filtered);
         }
       })
       .catch((err) => console.log("setRelatedAPI 문제가 있습니다.", err));
@@ -225,7 +225,7 @@ export default handleActions(
         const _related = action.payload.related;
         const _onlyFour = _related.sort(() => Math.random() - 0.5);
         draft.related = _onlyFour.slice(0, 4);
-        console.log("🟡I'm related: ", draft.related);
+        // console.log("🟡I'm related: ", draft.related);
       }),
     [SET_QNA]: (state, action) =>
       produce(state, (draft) => {

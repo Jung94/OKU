@@ -20,7 +20,7 @@ const Input = (props) => {
   // radio -> 상품 업로드
   // check -> 로그인
 
-  const { output, text, check, radio, info, left, disabled, checked, maxLength, width, margin, adornment, plcholder, num, children, value, name, id, _onClick, _onChange, _onKeyPress, _onFocus, _onBlur, type, fnc, btn, desc } = props;
+  const { output, text, check, radio, info, left, disabled, checked, maxLength, width, height, margin, adornment, plcholder, num, children, value, name, id, _onClick, _onChange, _onKeyPress, _onFocus, _onBlur, type, fnc, btn, desc } = props;
 
   const styles = {
     name: name,
@@ -35,6 +35,7 @@ const Input = (props) => {
     disabled: disabled,
     checked: checked,
     width: width,
+    height: height,
     margin: margin,
     num: num,
     info: info,
@@ -304,8 +305,9 @@ const CheckBox = styled.label`
 
 const TextareaBox = styled.div`
   width: ${(props) => (props.width ? props.width : "")};
+  height: 100px;
   margin: ${(props) => (props.margin ? props.margin : "")};
-  min-height: 146px;
+  min-height: 100px;
   border: 1px solid ${Color.Light_3};
   display: flex;
   flex-direction: column;

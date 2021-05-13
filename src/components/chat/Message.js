@@ -7,14 +7,16 @@ import "moment/locale/ko";
 
 const Message = (props) => {
 
-    const me = useSelector((state) => state.user.user);
+    // const me = useSelector((state) => state.user.user);
+    const me = localStorage.getItem("nickname");
+    
     const time = moment(props.time).format("hh:mm");
     
     return (
         <>
-          {me.user !== props.user ? (
+          {me !== props.user ? (
             <>
-              <Box>
+              <Box className="display-container">
                 <ProfileImg></ProfileImg>
                 <TextBox>
                   <Up>
@@ -27,11 +29,11 @@ const Message = (props) => {
             </>
           ) : (
             <>
-              <BoxR>
+              <BoxR >
                 <TextBoxR>
                   <UpR>
                     <TimeR>{time}</TimeR>
-                    <NameR>{me.user}</NameR>
+                    <NameR>{me}</NameR>
                   </UpR>
                   <MsgR>{props.msg}</MsgR>
                 </TextBoxR>

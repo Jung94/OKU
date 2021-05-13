@@ -22,8 +22,18 @@ const ResultContainer = styled.div`
   flex-direction: column;
   max-width: 1030px;
   height: 100%;
-  margin: 0 auto;
-  border: 1px solid #000;
+  gap: 10px;
+  margin: 170px auto 100px;
+
+  @media only screen and (min-width : 1824px) {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 1030px;
+    height: 100%;
+    gap: 50px;
+    margin: 200px auto 100px;
+  }
 `;
 
 const ResultText = styled.div`

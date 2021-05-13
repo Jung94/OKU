@@ -11,12 +11,13 @@ import { history } from "redux/configureStore";
 
 import NotFound from "shared/NotFound";
 import { Header, Footer } from "components/";
-import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, My, Chat, CategoryResult } from "pages/";
+import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, My, Chat, CategoryResult, MdList, DeadList } from "pages/";
 
 const App = (props) => {
   const dispatch = useDispatch();
   const is_login = localStorage.getItem("access_token") ? true : false;
   const header_display = useSelector((state) => state.header.header_display);
+  const footer_display = useSelector((state) => state.header.footer_display);
 
   useEffect(() => {
     if (is_login) {
@@ -40,6 +41,8 @@ const App = (props) => {
             <Route path="/productupload" exact component={ProductUpload} />
             <Route path="/result" exact component={Result} />
             <Route path="/category" exact component={CategoryResult} />
+            <Route path="/MDList" exact component={MdList} />
+            <Route path="/DeadlineList" exact component={DeadList} />
             <Route path="/chat" exact component={Chat} />
             <Route path="/chat/:otherId/:myId/:otherName" exact component={Chat} />
             <Route path="/my" component={My} />
@@ -47,7 +50,7 @@ const App = (props) => {
           </Switch>
         </ConnectedRouter>
       </Grid>
-      <Footer />
+      <Footer display={footer_display}/>
     </Wrap>
   );
 };
@@ -56,8 +59,11 @@ const Grid = styled.div`
   margin: 0 auto;
   max-width: 1920px;
   position: relative;
+  // border: 1px solid red;
 `;
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  
+`;
 
 export default App;
