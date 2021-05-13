@@ -56,7 +56,7 @@ const App = (props) => {
           </Switch>
         </ConnectedRouter>
       </Grid>
-      <Footer display={footer_display}/>
+      <Footer />
     </Wrap>
   );
 };
@@ -68,8 +68,6 @@ const Grid = styled.div`
   // border: 1px solid red;
 `;
 
-const Wrap = styled.div`
-  
-`;
+const Wrap = styled.div``;
 
 export default App;

@@ -117,6 +117,7 @@ const addLikeAPI = (_id) => {
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log(res);
         dispatch(addLike());
         dispatch(loadingActions.loading(false));
       })

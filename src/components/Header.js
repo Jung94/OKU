@@ -456,7 +456,7 @@ const SearchWrap = styled.div`
   background-color: transparent;
   svg {
     align-items: center;
-    font-size: 18px;
+    font-size: 20px;
     margin: auto 5px;
     cursor: pointer;
   }
@@ -496,7 +496,7 @@ const IconWrap = styled.div`
   display: inline-flex;
   svg {
     align-items: center;
-    font-size: 18px;
+    font-size: 22px;
     margin: auto 0;
     cursor: pointer;
   }

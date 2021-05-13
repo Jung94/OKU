@@ -12,6 +12,7 @@ import { faQuestionCircle as fasQC, faHeart as fasHeart, faPen as fasPen } from 
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 
 import { Timer } from "components/";
+import { history } from "../redux/configureStore";
 
 import { Color } from "shared/DesignSys";
 
@@ -47,27 +48,17 @@ const PostCard = (props) => {
     <Cards>
       <Information>
         <Image onClick={_onClick}>
-          <img alt="item" src={img} />
+          <img alt="item" src={img} onClick={() => history.push(`/product/detail/${_id}`)} />
           {/* <UpTime>
             <div style={{ backgroundColor: "white", padding: "5px", height: "0" }}>
               <Timer day {...props} purple />
             </div>
           </UpTime> */}
-          <Dibs>
-            {like ? (
-              <div onClick={userLike}>
-                <FontAwesomeIcon style={{ color: Color.Primary, fontSize: "38px" }} icon={fasHeart} />
-              </div>
-            ) : (
-              <div onClick={userLike}>
-                <FontAwesomeIcon style={{ color: Color.Secondary_2, fontSize: "38px" }} icon={farHeart} />
-              </div>
-            )}
-          </Dibs>
+          <Dibs>{like ? <FontAwesomeIcon style={{ color: Color.Primary, fontSize: "32px" }} icon={fasHeart} onClick={userLike} /> : <FontAwesomeIcon style={{ color: Color.Primary, fontSize: "32px" }} icon={farHeart} onClick={userLike} />}</Dibs>
         </Image>
 
         <Desc>
-          <Title>{title}</Title>
+          <Title onClick={() => history.push(`/product/detail/${_id}`)}>{title}</Title>
           {/* <Deadline>경매마감까지 00 : 57 : 30 초 남았습니다</Deadline> */}
           {/* <Currentprice>{currentprice}</Currentprice> */}
           <Sucbid>{priceComma(sucBid)}원</Sucbid>
@@ -101,6 +92,7 @@ const Image = styled.div`
     height: 300px;
     border-radius: 30px 30px 0 0;
     z-index: 0;
+    cursor: pointer;
   }
 `;
 
@@ -115,6 +107,8 @@ const Dibs = styled.div`
   z-index: 999;
   margin: -60px 0 0 248px;
   cursor: pointer;
+  svg {
+  }
 `;
 
 const Desc = styled.div`
@@ -138,6 +132,7 @@ const Title = styled.div`
   overflow: hidden;
   white-space: nowrap;
   width: 250px;
+  cursor: pointer;
 `;
 
 const Currentprice = styled.div`

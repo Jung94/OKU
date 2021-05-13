@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import { Color } from "shared/DesignSys";
+
 const Myalert = () => {
   return (
     <Wrap>
@@ -16,6 +18,22 @@ const Wrap = styled.div`
   display: flex;
   gap: 50px;
   flex-direction: column;
+`;
+
+const Box = styled.div`
+  width: 100%;
+  min-height: 180px;
+  padding: 30px 40px 30px 30px;
+  display: flex;
+  flex-direction: column;
+  background-color: ${Color.Light_1};
+  border-radius: 16px;
+  & button {
+    align-items: center;
+    margin: 20px auto 0;
+    padding: 0 30px;
+    width: 14rem;
+  }
 `;
 
 export default Myalert;

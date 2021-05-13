@@ -1,16 +1,22 @@
 import React from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route } from "react-router-dom";
 import { Grid, Input, Line, Button, Tag, Modal, Text, Profile } from "elements/";
+
+import RelatedProduct from "components/global/RelatedProduct";
+import { history } from "redux/configureStore";
 
 import { Color } from "shared/DesignSys";
 
 const Myshop = (props) => {
+  const dispatch = useDispatch();
+
   const my_like_list = useSelector((state) => state.like.my_like_list);
   // console.log(my_like_list);
 
   const my_buying_list = [];
+  const my_chatting_list = [];
 
   return (
     <Wrap>
@@ -18,59 +24,84 @@ const Myshop = (props) => {
         <Text h2 textAlign="left">
           찜 목록
         </Text>
-        <List>
-          {my_like_list && my_like_list.length > 0 ? (
-            my_like_list.map((l, idx) => (
-              <Card key={idx}>
-                <img alt={l.productId} src={l.productImage} />
-                {/* <p>{l.title}</p> */}
-              </Card>
-            ))
-          ) : (
-            <Text h4 color={Color.Dark_4}>
-              찜한 상품이 없습니다.
+        {my_like_list && my_like_list.length > 0 ? (
+          <>
+            <List>
+              {my_like_list.map((r, idx) => (
+                <RelatedProduct
+                  like
+                  key={idx}
+                  _id={r.productId}
+                  img={r.productImage}
+                  _onClick={() => {
+                    history.push(`/product/detail/${r.productId}`);
+                  }}
+                />
+              ))}
+            </List>
+            <Text subBody color={Color.Dark_4}>
+              더보기
             </Text>
-          )}
-        </List>
-        <Button sub>더보기</Button>
+          </>
+        ) : (
+          <Text h4 color={Color.Dark_4}>
+            찜한 상품이 없습니다.
+          </Text>
+        )}
       </Box>
+
       <Box>
         <Text h2 textAlign="left">
           구매 목록
         </Text>
-        <List>
-          {my_buying_list && my_buying_list.length > 0 ? (
-            my_buying_list.map((l, idx) => (
-              <Card key={idx}>
-                <img alt={l.productId} src={l.productImage} />
-              </Card>
-            ))
-          ) : (
-            <Text h4 color={Color.Dark_4}>
-              구매한 상품이 없습니다.
+        {my_buying_list && my_buying_list.length > 0 ? (
+          <>
+            <List>
+              {my_buying_list.map((r, idx) => (
+                <RelatedProduct
+                  like
+                  key={idx}
+                  _id={r.productId}
+                  img={r.productImage}
+                  _onClick={() => {
+                    history.push(`/product/detail/${r.productId}`);
+                  }}
+                />
+              ))}
+            </List>
+            <Text subBody color={Color.Dark_4}>
+              더보기
             </Text>
-          )}
-        </List>
-        <Button sub>더보기</Button>
+          </>
+        ) : (
+          <Text h4 color={Color.Dark_4}>
+            구매한 상품이 없습니다.
+          </Text>
+        )}
       </Box>
+
       <Box>
         <Text h2 textAlign="left">
           대화 목록
         </Text>
-        <List>
-          {my_buying_list && my_buying_list.length > 0 ? (
-            my_buying_list.map((l, idx) => (
-              <Card key={idx}>
-                <img alt={l.productId} src={l.productImage} />
-              </Card>
-            ))
-          ) : (
-            <Text h4 color={Color.Dark_4}>
-              대화 대상이 없습니다.
+        {my_chatting_list && my_chatting_list.length > 0 ? (
+          <>
+            <List>
+              {my_chatting_list.map((r, idx) => (
+                <Card key={idx}>
+                  <img alt={r.productId} src={r.productImage} />
+                </Card>
+              ))}
+            </List>
+            <Text subBody color={Color.Dark_4}>
+              더보기
             </Text>
-          )}
-        </List>
-        <Button sub>더보기</Button>
+          </>
+        ) : (
+          <Text h4 color={Color.Dark_4}>
+            대화 기록이 없습니다.
+          </Text>
+        )}
       </Box>
     </Wrap>
   );
@@ -105,9 +136,10 @@ const List = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  gap: 10px;
 
   div {
-    margin: 20px auto;
+    margin: 20px auto 40px auto;
     text-align: center;
   }
 `;

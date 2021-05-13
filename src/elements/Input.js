@@ -20,7 +20,7 @@ const Input = (props) => {
   // radio -> 상품 업로드
   // check -> 로그인
 
-  const { output, text, check, radio, info, left, disabled, checked, maxLength, width, height, margin, adornment, plcholder, num, children, value, name, id, _onClick, _onChange, _onKeyPress, _onFocus, _onBlur, type, fnc, btn, desc } = props;
+  const { output, text, check, radio, info, fix, left, disabled, checked, maxLength, width, height, margin, adornment, plcholder, num, children, value, name, id, _onClick, _onChange, _onKeyPress, _onFocus, _onBlur, type, fnc, btn, desc } = props;
 
   const styles = {
     name: name,
@@ -41,6 +41,7 @@ const Input = (props) => {
     info: info,
     left: left,
     output: output,
+    fix: fix,
   };
   const inputEl = useRef();
 
@@ -118,7 +119,7 @@ const Input = (props) => {
             inputEl.current.focus();
           }}
         >
-          <textarea type={type} ref={inputEl} placeholder={plcholder} value={value} maxLength={maxLength} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={_onFocus} onBlur={_onBlur}>
+          <textarea fix={fix} type={type} ref={inputEl} placeholder={plcholder} value={value} maxLength={maxLength} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={_onFocus} onBlur={_onBlur}>
             {children}
           </textarea>
           {btn && (
@@ -315,6 +316,7 @@ const TextareaBox = styled.div`
   border-radius: 16px;
   padding: 25px;
   box-sizing: border-box;
+
   transition: border 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   ${(props) => (props.output ? `background-color: ${Color.Light_3}; user-select: none; height: 50px;` : "background-color: white;")}
   &:focus-within {
@@ -322,6 +324,7 @@ const TextareaBox = styled.div`
     box-shadow: 0 0 0 3px ${Color.Primary}33;
   }
   textarea {
+    ${(props) => (props.fix ? `resize: none;` : "")}
     box-sizing: border-box;
     width: 100%;
     background-color: transparent;

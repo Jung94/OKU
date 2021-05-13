@@ -31,15 +31,7 @@ const Card = (props) => {
       <Grid>
         <Cards>
           {_recent_product.map((j, index) => {
-            return (
-              <PostCard
-                key={index}
-                {...j}
-                _onClick={() => {
-                  history.push(`product/detail/${j._id}`);
-                }}
-              />
-            );
+            return <PostCard key={index} {...j} />;
           })}
         </Cards>
       </Grid>

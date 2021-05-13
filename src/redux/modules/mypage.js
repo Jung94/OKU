@@ -13,7 +13,7 @@ const SET_PREVIEW = "SET_PREVIEW";
 //actionCreators
 const setProfile = createAction(SET_PROFILE, (user) => ({ user }));
 const setInfo = createAction(SET_INFO, (user) => ({ user }));
-const setMystore = createAction(SET_MYSELLING, (selling_list, sold_list) => ({ selling_list, sold_list }));
+const setMystore = createAction(SET_MYSELLING, (selling_list, sold_list, length) => ({ selling_list, sold_list, length }));
 const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }));
 
 const initialState = {
@@ -22,6 +22,7 @@ const initialState = {
   user_info: {},
   my_selling: [],
   my_sold: [],
+  my_length: 0,
 };
 
 const setProfileAPI = () => {
@@ -136,7 +137,7 @@ const setMystoreAPI = () => {
               sold.push(r);
             }
           });
-          dispatch(setMystore(selling, sold));
+          dispatch(setMystore(selling, sold, all.length));
         } else {
           console.log("해당 데이터가 준비되지 않았습니다.");
         }
@@ -162,8 +163,22 @@ export default handleActions(
     [SET_MYSELLING]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
-        draft.my_selling = action.payload.selling_list;
-        draft.my_sold = action.payload.sold_list;
+        if (action.payload.selling_list === 0) {
+          return;
+        } else if (action.payload.selling_list < 5) {
+          draft.my_selling = action.payload.selling_list;
+        } else {
+          draft.my_selling = action.payload.selling_list.slice(0, 4);
+        }
+
+        if (action.payload.sold_list === 0) {
+          return;
+        } else if (action.payload.sold_list < 5) {
+          draft.my_sold = action.payload.sold_list;
+        } else {
+          draft.my_sold = action.payload.sold_list.slice(0, 4);
+        }
+        draft.my_length = action.payload.length;
       }),
     [SET_PREVIEW]: (state, action) =>
       produce(state, (draft) => {
