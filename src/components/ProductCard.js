@@ -4,7 +4,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 const ProductCard = (props) => {
-    const { title, url, lowBid } = props;
+    const { title, url, lowBid, _onClick } = props;
 
     const styles = {
         // margin : margin,
@@ -12,17 +12,19 @@ const ProductCard = (props) => {
 
 
     return(
-        <Product {...styles} >
+        <Product {...styles} onClick={_onClick} >
             {/* <Detail>
                 <FontAwesomeIcon icon={faSearch} />
             </Detail> */}
             <Poster url={url} />
             <Desc>
-                <span style={{ padding: "0 25px" }}>{title}</span>
-                <div style={{ display: "flex", alignItems: "center", padding: "0 25px", margin: "8px 0 0" }}>
+                <span>{title}</span>
+                <div>
                     <Img></Img>
-                    <Price>{lowBid}</Price>
-                    <Won>원</Won>
+                    <div>
+                        <Price>{lowBid}</Price>
+                        <Won>원</Won>
+                    </div>
                 </div>
             </Desc>
         </Product>
@@ -31,24 +33,28 @@ const ProductCard = (props) => {
 
 ProductCard.defaultProps = {
     title : '',
-    url : 'https://lh3.googleusercontent.com/proxy/Ov20N6xcC-XwdBAZf2JPBItzM8oPzPIDzoB9g0P9stNrJNRa2XnaY2OqCp4tGryTOxmh2PfkSBvh0k-yLT5_M8eGZtTd1T8Dd38',
+    url : '',
 };
 
 
 const Product = styled.div`
     position: relative;
-    width: 299px;
-    height: 404px;
+    width: 179px;
+    height: 242px;
+    padding: 0 1px 0 0;
     background-color: #eee;
     cursor: pointer;
-    // ${(props) => (props.margin ? `margin: ${props.margin};` : '')};
-    // margin: 0 44px 0 0;
     border-radius: 15px;
+
+    @media only screen and (min-width : 1824px) {
+        width: 299px;
+        height: 404px;
+    }
 `;
 
 const Poster = styled.div`
-    width: 299px;
-    height: 300px;
+    width: 180px;
+    height: 179px;
 
     background: url(${(props) => (props.url)}) no-repeat center;
     background-size: cover;
@@ -57,76 +63,116 @@ const Poster = styled.div`
     border-right: 0.5px solid rgba(0, 0, 0, 0.05);
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
+
+    @media only screen and (min-width : 1824px) {
+        width: 299px;
+        height: 300px;
+    }
 `;
 
 const Img = styled.div`
-    width: 27px;
-    height: 27px;
+    width: 18px;
+    height: 18px;
     border-radius: 15px;
     background: #ae27ff;
-    margin: 0 6px 0 0
+    margin: 0 8px 0 0
+
+    @media only screen and (min-width : 1824px) {
+        width: 27px;
+        height: 27px;
+    }
 `;
 
 const Price = styled.div`
-    // width: 200px;
-    display: inline-block;
-    height: 28px;
-    background-color: transparent;
     // border: 1px solid red;
+    // display: inline-block;
+    height: 14px;
+    background-color: transparent;
     margin: 0 2px 7px 0;
-    font-size: 22px;
+    padding: 0 0 2px;
+    font-size: 14px;
     font-weight: bold;
+
+    @media only screen and (min-width : 1824px) {
+        font-size: 22px;
+        height: 28px;
+    }
 `;
 
 const Won = styled.div`
-    width: 20px;
-    height: 30px;
+    // border: 1px solid red;
+    width: 10px;
+    height: 15px;
+    padding: 1px 0 0;
     background-color: transparent;
-    font-size: 19px;
+    font-size: 12px;
     font-weight: bold;
+
+    @media only screen and (min-width : 1824px) {
+        width: 20px;
+        height: 30px;
+        font-size: 19px;
+    }
 `;
 
 const Desc = styled.div`
-    width: 299px;
-    height: 80px;
+    // border: 1px solid red;
+    width: 100%;
+    height: 50px;
     display: flex;
     flex-direction: column;
     color: #2e2e2e;
-    // border: 1px solid red;
-    margin: 16px 0 0;
+    margin: 8px 0 0;
+    padding: 2px 14px 0;
     
-    & span {
-        display: block;
-        font-size: 20px;
-        font-weight: bold;
-        width: 299px;
-        height: 30px;
+    & > span {
         // border: 1px solid black;
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        width: 149px;
+        height: 20px;
+        // padding: 0 14px;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
+
+    & > div {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        // border: 1px solid black;
+
+        & > div {
+            display: flex;
+            alignItems: center;
+            padding: 4px 0 0;
+            // border: 1px solid red;
+        }
+    }
+
+    @media only screen and (min-width : 1824px) {
+        width: 299px;
+        height: 80px;
+        display: flex;
+        flex-direction: column;
+        color: #2e2e2e;
+        // border: 1px solid red;
+        margin: 16px 0 0;
+        
+        & span {
+            display: block;
+            font-size: 20px;
+            font-weight: bold;
+            width: 299px;
+            height: 30px;
+            // border: 1px solid black;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
 `;
-
-// const Detail = styled.div`
-//     position: absolute;
-//     width: 100%;
-//     height: 100%;
-//     background-color: rgba(0, 162, 199, 0.3);
-//     border-radius: 10px;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     opacity: 0;
-//     transition: 0.3s;
-
-//     & svg {
-//         font-size: 2rem;
-//     }
-
-//     :hover {
-//         opacity: 1;
-//     }
-// `;
 
 export default ProductCard;

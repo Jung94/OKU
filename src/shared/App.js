@@ -10,13 +10,16 @@ import { Route, Switch, useRoutes, Link } from "react-router-dom";
 import { history } from "redux/configureStore";
 
 import NotFound from "shared/NotFound";
+import Loading from "shared/Loading";
 import { Header, Footer } from "components/";
 import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, My, Chat, CategoryResult, MdList, DeadList } from "pages/";
 
 const App = (props) => {
   const dispatch = useDispatch();
   const is_login = localStorage.getItem("access_token") ? true : false;
+  const is_loading = useSelector((state) => state.product.is_loading);
   const header_display = useSelector((state) => state.header.header_display);
+  const footer_display = useSelector((state) => state.header.footer_display);
 
   useEffect(() => {
     if (is_login) {
@@ -24,9 +27,13 @@ const App = (props) => {
     }
   }, []);
 
+  if (is_loading) {
+    return <Loading />;
+  }
+
   return (
     <Wrap>
-      <Header display={header_display} />
+      <Header showHeader={header_display} />
       <Grid>
         <ConnectedRouter history={history}>
           <Switch>
@@ -49,7 +56,7 @@ const App = (props) => {
           </Switch>
         </ConnectedRouter>
       </Grid>
-      <Footer />
+      <Footer display={footer_display}/>
     </Wrap>
   );
 };
@@ -58,8 +65,11 @@ const Grid = styled.div`
   margin: 0 auto;
   max-width: 1920px;
   position: relative;
+  // border: 1px solid red;
 `;
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  
+`;
 
 export default App;

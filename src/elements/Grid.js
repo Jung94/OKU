@@ -7,6 +7,7 @@ const Grid = (props) => {
 
     width,
     height,
+    max_height,
 
     padding,
     is_flex,
@@ -50,6 +51,7 @@ const Grid = (props) => {
     bgposition: bgposition,
     width: width,
     height: height,
+    max_height: max_height,
     margin: margin,
     align: align,
     zIndex: zIndex,
@@ -99,6 +101,7 @@ Grid.defaultProps = {
   bgimg: false,
   width: "100%",
   height: null,
+  max_height: null,
   margin: false,
   align: false,
   zIndex: false,
@@ -117,7 +120,7 @@ Grid.defaultProps = {
   flexShrink: false,
   gap: false,
   className: false,
-  overflow: false,
+  overflow: null,
   wordBreak: false,
 };
 
@@ -129,6 +132,7 @@ const GridBox = styled.div`
   word-break: ${(props) => props.wordBreak};
 
   height: ${(props) => (props.height ? props.height : "")};
+  max-height: ${(props) => (props.max_height ? props.max_height : "")};
 
   padding: ${(props) => props.padding};
   margin: ${(props) => props.margin};

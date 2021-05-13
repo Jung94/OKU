@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { API } from "shared/Api";
+import axios from "axios";
 
 import { actionCreators as bidActions } from "redux/modules/bid";
 import { actionCreators as likeActions } from "redux/modules/like";
@@ -55,7 +56,7 @@ const setProductAllAPI = (_id) => {
           dispatch(bidActions.setBidAPI(_id, res.result.lowBid));
           dispatch(setQnAAPI(_id));
           dispatch(likeActions.getLikeAPI(_id));
-          dispatch(setRelatedAPI(_id, res.result.bigCategory));
+          dispatch(setRelatedAPI(_id, res.result.smallCategory, res.result.tag));
         } else {
           console.log("해당 데이터가 준비되지 않았습니다.");
         }
@@ -69,7 +70,8 @@ const setProductAllAPI = (_id) => {
   };
 };
 
-const setRelatedAPI = (_id, keyword) => {
+// 구버전
+const bigCategoryRelatedAPI = (_id, keyword) => {
   return function (dispatch, getState, { history }) {
     // const page = getState().movie.search_page;
     fetch(`http://3.35.137.38/product/Category/${keyword}`, {
@@ -87,7 +89,32 @@ const setRelatedAPI = (_id, keyword) => {
         } else {
           const filtered = res.result.filter((r) => r._id !== _id);
           dispatch(setRelated(filtered));
-          console.log(filtered);
+          // console.log(filtered);
+        }
+      })
+      .catch((err) => console.log("bigCategoryRelatedAPI 문제가 있습니다.", err));
+  };
+};
+
+// 신버전
+const setRelatedAPI = (_id, smallCategory, tag) => {
+  return function (dispatch, getState, { history }) {
+    axios({
+      method: "GET",
+      url: `${API}/product/relate/`,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      data: { smallCategory: smallCategory, tag: tag },
+    })
+      .then((res) => {
+        if (!res.data.okay) {
+          return;
+        } else {
+          const filtered = res.data.result.filter((r) => r._id !== _id);
+          dispatch(setRelated(filtered));
+          // console.log(filtered);
         }
       })
       .catch((err) => console.log("setRelatedAPI 문제가 있습니다.", err));
@@ -217,7 +244,6 @@ export default handleActions(
         draft.is_loading = action.payload.is_loading;
         draft.productId = action.payload.pid;
         draft.product_detail = action.payload.product_detail;
-        // console.log("🟡I'm product_detail: ", draft.product_detail);
       }),
     [SET_RELATED]: (state, action) =>
       produce(state, (draft) => {
@@ -225,7 +251,7 @@ export default handleActions(
         const _related = action.payload.related;
         const _onlyFour = _related.sort(() => Math.random() - 0.5);
         draft.related = _onlyFour.slice(0, 4);
-        console.log("🟡I'm related: ", draft.related);
+        console.log("🟡관련상품 ", draft.related);
       }),
     [SET_QNA]: (state, action) =>
       produce(state, (draft) => {
