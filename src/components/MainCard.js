@@ -64,6 +64,7 @@ const Image = styled.div`
   margin: 0 auto;
   cursor: pointer;
   border-radius: 50px;
+  object-fit: cover;
 `;
 const Bottom = styled.div`
   display: flex;
