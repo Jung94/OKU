@@ -50,12 +50,12 @@ const setProductAllAPI = (_id) => {
         if (res.okay) {
           // 프로덕트 디테일 세팅시 필요한 api 한꺼번에 실행 (immer 활용하기 일환일까?)
           // => 로딩 액션 여러번 실행되지 않게 됨
-          console.log("♥상품♥: ", res.result);
+          console.log("💨 상품디테일 💨", res.result);
           dispatch(setProductAll(res.result._id, res.result));
-          dispatch(bidActions.setBidAPI(_id));
+          dispatch(bidActions.setBidAPI(_id, res.result.lowBid));
           dispatch(setQnAAPI(_id));
           dispatch(likeActions.getLikeAPI(_id));
-          dispatch(setRelatedAPI(res.result.bigCategory));
+          dispatch(setRelatedAPI(_id, res.result.bigCategory));
         } else {
           console.log("해당 데이터가 준비되지 않았습니다.");
         }
@@ -69,7 +69,7 @@ const setProductAllAPI = (_id) => {
   };
 };
 
-const setRelatedAPI = (keyword) => {
+const setRelatedAPI = (_id, keyword) => {
   return function (dispatch, getState, { history }) {
     // const page = getState().movie.search_page;
     fetch(`http://3.35.137.38/product/Category/${keyword}`, {
@@ -82,7 +82,13 @@ const setRelatedAPI = (keyword) => {
       .then((res) => res.json())
       .then((res) => {
         // console.log(res.result);
-        dispatch(setRelated(res.result));
+        if (!res.result) {
+          return;
+        } else {
+          const filtered = res.result.filter((r) => r._id !== _id);
+          dispatch(setRelated(filtered));
+          console.log(filtered);
+        }
       })
       .catch((err) => console.log("setRelatedAPI 문제가 있습니다.", err));
   };

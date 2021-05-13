@@ -30,7 +30,7 @@ const initialState = {
   bid_before: "",
 };
 
-const setBidAPI = (_id) => {
+const setBidAPI = (_id, lowBid) => {
   return function (dispatch, getState, { history }) {
     // let id = getState().product.productId;
     fetch(`${API}/bid/bidinfo/${_id}`, {
@@ -38,20 +38,30 @@ const setBidAPI = (_id) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res.prebid) {
+        // 입찰자가 있을때 응답
+        // okay: true, prebid: Array(2)
+        if (res.okay) {
           let _prebid = res.prebid;
           _prebid.sort(function (a, b) {
             return a.createAt > b.createAt ? -1 : a.createAt < b.createAt ? 1 : 0;
           });
-          if (_prebid.length < 5) {
-            dispatch(setBid(_prebid.slice(0, -1)));
+          if (_prebid.length === 0) {
+            dispatch(setBid([]));
+            dispatch(setCurrent(lowBid));
+          } else if (_prebid.length < 5) {
+            dispatch(setBid(_prebid));
             dispatch(setCurrent(_prebid[0].bid));
           } else {
             dispatch(setBid(_prebid.slice(0, 5)));
             dispatch(setCurrent(_prebid[0].bid));
           }
         } else {
-          // console.log(res.msg);
+          // 새로고침 없이 상품 정보 불러올 때 입찰정보가 로딩이 안된 이유는 이곳에 있다
+          // 입찰 내역이 없을때 다음과 같이 응답이 옴
+          // okay: false, msg: "현재입찰자가 없습니다."
+          // 여기서 디스패치를 안해주어서 입찰내역이 안뜬거임
+          // console.log("입찰 내역이 없음!");
+          dispatch(setBid([]));
         }
       })
       .catch((error) => {
