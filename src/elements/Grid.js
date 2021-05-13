@@ -120,7 +120,7 @@ Grid.defaultProps = {
   flexShrink: false,
   gap: false,
   className: false,
-  overflow: false,
+  overflow: null,
   wordBreak: false,
 };
 
