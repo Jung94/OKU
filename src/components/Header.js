@@ -115,7 +115,7 @@ const Header = (props) => {
     if (window.scrollY > 150) {
       navbox.style.position = "fixed";
       navbox.style.zIndex = "9999";
-      navbox.style.boxShadow = `0 4px 15px 0 ${Color.Secondary_2}`;
+      navbox.style.boxShadow = `0 4px 15px 0 ${Color.Secondary_2}77`;
       navbox.style.height = "79px";
 
       up.style.marginTop = "-38px";
@@ -130,7 +130,7 @@ const Header = (props) => {
       show.style.overflow = "show";
     } else {
       navbox.style.height = "140px";
-      navbox.style.boxShadow = `0 4px 15px 0 ${Color.Light_4}`;
+      navbox.style.boxShadow = `0 4px 15px 0 ${Color.Light_4}77`;
 
       up.style.marginTop = "0px";
       lengthen.style.width = "180px";

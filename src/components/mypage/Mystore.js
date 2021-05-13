@@ -40,7 +40,7 @@ const Mystore = () => {
             <List>
               {my_selling.map((r, idx) => (
                 <RelatedProduct
-                  relative
+                  like
                   key={idx}
                   title={r.title}
                   lowBid={r.lowBid}
@@ -72,7 +72,7 @@ const Mystore = () => {
             <List>
               {my_sold.map((r, idx) => (
                 <RelatedProduct
-                  relative
+                  like
                   key={idx}
                   title={r.title}
                   lowBid={r.lowBid}
