@@ -13,7 +13,7 @@ const GET_LIKE_LIST = "GET_LIKE_LIST"; // 모든 좋아요 리스트
 
 //actionCreators
 const getLike = createAction(GET_LIKE, (likeOrNot) => ({ likeOrNot }));
-const addLike = createAction(ADD_LIKE, (like) => ({ like }));
+const addLike = createAction(ADD_LIKE, (id, likelist) => ({ id, likelist }));
 const deleteLike = createAction(DELETE_LIKE, (productId) => ({ productId }));
 const getMyLikeList = createAction(GET_MY_LIKE_LIST, (like_list) => ({ like_list }));
 const getLikeList = createAction(GET_LIKE_LIST, (like_list) => ({ like_list }));
@@ -108,6 +108,7 @@ const getMyLikeListAPI = () => {
 const addLikeAPI = (_id) => {
   return function (dispatch, getState, { history }) {
     // dispatch(loadingActions.loading(true));
+    let likelist = getState().like.like_list;
     const access_token = localStorage.getItem("access_token");
     fetch(`${API}/product/pick/${_id}`, {
       method: "POST",
@@ -117,8 +118,7 @@ const addLikeAPI = (_id) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
-        dispatch(addLike());
+        dispatch(addLike(_id, likelist));
         dispatch(loadingActions.loading(false));
       })
       .catch((error) => {
@@ -164,10 +164,16 @@ export default handleActions(
     [ADD_LIKE]: (state, action) =>
       produce(state, (draft) => {
         draft.is_like = true;
+        console.log(action.payload.id);
+        console.log(action.payload.likelist);
+        // draft.my_like_list.push({ productId: action.payload.id });
+        // console.log(draft.my_like_list);
+        // console.log(action.payload.id);
       }),
     [DELETE_LIKE]: (state, action) =>
       produce(state, (draft) => {
         draft.is_like = false;
+        draft.my_like_list.filter((r) => r.productId !== action.payload.id);
       }),
     [GET_MY_LIKE_LIST]: (state, action) =>
       produce(state, (draft) => {
@@ -175,7 +181,6 @@ export default handleActions(
           return;
         }
         draft.my_like_list = action.payload.like_list;
-        // console.log("💗드래프트", draft.my_like_list);
       }),
     [GET_LIKE_LIST]: (state, action) =>
       produce(state, (draft) => {
@@ -183,12 +188,14 @@ export default handleActions(
           return;
         }
         draft.like_list = action.payload.like_list;
+        console.log(draft.like_list);
       }),
   },
   initialState
 );
 
 const actionCreators = {
+  getLike,
   getLikeAPI,
   addLikeAPI,
   deleteLikeAPI,

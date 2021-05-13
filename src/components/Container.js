@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { history } from "../redux/configureStore";
 
-import MainCard from 'components/MainCard'
+import MainCard from "components/MainCard";
 
 import { actionCreators as postActions } from "redux/modules/post";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +13,7 @@ import { input_priceComma } from "shared/common";
 
 // 왼쪽
 function PrevArrow(props) {
-  const { className, style, onClick,} = props;
+  const { className, style, onClick, lowBid } = props;
   return (
     <LeftArrow
       className={className}
@@ -178,7 +178,14 @@ const Container = (props) => {
                 // console.log(i);
                 let real = input_priceComma(`${i.lowBid}`);
                 return (
-                  <MainCard lowBid={real} key={idx} {...i}/>
+                  <MainCard
+                    lowBid={real}
+                    key={idx}
+                    {...i}
+                    _onClick={() => {
+                      history.push(`product/detail/${i._id}`);
+                    }}
+                  />
                   // <Section
                   //   key={idx}
                   //   onClick={() => {
@@ -194,11 +201,11 @@ const Container = (props) => {
                   //     <Deadline style={{ backgroundColor: "white", padding: "5px", height: "0" }}>
                   //       {i.deadLine}
                   //         <Timer all deadLine={i.deadLine} {...props} purple />
-                          
+
                   //     </Deadline>
                   //     {/* <Currentprice>{i.currentprice}</Currentprice> */}
                   //     <Sucbid lowBid={real}>{i.sucBid}원</Sucbid>
-                      
+
                   //     </Bottom>
                   //   </Desc>
                   //   </Image>
@@ -216,7 +223,7 @@ const Container = (props) => {
 Container.defaultProps = {
   title: "나는 용현",
   img: `https://1.bp.blogspot.com/-L1wiwQpwSMk/YItec1CE7MI/AAAAAAAAPH0/BwLwXf53LIQnaTGQuE6ilAwR31wsYVwMACLcBGAsYHQ/s0/KakaoTalk_20210416_144309208.png`,
-  currentprice: "10,000",
+  currentprice: 10000,
 };
 
 const LeftArrow = styled.div`
@@ -258,8 +265,6 @@ const Main = styled.div`
 
 const Box = styled.div``;
 
-const Slide = styled.div`
-`;
-
+const Slide = styled.div``;
 
 export default Container;

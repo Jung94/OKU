@@ -105,47 +105,67 @@ const Header = (props) => {
 
   // 이거 나중에 정리해야함
   const headerChange = () => {
-    // const navbox = document.querySelector(".nav");
-    // if (window.scrollY > 170) {
-    //   navbox.style.position = "fixed";
-    //   navbox.style.zIndex = "9999";
-    //   navbox.style.backgroundColor = "#ffffff";
-    //   navbox.style.boxShadow = "0 4px 15px 0 rgba(111, 111, 111, 0.16)";
-    //   navbox.style.height = "89px";
-    //   navbox.style.opacity = "100%";
-    //   navbox.style.display = "flex";
-    // } else {
-    //   navbox.style.opacity = "0";
-    //   navbox.style.backgroundColor = "#ffffff00";
-    //   navbox.style.boxShadow = "0 0 0 #00000000";
-    //   navbox.style.height = "0px";
-    //   navbox.style.overflow = "hidden";
-    //   navbox.style.display = "none";
-    // }
-    // const navinbox = document.querySelector(".navin");
-    const centerlogo = document.querySelector(".centerlogo");
-    if (window.scrollY > 170) {
-      // centerlogo.style.zIndex = "9999";
-      centerlogo.style.width = "70px";
-      // centerlogo.style.opacity = "100%";
-      // centerlogo.style.display = "flex";
+    const navbox = document.querySelector(".nav");
+    const hide = document.querySelector(".hide");
+    const shorten = document.querySelector(".shorten");
+    const lengthen = document.querySelector(".lengthen");
+    const show = document.querySelector(".show");
+    const up = document.querySelector(".up");
+
+    if (window.scrollY > 150) {
+      navbox.style.position = "fixed";
+      navbox.style.zIndex = "9999";
+      navbox.style.boxShadow = `0 4px 15px 0 ${Color.Secondary_2}`;
+      navbox.style.height = "79px";
+
+      up.style.marginTop = "-38px";
+      lengthen.style.width = "380px";
+
+      hide.style.display = "none";
+      hide.style.width = "0px";
+      hide.style.overflow = "hidden";
+
+      show.style.width = "18%";
+      show.style.display = "flex";
+      show.style.overflow = "show";
     } else {
-      // centerlogo.style.opacity = "0";
-      centerlogo.style.width = "0px";
-      // centerlogo.style.overflow = "hidden";
+      navbox.style.height = "140px";
+      navbox.style.boxShadow = `0 4px 15px 0 ${Color.Light_4}`;
+
+      up.style.marginTop = "0px";
+      lengthen.style.width = "180px";
+
+      hide.style.display = "flex";
+      hide.style.width = "117.8px";
+      hide.style.overflow = "show";
+
+      show.style.width = "0";
+      show.style.display = "none";
+      show.style.overflow = "hidden";
     }
   };
 
   return (
     <>
-      <HeaderWrap showHeader={showHeader}>
-        <Fix>
-          <Grid is_flex width="33%">
+      <HeaderWrap showHeader={showHeader} className="nav">
+        <Fix className="up">
+          <Grid is_flex justify="flex-start" width="0%" className="show" overflow="hidden">
+            {/* 로고 */}
+            <img
+              alt="로고이미지"
+              style={{ width: "90px", cursor: "pointer", zIndex: "1", marginBottom: "-5px" }}
+              src={MainLogo}
+              onClick={() => {
+                history.replace("/");
+              }}
+            />
+          </Grid>
+
+          <Grid is_flex width="34%">
             {/* 카테고리 리스트 방식 */}
             {/* <ListHover/> */}
-            <Text h3>카테고리</Text>
+            <b style={{ width: "100px" }}>카테고리</b>
             <ListBtn />
-
             <Mainselectbox>
               <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
             </Mainselectbox>
@@ -154,7 +174,6 @@ const Header = (props) => {
                 <Select placeholder="중분류" onClick={handleSubCategory} styles={customStyles} />
               </SubSelectbox>
             )}
-
             {/* 2D일 때 */}
             {mainct === "2D" && (
               <SubSelectbox>
@@ -169,9 +188,10 @@ const Header = (props) => {
             )}
           </Grid>
 
-          <Grid is_flex justify="center" width="33%" className="centerlogo">
+          <Grid is_flex justify="center" width="33%" className="shorten">
             {/* 로고 */}
             <img
+              className="hide"
               alt="로고이미지"
               style={{ width: "117.8px", cursor: "pointer", zIndex: "1" }}
               src={MainLogo}
@@ -182,7 +202,7 @@ const Header = (props) => {
           </Grid>
 
           <Grid is_flex column width="33%">
-            <Grid is_flex gap="5%" justify="flex-end" margin="0 0 42px 0">
+            <Grid is_flex gap="5%" justify="flex-end" margin="0 0 42px 0" className="hide">
               <Text subBody color={Color.Dark_4}>
                 about OKU
               </Text>
@@ -232,6 +252,7 @@ const Header = (props) => {
               {/* 기능버튼 */}
               <SearchWrap>
                 <Search
+                  className="lengthen"
                   type="text"
                   placeholder="검색하기"
                   onChange={(e) => {
@@ -262,9 +283,7 @@ const Header = (props) => {
                   }}
                 >
                   <FontAwesomeIcon icon={chatIcon} />
-                  <Text h4 marginB="0.5px">
-                    채팅
-                  </Text>
+                  채팅
                 </Grid>
 
                 <Grid
@@ -278,125 +297,13 @@ const Header = (props) => {
                   }}
                 >
                   <FontAwesomeIcon icon={uploadIcon} />
-                  <Text h4 marginB="0.5px">
-                    물건등록
-                  </Text>
+                  물건등록
                 </Grid>
               </IconWrap>
             </Grid>
           </Grid>
         </Fix>
       </HeaderWrap>
-
-      {/* <HeaderWrap className="nav"> */}
-      {/* <Scroll className="navin">
-          <Grid is_flex width="50%">
-            <Grid is_flex justify="center" padding="0 60px 0 0" flexShrink="1">
-              <img
-                alt="로고이미지"
-                style={{ width: "86.6px", cursor: "pointer" }}
-                src={MainLogo}
-                onClick={() => {
-                  history.replace("/");
-                }}
-              />
-            </Grid>
-            <Grid is_flex>
-              <Text h3>카테고리</Text>
-              <ListBtn />
-
-              <Mainselectbox>
-                <Select
-                  placeholder="대분류"
-                  onChange={handleMainCategory}
-                  value={MainCT.find((obj) => obj.value === MainCT)}
-                  options={MainCT}
-                  styles={customStyles}
-                />
-              </Mainselectbox>
-              {mainct === "" && (
-                <SubSelectbox>
-                  <Select placeholder="중분류" onChange={handleSubCategory} styles={customStyles} />
-                </SubSelectbox>
-              )}
-
-              {mainct === "2D" && (
-                <SubSelectbox>
-                  <Select placeholder="중분류" onChange={handleSubCategory} options={D2CT} styles={customStyles} />
-                </SubSelectbox>
-              )}
-              {mainct === "3D" && (
-                <SubSelectbox>
-                  <Select placeholder="중분류" onChange={handleSubCategory} options={D3CT} styles={customStyles} />
-                </SubSelectbox>
-              )}
-            </Grid>
-          </Grid>
-
-          <Grid is_flex column width="50%">
-            <Grid is_flex justify="flex-end">
-              <SearchWrap>
-                <Search
-                  type="text"
-                  placeholder="검색하기"
-                  onChange={(e) => {
-                    setKeyword(e.target.value);
-                  }}
-                  onKeyPress={(e) => {
-                    if (window.event.keyCode === 13) {
-                      SearchProduct();
-                    }
-                  }}
-                />
-                <FontAwesomeIcon icon={faSearch} />
-              </SearchWrap>
-
-              <IconWrap>
-                <Ring>
-                  <DetailRing />
-                </Ring>
-
-                <Grid
-                  className="block pointer"
-                  width="max-content"
-                  padding="0 20px"
-                  is_flex
-                  gap="5px"
-                  __click={() => {
-                    history.push("/chat");
-                  }}
-                >
-                  <FontAwesomeIcon icon={faBars} />
-                  <Text
-                    h4
-                    onClick={() => {
-                      history.push("/chat");
-                    }}
-                  >
-                    채팅
-                  </Text>
-                </Grid>
-
-                <Grid
-                  className="pointer"
-                  width="max-content"
-                  padding="0 0 0 20px"
-                  is_flex
-                  gap="5px"
-                  __click={() => {
-                    history.push("/ProductUpload");
-                  }}
-                >
-                  <FontAwesomeIcon icon={faBars} />
-                  <Text h4 w>
-                    물건등록
-                  </Text>
-                </Grid>
-              </IconWrap>
-            </Grid>
-          </Grid>
-        </Scroll> */}
-      {/* </HeaderWrap> */}
     </>
   );
 };
@@ -409,7 +316,7 @@ const HeaderWrap = styled.header`
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-
+  transition: box-shadow 600ms ease-in-out;
   box-shadow: 0 4px 15px 0 rgba(111, 111, 111, 0.16);
   top: 0;
   left: 0;
@@ -419,23 +326,18 @@ const HeaderWrap = styled.header`
 `;
 
 const Fix = styled.div`
-  max-width: 1490px;
+  max-width: 80vw;
   width: 100%;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   height: 151px;
   padding-bottom: 32px;
-`;
-
-const Scroll = styled.div`
-  max-width: 1490px;
-  width: 100%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  margin: auto 0;
-  height: 0px;
+  font-size: 18px;
+  font-weight: 500;
+  & > div > img {
+    transition: all 1000ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
 `;
 
 const Mainselectbox = styled.div`
@@ -451,14 +353,22 @@ const SubSelectbox = styled.div`
 const SearchWrap = styled.div`
   display: flex;
   align-items: center;
-  border-bottom: 2px solid black;
+  border-bottom: 2px solid ${Color.Dark_1};
+  margin-right: 2rem;
   height: 38px;
   background-color: transparent;
   svg {
+    transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
     align-items: center;
     font-size: 20px;
     margin: auto 5px;
     cursor: pointer;
+  }
+  &:focus-within {
+    border-bottom: 2px solid ${Color.Primary};
+    svg {
+      color: ${Color.Primary};
+    }
   }
 `;
 
@@ -469,27 +379,21 @@ const Search = styled.input`
   height: 38px;
   border: 0;
   outline: 0;
-  transition: 0.4s;
-  font-size: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  transition: all 400ms cubic-bezier(0.215, 0.61, 0.355, 1);
   ::placeholder {
     color: ${Color.Light_4};
+    font-size: 16px;
   }
   :focus {
     outline: none;
     width: 220px;
   }
-  :hover {
-    width: 220px;
-  }
 `;
 
 // 알림 버튼
-const Ring = styled.p`
-  cursor: pointer;
-  margin: 0 15px 0 39px;
-  width: 69px;
-  height: 15px;
-`;
+const Ring = styled.div``;
 
 // ICONS
 const IconWrap = styled.div`
