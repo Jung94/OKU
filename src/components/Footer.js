@@ -35,7 +35,7 @@ const FooterWrap = styled.footer`
 `;
 
 const FooterContent = styled.footer`
-  max-width: 1490px;
+  max-width: 80vw;
   width: 100%;
   display: flex;
   align-items: center;

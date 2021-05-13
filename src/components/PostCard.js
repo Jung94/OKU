@@ -122,11 +122,13 @@ const Desc = styled.div`
   width: 300px;
   min-height: 104px;
   border-radius: 0 0 30px 30px;
+  border: 2px solid ${Color.Light_2};
+  box-shadow: 0 0 10px ${Color.Light_4};
   text-align: left;
   box-sizing: border-box;
   margin: 12px 0 0 0;
   padding: 8px 25px 0 25px;
-  background-color: ${Color.Light_2};
+  /* background-color: ${Color.Light_2}; */
 `;
 
 const Title = styled.div`
