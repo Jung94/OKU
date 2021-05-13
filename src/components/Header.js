@@ -7,7 +7,8 @@ import { actionCreators as categoryActions } from "redux/modules/post";
 import { actionCreators as userActions } from "redux/modules/user";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faSearch, faBars, faThermometerQuarter as uploadIcon } from "@fortawesome/free-solid-svg-icons";
+import { faCommentDots as chatIcon } from "@fortawesome/free-regular-svg-icons";
 
 import { Grid, Input, Line, Button, Tag, Modal, Text } from "elements/";
 import Select from "react-select";
@@ -25,7 +26,7 @@ import { Color } from "shared/DesignSys";
 const Header = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
-  const { display } = props;
+  const { showHeader } = props;
   const [keyword, setKeyword] = useState("");
   const [mainct, setMainct] = useState("");
   const [subct, setSubct] = useState("");
@@ -47,7 +48,6 @@ const Header = (props) => {
     history.push("/result");
   };
 
-
   // const SearchProduct = () => {
   //   dispatch(productActions.getProductSearch(keyword));
   //   history.push("/result");
@@ -68,7 +68,7 @@ const Header = (props) => {
     setSubct(e.value);
     console.log(handleSubCategory);
     dispatch(categoryActions.getProductSubCategotAPI(mainct, e.value));
-    history.push("/category")
+    history.push("/category");
   };
 
   const customStyles = useMemo(
@@ -138,7 +138,7 @@ const Header = (props) => {
 
   return (
     <>
-      <HeaderWrap display={display}>
+      <HeaderWrap showHeader={showHeader}>
         <Fix>
           <Grid is_flex width="33%">
             {/* 카테고리 리스트 방식 */}
@@ -261,8 +261,10 @@ const Header = (props) => {
                     history.push("/chat");
                   }}
                 >
-                  <FontAwesomeIcon icon={faBars} />
-                  <Text h4>채팅</Text>
+                  <FontAwesomeIcon icon={chatIcon} />
+                  <Text h4 marginB="0.5px">
+                    채팅
+                  </Text>
                 </Grid>
 
                 <Grid
@@ -275,8 +277,8 @@ const Header = (props) => {
                     history.push("/ProductUpload");
                   }}
                 >
-                  <FontAwesomeIcon icon={faBars} />
-                  <Text h4 w>
+                  <FontAwesomeIcon icon={uploadIcon} />
+                  <Text h4 marginB="0.5px">
                     물건등록
                   </Text>
                 </Grid>
@@ -403,8 +405,7 @@ const HeaderWrap = styled.header`
   max-width: 100%;
   width: 100%;
   position: absolute;
-  /* display: ${(props) => (props.display === false ? "none" : "flex")}; */
-  ${(props) => (props.display === false ? "display : none;" : "display : flex;")}
+  ${(props) => (props.showHeader ? "display : flex;" : "display : none;")}
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
@@ -475,7 +476,7 @@ const Search = styled.input`
   }
   :focus {
     outline: none;
-    width: 220;
+    width: 220px;
   }
   :hover {
     width: 220px;

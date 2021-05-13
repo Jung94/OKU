@@ -17,7 +17,7 @@ function PrevArrow(props) {
         ...style,
         display: "block",
         zIndex: "999",
-        left : "25%",
+        left: "25%",
         content: "url(https://1.bp.blogspot.com/-7PhKE4M-Mwg/YIv7w9pC5fI/AAAAAAAAPH8/9vEdlaUKVTU8WiUroBNl0V7XYBAtgcvNACLcBGAsYHQ/s320/%25ED%258C%25A8%25EC%258A%25A4%2B1.png)",
       }}
       onClick={onClick}
@@ -35,7 +35,7 @@ function NextArrow(props) {
         ...style,
         display: "block",
         zIndex: "999",
-        right : "25%",
+        right: "25%",
         content: "url(https://1.bp.blogspot.com/-zPYogI0ZcvA/YIv7xIest9I/AAAAAAAAPIA/Voq7TwepcsMjFb5EqjEXEf29wFPB9aM9gCLcBGAsYHQ/s320/%25ED%258C%25A8%25EC%258A%25A4%2B2.png)",
       }}
       onClick={onClick}
@@ -52,7 +52,7 @@ function _PrevArrow(props) {
         ...style,
         display: "block",
         zIndex: "999",
-        left : "15%",
+        left: "15%",
         content: "url(https://1.bp.blogspot.com/-7PhKE4M-Mwg/YIv7w9pC5fI/AAAAAAAAPH8/9vEdlaUKVTU8WiUroBNl0V7XYBAtgcvNACLcBGAsYHQ/s320/%25ED%258C%25A8%25EC%258A%25A4%2B1.png)",
       }}
       onClick={onClick}
@@ -69,7 +69,7 @@ function _NextArrow(props) {
         ...style,
         display: "block",
         zIndex: "999",
-        right : "15%",
+        right: "15%",
         content: "url(https://1.bp.blogspot.com/-zPYogI0ZcvA/YIv7xIest9I/AAAAAAAAPIA/Voq7TwepcsMjFb5EqjEXEf29wFPB9aM9gCLcBGAsYHQ/s320/%25ED%258C%25A8%25EC%258A%25A4%2B2.png)",
       }}
       onClick={onClick}
@@ -109,8 +109,6 @@ function NextArrow_(props) {
   );
 }
 
-
-
 // 실시간 인기상품
 const Container = (props) => {
   const dispatch = useDispatch();
@@ -139,31 +137,32 @@ const Container = (props) => {
     className: "center",
     centerMode: true,
     centerPadding: "23%",
-    nextArrow: <NextArrow/>,
-    prevArrow: <PrevArrow/>,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
 
-    responsive: [ // 반응형 웹 구현 옵션
+    responsive: [
+      // 반응형 웹 구현 옵션
       {
         breakpoint: 1550, // 화면 사이즈 1200px
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
           centerMode: false,
-          nextArrow: <_NextArrow/>,
-          prevArrow: <_PrevArrow/>,
-        }
-    },
-      {
-          breakpoint: 1200, // 화면 사이즈 1200px
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            centerMode: false,
-            nextArrow: <NextArrow_/>,
-            prevArrow: <PrevArrow_/>,
-          }
+          nextArrow: <_NextArrow />,
+          prevArrow: <_PrevArrow />,
+        },
       },
-    ]
+      {
+        breakpoint: 1200, // 화면 사이즈 1200px
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: false,
+          nextArrow: <NextArrow_ />,
+          prevArrow: <PrevArrow_ />,
+        },
+      },
+    ],
   };
   return (
     <Main>
@@ -172,14 +171,16 @@ const Container = (props) => {
           <Slide>
             <Slider {...settings}>
               {_popular_product.map((i, idx) => {
-                console.log(i);
+                // console.log(i);
                 return (
-                  <Section key={idx} onClick={
-                      () => {
-                        history.push(`product/detail/${i._id}`);
-                      }
-                    } {...i}>
-                    <Image >
+                  <Section
+                    key={idx}
+                    onClick={() => {
+                      history.push(`product/detail/${i._id}`);
+                    }}
+                    {...i}
+                  >
+                    <Image>
                       <img src={i.img[0]} />
                       <Title>{i.title}</Title>
                     </Image>
@@ -238,23 +239,17 @@ const Main = styled.div`
   text-align: center;
   margin: 242px 0;
   .slick-dots li button:before {
-      color : #AE00FF;
+    color: #ae00ff;
   }
-
 `;
 
-const Box = styled.div`
-`;
+const Box = styled.div``;
 
-const Slide = styled.div`
-  
-`;
+const Slide = styled.div``;
 const Section = styled.div`
   display: flex;
 `;
-const Desc = styled.div`
-
-`;
+const Desc = styled.div``;
 const Title = styled.div`
   font-size: 45px;
   margin 0 0 0 100px;
@@ -266,13 +261,13 @@ const Title = styled.div`
   position : relative;
 `;
 const Image = styled.div`
-overflow : hidden;
+  overflow: hidden;
   & > img {
-    position : relative;
+    position: relative;
     width: 700px;
-    height: 700px; 
-    margin : 0 auto;
-    cursor : pointer;
+    height: 700px;
+    margin: 0 auto;
+    cursor: pointer;
     border-radius: 50px;
   }
   // & : hover {
@@ -282,7 +277,6 @@ overflow : hidden;
 `;
 const Currentprice = styled.div``;
 const Deadline = styled.div``;
-const Sucbid = styled.div`
-`;
+const Sucbid = styled.div``;
 
 export default Container;

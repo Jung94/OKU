@@ -7,6 +7,7 @@ import { Grid, Input, Line, Button, Tag, Modal, Text, Profile } from "elements/"
 import { Slider, Timer, QnA } from "components/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle as fasQC, faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 
 import { actionCreators as productActions } from "redux/modules/product";
 import { actionCreators as likeActions } from "redux/modules/like";
@@ -51,11 +52,8 @@ const Product = (props) => {
   const _is_like = useSelector((state) => state.like.is_like);
   const _qna_list = useSelector((state) => state.product.qna_list);
   const _related_list = useSelector((state) => state.product.related);
-  // console.log("🟣: ", _related_list);
   const _bid_list = useSelector((state) => state.bid.bid_list);
-  console.log("🟣: ", _bid_list);
   const _current = useSelector((state) => state.bid.current);
-  // console.log("🟣입찰 리스트: ", _bid_list[0]);
 
   const [_contents, setReview] = useState("");
   const onChangeContents = useCallback((e) => setReview(e.target.value), []);
@@ -67,7 +65,8 @@ const Product = (props) => {
   useEffect(() => {
     console.log(_id);
     dispatch(productActions.setProductAllAPI(_id));
-  }, [productOK.onSale, _id]);
+    dispatch(bidActions.setBidAPI(_id, lowBid));
+  }, [_id]);
 
   const userLike = () => {
     // if (is_login) {
@@ -151,7 +150,7 @@ const Product = (props) => {
                   </Button>
                 ) : (
                   <Button sub _onClick={userLike} margin="0 5px 0 0">
-                    <FontAwesomeIcon icon={fasHeart} />
+                    <FontAwesomeIcon icon={farHeart} />
                     &thinsp;찜
                   </Button>
                 )}
@@ -210,19 +209,22 @@ const Product = (props) => {
 
             {/* 실시간 입찰 정보 */}
             {_bid_list && _bid_list.length > 0 ? (
-              _bid_list.map((b, idx) => (
-                <LiveBid key={idx} margin="5%">
-                  <Text h4 flexGrow="1">
-                    {b.nickName}
-                  </Text>
-                  <Text h4 textAlign="right" flexGrow="6" margin="0 2% 0 0">
-                    {priceComma(b.bid)}&thinsp;원
-                  </Text>
-                  <Text subBody width="34px" textAlign="right" marginT="auto" marginB="auto" color={Color.Dark_4} flexGrow="1">
-                    {moment(b.createAt).fromNow()}
-                  </Text>
-                </LiveBid>
-              ))
+              _bid_list.map((b, idx) => {
+                console.log(b);
+                return (
+                  <LiveBid key={idx} margin="5%">
+                    <Text h4 flexGrow="1">
+                      {b.nickName}
+                    </Text>
+                    <Text h4 textAlign="right" flexGrow="6" margin="0 2% 0 0">
+                      {priceComma(b.bid)}&thinsp;원
+                    </Text>
+                    <Text subBody width="34px" textAlign="right" marginT="auto" marginB="auto" color={Color.Dark_4} flexGrow="1">
+                      {moment(b.createAt).fromNow()}
+                    </Text>
+                  </LiveBid>
+                );
+              })
             ) : (
               <Blank>
                 입찰 정보가 없습니다.
@@ -268,7 +270,7 @@ const Product = (props) => {
                   </Text>
                 </div>
               </Grid>
-              <Button width="100%">상점으로 이동하기&ensp;></Button>
+              <Button width="100%">상점으로 이동하기&ensp;{">"}</Button>
             </Seller>
           </Grid>
         </Grid>
@@ -279,7 +281,7 @@ const Product = (props) => {
               Q&A
             </Text>
           </Grid>
-          <Grid margin="0 0 10px 0" bdr="1px solid red" >
+          <Grid margin="0 0 10px 0" bdr="1px solid red">
             <Input text width="100%" margin="0 0 10px 0" height="20%" plcholder="문의 내용을 입력해주세요." adornment="0 / 100" _onChange={onChangeContents} fnc={addQuestion} btn="등록하기"></Input>
             {_qna_list.map((q, idx) => (
               <QnA key={idx} {...q} />

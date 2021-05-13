@@ -18,7 +18,10 @@ import DaumPostcode from "react-daum-postcode";
 
 // React.memo => re-render 방지용임
 const ProductUpload = React.memo((props) => {
+  const { history } = props;
   const dispatch = useDispatch();
+  const is_login = localStorage.getItem("access_token");
+  console.log(is_login);
 
   const [agree, setAgree] = useState(false); // 이용약관 동의
 
@@ -193,6 +196,11 @@ const ProductUpload = React.memo((props) => {
   };
 
   const [count, setCount] = useState("");
+
+  if (!is_login) {
+    // history.push("/login");
+    alert("로그인후에 이용하실 수 있습니다.");
+  }
 
   return (
     <UploadWrap>

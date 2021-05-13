@@ -44,11 +44,11 @@ const Timer = (props) => {
   // console.log("🕒progress...: ", bar);
 
   if (day) {
-    return <>{deadline - timeNow > 0 ? <TimerWrap {...colors}>D-{day_duration}</TimerWrap> : <div>D-0 00:00:00</div>}</>;
+    return <>{deadline - timeNow > 0 ? <TimerWrap {...colors}>D-{day_duration}</TimerWrap> : <TimerEnd {...colors}>경매 종료</TimerEnd>}</>;
   }
 
   if (hms) {
-    return <>{deadline - timeNow > 0 ? <TimerWrap {...colors}>{hms_duration}</TimerWrap> : <div>D-0 00:00:00</div>}</>;
+    return <>{deadline - timeNow > 0 ? <TimerWrap {...colors}>{hms_duration}</TimerWrap> : <TimerEnd {...colors}>경매 종료</TimerEnd>}</>;
   }
 
   if (all) {
@@ -60,7 +60,7 @@ const Timer = (props) => {
             {duration}
           </TimerWrap>
         ) : (
-          <div>D-0 00:00:00</div>
+          <TimerWrap {...colors}>D-0 00:00:00</TimerWrap>
         )}
       </>
     );
@@ -75,7 +75,7 @@ const Timer = (props) => {
             <ProgressBar color={Color.Light_3} bar={100 - bar} roundLight={5} />
           </Bar>
         ) : (
-          ""
+          <></>
         )}
       </>
     );
@@ -91,6 +91,15 @@ const TimerWrap = styled.div`
   color: ${(props) => (props.purple ? Color.Primary : props.white ? "#ffffff" : false)};
   letter-spacing: 1px;
   word-spacing: 15px;
+`;
+
+const TimerEnd = styled.div`
+  width: 100%;
+  height: 100%;
+  font-weight: 700;
+  color: ${(props) => (props.purple ? Color.Primary : props.white ? "#ffffff" : false)};
+  letter-spacing: -0.25px;
+  word-spacing: -1px;
 `;
 
 const ProgressBar = styled.div`

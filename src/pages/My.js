@@ -101,12 +101,14 @@ const Modi = styled.div`
 
 const BtnBox = styled.div`
   display: flex;
+  width: 100%;
+  box-sizing: border-box;
   justify-content: space-between;
-  gap: 10px;
   margin: 50px 0 40px;
 
   & button {
     padding: 0 30px;
+    width: 14rem;
   }
 `;
 

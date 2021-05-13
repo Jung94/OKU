@@ -86,7 +86,7 @@ const editProfileAPI = (nickname, profile) => {
         dispatch(loadingActions.loading(false));
       })
       .catch((error) => {
-        console.log("setProductAllAPI에 문제가 있습니다.", error);
+        console.log("editProfileAPI에 문제가 있습니다.", error);
       });
   };
 };
