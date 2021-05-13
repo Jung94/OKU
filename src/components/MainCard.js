@@ -17,7 +17,7 @@ const MainCard = (props) => {
   const { img, title, deadLine, sucBid, _id } = props;
   return (
     <Section onClick={() => history.push(`/product/detail/${_id}`)}>
-      <Image style={{ backgroundImage: `url(` + img + `)` }}>
+      <Image style={{ backgroundImage: `url(` + img + `) no-repeat`, backgroundPosition: "center", backgroundSize: "cover" }}>
         {/* <img src={i.img[0]} /> */}
         <Desc>
           <Title>{title}</Title>
