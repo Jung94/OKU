@@ -21,7 +21,6 @@ const ProductUpload = React.memo((props) => {
   const { history } = props;
   const dispatch = useDispatch();
   const is_login = localStorage.getItem("access_token");
-  console.log(is_login);
 
   const [agree, setAgree] = useState(false); // 이용약관 동의
 
@@ -219,6 +218,7 @@ const ProductUpload = React.memo((props) => {
             setTitle(e.target.value);
             setCount(e.target.value);
           }}
+          adorn
           margin="6% auto"
           adornment={`${count.length} / 25`}
           maxLength="25"

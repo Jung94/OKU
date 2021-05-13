@@ -20,7 +20,7 @@ const Input = (props) => {
   // radio -> 상품 업로드
   // check -> 로그인
 
-  const { output, text, check, radio, info, fix, left, disabled, checked, maxLength, width, height, margin, adornment, plcholder, num, children, value, name, id, _onClick, _onChange, _onKeyPress, _onFocus, _onBlur, type, fnc, btn, desc } = props;
+  const { output, text, check, radio, info, fix, left, disabled, checked, maxLength, width, height, margin, adorn, adornment, plcholder, num, children, value, name, id, _onClick, _onChange, _onKeyPress, _onFocus, _onBlur, type, fnc, btn, desc } = props;
 
   const styles = {
     name: name,
@@ -42,6 +42,7 @@ const Input = (props) => {
     left: left,
     output: output,
     fix: fix,
+    adorn: adorn,
   };
   const inputEl = useRef();
 
@@ -208,6 +209,7 @@ const InputBox = styled.div`
     align-items: center;
     padding: auto 0;
     width: max-content;
+    ${(props) => (props.adorn ? `width: 70px;` : `width: max-content;`)}
   }
 `;
 
@@ -306,7 +308,7 @@ const CheckBox = styled.label`
 
 const TextareaBox = styled.div`
   width: ${(props) => (props.width ? props.width : "")};
-  height: 100px;
+  height: 178px;
   margin: ${(props) => (props.margin ? props.margin : "")};
   min-height: 100px;
   border: 1px solid ${Color.Light_3};
@@ -339,8 +341,8 @@ const TextareaBox = styled.div`
     width: 100%;
     max-width: 100%;
     min-width: 100%;
-    min-height: 100px;
-    height: 100%;
+    min-height: 65px;
+    // height: 100%;
     align-items: center;
     font-weight: 400;
     font-size: 16px;

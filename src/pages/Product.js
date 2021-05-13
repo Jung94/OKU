@@ -275,14 +275,14 @@ const Product = (props) => {
           </Grid>
         </Grid>
 
-        <Grid is_flex column margin="0 0 10px 0" bdr="1px solid blue">
+        <Grid is_flex column margin="0 0 10px 0">
           <Grid>
             <Text h3 color={Color.Primary} marginB="10px">
               Q&A
             </Text>
           </Grid>
-          <Grid margin="0 0 10px 0" bdr="1px solid red">
-            <Input text width="100%" margin="0 0 10px 0" height="20%" plcholder="문의 내용을 입력해주세요." adornment="0 / 100" _onChange={onChangeContents} fnc={addQuestion} btn="등록하기"></Input>
+          <Grid margin="0 0 10px 0" >
+            <Input text width="100%" margin="0 0 10px 0" height="250px" plcholder="문의 내용을 입력해주세요." adornment="0 / 100" _onChange={onChangeContents} fnc={addQuestion} btn="등록하기"></Input>
             {_qna_list.map((q, idx) => (
               <QnA key={idx} {...q} />
             ))}
