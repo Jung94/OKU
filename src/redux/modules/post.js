@@ -12,6 +12,7 @@ const SET_RECOMMEND = "SET_RECOMMEND";
 // 메인 카테고리
 const SET_MAINCATEGORY = "SET_MAINCATEGORY";
 const SET_MAINKEYWORD = "SET_MAINKEYWORD";
+const CLEAR_CATEGORY = "CLEAR_CATEGORY"
 // 카테고리 키워드저장
 const SET_SUBCATEGORY = "SET_SUBCATEGORY";
 const SET_SUBKEYWORD = "SET_SUBKEYWORD";
@@ -32,6 +33,8 @@ const setProductMainCategory = createAction(SET_MAINCATEGORY, (mainCategory) => 
 const setMainKeyword = createAction(SET_MAINKEYWORD, (mainKeyword) => ({ mainKeyword }));
 const setProductSubCategory = createAction(SET_SUBCATEGORY, (subCategory) => ({ subCategory }));
 const setSubKeyword = createAction(SET_SUBKEYWORD, (subKeyword) => ({ subKeyword }));
+const clearCategory = createAction(CLEAR_CATEGORY, () => ({}))
+
 
 // 알림
 const setAlert = createAction(SET_ALERT, (alert) => ({ alert }))
@@ -135,14 +138,15 @@ const getRecommendProductAPI = () => {
 const getProductMainCategotAPI = (mainKeyword) => {
   const ProductMainCategory_API = `http://3.35.137.38/product/Category/${mainKeyword}`;
   return function (dispatch, getState, { history }) {
-    dispatch(setMainKeyword(mainKeyword))
+    dispatch(clearCategory());
+    dispatch(setMainKeyword(mainKeyword))  
     axios
       .get(ProductMainCategory_API)
       .then((resp) => {
         dispatch(setProductMainCategory(resp.data.result));
+        console.log("대분류",resp)
       })
-      .catch((e) => {console.log(e);
-    window.alert("카테고리 데이터가 없습니다")});
+      .catch((e) => {console.log(e);});
   };
 };
 
@@ -150,14 +154,15 @@ const getProductMainCategotAPI = (mainKeyword) => {
 const getProductSubCategotAPI = (mainKeyword ,subKeyword) => {
   const ProductSubCategory_API = `http://3.35.137.38/product/Category/${mainKeyword}/${subKeyword}`;
   return function (dispatch, getState, { history }) {
+    dispatch(clearCategory());
     dispatch(setSubKeyword(subKeyword))
     axios
       .get(ProductSubCategory_API)
       .then((resp) => {
         dispatch(setProductSubCategory(resp.data.result));
+        console.log("중분류",resp)
       })
-      .catch((e) => {console.log(e)
-    window.alert("카테고리 데이터가 없습니다")});
+      .catch((e) => {console.log(e)});
   };
 };
 
@@ -170,6 +175,7 @@ const getAlertAPI = () => {
       .get(Alert_API)
       .then((resp) => {
           dispatch(setAlert(resp.data));
+          console.log("안녕하세요" , resp)
       })
       .catch((e) => console.log(e));
   };
@@ -209,6 +215,11 @@ export default handleActions(
         // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
         draft.sub_category = action.payload.subCategory;
       }),
+      [CLEAR_CATEGORY] : (state, action) =>
+      produce(state, (draft) => {
+        // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
+        draft.sub_category = [];
+      }),
       [SET_MAINKEYWORD]: (state, action) =>
       produce(state, (draft) => {
         // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
@@ -235,6 +246,7 @@ const actionCreators = {
   getDeadlineProductAPI,
   getRecommendProductAPI,
 
+  clearCategory,
   getProductMainCategotAPI,
   getProductSubCategotAPI,
   getAlertAPI

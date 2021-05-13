@@ -28,7 +28,7 @@ const Card = (props) => {
       <Grid>
         <Cards>
         {_recent_product.map((j, index) => {
-                return <PostCard key={index} img={j.img} title={j.title} currentprice={j.currentprice} Sucbid={j.Sucbid} _onClick={() => {history.push(`product/detail/${j._id}`)}} />
+                return <PostCard key={index} {...j} _onClick={() => {history.push(`product/detail/${j._id}`)}} />
               })}
         </Cards>
       </Grid>
