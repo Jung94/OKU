@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle as fasQC, faHeart as fasHeart, faPen as fasPen } from "@fortawesome/free-solid-svg-icons";
 
 const PostCard = (props) => {
-  // const _id = props.match.params.id;
   const dispatch = useDispatch();
   const { img, title, currentprice, sucBid, _onClick, _id } = props;
   const _is_like = useSelector((state) => state.like.is_like);

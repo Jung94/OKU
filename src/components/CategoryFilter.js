@@ -23,7 +23,6 @@ const CategoryFilter = () => {
 const CategoryList = styled.div`
 display: grid;
 grid-template-columns: 1fr 1fr 1fr;
-margin-top : 45px 0 ;
 `;
 
 export default CategoryFilter;
