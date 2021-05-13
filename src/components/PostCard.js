@@ -54,7 +54,11 @@ const PostCard = (props) => {
               <Timer day {...props} purple />
             </div>
           </UpTime> */}
-          <Dibs>{like ? <FontAwesomeIcon style={{ color: Color.Primary, fontSize: "32px" }} icon={fasHeart} onClick={userLike} /> : <FontAwesomeIcon style={{ color: Color.Primary, fontSize: "32px" }} icon={farHeart} onClick={userLike} />}</Dibs>
+          <Dibs>
+            {like ? <FontAwesomeIcon style={{ color: Color.Primary, fontSize: "32px" }} icon={fasHeart} onClick={userLike} />
+            :
+            <FontAwesomeIcon style={{ color: Color.Primary, fontSize: "32px" }} icon={farHeart} onClick={userLike} />}
+          </Dibs>
         </Image>
 
         <Desc>

@@ -1,23 +1,29 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
+
 import { Badge } from "@material-ui/core";
 
 import { history } from "../redux/configureStore";
 import { actionCreators as postActions } from "redux/modules/post";
 import { useDispatch, useSelector } from "react-redux";
+import { Timer } from "components/";
 
 import List from "images/list.png";
+import RingContents from 'components/RingContents'
 
 const DetailRing = (props) => {
   const dispatch = useDispatch();
 
+  const {alertType, _id} = props;
   // 렌더될 때 ~ 한다
   useEffect(() => {
     // useEffect 랑 친한 얘
     dispatch(postActions.getAlertAPI());
-  }, []);
+  }, []); 
+
   const _alert = useSelector((state) => state.post.all_alert);
+
 
   const [is_read, setIsRead] = React.useState(true);
 
@@ -28,7 +34,7 @@ const DetailRing = (props) => {
   const [Ringshowing, setRingShowing] = useState(false);
   
   const RingDetailShowing = () => setRingShowing(!Ringshowing);
-
+  console.log(_alert)
   if (Ringshowing) {
     return (
       <>
@@ -38,22 +44,22 @@ const DetailRing = (props) => {
 
         <RingDetail>
           <Contents>
-            {/* {_alert.map((i, idx) => {
-              console.log("asdasd💜",_alert)
-              return ( */}
-            <Box>
-            <Desc>
-              <AlertTitle>
-                <TitleLeft>안녕</TitleLeft>
-                <TitleRight>1분전</TitleRight>
-              </AlertTitle>
-              <AlertCotents>'손오공 드래곤볼'의 낙찰이 성사되었습니다.</AlertCotents>
-            </Desc>
-            <Line/>
-            </Box>
-            {/* );
-            })} */}
-            
+            {_alert.map((i, idx) => {
+              return <RingContents key={idx} {...i} />
+            // <Box key={idx} >
+            // <Desc>
+            //   <AlertTitle>
+            //     <TitleLeft>{i.alertType}</TitleLeft>
+            //     <TitleRight>
+            //       1분전
+            //     </TitleRight>
+            //   </AlertTitle>
+            //   <AlertCotents>'{i.productId}'의 낙찰이 성사되었습니다.</AlertCotents>
+            // </Desc>
+            // <Line/>
+            // </Box>
+            })} 
+{/*             
             <Box>
               <Desc>
                 <AlertTitle>
@@ -75,7 +81,7 @@ const DetailRing = (props) => {
             <Box>
             <Desc>
               <AlertTitle>
-                <TitleLeft>문의</TitleLeft>
+                <TitleLeft>용현</TitleLeft>
                 <TitleRight>1분전</TitleRight>
               </AlertTitle>
               <AlertCotents>'손오공 드래곤볼'의 문의댓글이 달렸습니다.</AlertCotents>
@@ -106,7 +112,7 @@ const DetailRing = (props) => {
               </Chatting>
               </Desc>
               <Line/>
-            </Box>
+            </Box> */}
             
           </Contents>
         </RingDetail>

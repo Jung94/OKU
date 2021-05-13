@@ -10,11 +10,10 @@ const CategoryFilter = () => {
     const dispatch = useDispatch();
     // const main_list = useSelector((state) => state.post.main_category);
     const sub_list = useSelector((state) => state.post.sub_category);
-    console.log("❤❤❤",sub_list)
     return (
         <CategoryList>
       {sub_list.map((p, idx) => {
-        return <PostCard key={idx} {...p} _onClick={() => {history.push(`product/detail/${p._id}`)}}/>;
+        return <PostCard key={idx} {...p}/>;
       })}
     </CategoryList>
     )

@@ -13,7 +13,7 @@ import { input_priceComma } from "shared/common";
 
 // 왼쪽
 function PrevArrow(props) {
-  const { className, style, onClick,  lowBid } = props;
+  const { className, style, onClick,} = props;
   return (
     <LeftArrow
       className={className}
@@ -178,7 +178,7 @@ const Container = (props) => {
                 // console.log(i);
                 let real = input_priceComma(`${i.lowBid}`);
                 return (
-                  <MainCard lowBid={real} key={idx} {...i} _onClick={() => {history.push(`product/detail/${i._id}`)}} />
+                  <MainCard lowBid={real} key={idx} {...i}/>
                   // <Section
                   //   key={idx}
                   //   onClick={() => {
