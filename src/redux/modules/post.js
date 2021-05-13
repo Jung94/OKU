@@ -168,18 +168,40 @@ const getProductSubCategotAPI = (mainKeyword, subKeyword) => {
 };
 
 // 알림
-const Alert_API = "http://3.35.137.38/bid/alert";
-
+const API = "http://3.35.137.38/bid/alert";
 const getAlertAPI = () => {
   return function (dispatch, getState, { history }) {
-    axios
-      .get(Alert_API)
-      .then((resp) => {
-        dispatch(setAlert(resp.data));
-      })
-      .catch((e) => console.log(e));
-  };
+const access_token = localStorage.getItem("access_token");
+fetch(API, {
+  method: "GET",
+  headers: {
+    access_token: `${access_token}`
+  },
+})
+.then((res) => res.json())
+.then((res) => {
+  dispatch(setAlert(res.alreadyCheck));
+  console.log(res);
+  
+})
+.catch((error) => {
+  console.log("알림 문제", error);
+});
 };
+}
+
+// const Alert_API = "http://3.35.137.38/bid/alert";
+// const getAlertAPI = () => {
+//   return function (dispatch, getState, { history }) {
+//     axios
+//     .get(Alert_API)
+//       .then((resp) => {
+//         dispatch(setAlert(resp.data));
+//       })
+//       .catch((e) => console.log(e));
+//   };
+// };
+
 
 // Reducer 를 실행하기위해 액션크리에이터
 export default handleActions(

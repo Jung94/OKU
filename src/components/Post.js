@@ -30,7 +30,7 @@ const Post = (props) => {
                 MD 추천상품이 없습니다
                 </div>  : 
                 _recommend_product && _recommend_product.map((l, idx) => {
-                    return (<PostCard  key={idx} {...l} _onClick={() => {history.push(`product/detail/${l._id}`)}} />
+                    return (<PostCard  key={idx} {...l}  />
                 )})}
             </Grid>                
         </Wrap>
