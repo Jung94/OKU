@@ -95,7 +95,7 @@ const Chat = (props) => {
 };
 
 const Wrap = styled.div`
-  border: 1px solid #000;
+  // border: 1px solid #000;
   margin: 150px 0 0;
   display: flex;
   align-items: center;
@@ -106,7 +106,7 @@ const Wrap = styled.div`
 `;
 
 const MainContent = styled.section`
-  border: 1px solid red;
+  // border: 1px solid red;
   display: flex;
   gap: 2px;
   max-width: 1030px;
@@ -115,7 +115,7 @@ const MainContent = styled.section`
   margin: 85.6px 0 85.6px;
 
   @media only screen and (min-width: 1824px) {
-    border: 1px solid red;
+    // border: 1px solid red;
     display: flex;
     gap: 2px;
     max-width: 1030px;

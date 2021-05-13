@@ -65,9 +65,9 @@ const Sidebar = ({ room }) => {
                       <TextBox>
                         <Up>
                           <Name>{val.sellerunique === uid ? val.soldBy : val.nickname}</Name>
-                          <Time>오전 11:11</Time>
+                          <Time>오후 09:11</Time>
                         </Up>
-                        <Msg>{update}</Msg>
+                        {/* <Msg>{update}</Msg> */}
                       </TextBox>
                     </>
                   </Box>
@@ -140,7 +140,7 @@ const Box = styled.div`
   gap: 10px;
   // width: 285.4px;
   min-width: 267px;
-  height: 103px;
+  height: 69px;
   padding: 14px 20px 12px;
   background: #fff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
