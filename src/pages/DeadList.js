@@ -21,12 +21,12 @@ const DeadList = () => {
             <DeadText>
             <span>마감임박 리스트</span>
             <>
-            {_deadline_product ? 
+            {!_deadline_product ? 
             <div style={{margin:"100px auto", color :"#c0c0c0 ", fontSize:"20px"}}>
                 현재 마감임박 상품이 없습니다
             </div>  : 
             _deadline_product.map((k, index) => {
-            return <PostCard key={index} img={k.img} title={k.title} currentprice={k.currentprice} Sucbid={k.Sucbid} _onClick={() => {history.push(`product/detail/${k._id}`)}} />
+            return <PostCard key={index} {...k} _onClick={() => {history.push(`product/detail/${k._id}`)}} />
             })}
             </>
             </DeadText>

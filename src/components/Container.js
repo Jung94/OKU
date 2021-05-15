@@ -140,7 +140,7 @@ const Container = (props) => {
     draggable: false,
     className: "center",
     centerMode: true,
-    centerPadding: "23%",
+    centerPadding: "20%",
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
 
@@ -186,30 +186,6 @@ const Container = (props) => {
                       history.push(`product/detail/${i._id}`);
                     }}
                   />
-                  // <Section
-                  //   key={idx}
-                  //   onClick={() => {
-                  //     history.push(`product/detail/${i._id}`);
-                  //   }}
-                  //   {...i}
-                  // >
-                  //   <Image style={{ backgroundImage : `url(`+ i.img + `)` }} >
-                  //     {/* <img src={i.img[0]} /> */}
-                  //     <Desc>
-                  //     <Title>{i.title}</Title>
-                  //     <Bottom>
-                  //     <Deadline style={{ backgroundColor: "white", padding: "5px", height: "0" }}>
-                  //       {i.deadLine}
-                  //         <Timer all deadLine={i.deadLine} {...props} purple />
-
-                  //     </Deadline>
-                  //     {/* <Currentprice>{i.currentprice}</Currentprice> */}
-                  //     <Sucbid lowBid={real}>{i.sucBid}원</Sucbid>
-
-                  //     </Bottom>
-                  //   </Desc>
-                  //   </Image>
-                  // </Section>
                 );
               })}
             </Slider>

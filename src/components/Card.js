@@ -7,10 +7,12 @@ import { actionCreators as likeActions } from "redux/modules/like";
 import { actionCreators as postActions } from "redux/modules/post";
 import { useDispatch, useSelector } from "react-redux";
 import { history } from "../redux/configureStore";
+import InfinityScroll from "./InfinityScroll";
 
 // 최신등록상품 리스트
 const Card = (props) => {
   const dispatch = useDispatch();
+
 
   useEffect(() => {
     dispatch(postActions.getRecentProductsAPI());
