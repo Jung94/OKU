@@ -61,7 +61,7 @@ const setBidAPI = (_id, lowBid) => {
           // okay: false, msg: "현재입찰자가 없습니다."
           // 여기서 디스패치를 안해주어서 입찰내역이 안뜬거임
           // console.log("입찰 내역이 없음!");
-          console.log(lowBid);
+          // console.log(lowBid);
           dispatch(setBid([]));
           dispatch(setCurrent(lowBid));
         }

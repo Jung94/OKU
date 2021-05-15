@@ -36,7 +36,7 @@ const DetailRing = (props) => {
   const [Ringshowing, setRingShowing] = useState(false);
 
   const RingDetailShowing = () => setRingShowing(!Ringshowing);
-  console.log(_alert);
+  // console.log(_alert);
   if (Ringshowing) {
     return (
       <Wrap>

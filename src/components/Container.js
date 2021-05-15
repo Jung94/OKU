@@ -11,6 +11,9 @@ import { Timer } from "components/";
 import Slider from "react-slick";
 import { input_priceComma } from "shared/common";
 
+import leftIcon from "images/chevronLeftSolid.svg";
+import rightIcon from "images/chevronRightSolid.svg";
+
 // 왼쪽
 function PrevArrow(props) {
   const { className, style, onClick, lowBid } = props;
@@ -22,7 +25,9 @@ function PrevArrow(props) {
         display: "block",
         zIndex: "999",
         left: "25%",
-        content: "url(https://1.bp.blogspot.com/-7PhKE4M-Mwg/YIv7w9pC5fI/AAAAAAAAPH8/9vEdlaUKVTU8WiUroBNl0V7XYBAtgcvNACLcBGAsYHQ/s320/%25ED%258C%25A8%25EC%258A%25A4%2B1.png)",
+        color: "black",
+        fontSize: "5rem",
+        content: `url(${leftIcon})`,
       }}
       onClick={onClick}
     />
@@ -40,7 +45,9 @@ function NextArrow(props) {
         display: "block",
         zIndex: "999",
         right: "25%",
-        content: "url(https://1.bp.blogspot.com/-zPYogI0ZcvA/YIv7xIest9I/AAAAAAAAPIA/Voq7TwepcsMjFb5EqjEXEf29wFPB9aM9gCLcBGAsYHQ/s320/%25ED%258C%25A8%25EC%258A%25A4%2B2.png)",
+        color: "black",
+        fontSize: "5rem",
+        content: `url(${rightIcon})`,
       }}
       onClick={onClick}
     />
@@ -57,7 +64,7 @@ function _PrevArrow(props) {
         display: "block",
         zIndex: "999",
         left: "15%",
-        content: "url(https://1.bp.blogspot.com/-7PhKE4M-Mwg/YIv7w9pC5fI/AAAAAAAAPH8/9vEdlaUKVTU8WiUroBNl0V7XYBAtgcvNACLcBGAsYHQ/s320/%25ED%258C%25A8%25EC%258A%25A4%2B1.png)",
+        content: `url(${leftIcon})`,
       }}
       onClick={onClick}
     />
@@ -74,7 +81,7 @@ function _NextArrow(props) {
         display: "block",
         zIndex: "999",
         right: "15%",
-        content: "url(https://1.bp.blogspot.com/-zPYogI0ZcvA/YIv7xIest9I/AAAAAAAAPIA/Voq7TwepcsMjFb5EqjEXEf29wFPB9aM9gCLcBGAsYHQ/s320/%25ED%258C%25A8%25EC%258A%25A4%2B2.png)",
+        content: `url(${rightIcon})`,
       }}
       onClick={onClick}
     />
@@ -90,7 +97,7 @@ function PrevArrow_(props) {
         ...style,
         display: "block",
         zIndex: "999",
-        content: "url(https://1.bp.blogspot.com/-7PhKE4M-Mwg/YIv7w9pC5fI/AAAAAAAAPH8/9vEdlaUKVTU8WiUroBNl0V7XYBAtgcvNACLcBGAsYHQ/s320/%25ED%258C%25A8%25EC%258A%25A4%2B1.png)",
+        content: `url(${leftIcon})`,
       }}
       onClick={onClick}
     />
@@ -106,7 +113,7 @@ function NextArrow_(props) {
         ...style,
         display: "block",
         zIndex: "999",
-        content: "url(https://1.bp.blogspot.com/-zPYogI0ZcvA/YIv7xIest9I/AAAAAAAAPIA/Voq7TwepcsMjFb5EqjEXEf29wFPB9aM9gCLcBGAsYHQ/s320/%25ED%258C%25A8%25EC%258A%25A4%2B2.png)",
+        content: `url(${rightIcon})`,
       }}
       onClick={onClick}
     />
