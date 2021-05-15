@@ -106,80 +106,37 @@ const loginAPI = (email, pw, autoLogin, saveId) => {
   };
 };
 
-// 카카오 로그인
-const loginByKakao = (data) => {
+// 소셜로그인
+const socialLoginDB = (id) => {
   return function (dispatch, getState, { history }) {
-    // fetch(`${API}/user/kakao`, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     email: email,
-    //     password: pw,
-    //   }),
-    // })
     axios({
-      method: "POST",
+      method: 'POST',
       url: `${API}/user/kakao`,
       data: {
-        kakao_token: data.kakao_token,
+        id: id,
       },
     })
       .then((res) => {
         console.log(res);
         // 발급 받은 토큰
-        // const jwtToken = res.data.token;
-        // // 로컬에 저장
-        // setLocal('is_login', jwtToken);
-        // // 헤더에 토큰 default
+        const token = res.data.access_token;
+        const user = res.data.nickname;
+        const uid = res.data.userid;
+        // 로컬에 저장
+        setLocal('access_token', token);
+        setLocal('nickname', user);
+        setLocal('uid', uid);
+        // 헤더에 토큰 default
         // axios.defaults.headers.common['token'] = `${jwtToken}`;
-        // dispatch(
-        //   setUser({
-        //     email: res.data.user.email,
-        //     uid: res.data.user.id,
-        //     nickname: res.data.user.nickname,
-        //     // profile_img: res.data.user.profile_img,
-        //     // comment_myself: res.data.user.comment_myself,
-        //     // snsId: res.data.user.snsId,
-        //   }),
-        // );
+        dispatch(setUser(user, uid));
         // 뒤로가기 시 main이 보이게 끔 replace 사용(사용자 경험 개선)
-        // history.replace('/home');
+        history.replace('/');
       })
       .catch((e) => {
-        console.log("에러발생:", e);
+        console.log('에러발생:', e);
       });
   };
 };
-
-// 카카오 로그인
-// const loginByKakao = (data) => async (dispatch, getState, { history }) => {
-//     try {
-//       // 카카오 로그인으로 받아온 토큰으로 서버에서 jwt 토근을 받아옴
-//       const res = await userAPI.loginByKakao(data);
-
-//       const token = res.data.kakao_token;
-//       // const email = res.data.kakao_email;
-//       const nickname = res.data.kakao_nickname;
-//       // const userId = res.data.userid;
-
-//       // 받아온정보 쿠키저장
-//       setLocal('access_token', token);
-//       setLocal('nickname', nickname);
-//       // setLocal('userId', userId);
-
-//       // 헤더에 토큰 저장
-//       axios.defaults.headers.common['token'] = `${token}`;
-
-//       // 토큰으로 유저정보 받아옴
-//       dispatch(fetchUserProfile(1));
-//     } catch (error) {
-//       console.error(error);
-//       dispatch(setLoginError(error.response.data.errorMessage));
-//     }
-// };
 
 // 로그인 상태 체크
 const isLogin = () => {
@@ -278,7 +235,8 @@ const actionCreators = {
   loginMsg,
   autoLogin,
   saveIdLocalstorage,
-  loginByKakao,
+  // loginByKakao,
+  socialLoginDB,
 };
 
 export { actionCreators };
