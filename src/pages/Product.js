@@ -26,7 +26,7 @@ const Product = (props) => {
   const _id = props.match.params.id;
   const history = props.history;
 
-  const is_loading = useSelector((state) => state.product.is_loading);
+  const is_login = localStorage.getItem("access_token");
   const productOK = useSelector((state) => state.product.product_detail);
   var {
     deadLine,
@@ -68,23 +68,17 @@ const Product = (props) => {
     dispatch(bidActions.setBidAPI(_id, lowBid));
   }, [_id]);
 
-  const userLike = () => {
-    // if (is_login) {
-    if (!_is_like) {
-      // 좋아요 한 적이 없으면 false이므로
-      dispatch(likeActions.addLikeAPI(_id)); // 좋아요 실행
+  const userLike = (_id) => {
+    if (is_login) {
+      if (!_is_like) {
+        dispatch(likeActions.addLikeAPI(_id)); // 좋아요 실행
+      } else {
+        dispatch(likeActions.deleteLikeAPI(_id)); // 좋아요 해제 실행
+      }
     } else {
-      // 좋아요 한 적이 있으면 true
-      dispatch(likeActions.deleteLikeAPI(_id)); // 좋아요 해제 실행
+      window.alert("로그인이 필요한 서비스입니다.");
     }
-    // } else {
-    //   window.alert("로그인해주세요!");
-    // }
   };
-
-  if (is_loading) {
-    return <Loading />;
-  }
 
   if (productOK) {
     return (
@@ -281,7 +275,7 @@ const Product = (props) => {
               Q&A
             </Text>
           </Grid>
-          <Grid margin="0 0 10px 0" >
+          <Grid margin="0 0 10px 0">
             <Input text width="100%" margin="0 0 10px 0" height="250px" plcholder="문의 내용을 입력해주세요." adornment="0 / 100" _onChange={onChangeContents} fnc={addQuestion} btn="등록하기"></Input>
             {_qna_list.map((q, idx) => (
               <QnA key={idx} {...q} />

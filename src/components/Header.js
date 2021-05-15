@@ -55,20 +55,20 @@ const Header = (props) => {
   // };
 
   const handleMainCategory = (e) => {
-    setMainct(e.value);
-    if (e.value === "3D") {
+    setMainct(e.target.value);
+    if (e.target.value === "3D") {
       setSubct(D2CT);
-      dispatch(categoryActions.getProductMainCategotAPI(e.value));
-    } else if (e.value === "2D") {
+      dispatch(categoryActions.getProductMainCategotAPI(e.target.value));
+    } else if (e.target.value === "2D") {
       setSubct(D3CT);
-      dispatch(categoryActions.getProductMainCategotAPI(e.value));
+      dispatch(categoryActions.getProductMainCategotAPI(e.target.value));
     }
   };
 
   const handleSubCategory = (e) => {
-    setSubct(e.value);
+    setSubct(e.target.value);
     console.log(handleSubCategory);
-    dispatch(categoryActions.getProductSubCategotAPI(mainct, e.value));
+    dispatch(categoryActions.getProductSubCategotAPI(mainct, e.target.value));
     history.push("/category");
   };
 
@@ -180,7 +180,7 @@ const Header = (props) => {
   const lengthen = useRef();
 
   const headerChange = () => {
-    if (window.scrollY < 150 && window.scrollX > 1320) {
+    if (window.scrollY < 150 && window.innerWidth > 1320) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "9999";
       navbox.current.style.height = "140px";
@@ -191,10 +191,9 @@ const Header = (props) => {
       hide.current.style.opacity = "1";
       hide.current.style.width = "117.8px";
 
-      lengthen.current.style.width = "120px";
-
       leftLogo.current.style.width = "0";
-    } else if (window.scrollY < 150 && window.scrollX < 1320) {
+      leftLogo.current.style.marginRight = "0";
+    } else if (window.scrollY < 150 && window.innerWidth < 1320) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "9999";
       navbox.current.style.height = "140px";
@@ -202,43 +201,40 @@ const Header = (props) => {
       up.current.style.marginTop = "0px";
 
       hide.current.style.alignItems = "center";
+      hide.current.style.opacity = "0";
+      hide.current.style.width = "0px";
 
-      hide.current.style.opacity = "1";
-      hide.current.style.width = "117.8px";
-
-      lengthen.current.style.width = "120px";
-
-      leftLogo.current.style.width = "0";
-    } else if (window.scrollY > 150 && window.scrollX < 1320) {
+      leftLogo.current.style.maxWidth = "70px";
+      leftLogo.current.style.minWidth = "6vw";
+      leftLogo.current.style.marginRight = "3vw";
+    } else if (window.scrollY > 150 && window.innerWidth < 1320) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "9999";
       navbox.current.style.height = "79px";
       navbox.current.style.boxShadow = `0 4px 15px 0 ${Color.Secondary_2}77`;
       up.current.style.marginTop = "-38px";
 
-      hide.current.style.opacity = "0";
-
+      hide.current.style.alignItems = "center";
       hide.current.style.opacity = "0";
       hide.current.style.width = "0px";
 
-      lengthen.current.style.width = "300px";
-
-      leftLogo.current.style.width = "70px";
-    } else if (window.scrollY > 150 && window.scrollX > 1320) {
+      leftLogo.current.style.maxWidth = "70px";
+      leftLogo.current.style.width = "5vw";
+      leftLogo.current.style.marginRight = "3vw";
+    } else if (window.scrollY > 150 && window.innerWidth > 1320) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "9999";
       navbox.current.style.boxShadow = `0 4px 15px 0 ${Color.Secondary_2}77`;
       navbox.current.style.height = "79px";
       up.current.style.marginTop = "-38px";
 
-      hide.current.style.opacity = "0";
-
+      hide.current.style.alignItems = "center";
       hide.current.style.opacity = "0";
       hide.current.style.width = "0px";
 
-      lengthen.current.style.width = "600px";
-
-      leftLogo.current.style.width = "70px";
+      leftLogo.current.style.maxWidth = "70px";
+      leftLogo.current.style.width = "5vw";
+      leftLogo.current.style.marginRight = "3vw";
     }
   };
 
@@ -250,17 +246,17 @@ const Header = (props) => {
         <img
           ref={leftLogo}
           alt="로고이미지"
-          style={{ alignItems: "center", width: "0px", marginBottom: "2px", marginRight: "1rem", justifyContent: "center" }}
+          style={{ alignItems: "center", width: "0px", marginBottom: "2px", justifyContent: "center" }}
           src={MainLogo}
           onClick={() => {
             history.replace("/");
           }}
         />
 
-        <Grid is_flex width="34%" alignItems="center">
+        <Grid is_flex width="40%" alignItems="center">
           {/* 카테고리 리스트 방식 */}
           {/* <ListHover/> */}
-          <div style={{ width: "100px" }}>카테고리</div>
+          <div>카테고리</div>
           <ListBtn />
           <Mainselectbox>
             <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
@@ -284,7 +280,7 @@ const Header = (props) => {
           )}
         </Grid>
 
-        <Grid is_flex justify="center" width="33%">
+        <Grid is_flex justify="center" width="20%">
           {/* 로고 */}
           <img
             ref={hide}
@@ -297,7 +293,7 @@ const Header = (props) => {
           />
         </Grid>
 
-        <Grid is_flex column width="33%">
+        <Grid is_flex column width="40%">
           <Grid is_flex gap="5%" justify="flex-end" margin="0 0 42px 0" ref={hide}>
             <Text subBody color={Color.Dark_4}>
               about OKU
@@ -454,12 +450,12 @@ const Fix = styled.div`
   font-weight: 500;
   transition: margin 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
   img {
-    transition: all 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition: all 1400ms cubic-bezier(0.215, 0.61, 0.355, 1);
     align-items: center;
     vertical-align: center;
     margin: auto;
     display: flex;
-    cursor: "pointer";
+    cursor: pointer;
     object-position: center;
   }
 `;
@@ -501,7 +497,7 @@ const SearchWrap = styled.div`
 // 검색 input
 const Search = styled.input`
   background-color: transparent;
-  width: 180px;
+  width: 130px;
   height: 38px;
   border: 0;
   outline: 0;

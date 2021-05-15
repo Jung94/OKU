@@ -4,6 +4,8 @@ import { history } from "../redux/configureStore";
 
 import MainCard from "components/MainCard";
 
+import { Grid, Input, Line, Button, Tag, Modal, Text, Profile } from "elements/";
+
 import { actionCreators as postActions } from "redux/modules/post";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,9 +15,11 @@ import { input_priceComma } from "shared/common";
 
 import leftIcon from "images/chevronLeftSolid.svg";
 import rightIcon from "images/chevronRightSolid.svg";
+import { Color } from "shared/DesignSys";
 
 // 왼쪽
 function PrevArrow(props) {
+  console.log(props);
   const { className, style, onClick, lowBid } = props;
   return (
     <LeftArrow
@@ -25,7 +29,7 @@ function PrevArrow(props) {
         display: "block",
         zIndex: "999",
         left: "25%",
-        color: "black",
+        color: Color.Dark_4,
         fontSize: "5rem",
         content: `url(${leftIcon})`,
       }}
@@ -45,7 +49,8 @@ function NextArrow(props) {
         display: "block",
         zIndex: "999",
         right: "25%",
-        color: "black",
+        color: Color.Dark_4,
+
         fontSize: "5rem",
         content: `url(${rightIcon})`,
       }}
@@ -147,6 +152,7 @@ const Container = (props) => {
     draggable: false,
     className: "center",
     centerMode: true,
+
     centerPadding: "20%",
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
@@ -243,6 +249,17 @@ const Main = styled.div`
   margin: 200px 0;
   .slick-dots li button:before {
     color: #ae00ff;
+  }
+  .slick-center {
+    transition: all 1000ms ease-in-out;
+    -webkit-transform: scale(0.95) !important;
+    -moz-transform: scale(0.95) !important;
+    transform: scale(0.95) !important;
+  }
+  .slick-slide {
+    -webkit-transform: scale(0.75);
+    -moz-transform: scale(0.75);
+    transform: scale(0.75);
   }
 `;
 

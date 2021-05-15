@@ -19,42 +19,52 @@ import logo from "images/logo512.png";
 
 const PostCard = (props) => {
   const dispatch = useDispatch();
-  const { img, title, currentprice, sucBid, _onClick, _id } = props;
+  const is_login = localStorage.getItem("access_token");
+
+  const { img, title, currentprice, lowBid, _onClick, _id } = props;
   console.log("🚚", props);
+
+  // 좋아요 확인용
   const like_list = useSelector((state) => state.like.like_list);
   // console.log("💛", like_list);
+  const likeOrNot = like_list.some((e) => e.productId === _id); // props로 넘어오는 각 프로덕트의 _id와 같은지 확인
 
   const userLike = (_id) => {
-    // if (is_login) {
-    const _is_like = like_list.some((e) => e.productId === _id);
-    if (!_is_like) {
-      // 좋아요 한 적이 없으면 false이므로
-      dispatch(likeActions.addLikeAPI(_id)); // 좋아요 실행
+    if (is_login) {
+      const _is_like = like_list.some((e) => e.productId === _id);
+      if (!_is_like) {
+        // 좋아요 한 적이 없으면 false이므로
+        dispatch(likeActions.addLikeAPI(_id)); // 좋아요 실행
+      } else {
+        // 좋아요 한 적이 있으면 true
+        dispatch(likeActions.deleteLikeAPI(_id)); // 좋아요 해제 실행
+      }
     } else {
-      // 좋아요 한 적이 있으면 true
-      dispatch(likeActions.deleteLikeAPI(_id)); // 좋아요 해제 실행
+      window.alert("로그인이 필요한 서비스입니다.");
     }
-    // } else {
-    //   window.alert("로그인해주세요!");
-    // }
   };
 
   return (
     <Wrap>
-      <Information>
-        <UpTime>
-          <Timer day {...props} />
-        </UpTime>
-        <Heart>
-          {like_list.some((e) => e.productId === _id) ? <FontAwesomeIcon icon={fasHeart} onClick={() => userLike(_id)} /> : <FontAwesomeIcon icon={farHeart} onClick={() => userLike(_id)} />}
-        </Heart>
-        {img.length > 0 && <Image alt="item" img={img} onClick={() => history.push(`/product/detail/${_id}`)} />}
-        <Desc>
+      <UpTime>
+        <Timer day {...props} />
+      </UpTime>
+      {/* <Heart onClick={() => userLike(_id)}>{likeOrNot ? <FontAwesomeIcon icon={fasHeart} /> : <FontAwesomeIcon icon={farHeart} />}</Heart> */}
+      {img.length > 0 && <Image alt="item" img={img} onClick={() => history.push(`/product/detail/${_id}`)} />}
+      <Desc>
+        <div>
           <Title onClick={() => history.push(`/product/detail/${_id}`)}>{title}</Title>
           {/* <Currentprice>{currentprice}</Currentprice> */}
-          <Sucbid>{priceComma(sucBid)}원</Sucbid>
-        </Desc>
-      </Information>
+        </div>
+        <div style={{ textAlign: "right", alignItems: "flex-end" }}>
+          <Heart onClick={() => userLike(_id)}>{likeOrNot ? <FontAwesomeIcon icon={fasHeart} /> : <FontAwesomeIcon icon={farHeart} />}</Heart>
+          <Sucbid>
+            <span className="text">최소입찰가</span>
+            <br />
+            {priceComma(lowBid)}&thinsp;<span className="won">원</span>
+          </Sucbid>
+        </div>
+      </Desc>
     </Wrap>
   );
 };
@@ -67,19 +77,13 @@ PostCard.defaultPorps = {
 };
 
 const Wrap = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 32.5px;
-  margin: 45px 0;
-  box-sizing: border-box;
-`;
-
-const Information = styled.div`
   width: 300px;
-  height: 404px;
-  border: 2px solid ${Color.Primary};
+  height: 420px;
+  /* border: 2px solid ${Color.Primary}; */
   box-shadow: 0 0 10px ${Color.Light_4};
+  border-radius: 30px;
   box-sizing: border-box;
+  overflow: hidden;
 `;
 
 const Image = styled.div`
@@ -87,8 +91,7 @@ const Image = styled.div`
   background-position: center;
   background-size: cover;
   width: 100%;
-  height: 76%;
-  border-radius: 30px 30px 0 0;
+  height: 74%;
   cursor: pointer;
 `;
 
@@ -115,40 +118,68 @@ const Heart = styled.div`
   z-index: 12;
   cursor: pointer;
   width: max-content;
-  position: absolute;
-  margin: 250px 240px;
-  background-color: white;
+  background-color: #ffffff;
   color: ${Color.Primary};
-  font-size: 25px;
+  /* position: absolute;
+  margin: 255px 245px;
+  font-size: 23px;
   padding: 3px;
+  width: 38px;
+  height: 38px; */
   text-align: center;
-  width: 40px;
-  height: 40px;
+  margin: 0 0 0 auto;
   border-radius: 16px;
+  transition: all 200ms ease-in;
+  :active {
+    svg {
+      transform: rotate(15deg);
+    }
+  }
+  :hover {
+    background-color: #ffffff;
+    color: ${Color.Primary};
+  }
 `;
 
 const Desc = styled.div`
   font-size: 20px;
   font-weight: bold;
   color: #2e2e2e;
-  width: 300px;
+  width: 100%;
   min-height: 104px;
-  border-radius: 0 0 30px 30px;
-
-  text-align: left;
-  box-sizing: border-box;
-  /* background-color: ${Color.Light_2}; */
+  display: flex;
+  justify-content: space-between;
+  /* flex-direction: column; */
+  line-height: 180%;
+  padding-left: 22px;
+  padding-right: 15px;
+  margin-top: 10px;
 `;
 
 const Title = styled.div`
-  padding-top: 16px;
-  text-overflow: ellipsis;
-  overflow: hidden;
+  /* 한줄일때 글자수 줄이기 */
+  width: 180px;
+  display: inline-block;
   white-space: nowrap;
-  width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* */
   cursor: pointer;
 `;
 
-const Sucbid = styled.div``;
+const Sucbid = styled.div`
+  /* text-align: right; */
+  line-height: 100%;
+  color: ${Color.Primary};
+  .text {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -1px;
+    color: ${Color.Light_4};
+  }
+  .won {
+    color: ${Color.Dark_1};
+  }
+`;
 
 export default PostCard;

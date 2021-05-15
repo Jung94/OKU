@@ -188,13 +188,13 @@ const getAlertAPI = () => {
     fetch(_API, {
       method: "GET",
       headers: {
-        access_token: `${access_token}`,
+        access_token: access_token,
       },
     })
       .then((res) => res.json())
       .then((res) => {
         dispatch(setAlert(res.alreadyCheck));
-        console.log(res);
+        // console.log(res);
         // unstructureObj.sort(function (a, b) {
         //   return a.createAt > b.createAt ? -1 : a.createAt < b.createAt ? 1 : 0;
         // }

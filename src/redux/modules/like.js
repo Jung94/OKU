@@ -9,21 +9,19 @@ const GET_LIKE = "GET_LIKE"; //좋아요 있는지 확인하기
 const ADD_LIKE = "ADD_LIKE"; //좋아요 추가하기
 const DELETE_LIKE = "DELETE_LIKE"; //좋아요 삭제하기
 const GET_MY_LIKE_LIST = "GET_MY_LIKE_LIST"; // 마이페이지 좋아요 리스트 가져오기
-const GET_LIKE_LIST = "GET_LIKE_LIST"; // 모든 좋아요 리스트
 
 //actionCreators
 const getLike = createAction(GET_LIKE, (id, likelist) => ({ id, likelist }));
 const addLike = createAction(ADD_LIKE, (id, likelist) => ({ id, likelist }));
-const deleteLike = createAction(DELETE_LIKE, (productId) => ({ productId }));
-const getMyLikeList = createAction(GET_MY_LIKE_LIST, (like_list) => ({ like_list }));
-const getLikeList = createAction(GET_LIKE_LIST, (like_list) => ({ like_list }));
+const deleteLike = createAction(DELETE_LIKE, (id, likelist) => ({ id, likelist }));
+const getMyLikeList = createAction(GET_MY_LIKE_LIST, (likelist) => ({ likelist }));
 
 const initialState = {
   is_loading: false,
   is_like: false,
-  my_like_list: [],
   like_list: [],
   productId: 0,
+  my_like_list: [],
 };
 
 const getLikeAPI = (_id) => {
@@ -48,6 +46,53 @@ const getLikeAPI = (_id) => {
   };
 };
 
+const addLikeAPI = (_id) => {
+  return function (dispatch, getState, { history }) {
+    const _like_list = getState().like.like_list;
+    const access_token = localStorage.getItem("access_token");
+    fetch(`${API}/product/pick/${_id}`, {
+      method: "POST",
+      headers: {
+        access_token: `${access_token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        dispatch(addLike(_id, _like_list));
+        // 디테일 페이지 확인용
+      })
+      .catch((error) => {
+        console.log("addLikeAPI에 문제가 있습니다.", error);
+      });
+  };
+};
+
+const deleteLikeAPI = (_id) => {
+  return function (dispatch, getState, { history }) {
+    const _like_list = getState().like.like_list;
+    const access_token = localStorage.getItem("access_token");
+    fetch(`${API}/user/pick/${_id}`, {
+      method: "DELETE",
+      headers: {
+        access_token: access_token,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.okay) {
+          dispatch(deleteLike(_id, _like_list));
+          // 디테일 페이지 확인용
+        } else {
+          console.log("result.ok is NOT ok.");
+        }
+      })
+      .catch((error) => {
+        console.log("deleteLikeAPI에 문제가 있습니다.", error);
+      });
+  };
+};
+
+// 마이페이지용
 const getMyLikeListAPI = () => {
   return function (dispatch, getState, { history }) {
     const access_token = localStorage.getItem("access_token");
@@ -71,15 +116,14 @@ const getMyLikeListAPI = () => {
             );
           });
           // 4개만 받아오기
-          dispatch(getLikeList(likeResult));
-          if (likeResult.length === 0) {
-            dispatch(getMyLikeList([]));
-          } else if (likeResult.length < 5) {
+          if (likeResult.length <= 5) {
             dispatch(getMyLikeList(likeResult));
           } else {
             dispatch(getMyLikeList(likeResult.slice(0, 4)));
           }
         } else {
+          // 아무것도 없을 때도 디스패치..!
+          dispatch(getMyLikeList([]));
         }
       })
       .catch((error) => {
@@ -88,85 +132,37 @@ const getMyLikeListAPI = () => {
   };
 };
 
-const addLikeAPI = (_id) => {
-  return function (dispatch, getState, { history }) {
-    const access_token = localStorage.getItem("access_token");
-    fetch(`${API}/product/pick/${_id}`, {
-      method: "POST",
-      headers: {
-        access_token: `${access_token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        dispatch(addLike());
-        dispatch(getMyLikeListAPI());
-        dispatch(loadingActions.loading(false));
-      })
-      .catch((error) => {
-        console.log("addLikeAPI에 문제가 있습니다.", error);
-      });
-  };
-};
-
-const deleteLikeAPI = (_id) => {
-  return function (dispatch, getState, { history }) {
-    const access_token = localStorage.getItem("access_token");
-    fetch(`${API}/user/pick/${_id}`, {
-      method: "DELETE",
-      headers: {
-        access_token: access_token,
-      },
-      body: {
-        productId: _id,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.okay) {
-          dispatch(deleteLike(_id));
-          dispatch(getMyLikeListAPI());
-        } else {
-          console.log("result.ok is NOT ok.");
-        }
-      })
-      .catch((error) => {
-        console.log("deleteLikeAPI에 문제가 있습니다.", error);
-      });
-  };
-};
-
 export default handleActions(
   {
     [GET_LIKE]: (state, action) =>
       produce(state, (draft) => {
-        console.log("🚀", action.payload);
+        // 찜 리스트
+        draft.like_list = action.payload.likelist;
+        // console.log(draft.like_list); // api랑 직접적으로 연결된거임.. 다른 한다리 건넌 draft는 proxy로 뜬다..
+        // 디테일 페이지 찜 되어 있는지 아닌지 확인용
         let checkLike = action.payload.likelist;
         draft.is_like = checkLike.some((c) => c.productId === action.payload.id);
+        console.log(draft.is_like);
       }),
     [ADD_LIKE]: (state, action) =>
       produce(state, (draft) => {
+        draft.like_list = action.payload.likelist; // 관리중인 좋아요 리스트 가져오고
+        draft.like_list.push({ productId: action.payload.id }); // 좋아요한 아이디를 넣어준다
+        // 디테일 페이지 좋아요 유무
         draft.is_like = true;
       }),
-    [DELETE_LIKE]: (state, action) =>
+    [DELETE_LIKE]: (state, action, getState) =>
       produce(state, (draft) => {
+        draft.like_list = action.payload.likelist; // 관리중인 좋아요 리스트 가져오고
+        draft.like_list.pop((r) => r.productId === action.payload.id);
+        // 디테일 페이지 좋아요 유무
         draft.is_like = false;
-        draft.my_like_list.filter((r) => r.productId !== action.payload.id);
       }),
+
+    // 마이페이지용
     [GET_MY_LIKE_LIST]: (state, action) =>
       produce(state, (draft) => {
-        if (!action.payload.like_list) {
-          return;
-        }
-        draft.my_like_list = action.payload.like_list;
-      }),
-    [GET_LIKE_LIST]: (state, action) =>
-      produce(state, (draft) => {
-        if (!action.payload.like_list) {
-          return;
-        }
-        draft.like_list = action.payload.like_list;
-        console.log(draft.like_list);
+        draft.my_like_list = action.payload.likelist;
       }),
   },
   initialState
@@ -176,6 +172,7 @@ const actionCreators = {
   getLike,
   getLikeAPI,
   addLikeAPI,
+  deleteLike,
   deleteLikeAPI,
   getMyLikeList,
   getMyLikeListAPI,

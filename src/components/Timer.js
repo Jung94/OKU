@@ -67,18 +67,33 @@ const Timer = (props) => {
   }
 
   if (timeProgress) {
-    return (
-      <>
-        {onSale && deadline - timeNow > 0 ? (
-          <Bar>
-            <ProgressBar color={Color.Primary} bar={bar} roundPrimary={5} />
-            <ProgressBar color={Color.Light_3} bar={100 - bar} roundLight={5} />
-          </Bar>
-        ) : (
-          <></>
-        )}
-      </>
-    );
+    if (white) {
+      return (
+        <>
+          {onSale && deadline - timeNow > 0 ? (
+            <Bar>
+              <ProgressBar color={Color.Primary} bar={bar} roundPrimary={5} />
+              <ProgressBar color="white" bar={100 - bar} roundLight={5} />
+            </Bar>
+          ) : (
+            <></>
+          )}
+        </>
+      );
+    } else {
+      return (
+        <>
+          {onSale && deadline - timeNow > 0 ? (
+            <Bar>
+              <ProgressBar color={Color.Primary} bar={bar} roundPrimary={5} />
+              <ProgressBar color={Color.Light_3} bar={100 - bar} roundLight={5} />
+            </Bar>
+          ) : (
+            <></>
+          )}
+        </>
+      );
+    }
   }
 };
 

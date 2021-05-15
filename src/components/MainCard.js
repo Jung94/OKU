@@ -16,96 +16,173 @@ import { Color } from "shared/DesignSys";
 const MainCard = (props) => {
   const { img, title, deadLine, sucBid, _id } = props;
   return (
-    <Section onClick={() => history.push(`/product/detail/${_id}`)}>
-      <Image style={{ backgroundImage: `url(` + img + `)`, backgroundPosition: "center", backgroundSize: "cover" }}>
+    <Section>
+      <Image img={img} className="img" onClick={() => history.push(`/product/detail/${_id}`)}>
         {/* <img src={i.img[0]} /> */}
         <Desc>
-          <Title>{title}</Title>
+          <Title className="title">
+            <Text h1>{title}</Text>
+          </Title>
 
-          <Bottom>
+          <Bottom className="text">
             <TimerWrap>
               <Text h2>
-                <Timer all {...props} purple />
+                <Timer all {...props} white />
               </Text>
-              <Timer timeProgress {...props} />
+              <Timer timeProgress white {...props} />
             </TimerWrap>
             {/* <Currentprice>{i.currentprice}</Currentprice> */}
             <Sucbid>
               <div>
                 <FontAwesomeIcon icon={faCircle} />
-                <span style={{ fontSize: "20px", textShadow: "0 1.5px 3px rgba(0, 0, 0, 0.16)" }}> 실시간 입찰가</span>
+                <span> 최소 입찰가&ensp;</span>
               </div>
-              {priceComma(sucBid)}원
+              <div className="price">
+                <span className="text">&thinsp;{priceComma(sucBid)}&thinsp;</span>원&thinsp;
+              </div>
             </Sucbid>
           </Bottom>
         </Desc>
+        <Screen className="screen" />
       </Image>
     </Section>
   );
 };
 
 const Section = styled.div`
-overflow: hidden;
+  .img {
+    transition: all 500ms ease-in-out;
+    box-shadow: 0 0 0px ${Color.Light_4};
+    border: 0.5px solid ${Color.Light_4};
+  }
+  .price {
+    transition: all 200ms ease-in-out;
+  }
+  :hover {
+    .title {
+      color: ${Color.Primary};
+      text-shadow: none;
+    }
+    .screen {
+      opacity: 0;
+    }
+    .img {
+      box-shadow: 0 0 10px ${Color.Light_4};
+      border: 0.5px solid ${Color.Light_4};
+      transform: scale(1.01);
+    }
+    .text {
+    }
+    .price {
+      border-radius: 16px;
+      background-color: ${Color.Primary}99;
+    }
+  }
 `;
+
 const Desc = styled.div`
   z-index: 10;
   position: absolute;
-  width: 600px;
+  width: 0px;
 `;
+
 const Title = styled.div`
   text-align: Left;
-  font-size: 45px;
-  font-weight: 500;
+  width: 600px;
   color: #ffffff;
-  margin: 62px 0 0 50px;
-  text-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.16);
+  margin: 50px 0 0 50px;
+  text-shadow: 0 1.5px 10px rgba(0, 0, 0, 0.2);
 `;
+
+const Screen = styled.div`
+  z-index: 12;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  cursor: pointer;
+  border-radius: 30px;
+  object-fit: cover;
+  overflow: hidden;
+  background-color: ${Color.Dark_1};
+  background-position: center;
+  background-size: cover;
+  transition: 400ms ease-in-out;
+  opacity: 0.4;
+`;
+
 const Image = styled.div`
-: hover {
-}
   width: 700px;
   height: 700px;
   margin: 0 auto;
   cursor: pointer;
-  border-radius: 50px;
+  border-radius: 30px;
   object-fit: cover;
+  overflow: hidden;
+  background-color: ${Color.Light_1};
+  background: url(${(props) => props.img}) no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  /* background-color: #00000022; */
 `;
+
 const Bottom = styled.div`
+  position: relative;
   display: flex;
-  width: 100%;
+
+  width: 700px;
+  height: min-content;
   justify-content: space-between;
-  align-items: center;
-  margin: 450px 0 0 50px;
+  margin-top: 390px;
+  padding: 50px;
+`;
+
+const TimerWrap = styled.div`
+  width: max-content;
+
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+
+  text-shadow: 0 1.5px 10px rgba(0, 0, 0, 0.25);
+`;
+
+const Sucbid = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  align-self: flex-end;
+
+  color: #ffffff;
+  font-size: 35px;
+  font-weight: 700;
+  span {
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  text-shadow: 0 1.5px 10px rgba(0, 0, 0, 0.25);
+
+  .text {
+    display: inline-block;
+    font-size: 40px;
+    font-weight: 700;
+    vertical-align: -2px;
+  }
+  & > div > {
+    svg {
+      align-items: center;
+      vertical-align: 0.2px;
+      font-size: 15px;
+      color: ${Color.Primary};
+    }
+  }
 `;
 
 // const Currentprice = styled.div``;
 const Deadline = styled.div`
   width: 252px;
-  text-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.16);
-`;
-const Sucbid = styled.div`
-  font-size: 35px;
-  display: flex;
-  flex-direction: column;
-  text-align: right;
-  color: #ffffff;
-  text-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.16);
-  margin-bottom: 10px;
-  & > div > {
-    align-items: center;
-    svg {
-      font-size: 16px;
-      color: ${Color.Primary};
-      vertical-align: 0.6px;
-    }
-  }
-`;
-
-const TimerWrap = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: max-content;
-  vertical-align: baseline;
+  text-shadow: 0 1.5px 10px rgba(0, 0, 0, 0.25);
 `;
 
 export default MainCard;
