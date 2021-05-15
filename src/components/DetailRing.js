@@ -49,23 +49,14 @@ const DetailRing = (props) => {
         </div>
         <RingDetail>
           <Contents>
-            {/* {_alert.map((i, idx) => {
-              console.log("asdasd💜",_alert)
-              return ( */}
-            <Box>
-              <Desc>
-                <AlertTitle>
-                  <TitleLeft>안녕</TitleLeft>
-                  <TitleRight>1분전</TitleRight>
-                </AlertTitle>
-                <AlertCotents>'손오공 드래곤볼'의 낙찰이 성사되었습니다.</AlertCotents>
-              </Desc>
-              <Line />
-            </Box>
-            {/* );
-            })} */}
+            {_alert.map((i, idx) => {
+              console.log("알림입니다",_alert)
+              return (
+            <RingContents key={idx} {...i} />
+            );
+            })} 
 
-            <Box>
+            {/* <Box>
               <Desc>
                 <AlertTitle>
                   <TitleLeft>문의답글</TitleLeft>
@@ -108,7 +99,7 @@ const DetailRing = (props) => {
                 <Chatting>거래 채팅 진행하기</Chatting>
               </Desc>
               <Line />
-            </Box>
+            </Box> */}
           </Contents>
         </RingDetail>
       </Wrap>
@@ -147,6 +138,8 @@ const Wrap = styled.div`
 `;
 
 const RingDetail = styled.div`
+  overflow : auto;
+  height :330px;
   z-index: 10;
   position: absolute;
   width: 300px;
@@ -169,42 +162,4 @@ const Desc = styled.div`
 const Contents = styled.div`
   margin: 26px 0 103.6px 0;
 `;
-
-const NotiBadge = styled.img``;
-const AlertTitle = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const TitleLeft = styled.span`
-  color: #ae00ff;
-  font-size: 14px;
-`;
-const TitleRight = styled.span`
-  color: #cacaca;
-  font-size: 12px;
-`;
-const AlertCotents = styled.div`
-  color: #707070;
-  font-size: 13px;
-  margin-top: 3px;
-  font-weight: 400;
-`;
-const Chatting = styled.button`
-  display: block;
-  margin: 0px auto;
-  width: 217.8px;
-  height: 25px;
-  border-radius: 7px;
-  color: #ffffff;
-  background: #ae00ff;
-  border: none;
-  cursor: pointer;
-  font-size: 12px;
-`;
-const Line = styled.div`
-  border-bottom: 1px solid #d0d0d0;
-  cursor: default;
-`;
-
 export default DetailRing;

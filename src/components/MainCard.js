@@ -44,7 +44,9 @@ const MainCard = (props) => {
   );
 };
 
-const Section = styled.div``;
+const Section = styled.div`
+overflow: hidden;
+`;
 const Desc = styled.div`
   z-index: 10;
   position: absolute;
@@ -59,11 +61,14 @@ const Title = styled.div`
   text-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.16);
 `;
 const Image = styled.div`
+: hover {
+}
   width: 700px;
   height: 700px;
   margin: 0 auto;
   cursor: pointer;
   border-radius: 50px;
+  object-fit: cover;
 `;
 const Bottom = styled.div`
   display: flex;

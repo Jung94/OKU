@@ -12,7 +12,7 @@ const GET_MY_LIKE_LIST = "GET_MY_LIKE_LIST"; // 마이페이지 좋아요 리스
 const GET_LIKE_LIST = "GET_LIKE_LIST"; // 모든 좋아요 리스트
 
 //actionCreators
-const getLike = createAction(GET_LIKE, (likeOrNot) => ({ likeOrNot }));
+const getLike = createAction(GET_LIKE, (id, likelist) => ({ id, likelist }));
 const addLike = createAction(ADD_LIKE, (id, likelist) => ({ id, likelist }));
 const deleteLike = createAction(DELETE_LIKE, (productId) => ({ productId }));
 const getMyLikeList = createAction(GET_MY_LIKE_LIST, (like_list) => ({ like_list }));
@@ -38,24 +38,7 @@ const getLikeAPI = (_id) => {
       .then((res) => res.json())
       .then((res) => {
         if (res.okay && res.result.length > 0) {
-          // 유저 한명당 좋아요 개수 제한 없는 상태
-          // 배열 그대로 받으면 좋아요가 여러개임
-          // 중복 productId 제거하기
-          // console.log(_id);
-          const likeResult = res.result.filter((r, idx) => {
-            return (
-              res.result.findIndex((_r, _idx) => {
-                return r.productId === _r.productId;
-              }) === idx
-            );
-          });
-          const checkLike = (r) => {
-            if (r.productId === _id) {
-              return true;
-            }
-          };
-          const likeOrNot = likeResult.some(checkLike);
-          dispatch(getLike(likeOrNot));
+          dispatch(getLike(_id, res.result));
         } else {
         }
       })
@@ -107,8 +90,6 @@ const getMyLikeListAPI = () => {
 
 const addLikeAPI = (_id) => {
   return function (dispatch, getState, { history }) {
-    // dispatch(loadingActions.loading(true));
-    let likelist = getState().like.like_list;
     const access_token = localStorage.getItem("access_token");
     fetch(`${API}/product/pick/${_id}`, {
       method: "POST",
@@ -118,7 +99,8 @@ const addLikeAPI = (_id) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        dispatch(addLike(_id, likelist));
+        dispatch(addLike());
+        dispatch(getMyLikeListAPI());
         dispatch(loadingActions.loading(false));
       })
       .catch((error) => {
@@ -129,7 +111,6 @@ const addLikeAPI = (_id) => {
 
 const deleteLikeAPI = (_id) => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     const access_token = localStorage.getItem("access_token");
     fetch(`${API}/user/pick/${_id}`, {
       method: "DELETE",
@@ -144,7 +125,7 @@ const deleteLikeAPI = (_id) => {
       .then((res) => {
         if (res.okay) {
           dispatch(deleteLike(_id));
-          dispatch(loadingActions.loading(false));
+          dispatch(getMyLikeListAPI());
         } else {
           console.log("result.ok is NOT ok.");
         }
@@ -159,16 +140,13 @@ export default handleActions(
   {
     [GET_LIKE]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_like = action.payload.likeOrNot;
+        console.log("🚀", action.payload);
+        let checkLike = action.payload.likelist;
+        draft.is_like = checkLike.some((c) => c.productId === action.payload.id);
       }),
     [ADD_LIKE]: (state, action) =>
       produce(state, (draft) => {
         draft.is_like = true;
-        console.log(action.payload.id);
-        console.log(action.payload.likelist);
-        // draft.my_like_list.push({ productId: action.payload.id });
-        // console.log(draft.my_like_list);
-        // console.log(action.payload.id);
       }),
     [DELETE_LIKE]: (state, action) =>
       produce(state, (draft) => {
