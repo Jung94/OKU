@@ -1,6 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { API } from 'shared/Api';
+import { API } from "shared/Api";
 import axios from "axios";
 
 import { setLocal, deleteLocal } from "shared/Local";
@@ -27,8 +27,7 @@ const initialState = {
 // 회원 가입
 const signupAPI = (email, pw, pwCheck, nickName, phone) => {
   return function (dispatch, getState, { history }) {
-    const API = `${API}/user/signup`;
-    fetch(API, {
+    fetch(`${API}/user/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -65,8 +64,7 @@ const signupAPI = (email, pw, pwCheck, nickName, phone) => {
 // 일반 로그인
 const loginAPI = (email, pw, autoLogin, saveId) => {
   return function (dispatch, getState, { history }) {
-    const API = `${API}/user/login`;
-    fetch(API, {
+    fetch(`${API}/user/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -111,8 +109,7 @@ const loginAPI = (email, pw, autoLogin, saveId) => {
 // 카카오 로그인
 const loginByKakao = (data) => {
   return function (dispatch, getState, { history }) {
-    // const API = `${API}/user/kakao`;
-    // fetch(API, {
+    // fetch(`${API}/user/kakao`, {
     //   method: "POST",
     //   headers: {
     //     "Content-Type": "application/json",
@@ -124,7 +121,7 @@ const loginByKakao = (data) => {
     //   }),
     // })
     axios({
-      method: 'POST',
+      method: "POST",
       url: `${API}/user/kakao`,
       data: {
         kakao_token: data.kakao_token,
@@ -152,7 +149,7 @@ const loginByKakao = (data) => {
         // history.replace('/home');
       })
       .catch((e) => {
-        console.log('에러발생:', e);
+        console.log("에러발생:", e);
       });
   };
 };

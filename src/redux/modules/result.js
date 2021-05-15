@@ -1,5 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import { API } from "shared/Api";
 
 const SET_PRODUCT_SEARCH = "SET_PRODUCT_SEARCH"; // 검색 페이지
 const SET_SEARCH_PAGE = "SET_SEARCH_PAGE"; // 검색 페이지 - 무한 스크롤
@@ -23,9 +24,8 @@ const getProductSearch = (keyword) => {
     dispatch(setKeyword(keyword));
 
     // const page = getState().movie.search_page;
-    const API = `${API}/product/search?term=${keyword}`;
 
-    fetch(API, {
+    fetch(`${API}/product/search?term=${keyword}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
