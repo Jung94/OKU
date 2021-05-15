@@ -184,7 +184,7 @@ const Signup = (props) => {
 
   // 이메일 사용 가능 여부 확인. 이메일 인풋 포커스 아웃 시
   const checkEmailAPI = (email) => {
-    const API = `${API}/user/signup/email/${email}`;
+    const API = `http://13.124.55.186/user/signup/email/${email}`;
     fetch(API)
       .then((res) => res.json())
       .then((res) => {
@@ -199,7 +199,7 @@ const Signup = (props) => {
 
   // 닉네임 사용 가능 여부 확인. 이메일 인풋 포커스 아웃 시
   const checkNicknameAPI = (nickname) => {
-    const API = `${API}/user/signup/nickname/${nickname}`;
+    const API = `http://13.124.55.186/user/signup/nickname/${nickname}`;
     fetch(API)
       .then((res) => res.json())
       .then((res) => {

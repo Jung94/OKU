@@ -27,7 +27,7 @@ const initialState = {
 // 회원 가입
 const signupAPI = (email, pw, pwCheck, nickName, phone) => {
   return function (dispatch, getState, { history }) {
-    const API = `${API}/user/signup`;
+    const API = "http://13.124.55.186/user/signup";
     fetch(API, {
       method: "POST",
       headers: {
@@ -65,7 +65,7 @@ const signupAPI = (email, pw, pwCheck, nickName, phone) => {
 // 일반 로그인
 const loginAPI = (email, pw, autoLogin, saveId) => {
   return function (dispatch, getState, { history }) {
-    const API = `${API}/user/login`;
+    const API = "http://13.124.55.186/user/login";
     fetch(API, {
       method: "POST",
       headers: {
