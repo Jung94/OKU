@@ -9,6 +9,7 @@ import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch, useRoutes, Link } from "react-router-dom";
 import { history } from "redux/configureStore";
 
+import Social from 'shared/Social';
 import NotFound from "shared/NotFound";
 import Loading from "shared/Loading";
 import { Header, Footer } from "components/";
@@ -52,6 +53,7 @@ const App = (props) => {
             <Route path="/chat" exact component={Chat} />
             <Route path="/chat/:otherId/:myId/:otherName" exact component={Chat} />
             <Route path="/my" component={My} />
+            <Route path='/social/:id' exact component={Social} />
             <Route component={NotFound} />
           </Switch>
         </ConnectedRouter>

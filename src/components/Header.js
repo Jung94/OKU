@@ -368,19 +368,41 @@ const Header = (props) => {
                 <DetailRing />
               </Ring>
 
-              <Grid
-                className="block pointer"
-                width="max-content"
-                padding="0 20px"
-                is_flex
-                gap="5px"
-                __click={() => {
-                  history.push("/chat");
-                }}
-              >
-                <FontAwesomeIcon icon={chatIcon} />
-                채팅
-              </Grid>
+              {!is_login && (
+                <>
+                  <Grid
+                    className="block pointer"
+                    width="max-content"
+                    padding="0 20px"
+                    is_flex
+                    gap="5px"
+                    __click={() => {
+                      history.push("/login");
+                    }}
+                  >
+                    <FontAwesomeIcon icon={chatIcon} />
+                    채팅
+                  </Grid>
+                </>
+              )}
+
+              {is_login && (
+                <>
+                  <Grid
+                    className="block pointer"
+                    width="max-content"
+                    padding="0 20px"
+                    is_flex
+                    gap="5px"
+                    __click={() => {
+                      history.push("/chat");
+                    }}
+                  >
+                    <FontAwesomeIcon icon={chatIcon} />
+                    채팅
+                  </Grid>
+                </>
+              )}
 
               {!is_login && (
                 <>

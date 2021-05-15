@@ -13,8 +13,6 @@ import { Color } from "shared/DesignSys";
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import KakaoLogin from "react-kakao-login";
-
 const Login = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
@@ -188,9 +186,13 @@ const Login = (props) => {
       </Button>
       <SocialBox>
         {/* <Naver/> */}
-        <KakaoLogin 
-          token={KAKAO_JS_ID} render={(props) => <KakaoBtn onClick={props.onClick}></KakaoBtn>} onSuccess={kakaoLoginClickHandler} getProfile={true}
-        ></KakaoLogin>
+        <KakaoBtn href='http://13.124.55.186/user/kakao'
+          // token={KAKAO_JS_ID} render={(props) => <KakaoBtn onClick={props.onClick}></KakaoBtn>} onSuccess={kakaoLoginClickHandler} getProfile={true}
+        >
+         <div
+          // alt='카톡'
+        />
+        </KakaoBtn>
         {/* <Google/> */}
       </SocialBox>
       <Text subBody textAlign="center" marginT="20px" color={Color.Dark_4}>
@@ -223,7 +225,31 @@ const SocialBox = styled.div`
   color: rgba(0, 0, 0, 0.5);
 `;
 
-const KakaoBtn = styled.div`
+// const KakaoBtn = styled.a`
+//   height: 50px;
+//   width: 47%;
+//   border-radius: 27.5px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   font-size: 14px;
+//   font-weight: bold;
+//   background-color: rgb(254, 229, 0);
+//   border: 0;
+//   cursor: pointer;
+//   color: #000;
+//   & div {
+//     width: 22px;
+//     margin-right: 12px;
+//     background-size: cover;
+//     background-image: url('kakao_login_large_wide.png');
+//   }
+//   &:hover {
+//     color: #000;
+//   }
+// `;
+
+const KakaoBtn = styled.a`
   cursor: pointer;
   width: 100%;
   height: 50px;
@@ -242,7 +268,7 @@ const KakaoBtn = styled.div`
     box-shadow: 0 0px 4px 0 rgba(0, 0, 0, 0.2);
     border: 1px solid #fee500;
     box-shadow: 0 0 0 3px #fee50033;
-    background-size: 100%;
+    background-size: 100%; 
   }
 `;
 

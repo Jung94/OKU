@@ -173,13 +173,13 @@ const ProductUpload = React.memo((props) => {
   };
 
   const addPost = () => {
-    console.log(agree);
+
     if (!fileInput.current.files[0] && !fileInput1.current.files[0] && !fileInput2.current.files[0]) {
       window.alert("파일을 선택해주세요!");
       return;
     }
 
-    if ( !title || !cateBig || !cateSmall || !productState || !deadline || !lowbid || !sucbid || !delivery || !productDesc ) {
+    if ( !title || !cateBig || !cateSmall || !productState || !deadline || !lowbid || !sucbid || delivery === "" || !productDesc ) {
       window.alert("필수항목을 입력해주세요!");
       return;
     }
@@ -341,6 +341,7 @@ const ProductUpload = React.memo((props) => {
           plcholder="상품에 대해 추가적으로 기입할 정보를 입력해주세요."
           style={{ padding: "6px 10px", marginTop: "13px", width: "700px", height: "200px", fontSize: "14px" }}
           rows="10"
+          whiteSpace="pre-line"
         ></Input>
       </Grid>
       <Grid margin="0 0 35px 0">

@@ -20,7 +20,7 @@ const Input = (props) => {
   // radio -> 상품 업로드
   // check -> 로그인
 
-  const { output, text, check, radio, info, fix, left, disabled, checked, maxLength, width, height, margin, adorn, adornment, plcholder, num, children, value, name, id, _onClick, _onChange, _onKeyPress, _onFocus, _onBlur, type, fnc, btn, desc } = props;
+  const { whiteSpace, output, text, check, radio, info, fix, left, disabled, checked, maxLength, width, height, margin, adorn, adornment, plcholder, num, children, value, name, id, _onClick, _onChange, _onKeyPress, _onFocus, _onBlur, type, fnc, btn, desc } = props;
 
   const styles = {
     name: name,
@@ -43,6 +43,7 @@ const Input = (props) => {
     output: output,
     fix: fix,
     adorn: adorn,
+    whiteSpace: whiteSpace,
   };
   const inputEl = useRef();
 
@@ -327,6 +328,7 @@ const TextareaBox = styled.div`
   }
   textarea {
     ${(props) => (props.fix ? `resize: none;` : "")}
+    white-space: ${(props) => (props.whiteSpace ? props.whiteSpace : "")};
     box-sizing: border-box;
     width: 100%;
     background-color: transparent;
