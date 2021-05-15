@@ -17,8 +17,20 @@ const RingContents = (props) => {
                 {moment(creatAt).fromNow()}
                 </TitleRight>
                 </AlertTitle>
-                <AlertCotents>"{productTitle}"의 낙찰이 성사되었습니다.</AlertCotents>
-                <Chatting>거래 채팅 진행하기</Chatting>
+                {
+                (() => {
+                    if (productTitle === "판매실패") return ( <AlertCotents>"{productTitle}"의 판매가 실패되었습니다.</AlertCotents>);
+                    else if (productTitle === "낙찰성공") return ( 
+                    <div>
+                    <AlertCotents>"{productTitle}"의 낙찰이 성사되었습니다.</AlertCotents>
+                    <Chatting>거래 채팅 진행하기</Chatting>
+                    </div>);
+                    else if (productTitle === "낙찰실패") return ( <AlertCotents>"{productTitle}"의 낙찰이 실패되었습니다.</AlertCotents>);
+                    else if (productTitle === "문의") return ( <AlertCotents>"{productTitle}"의 문의댓글이 작성되었습니다.</AlertCotents>);
+                    else if (productTitle === "문의답글") return ( <AlertCotents>"{productTitle}"의 문의답글이 작성되었습니다.</AlertCotents>);
+                })
+                }
+                
             </Desc>
             <Line/>
         </Box>

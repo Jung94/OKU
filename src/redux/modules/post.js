@@ -193,12 +193,11 @@ fetch(_API, {
 })
 .then((res) => res.json())
 .then((res) => {
-  dispatch(setAlert(res.alreadyCheck));
+  dispatch(setAlert(res));
   console.log(res);
   // unstructureObj.sort(function (a, b) {
   //   return a.createAt > b.createAt ? -1 : a.createAt < b.createAt ? 1 : 0;
   // }
-  
 })
 .catch((error) => {
   console.log("알림 문제", error);

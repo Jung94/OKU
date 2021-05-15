@@ -147,7 +147,6 @@ const Container = (props) => {
     draggable: false,
     className: "center",
     centerMode: true,
-    centerPadding: "20%",
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
 
