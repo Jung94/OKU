@@ -399,7 +399,6 @@ const ProductUpload = React.memo((props) => {
         <Input
           check
           checked={agree}
-          _onChange={handleAgree}
           _onClick={() => {
             if (agree) {
               setAgree(false);

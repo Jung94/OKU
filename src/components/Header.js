@@ -286,19 +286,42 @@ const Header = (props) => {
                   채팅
                 </Grid>
 
-                <Grid
-                  className="pointer"
-                  width="max-content"
-                  padding="0 0 0 20px"
-                  is_flex
-                  gap="5px"
-                  __click={() => {
-                    history.push("/ProductUpload");
-                  }}
-                >
-                  <FontAwesomeIcon icon={uploadIcon} />
-                  물건등록
-                </Grid>
+                {!is_login && (
+                  <>
+                    <Grid
+                      className="pointer"
+                      width="max-content"
+                      padding="0 0 0 20px"
+                      is_flex
+                      gap="5px"
+                      __click={() => {
+                        history.push("/login");
+                      }}
+                    >
+                      <FontAwesomeIcon icon={uploadIcon} />
+                      물건등록
+                    </Grid>
+                  </>
+                )}
+
+                {is_login && (
+                  <>
+                    <Grid
+                      className="pointer"
+                      width="max-content"
+                      padding="0 0 0 20px"
+                      is_flex
+                      gap="5px"
+                      __click={() => {
+                        history.push("/ProductUpload");
+                      }}
+                    >
+                      <FontAwesomeIcon icon={uploadIcon} />
+                      물건등록
+                    </Grid>
+                  </>
+                )}
+
               </IconWrap>
             </Grid>
           </Grid>

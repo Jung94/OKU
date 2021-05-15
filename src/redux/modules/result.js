@@ -23,7 +23,7 @@ const getProductSearch = (keyword) => {
     dispatch(setKeyword(keyword));
 
     // const page = getState().movie.search_page;
-    const API = `http://3.35.137.38/product/search?term=${keyword}`;
+    const API = `${API}/product/search?term=${keyword}`;
 
     fetch(API, {
       method: "GET",

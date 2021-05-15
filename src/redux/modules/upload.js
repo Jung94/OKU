@@ -77,7 +77,7 @@ const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, p
     formData.append("description", productDesc);
     formData.append("tag", tags);
 
-    const API = "http://3.35.137.38/product/";
+    const API = `${API}/product/`;
     fetch(API, {
       method: "POST",
       headers: {

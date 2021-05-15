@@ -1,5 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import { API } from 'shared/Api';
 import axios from "axios";
 
 import { setLocal, deleteLocal } from "shared/Local";
@@ -26,7 +27,7 @@ const initialState = {
 // 회원 가입
 const signupAPI = (email, pw, pwCheck, nickName, phone) => {
   return function (dispatch, getState, { history }) {
-    const API = "http://3.35.137.38/user/signup";
+    const API = `${API}/user/signup`;
     fetch(API, {
       method: "POST",
       headers: {
@@ -64,7 +65,7 @@ const signupAPI = (email, pw, pwCheck, nickName, phone) => {
 // 일반 로그인
 const loginAPI = (email, pw, autoLogin, saveId) => {
   return function (dispatch, getState, { history }) {
-    const API = "http://3.35.137.38/user/login";
+    const API = `${API}/user/login`;
     fetch(API, {
       method: "POST",
       headers: {
@@ -108,19 +109,69 @@ const loginAPI = (email, pw, autoLogin, saveId) => {
 };
 
 // 카카오 로그인
+const loginByKakao = (data) => {
+  return function (dispatch, getState, { history }) {
+    // const API = `${API}/user/kakao`;
+    // fetch(API, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     Accept: "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     email: email,
+    //     password: pw,
+    //   }),
+    // })
+    axios({
+      method: 'POST',
+      url: `${API}/user/kakao`,
+      data: {
+        kakao_token: data.kakao_token,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        // 발급 받은 토큰
+        // const jwtToken = res.data.token;
+        // // 로컬에 저장
+        // setLocal('is_login', jwtToken);
+        // // 헤더에 토큰 default
+        // axios.defaults.headers.common['token'] = `${jwtToken}`;
+        // dispatch(
+        //   setUser({
+        //     email: res.data.user.email,
+        //     uid: res.data.user.id,
+        //     nickname: res.data.user.nickname,
+        //     // profile_img: res.data.user.profile_img,
+        //     // comment_myself: res.data.user.comment_myself,
+        //     // snsId: res.data.user.snsId,
+        //   }),
+        // );
+        // 뒤로가기 시 main이 보이게 끔 replace 사용(사용자 경험 개선)
+        // history.replace('/home');
+      })
+      .catch((e) => {
+        console.log('에러발생:', e);
+      });
+  };
+};
+
+// 카카오 로그인
 // const loginByKakao = (data) => async (dispatch, getState, { history }) => {
 //     try {
 //       // 카카오 로그인으로 받아온 토큰으로 서버에서 jwt 토근을 받아옴
 //       const res = await userAPI.loginByKakao(data);
 
-//       const token = res.data.token;
-//       const username = res.data.username;
-//       const userId = res.data.userid;
+//       const token = res.data.kakao_token;
+//       // const email = res.data.kakao_email;
+//       const nickname = res.data.kakao_nickname;
+//       // const userId = res.data.userid;
 
 //       // 받아온정보 쿠키저장
 //       setLocal('access_token', token);
-//       setLocal('nickname', username);
-//       setLocal('userId', userId);
+//       setLocal('nickname', nickname);
+//       // setLocal('userId', userId);
 
 //       // 헤더에 토큰 저장
 //       axios.defaults.headers.common['token'] = `${token}`;
@@ -230,6 +281,7 @@ const actionCreators = {
   loginMsg,
   autoLogin,
   saveIdLocalstorage,
+  loginByKakao,
 };
 
 export { actionCreators };

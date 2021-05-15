@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import produce from 'immer';
 import socketIOClient from 'socket.io-client';
 import axios from 'axios';
-import { config } from 'config';
+import { API } from 'shared/Api';
 
 // 액션
 const GET_MSG = 'GET_MSG';
@@ -28,8 +28,8 @@ const initialState = {
 };
 
 // 소켓 설정(전역으로 사용하기위해 export)
-const socket = socketIOClient(`${config.api}/chat`);
-const globalSocket = socketIOClient(`${config.api}/`);
+const socket = socketIOClient(`${API}/chat`);
+const globalSocket = socketIOClient(`${API}/`);
 
 // 유저 목록 조회
 const middlewareUsers = () => {
@@ -38,7 +38,7 @@ const middlewareUsers = () => {
     
     axios({
       method: 'get',
-      url: `${config.api}/chat/member`,
+      url: `${API}/chat/member`,
       headers: {
         access_token: `${access_token}`,
       },

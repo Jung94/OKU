@@ -75,17 +75,15 @@ const Login = (props) => {
     // console.log(kakao_email);
 
     // 카카오 로그인 후 받아온 정보들(토큰, 이메일, 닉네임) 서버에 전달
-    // dispatch(
-    //     userActions.loginByKakao({
-    //         kakao_token: kakao_access_token,
-    //         // kakao_refresh_token: kakao_refresh_token,
-    //         kakao_email: kakao_email,
-    //         kakao_nickname: kakao_nickname,
-    //     })
-    // );
+    dispatch(
+        userActions.loginByKakao({
+            kakao_token: kakao_access_token,
+            // kakao_refresh_token: kakao_refresh_token,
+            // kakao_email: kakao_email,
+            // kakao_nickname: kakao_nickname,
+        })
+    );
   };
-
-  // const kakaoLoginClickHandler
 
   // 로그인 되어있을때 로그인 페이지 접근 방지
   if (is_login) {
@@ -190,7 +188,9 @@ const Login = (props) => {
       </Button>
       <SocialBox>
         {/* <Naver/> */}
-        <KakaoLogin token={KAKAO_JS_ID} render={(props) => <KakaoBtn onClick={props.onClick}></KakaoBtn>} onSuccess={kakaoLoginClickHandler} getProfile={true}></KakaoLogin>
+        <KakaoLogin 
+          token={KAKAO_JS_ID} render={(props) => <KakaoBtn onClick={props.onClick}></KakaoBtn>} onSuccess={kakaoLoginClickHandler} getProfile={true}
+        ></KakaoLogin>
         {/* <Google/> */}
       </SocialBox>
       <Text subBody textAlign="center" marginT="20px" color={Color.Dark_4}>
@@ -205,9 +205,9 @@ const Login = (props) => {
 
 const Wrap = styled.div`
   width: 350px;
-  min-height: 63vh;
+  min-height: 60vh;
   height: 100%;
-  margin: 230px auto auto;
+  margin: 270px auto auto;
   box-sizing: border-box;
 `;
 

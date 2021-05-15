@@ -31,7 +31,6 @@ const Chat = (props) => {
   const makeRoom = [props.match.params.otherId, props.match.params.myId].sort();
   //   // 방
   const room = makeRoom[0] + "-" + makeRoom[1];
-  // const room = '6093c3035d07fc3d5d22d804-6095ebfeb9e2a10ba16ea9db';
   //   // 대화 상대 이름
   const targetName = props.match.params.otherName;
   // 내 이름

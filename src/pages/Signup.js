@@ -1,5 +1,6 @@
 import React, { useRef, useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
+import { Api } from 'shared/Api';
 import { useSelector, useDispatch } from "react-redux";
 
 import { history } from "redux/configureStore";
@@ -183,7 +184,7 @@ const Signup = (props) => {
 
   // 이메일 사용 가능 여부 확인. 이메일 인풋 포커스 아웃 시
   const checkEmailAPI = (email) => {
-    const API = `http://3.35.137.38/user/signup/email/${email}`;
+    const API = `${API}/user/signup/email/${email}`;
     fetch(API)
       .then((res) => res.json())
       .then((res) => {
@@ -198,7 +199,7 @@ const Signup = (props) => {
 
   // 닉네임 사용 가능 여부 확인. 이메일 인풋 포커스 아웃 시
   const checkNicknameAPI = (nickname) => {
-    const API = `http://3.35.137.38/user/signup/nickname/${nickname}`;
+    const API = `${API}/user/signup/nickname/${nickname}`;
     fetch(API)
       .then((res) => res.json())
       .then((res) => {

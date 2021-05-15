@@ -34,7 +34,7 @@ const DeadlineP = (props) => {
                 }} style={{marginTop:"41px", color:"#c0c0c0",fontSize: "16px", cursor:"pointer"}}>더보기</p>
             </Head>
         <Grid>  
-            {_deadline_product ? 
+            {!_deadline_product ? 
             <div style={{margin:"100px auto", color :"#c0c0c0 ", fontSize:"20px"}}>
                 마감임박 상품이 없습니다
             </div>  : 

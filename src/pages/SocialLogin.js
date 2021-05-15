@@ -1,4 +1,5 @@
 import React from 'react';
+import API from 'shared/Api';
 import { useHistory } from "react-router-dom";
 
 const { Kakao } = window;
@@ -10,7 +11,7 @@ const SocialLogin = (props) => {
         Kakao.Auth.login({
             success: function (authObj) {
                 console.log('authObj');
-                // fetch(`http://3.35.137.38/login`, {
+                // fetch(`${API}/login`, {
                 //     method: "POST",
                 //     body: JSON.stringify({
                 //         access_token: authObj.access_token,

@@ -74,7 +74,7 @@ const setProductAllAPI = (_id) => {
 const bigCategoryRelatedAPI = (_id, keyword) => {
   return function (dispatch, getState, { history }) {
     // const page = getState().movie.search_page;
-    fetch(`http://3.35.137.38/product/Category/${keyword}`, {
+    fetch(`${API}/product/Category/${keyword}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
