@@ -12,97 +12,105 @@ import { priceComma, input_priceComma } from "shared/common";
 import { actionCreators as bidActions } from "redux/modules/bid";
 import { actionCreators as productActions } from "redux/modules/product";
 
+import { Color } from "shared/DesignSys";
+
 const Bid = (props) => {
   const dispatch = useDispatch();
   const history = props.history;
   const p_id = props._id;
-  const { open, close, bid, immediateBid, sucBid, deadLine, createAt, sellerunique, _id, onSale } = props;
+  const { open, close, bid, immediateBid, lowBid, sucBid, deadLine, createAt, sellerunique, _id, onSale } = props;
+  // console.log(open, close);
   const productOK = useSelector((state) => state.product.product_detail);
 
   const [bidPrice, setBid] = useState("");
   const onChangeBid = useCallback((e) => setBid(e.target.value), []);
 
-  const bidInfo = React.useRef();
   const bid_before = useSelector((state) => state.bid.bid_before);
   const [messageBid, setMessageBid] = useState("");
 
   const _current = useSelector((state) => state.bid.current);
-
-  // const checkPrice = () => {
-  //   if ( _current >= bidPrice || productOK.lowBid >= bidPrice ) {
-  //     setMessageBid('현재 입찰가 보다 높아야 해욧!');
-  //     bidInfo.current.style.display = 'block';
-  //     return;
-  //   } else {
-  //     dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
-  //     setMessageBid('입찰 성공!');
-  //   }
-  // }
-
   React.useEffect(() => {
-    dispatch(bidActions.warningBid("success"));
-  }, []);
-
-  React.useEffect(() => {
-    if (bid_before === "before") {
-      setMessageBid("현재 입찰가 보다 높아야 해욧!");
-      bidInfo.current.style.display = "block";
-      console.log("현재 입찰가 보다 높아야 해요!");
-      return;
-    } else if (bid_before === "time") {
+    setMessageBid("");
+    if (bid_before === "time") {
       setMessageBid("마감 시간이 종료되었어요..");
-      bidInfo.current.style.display = "block";
-      console.log("마감 시간이 종료되었어요..");
-      return;
     } else if (bid_before === "success") {
       setMessageBid("입찰 성공!");
-      console.log(bid_before);
-      bidInfo.current.style.display = "none";
+    } else if (bid_before === "before") {
+      setMessageBid("현재 입찰가보다 높아야 해욧!");
     }
-  }, [bid_before]);
+  }, [bid_before, open]);
 
   useInterval(() => {
-    dispatch(bidActions.setBidAPI(p_id));
+    dispatch(bidActions.setBidAPI(p_id, lowBid)); // lowBid 있어야함
   }, 1000);
 
   const addBid = () => {
-    dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
+    const trueBid = parseInt(bidPrice.replace(/,/g, ""));
+    console.log(_current, lowBid, trueBid);
+    if (!onSale) {
+      setMessageBid("마감 시간이 종료되었어요..");
+    } else if (!trueBid) {
+      setMessageBid("입찰가를 입력해야합니다.");
+    } else if (trueBid < lowBid) {
+      setMessageBid("최소 입찰가보다 높아야 해욧!");
+    } else if (_current === lowBid && _current === trueBid) {
+      // 최소입찰가를 입력할때
+      dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
+      dispatch(bidActions.warningBid("success"));
+    } else if (_current > lowBid) {
+      if (trueBid < _current || trueBid < lowBid) {
+        setMessageBid("현재 입찰가보다 높아야 해욧!");
+      } else {
+        dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
+        dispatch(bidActions.warningBid("success"));
+      }
+    }
   };
-  // 숫자로 보내기!
-  // console.log(parseInt(bidPrice.replace(/,/g, "")));
 
   const addSuccessbid = () => {
     dispatch(bidActions.addSucbidAPI(sucBid, sellerunique, Date.now()));
+    close();
+    history.replace(`/${p_id}`);
   };
 
   if (bid) {
     return (
       <>
-        {open ? (
-          <BidBox>
-            <Text h2 marginT="9%" marginB="3%">
-              입찰표 작성
-              <FontAwesomeIcon icon={fasQC} />
+        <BidBox>
+          <Text h2 marginT="10%">
+            입찰표 작성
+            {/* <FontAwesomeIcon icon={fasQC} /> */}
+          </Text>
+          <Grid textAlign="center" justify="space-between" width="35%" margin="20px 0 35px 0">
+            <Text h3 marginB="5px">
+              <Timer all deadLine={deadLine} onSale={onSale} purple />
             </Text>
-            <Grid textAlign="center" justify="space-between" width="45%">
-              <Text h3>
-                <Timer all deadLine={deadLine} onSale={onSale} purple />
-              </Text>
-              <Timer timeProgress deadLine={deadLine} createAt={createAt} onSale={onSale} />
-            </Grid>
-            {_current ? <Price>{priceComma(_current)}원</Price> : <Price>{priceComma(productOK.lowBid)}원</Price>}
-            {/* <Price>{priceComma(_current)}원</Price> */}
-            <Input value={input_priceComma(bidPrice)} _onChange={onChangeBid} num width="75%" margin="6% auto 0" adornment="원" plcholder="입찰가를 입력해주세요!" />
-            <InfoUl ref={bidInfo}>
-              <li>{messageBid}</li>
-            </InfoUl>
-            <Button _onClick={addBid} width="75%" margin="4% auto 9% auto">
-              입찰하기
-            </Button>
-          </BidBox>
-        ) : (
-          <></>
-        )}
+            <Timer timeProgress deadLine={deadLine} createAt={createAt} onSale={onSale} />
+          </Grid>
+          {_current ? (
+            <BidNow>
+              <div>현재 입찰가</div>
+              <div>
+                {priceComma(_current)}
+                <span>&ensp;원</span>
+              </div>
+            </BidNow>
+          ) : (
+            <BidNow>
+              <div>최소 입찰가</div>
+              <div>
+                {priceComma(productOK.lowBid)}
+                <span>&ensp;원</span>
+              </div>
+            </BidNow>
+          )}
+
+          <Input value={input_priceComma(bidPrice)} _onChange={onChangeBid} num width="75%" margin="10px auto 0" adornment="원" plcholder="입찰가를 입력해주세요!" />
+          <InfoUl>{messageBid}</InfoUl>
+          <Button _onClick={addBid} width="75%" margin="10px auto 9% auto">
+            입찰하기
+          </Button>
+        </BidBox>
       </>
     );
   }
@@ -112,19 +120,19 @@ const Bid = (props) => {
       <>
         {open ? (
           <BidBox {...props} open={open}>
-            <Text h2 marginT="9%">
-              즉시 입찰
-              <FontAwesomeIcon icon={fasQC} />
+            <Text h2 marginT="10%">
+              즉시 낙찰
+              {/* <FontAwesomeIcon icon={fasQC} /> */}
             </Text>
-            <Text h4>즉시 낙찰가에 낙찰이 진행됩니다!</Text>
-            <Text price lineHeight="400%">
+            <Text h4 marginB="30px">
+              즉시 낙찰가에 낙찰이 진행됩니다!
+            </Text>
+            <Text price>
               {priceComma(sucBid)}
-              <Text won>원</Text>
+              <Text won>&ensp;원</Text>
             </Text>
-            <InfoUl ref={bidInfo}>
-              <li>{messageBid}</li>
-            </InfoUl>
-            <Button _onClick={addSuccessbid} width="75%" margin="0 auto 9% auto">
+            <InfoUl></InfoUl>
+            <Button _onClick={addSuccessbid} width="75%" margin="10px auto 9% auto">
               즉시 낙찰하기
             </Button>
           </BidBox>
@@ -136,25 +144,14 @@ const Bid = (props) => {
   }
 };
 
-const Price = styled.div`
-  margin: 6% auto 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  width: 100%;
-  font-size: 20px;
-  font-weight: 500;
-`;
-
 const InfoUl = styled.ul`
-  display: none;
-  width: 300px;
-  margin: 4% auto 0;
-  list-style-type: none;
-  font-size: 14px;
+  display: flex;
+  height: 20px;
+  margin: 1.5% auto 0;
+  font-size: 12px;
   text-align: center;
-  color: #ae00ff;
+  align-items: center;
+  color: ${Color.Primary};
   position: relative;
   font-weight: 500;
 `;
@@ -164,6 +161,34 @@ const BidBox = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+`;
+
+const BidNow = styled.div`
+  display: flex;
+  align-items: center;
+  width: 75%;
+  height: 50px;
+  padding: 0 25px;
+  background-color: ${Color.Light_3};
+  border-radius: 16px;
+  color: ${Color.Dark_4};
+
+  margin: 0 auto;
+
+  font-size: 20px;
+  font-weight: 500;
+  div:nth-child(1) {
+    text-align: left;
+    font-size: 16px;
+    width: 50%;
+  }
+  div:nth-child(2) {
+    text-align: right;
+    width: 50%;
+  }
+  span {
+    font-size: 16px;
+  }
 `;
 
 export default Bid;

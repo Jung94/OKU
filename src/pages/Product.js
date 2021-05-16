@@ -22,10 +22,11 @@ import "moment/locale/ko";
 import { Color } from "shared/DesignSys";
 
 const Product = (props) => {
+  moment.locale("ko");
   const dispatch = useDispatch();
+
   const _id = props.match.params.id;
   const history = props.history;
-  moment.locale("ko");
 
   const is_login = localStorage.getItem("access_token");
 
@@ -39,6 +40,7 @@ const Product = (props) => {
     sucBid,
     region,
     sellerunique,
+    profileImg,
     smallCategory,
     bigCategory,
     onSale,
@@ -50,7 +52,7 @@ const Product = (props) => {
     img,
     // _id,
   } = useSelector((state) => state.product.product_detail);
-
+  // console.log(productOK);
   const _is_like = useSelector((state) => state.like.is_like);
   const _qna_list = useSelector((state) => state.product.qna_list);
   const _related_list = useSelector((state) => state.product.related);
@@ -142,12 +144,12 @@ const Product = (props) => {
               </Grid>
               <Grid is_flex>
                 {_is_like ? (
-                  <Button main _onClick={() => userLike(_id)} margin="0 5px 0 0">
+                  <Button main nohover _onClick={() => userLike(_id)} margin="0 5px 0 0">
                     <FontAwesomeIcon icon={fasHeart} />
                     &thinsp;찜
                   </Button>
                 ) : (
-                  <Button sub _onClick={() => userLike(_id)} margin="0 5px 0 0">
+                  <Button sub nohover _onClick={() => userLike(_id)} margin="0 5px 0 0">
                     <FontAwesomeIcon icon={farHeart} />
                     &thinsp;찜
                   </Button>
@@ -208,7 +210,6 @@ const Product = (props) => {
             {/* 실시간 입찰 정보 */}
             {_bid_list && _bid_list.length > 0 ? (
               _bid_list.map((b, idx) => {
-                console.log(b);
                 return (
                   <LiveBid key={idx} margin="5%">
                     <Text h4 flexGrow="1">
@@ -261,7 +262,7 @@ const Product = (props) => {
             </Text>
             <Seller>
               <Grid is_flex margin="0 0 2% 0">
-                <Profile></Profile>
+                <Profile img={profileImg}></Profile>
                 <div style={{ textAlign: "left", marginLeft: "3%" }}>
                   <Text h4 marginB="5%" marginT="5%">
                     {nickname}

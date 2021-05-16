@@ -37,31 +37,42 @@ const QnA = (props) => {
   return (
     <QnAWrap>
       <Grid dp_flex>
-        <Profile img={buyerprofile} />
+        <Profile img={buyerprofile} size="50px" margin="0 15px 0 0" />
 
         <Grid is_flex column>
-          <Grid margin="1% 0">
+          <Grid is_flex justify="space-between" margin="1px 0 5px 0">
+            {sellernickname === buyernickname ? (
+              <IfSeller>
+                {buyernickname}
+                <span sytle={{ fontWeight: "400", color: Color.Dark_4 }}>(판매자)</span>
+              </IfSeller>
+            ) : (
+              <Text h4 weight="700">
+                {buyernickname}
+              </Text>
+            )}
             <Text subBody textAlign="right" color={Color.Dark_4}>
               {moment(createdAt).fromNow()}
             </Text>
-            <Text h4 weight="700" marginT="-5px">
-              {buyernickname}
-            </Text>
-            <Grid is_flex textAlign="left" margin="0 0 10px 0">
-              {contents}
-            </Grid>
           </Grid>
+          <Grid is_flex textAlign="left">
+            {contents}
+          </Grid>
+
           {answer && (
             <>
               <Grid is_flex textAlign="left">
                 <Grid column>
-                  <Line bottom color={Color.Light_4} margin="0 0 25px 0" />
+                  <Line bottom color={Color.Light_4} margin="20px 0 25px 0" />
 
                   <Grid dp_flex textAlign="left" justify="space-between" margin="0 0 15px 0">
-                    <AnswerContents>
-                      <SubdirectoryArrowRightIcon />
-                      <Grid>{answer}</Grid>
-                    </AnswerContents>
+                    <Grid dp_flex width="90%">
+                      <SubdirectoryArrowRightIcon style={{ marginTop: "2px", marginRight: "5px", fontSize: "15px", color: Color.Dark_4, cursor: "default" }} />
+                      <AnswerContents>
+                        <span>판매자</span>
+                        {answer}
+                      </AnswerContents>
+                    </Grid>
                     <Text subBody color={Color.Dark_4}>
                       {answer && moment(updatedAt).fromNow()}
                     </Text>
@@ -80,7 +91,6 @@ const QnA = (props) => {
                 }
               }}
             >
-              {/* <FontAwesomeIcon icon={fasPen} style={{ color: "grey", cursor: "pointer" }} /> */}
               {answer ? "수정하기" : "답변하기"}
             </OpenPostBtn>
           )}
@@ -116,7 +126,7 @@ QnA.defaultProps = {
 const QnAWrap = styled.div`
   width: 100%;
   display: flex;
-  padding: 5px 30px 5px 15px;
+  padding: 21px 25px;
   flex-direction: column;
   background-color: ${Color.Light_3};
   border-radius: 16px;
@@ -132,6 +142,17 @@ const AnswerWrap = styled.div`
   margin-bottom: 10px;
 `;
 
+// 문의글 남긴 사람이 판매자일때
+const IfSeller = styled.div`
+  font-weight: 700;
+  span {
+    margin-left: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: ${Color.Dark_4};
+  }
+`;
+
 // 문의하기
 const QnAPost = styled.div`
   width: 100%;
@@ -141,11 +162,10 @@ const QnAPost = styled.div`
 
 // 누르면 열리는 버튼
 const OpenPostBtn = styled.div`
-  color: grey;
-  font-size: 14px;
+  color: ${Color.Dark_4};
+  font-size: 12px;
   cursor: pointer;
-  padding: 0 0 2px 0;
-  margin: auto 0 1% auto;
+  margin: auto 0 10px auto;
   svg {
     color: whitesmoke;
     margin: auto 10px;
@@ -162,12 +182,12 @@ const OpenPostBtn = styled.div`
 
 const AnswerContents = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: left;
   width: 90%;
-  svg {
-    margin-right: 5px;
-    font-size: 16px;
-    color: ${Color.Dark_4};
-    cursor: default;
+  span {
+    font-weight: 700;
+    margin-bottom: 2px;
   }
 `;
 
