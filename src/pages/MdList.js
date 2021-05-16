@@ -18,15 +18,19 @@ const MdList = () => {
     return(
     <MDContainer>
       <MDText>
-        <span>MD 추천 리스트</span>
+        <span>
+          MD 추천 리스트
+          </span>
+          <Grid>
                 {!_recommend_product ?
                 <div style={{margin:"100px auto", color :"#c0c0c0 ", fontSize:"20px"}}>
                 현재 MD 추천상품이 없습니다
                 </div>  : 
                 _recommend_product && _recommend_product.map((l, idx) => {
-                    return (<PostCard  key={idx} img={l.img} title={l.title} currentprice={l.currentprice} sucBid={l.sucBid} _onClick={() => {history.push(`product/detail/${l._id}`)}} />
+                    return (<PostCard  key={idx} {...l} />
                 )})
                 }  
+              </Grid>
                 
         
       </MDText>
@@ -40,13 +44,18 @@ const MDContainer = styled.div`
     flex-direction: column;
     max-width: 1030px;
     height: 100%;
-    margin: 151px auto 0;
+    & > span {
+      margin : 3rem 0;
+    }
+    margin: 195px auto 100px;
 `;
 
 const Grid =styled.div`
 display: grid;
 grid-template-columns: 1fr 1fr 1fr;
-margin-top : 45px 0 ;
+grid-row-gap: 45px;
+grid-column-gap: 60px;
+margin-top : 100px ;
 
 `;
 

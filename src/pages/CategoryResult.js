@@ -32,7 +32,8 @@ barder: 1px solid #000;
 
 const ResultText = styled.div`
 text-align: center;
-margin 3rem 0;
+margin: 130px auto 0;
+
 
 & span {
     font-size: 1.25rem;
