@@ -44,10 +44,10 @@ const QnA = (props) => {
             <Text subBody textAlign="right" color={Color.Dark_4}>
               {moment(createdAt).fromNow()}
             </Text>
-            <Text h4 weight="700">
+            <Text h4 weight="700" marginT="-5px">
               {buyernickname}
             </Text>
-            <Grid is_flex textAlign="left">
+            <Grid is_flex textAlign="left" margin="0 0 10px 0">
               {contents}
             </Grid>
           </Grid>
@@ -55,9 +55,9 @@ const QnA = (props) => {
             <>
               <Grid is_flex textAlign="left">
                 <Grid column>
-                  <Line bottom color={Color.Light_4} margin="10px 0 20px 0" />
+                  <Line bottom color={Color.Light_4} margin="0 0 25px 0" />
 
-                  <Grid dp_flex textAlign="left" justify="space-between" margin="0 0 10px 0">
+                  <Grid dp_flex textAlign="left" justify="space-between" margin="0 0 15px 0">
                     <AnswerContents>
                       <SubdirectoryArrowRightIcon />
                       <Grid>{answer}</Grid>
@@ -116,7 +116,7 @@ QnA.defaultProps = {
 const QnAWrap = styled.div`
   width: 100%;
   display: flex;
-  padding: 15px 30px 10px 15px;
+  padding: 5px 30px 5px 15px;
   flex-direction: column;
   background-color: ${Color.Light_3};
   border-radius: 16px;

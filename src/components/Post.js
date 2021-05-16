@@ -17,34 +17,38 @@ const Post = (props) => {
 
   const _recommend_product = useSelector((state) => state.post.recommend_product);
 
-  return (
-    <Wrap>
-      <Head>
-        <p style={{ fontSize: "45px", fontWeight: "bold" }}>
-          관심가는 물건을 추천해주는 MD, <span style={{ color: "#AE27FF" }}>제법 젠틀해요 </span>
-        </p>
-        <p
-          onClick={() => {
-            history.push("/MdList");
-          }}
-          style={{ marginTop: "41px", color: "#c0c0c0", fontSize: "16px", cursor: "pointer" }}
-        >
-          더보기
-        </p>
-      </Head>
-      <Cards>
-        {!_recommend_product ? (
-          <div style={{ margin: "100px auto", color: "#c0c0c0 ", fontSize: "20px" }}>MD 추천상품이 없습니다</div>
-        ) : (
-          _recommend_product &&
-          _recommend_product.map((l, idx) => {
-            return <PostCard key={idx} {...l} />;
-          })
-        )}
-      </Cards>
-    </Wrap>
-  );
+  if (_recommend_product && _recommend_product.length > 0) {
+    return (
+      <Wrap>
+        <Head>
+          <p style={{ fontSize: "45px", fontWeight: "bold" }}>
+            관심가는 물건을 추천해주는 MD, <span style={{ color: "#AE27FF" }}>제법 젠틀해요 </span>
+          </p>
+          <p
+            onClick={() => {
+              history.push("/MdList");
+            }}
+            style={{ marginTop: "41px", color: "#c0c0c0", fontSize: "16px", cursor: "pointer" }}
+          >
+            더보기
+          </p>
+        </Head>
+        <Cards>
+          {!_recommend_product ? (
+            <div style={{ margin: "100px auto", color: "#c0c0c0 ", fontSize: "20px" }}>MD 추천상품이 없습니다</div>
+          ) : (
+            _recommend_product &&
+            _recommend_product.map((l, idx) => {
+              return <PostCard key={idx} {...l} />;
+            })
+          )}
+        </Cards>
+      </Wrap>
+    );
+  }
+  return null;
 };
+
 Post.defaultProps = {};
 
 const Wrap = styled.div`
