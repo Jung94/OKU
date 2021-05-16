@@ -7,7 +7,7 @@ import { API } from "shared/Api";
 //  메인 상품 리스트
 const SET_POPULAR = "SET_POPULAR";
 const SET_RECENT = "SET_RECENT";
-const SET_RECENT_PAGE = "SET_RECENT_PAGE" //infinity scroll page
+const SET_RECENT_PAGE = "SET_RECENT_PAGE"; //infinity scroll page
 const SET_DEADLINE = "SET_DEADLINE";
 const SET_RECOMMEND = "SET_RECOMMEND";
 
@@ -44,8 +44,8 @@ const setAlert = createAction(SET_ALERT, (alert) => ({ alert }));
 const initialState = {
   popular_product: [],
   recent_product: [],
-  lastId : false,
-  setRecentPage : 0,
+  lastId: false,
+  setRecentPage: 0,
   deadline_product: [],
   recommned_product: [],
 
@@ -80,13 +80,13 @@ const getPopularProductsAPI = () => {
 // 실시간 등록상품
 const getRecentProductsAPI = () => {
   const RecentProduct_API = `${API}/product/recentlist?608c316e1a69364cd388967a`;
-  
+
   return function (dispatch, getState, { history }) {
     axios
       .get(RecentProduct_API)
       .then((resp) => {
         dispatch(setRecentProducts(resp.data.productList[0]));
-        console.log(resp)
+        console.log(resp);
       })
       .catch((e) => console.error(e));
   };
@@ -95,7 +95,7 @@ const getRecentProductsAPI = () => {
 // 실시간 등록상품 인피니티스크롤
 // const getRecentPage = (_id) => {
 //   const RecentPage_API = `http://3.35.137.38/product/recentlist?lastId=${_id}`;
-  
+
 //   return function (dispatch, getState, { history }) {
 //     // const page = getState().post.recent_page
 //     axios
@@ -184,26 +184,32 @@ const getProductSubCategotAPI = (mainKeyword, subKeyword) => {
 const _API = `${API}/bid/alert`;
 const getAlertAPI = () => {
   return function (dispatch, getState, { history }) {
-const access_token = localStorage.getItem("access_token");
-fetch(_API, {
-  method: "GET",
-  headers: {
-    access_token: `${access_token}`
-  },
-})
-.then((res) => res.json())
-.then((res) => {
-  dispatch(setAlert(res));
-  console.log(res);
-  // unstructureObj.sort(function (a, b) {
-  //   return a.createAt > b.createAt ? -1 : a.createAt < b.createAt ? 1 : 0;
-  // }
-})
-.catch((error) => {
-  console.log("알림 문제", error);
-});
+    const access_token = localStorage.getItem("access_token");
+    fetch(_API, {
+      method: "GET",
+      headers: {
+        access_token: `${access_token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+      //   if (res.notCheck === "true"){
+      //   dispatch(setAlert(res.notCheck));
+      //   console.log("미확인",res.notCheck);
+      //   // unstructureObj.sort(function (a, b) {
+      //   //   return a.createAt > b.createAt ? -1 : a.createAt < b.createAt ? 1 : 0;
+      //   // }
+      // } else if (res.alreadyCheck === "true") {
+        dispatch(setAlert(res.alreadyCheck));
+        dispatch(setAlert(res.notCheck));
+        console.log("확인",res);
+      // }
+      })
+      .catch((error) => {
+        console.log("알림 문제", error);
+      });
+  };
 };
-}
 
 // const Alert_API = "http://3.35.137.38/bid/alert";
 // const getAlertAPI = () => {
@@ -216,7 +222,6 @@ fetch(_API, {
 //       .catch((e) => console.log(e));
 //   };
 // };
-
 
 // Reducer 를 실행하기위해 액션크리에이터
 export default handleActions(
@@ -231,10 +236,10 @@ export default handleActions(
         // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
         draft.recent_product = action.payload.recent;
       }),
-    [SET_RECENT_PAGE] : (state, action) =>
+    [SET_RECENT_PAGE]: (state, action) =>
       produce(state, (draft) => {
         draft.recent_page = action.payload.page;
-    }),
+      }),
     [SET_DEADLINE]: (state, action) =>
       produce(state, (draft) => {
         // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
@@ -283,7 +288,7 @@ export default handleActions(
 const actionCreators = {
   getPopularProductsAPI,
   getRecentProductsAPI,
-  
+
   // getRecentPage,
   getDeadlineProductAPI,
   getRecommendProductAPI,

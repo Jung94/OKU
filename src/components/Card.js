@@ -54,7 +54,8 @@ const Head = styled.div`
 `;
 
 const Cards = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 `;
 
 export default Card;

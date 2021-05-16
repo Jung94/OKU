@@ -17,6 +17,7 @@ import RingContents from "components/RingContents";
 
 const DetailRing = (props) => {
   const dispatch = useDispatch();
+  
 
   const { alertType, _id } = props;
   // 렌더될 때 ~ 한다
@@ -26,6 +27,7 @@ const DetailRing = (props) => {
   }, []);
 
   const _alert = useSelector((state) => state.post.all_alert);
+  console.log("알림입니다",_alert)
 
   const [is_read, setIsRead] = React.useState(true);
 
@@ -54,52 +56,8 @@ const DetailRing = (props) => {
               return (
             <RingContents key={idx} {...i} />
             );
-            })} 
+            })}
 
-            {/* <Box>
-              <Desc>
-                <AlertTitle>
-                  <TitleLeft>문의답글</TitleLeft>
-                  <TitleRight>1분전</TitleRight>
-                </AlertTitle>
-                <AlertCotents>'손오공 드래곤볼'의 문의에 답글이 달렸습니다.</AlertCotents>
-              </Desc>
-              <Line />
-            </Box>
-
-            <Box>
-              <Desc>
-                <AlertTitle>
-                  <TitleLeft>문의</TitleLeft>
-                  <TitleRight>1분전</TitleRight>
-                </AlertTitle>
-                <AlertCotents>'손오공 드래곤볼'의 문의댓글이 달렸습니다.</AlertCotents>
-              </Desc>
-              <Line />
-            </Box>
-
-            <Box>
-              <Desc>
-                <AlertTitle>
-                  <TitleLeft>입찰실패</TitleLeft>
-                  <TitleRight>10분전</TitleRight>
-                </AlertTitle>
-                <AlertCotents>'손오공 드래곤볼'의 입찰이 실패하였습니다.</AlertCotents>
-              </Desc>
-              <Line />
-            </Box>
-
-            <Box>
-              <Desc>
-                <AlertTitle>
-                  <TitleLeft>거래연결</TitleLeft>
-                  <TitleRight>10분전</TitleRight>
-                </AlertTitle>
-                <AlertCotents>'손오공 드래곤볼'의 거래를 진행해주세요.</AlertCotents>
-                <Chatting>거래 채팅 진행하기</Chatting>
-              </Desc>
-              <Line />
-            </Box> */}
           </Contents>
         </RingDetail>
       </Wrap>
