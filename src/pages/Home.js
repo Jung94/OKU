@@ -17,14 +17,11 @@ const Home = (props) => {
     dispatch(headerActions.setHeader(true));
   }, []);
 
-  const _recommend_product = useSelector((state) => state.post.recommend_product);
-  const _deadline_product = useSelector((state) => state.post.deadline_product);
-
   return (
     <div style={{ width: "100%" }}>
       <Container />
-      {_recommend_product && _recommend_product.length > 0 && <Post />}
-      {_deadline_product && _deadline_product.length > 0 && <DeadlineP />}
+      <Post />
+      <DeadlineP />
       <Card />
     </div>
   );

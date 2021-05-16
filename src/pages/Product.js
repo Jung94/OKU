@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useRef, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -70,6 +70,8 @@ const Product = (props) => {
     dispatch(bidActions.setBidAPI(_id, lowBid));
   }, [_id]);
 
+  const startpoint = useRef();
+
   const userLike = (_id) => {
     if (is_login) {
       if (_is_like) {
@@ -84,7 +86,7 @@ const Product = (props) => {
 
   if (productOK) {
     return (
-      <ProductWrap>
+      <ProductWrap ref={startpoint}>
         {/* <div onMouseOver={helpPop}></div> */}
         <Grid dp_flex margin="0 0 20px 0">
           <Grid width="66%" margin="0 10px 0 0">
