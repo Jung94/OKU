@@ -5,6 +5,11 @@ import { produce } from "immer";
 // api 호출시 loading액션을 매번 작성해야하는 비효율
 // is_loading initialState에서 지정해주어야함
 
+// dispatch(loadingActions.loading(true));
+// .finally(() => {
+//   dispatch(loadingActions.loading(false));
+// });
+
 // actions
 const LOADING = "LOADING";
 

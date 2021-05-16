@@ -19,7 +19,6 @@ import { Color } from "shared/DesignSys";
 
 // 왼쪽
 function PrevArrow(props) {
-  console.log(props);
   const { className, style, onClick, lowBid } = props;
   return (
     <LeftArrow
@@ -187,7 +186,6 @@ const Container = (props) => {
           <Slide>
             <Slider {...settings}>
               {_popular_product.map((i, idx) => {
-                // console.log(i);
                 let real = input_priceComma(`${i.lowBid}`);
                 return (
                   <MainCard

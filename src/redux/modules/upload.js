@@ -23,6 +23,8 @@ const setPreview3 = createAction(SET_PREVIEW_3, (preview) => ({ preview }));
 const setPreviewAll = createAction(SET_PREVIEW_ALL, (preview) => ({ preview }));
 
 const initialState = {
+  is_loading: false,
+
   image: "https://mean0images.s3.ap-northeast-2.amazonaws.com/4.jpeg",
   title: "",
   cateBig: "",
@@ -45,6 +47,7 @@ const initialState = {
 
 const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, productState, deadline, lowbid, sucbid, delivery, productDesc, tags) => {
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
     dispatch(uploadProgress(true));
     let nickname = localStorage.getItem("nickname");
     let access_token = localStorage.getItem("access_token");
@@ -100,6 +103,9 @@ const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, p
       })
       .catch((error) => {
         console.log("addPostAPI에 문제가 있습니다.", error);
+      })
+      .finally(() => {
+        dispatch(loadingActions.loading(false));
       });
   };
 };
@@ -108,6 +114,7 @@ export default handleActions(
   {
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
         // 데이터를 배열 맨 앞에 넣어줍니다.
         // draft.image_url=action.payload.image_url;
         draft.list.unshift(action.payload.post);

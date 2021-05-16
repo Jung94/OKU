@@ -25,7 +25,6 @@ const PostCard = (props) => {
   const is_login = localStorage.getItem("access_token");
 
   const { img, title, currentprice, lowBid, _onClick, _id, main, result } = props;
-  console.log("🚚", props);
 
   // 좋아요 확인용
   const like_list = useSelector((state) => state.like.like_list);
@@ -52,7 +51,7 @@ const PostCard = (props) => {
       <UpTime>
         <Timer day {...props} />
       </UpTime>
-      <div onClick={() => userLike(_id)}> {likeOrNot ? <Heart img={IconHeartOn} /> : <Heart img={IconHeartOff} /> } </div>
+      <div onClick={() => userLike(_id)}> {likeOrNot ? <Heart img={IconHeartOn} /> : <Heart img={IconHeartOff} />} </div>
       {img.length > 0 && <Image alt="item" img={img} onClick={() => history.push(`/product/detail/${_id}`)} />}
       <Desc>
         <div style={{ width: "100%" }}>
@@ -149,7 +148,7 @@ const Heart = styled.div`
     }
   }
   :hover {
-    transition: 0.2s ;
+    transition: 0.2s;
     transform: scale(1.1);
   }
 `;

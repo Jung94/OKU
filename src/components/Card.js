@@ -35,8 +35,6 @@ const Card = (props) => {
       </Head>
       <Cards>
         {_recent_product.map((j, index) => {
-          console.log("나는 최근파일입니다", j);
-
           return <PostCard key={index} {...j} img={j.img[0]} />;
         })}
       </Cards>
@@ -45,7 +43,7 @@ const Card = (props) => {
 };
 
 const Wrap = styled.div`
-  margin: 100px auto;
+  margin: 100px auto 200px auto;
   max-width: 1030px;
 `;
 

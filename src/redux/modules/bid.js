@@ -32,7 +32,7 @@ const initialState = {
 
 const setBidAPI = (_id, lowBid) => {
   return function (dispatch, getState, { history }) {
-    // let id = getState().product.productId;
+    dispatch(loadingActions.loading(true));
     fetch(`${API}/bid/bidinfo/${_id}`, {
       method: "GET",
     })
@@ -69,6 +69,9 @@ const setBidAPI = (_id, lowBid) => {
       })
       .catch((error) => {
         console.log("setQnAAPI에 문제가 있습니다.", error);
+      })
+      .finally(() => {
+        dispatch(loadingActions.loading(false));
       });
   };
 };
@@ -119,6 +122,9 @@ const addBidAPI = (bidPrice, createAt) => {
       })
       .catch((err) => {
         console.log("addBidAPI에 문제가 있습니다.", err);
+      })
+      .finally(() => {
+        dispatch(loadingActions.loading(false));
       });
   };
 };
@@ -145,6 +151,9 @@ const addSucbidAPI = (sucBid, sellerunique, createAt) => {
       })
       .catch((err) => {
         console.log("addBidAPI에 문제가 있습니다.", err);
+      })
+      .finally(() => {
+        dispatch(loadingActions.loading(false));
       });
   };
 };
