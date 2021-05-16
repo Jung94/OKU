@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, createRef, useState } from "react";
 import styled from "styled-components";
 import { Grid, Input, Line, Button, Tag, Text, Profile } from "elements/";
 import Select from "react-select";
@@ -96,6 +96,17 @@ const ProductUpload = React.memo((props) => {
   const addressInfo = useRef();
   const detailAddressInfo = useRef();
 
+  const _title = createRef();
+  const _cateBig = useRef();
+  const _cateSmall = useRef();
+  const _region = useRef();
+  const _productState = useRef();
+  const _deadline = useRef();
+  const _lowbid = useRef();
+  const _sucbid = useRef();
+  const _delivery = useRef();
+  const _productDesc = useRef();
+
   const [title, setTitle] = useState("");
   const [cateBig, setCateBig] = useState("");
   const [cateSmall, setCateSmall] = useState("");
@@ -148,7 +159,11 @@ const ProductUpload = React.memo((props) => {
   };
 
   const handleAgree = () => {
-    setAgree(true);
+    if (agree) {
+      setAgree(false);
+    } else {
+      setAgree(true);
+    }
   };
 
   // const [isAddress, setIsAddress] = useState();
@@ -173,20 +188,54 @@ const ProductUpload = React.memo((props) => {
   };
 
   const addPost = () => {
-
-    if (!fileInput.current.files[0] && !fileInput1.current.files[0] && !fileInput2.current.files[0]) {
-      window.alert("파일을 선택해주세요!");
-      return;
-    }
-
-    if ( !title || !cateBig || !cateSmall || !productState || !deadline || !lowbid || !sucbid || delivery === "" || !productDesc ) {
-      window.alert("필수항목을 입력해주세요!");
-      return;
-    }
-    
-    if ( !agree ) {
+    if (!title) {
+      // 제목 거르기
+      window.alert("제목을 입력해주세요!");
+      window.scroll(0, 120);
+    } else if (!cateBig || !cateSmall) {
+      // 카테고리 거르기
+      window.alert("카테고리를 설정해주세요! 대분류, 중분류 모두 선택하셔야 합니다.");
+      window.scroll(0, 250);
+    } else if (!fileInput.current.files[0] && !fileInput1.current.files[0] && !fileInput2.current.files[0]) {
+      window.alert("사진을 선택해주세요!");
+      window.scroll(0, 510);
+    } else if (!productState) {
+      window.alert("상품 상태 등급을 설정해주세요!");
+      window.scroll(0, 770);
+    } else if (!productDesc) {
+      window.alert("상품에 대한 상세 정보를 입력해주세요! ");
+      window.scroll(0, 890);
+    } else if (!deadline) {
+      window.alert("경매 기간을 설정해주세요!");
+    } else if (delivery === null) {
+      window.alert("배송 정보를 알려주세요!");
+    } else if (!lowbid) {
+      window.alert("최소 입찰가를 입력해주세요!");
+    } else if (!sucbid) {
+      window.alert("즉시 낙찰가를 입력해주세요!");
+    } else if (!agree) {
       window.alert("약관에 동의해주세요!");
       return;
+    } else {
+      // 모든게 처리되고 나서야 상품등록 시도 가능
+      dispatch(
+        uploadActions.addPostAPI(
+          fileInput.current.files[0],
+          fileInput1.current.files[0],
+          fileInput2.current.files[0],
+          title,
+          cateBig,
+          cateSmall,
+          region,
+          productState,
+          deadline,
+          lowbid,
+          sucbid,
+          delivery,
+          productDesc,
+          tags
+        )
+      );
     }
 
     // const ss = {
@@ -205,8 +254,6 @@ const ProductUpload = React.memo((props) => {
     //   productDesc : productDesc,
     //   tags : tags
     // }
-
-    dispatch(uploadActions.addPostAPI(fileInput.current.files[0], fileInput1.current.files[0], fileInput2.current.files[0], title, cateBig, cateSmall, region, productState, deadline, lowbid, sucbid, delivery, productDesc, tags));
   };
 
   const [count, setCount] = useState("");
@@ -238,6 +285,7 @@ const ProductUpload = React.memo((props) => {
           adornment={`${count.length} / 25`}
           maxLength="25"
           plcholder="최대 25자 작성 가능합니다."
+          ref={_title}
         ></Input>
       </Grid>
       <Grid margin="0 0 35px 0">
@@ -271,7 +319,7 @@ const ProductUpload = React.memo((props) => {
             _onChange={(e) => {
               setRegion(e.target.value);
             }}
-            plcholder="거래를 진행하실 지역을 검색하세요."
+            plcholder="거래를 진행할 지역을 검색하세요. 또는 바로 입력하실 수 있습니다."
             width="70%"
             margin="0 10px 0 0"
             left
@@ -296,11 +344,17 @@ const ProductUpload = React.memo((props) => {
             {/* 업로드 하기 */}
             <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange1} disabled={progress} ref={fileInput} />
           </PreviewBtn2>
-          <PreviewBtn2 for="fileInput1" src={preview2.length ? preview2 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}>
+          <PreviewBtn2
+            for="fileInput1"
+            src={preview2.length ? preview2 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
+          >
             {/* 업로드 하기 */}
             <input style={{ display: "none" }} id="fileInput1" type="file" onChange={handleChange2} disabled={progress} ref={fileInput1} />
           </PreviewBtn2>
-          <PreviewBtn2 for="fileInput2" src={preview3.length ? preview3 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}>
+          <PreviewBtn2
+            for="fileInput2"
+            src={preview3.length ? preview3 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
+          >
             {/* 업로드 하기 */}
             <input style={{ display: "none" }} id="fileInput2" type="file" onChange={handleChange3} disabled={progress} ref={fileInput2} />
           </PreviewBtn2>
@@ -338,7 +392,7 @@ const ProductUpload = React.memo((props) => {
           _onChange={(e) => {
             setProductDesc(e.target.value);
           }}
-          plcholder="상품에 대해 추가적으로 기입할 정보를 입력해주세요."
+          plcholder="상품 정보를 입력해주세요. 자세할수록 입찰 또는 낙찰에 도움이 됩니다."
           style={{ padding: "6px 10px", marginTop: "13px", width: "700px", height: "200px", fontSize: "14px" }}
           rows="10"
           whiteSpace="pre-line"
@@ -397,20 +451,9 @@ const ProductUpload = React.memo((props) => {
         </Grid>
       </Grid>
       <Grid is_flex justify="center" textAlign="center" margin="20px">
-        <Input
-          check
-          checked={agree}
-          _onClick={() => {
-            if (agree) {
-              setAgree(false);
-            } else {
-              setAgree(true);
-            }
-          }}
-          value="상품 등록시 약관에 동의해주세요."
-        />
+        <Input check checked={agree} _onClick={handleAgree} value="상품 등록시 약관에 동의해주세요." />
       </Grid>
-      <Button _onClick={addPost} width="100%" height="70px" margin="0 auto 9% auto">
+      <Button _onClick={addPost} width="100%" height="60px" margin="20px auto 9% auto">
         등록하기
       </Button>
       {isPostOpen && (

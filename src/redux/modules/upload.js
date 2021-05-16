@@ -64,7 +64,7 @@ const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, p
     if (image2) {
       formData.append("img", image3);
     }
-    
+
     formData.append("nickname", nickname);
     formData.append("title", title);
     formData.append("bigCategory", cateBig);
@@ -88,12 +88,15 @@ const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, p
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log(res);
         dispatch(uploadProgress(false));
         dispatch(setPreview1([]));
         dispatch(setPreview2([]));
         dispatch(setPreview3([]));
-        alert(res.msg);
-        history.replace('/');
+        if (res.msg === "상품이 등록되었습니다") {
+          window.alert("상품이 정상적으로 등록되었습니다! 메인으로 이동합니다.");
+          history.push("/");
+        }
       })
       .catch((error) => {
         console.log("addPostAPI에 문제가 있습니다.", error);
@@ -103,33 +106,39 @@ const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, p
 
 export default handleActions(
   {
-    [ADD_POST]: (state, action) => produce(state, (draft) => {
-      // 데이터를 배열 맨 앞에 넣어줍니다.
-      // draft.image_url=action.payload.image_url;
-      draft.list.unshift(action.payload.post);
-    }),
+    [ADD_POST]: (state, action) =>
+      produce(state, (draft) => {
+        // 데이터를 배열 맨 앞에 넣어줍니다.
+        // draft.image_url=action.payload.image_url;
+        draft.list.unshift(action.payload.post);
+      }),
 
-    [UPLOAD_PROGRESS]: (state, action) => produce(state, (draft) => {
-      draft.progress = action.payload.progress;
-    }),
+    [UPLOAD_PROGRESS]: (state, action) =>
+      produce(state, (draft) => {
+        draft.progress = action.payload.progress;
+      }),
 
-    [SET_PREVIEW_1]: (state, action) => produce(state, (draft) => {
-      // draft.preview_image.push(action.payload.preview);
-      draft.preview1 = action.payload.preview;
-      // draft.progress = true;
-    }),
+    [SET_PREVIEW_1]: (state, action) =>
+      produce(state, (draft) => {
+        // draft.preview_image.push(action.payload.preview);
+        draft.preview1 = action.payload.preview;
+        // draft.progress = true;
+      }),
 
-    [SET_PREVIEW_2]: (state, action) => produce(state, (draft) => {
-      draft.preview2 = action.payload.preview;
-    }),
+    [SET_PREVIEW_2]: (state, action) =>
+      produce(state, (draft) => {
+        draft.preview2 = action.payload.preview;
+      }),
 
-    [SET_PREVIEW_3]: (state, action) => produce(state, (draft) => {
-      draft.preview3 = action.payload.preview;
-    }),
+    [SET_PREVIEW_3]: (state, action) =>
+      produce(state, (draft) => {
+        draft.preview3 = action.payload.preview;
+      }),
 
-    [SET_PREVIEW_ALL]: (state, action) => produce(state, (draft) => {
-      draft.previewAll = action.payload.preview;
-    }),
+    [SET_PREVIEW_ALL]: (state, action) =>
+      produce(state, (draft) => {
+        draft.previewAll = action.payload.preview;
+      }),
   },
   initialState
 );
@@ -140,7 +149,7 @@ const actionCreators = {
   setPreview1,
   setPreview2,
   setPreview3,
-  setPreviewAll
+  setPreviewAll,
 };
 
 export { actionCreators };

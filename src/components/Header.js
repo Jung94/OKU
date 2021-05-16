@@ -205,7 +205,7 @@ const Header = (props) => {
       hide.current.style.width = "0px";
 
       leftLogo.current.style.maxWidth = "70px";
-      leftLogo.current.style.minWidth = "6vw";
+      leftLogo.current.style.width = "60px";
       leftLogo.current.style.marginRight = "3vw";
     } else if (window.scrollY > 150 && window.innerWidth < 1320) {
       navbox.current.style.position = "fixed";
@@ -219,7 +219,7 @@ const Header = (props) => {
       hide.current.style.width = "0px";
 
       leftLogo.current.style.maxWidth = "70px";
-      leftLogo.current.style.width = "5vw";
+      leftLogo.current.style.width = "60px";
       leftLogo.current.style.marginRight = "3vw";
     } else if (window.scrollY > 150 && window.innerWidth > 1320) {
       navbox.current.style.position = "fixed";
@@ -233,7 +233,7 @@ const Header = (props) => {
       hide.current.style.width = "0px";
 
       leftLogo.current.style.maxWidth = "70px";
-      leftLogo.current.style.width = "5vw";
+      leftLogo.current.style.width = "60px";
       leftLogo.current.style.marginRight = "3vw";
     }
   };

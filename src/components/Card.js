@@ -26,7 +26,6 @@ const Card = (props) => {
   }, []);
 
   const _recent_product = useSelector((state) => state.post.recent_product);
-
   return (
     <Wrap>
       <Head>
@@ -36,7 +35,9 @@ const Card = (props) => {
       </Head>
       <Cards>
         {_recent_product.map((j, index) => {
-          return <PostCard key={index} {...j} />;
+          console.log("나는 최근파일입니다", j);
+
+          return <PostCard key={index} {...j} img={j.img[0]} />;
         })}
       </Cards>
     </Wrap>

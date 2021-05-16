@@ -44,21 +44,43 @@ const Timer = (props) => {
   // console.log("🕒progress...: ", bar);
 
   if (day) {
-    return <>{deadline - timeNow > 0 ? <TimerWrap {...colors}>D-{day_duration}</TimerWrap> : <TimerEnd {...colors}>경매 종료</TimerEnd>}</>;
+    return (
+      <>
+        {onSale && deadline - timeNow > 86400000 ? (
+          <TimerWrap {...colors}>D-{day_duration}</TimerWrap>
+        ) : onSale && deadline - timeNow <= 86400000 && deadline - timeNow > 0 ? (
+          <TimerEnd {...colors}>오늘 마감</TimerEnd>
+        ) : (
+          <TimerEnd {...colors}>경매 종료</TimerEnd>
+        )}
+      </>
+    );
   }
 
   if (hms) {
-    return <>{deadline - timeNow > 0 ? <TimerWrap {...colors}>{hms_duration}</TimerWrap> : <TimerEnd {...colors}>경매 종료</TimerEnd>}</>;
+    return (
+      <>
+        {onSale && deadline - timeNow > 86400000 ? (
+          <TimerWrap {...colors}>D-{hms_duration}</TimerWrap>
+        ) : onSale && deadline - timeNow <= 86400000 && deadline - timeNow > 0 ? (
+          <TimerEnd {...colors}>오늘 마감</TimerEnd>
+        ) : (
+          <TimerEnd {...colors}>경매 종료</TimerEnd>
+        )}
+      </>
+    );
   }
 
   if (all) {
     return (
       <>
-        {onSale && deadline - timeNow > 0 ? (
+        {onSale && deadline - timeNow > 86400000 ? (
           <TimerWrap {...colors}>
             {day_duration > 0 && "D-"}
             {duration}
           </TimerWrap>
+        ) : onSale && deadline - timeNow <= 86400000 && deadline - timeNow > 0 ? (
+          <TimerWrap {...colors}>{duration}</TimerWrap>
         ) : (
           <TimerWrap {...colors}>D-0 00:00:00</TimerWrap>
         )}

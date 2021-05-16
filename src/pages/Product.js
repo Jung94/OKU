@@ -26,7 +26,9 @@ const Product = (props) => {
   const _id = props.match.params.id;
   const history = props.history;
   moment.locale("ko");
+
   const is_login = localStorage.getItem("access_token");
+
   const productOK = useSelector((state) => state.product.product_detail);
   var {
     deadLine,
@@ -64,8 +66,6 @@ const Product = (props) => {
   };
 
   useEffect(() => {
-    window.scrollY = 0;
-    console.log(_id);
     dispatch(productActions.setProductAllAPI(_id));
     dispatch(bidActions.setBidAPI(_id, lowBid));
   }, [_id]);
@@ -266,7 +266,9 @@ const Product = (props) => {
                   </Text>
                 </div>
               </Grid>
-              <Button width="100%">상점으로 이동하기&ensp;{">"}</Button>
+              <Button disabled width="100%" _onClick={() => window.alert("서비스 준비중입니다.")}>
+                상점으로 이동하기&ensp;{">"}
+              </Button>
             </Seller>
           </Grid>
         </Grid>

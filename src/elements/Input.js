@@ -20,7 +20,39 @@ const Input = (props) => {
   // radio -> 상품 업로드
   // check -> 로그인
 
-  const { whiteSpace, output, text, check, radio, info, fix, left, disabled, checked, maxLength, width, height, margin, adorn, adornment, plcholder, num, children, value, name, id, _onClick, _onChange, _onKeyPress, _onFocus, _onBlur, type, fnc, btn, desc } = props;
+  const {
+    whiteSpace,
+    output,
+    text,
+    check,
+    radio,
+    info,
+    fix,
+    left,
+    disabled,
+    checked,
+    maxLength,
+    width,
+    height,
+    margin,
+    adorn,
+    adornment,
+    plcholder,
+    num,
+    children,
+    value,
+    name,
+    id,
+    _onClick,
+    _onChange,
+    _onKeyPress,
+    _onFocus,
+    _onBlur,
+    type,
+    fnc,
+    btn,
+    desc,
+  } = props;
 
   const styles = {
     name: name,
@@ -50,7 +82,7 @@ const Input = (props) => {
   if (output) {
     return (
       <InputBox {...styles}>
-        <input type={type} ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value}>
+        <input type={type} ouput={output} info={info} placeholder={plcholder} name={name} value={value}>
           {children}
         </input>
         {adornment && <span>{adornment}</span>}
@@ -99,7 +131,20 @@ const Input = (props) => {
             <path d="M6.92444 11.6981L11.2176 17.5525L19.3162 7.5025" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         )}
-        <input type="checkbox" checked={checked} ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value} onClick={_onClick} onChange={_onChange} onFocus={_onFocus} onBlur={_onBlur}>
+        <input
+          type="checkbox"
+          checked={checked}
+          ouput={output}
+          info={info}
+          ref={inputEl}
+          placeholder={plcholder}
+          name={name}
+          value={value}
+          onClick={_onClick}
+          onChange={_onChange}
+          onFocus={_onFocus}
+          onBlur={_onBlur}
+        >
           {children}
         </input>
         <div>
