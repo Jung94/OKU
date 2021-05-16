@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Timer } from "components/";
 import { Grid, Input, Button, Tag, Modal, Text } from "elements/";
 
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-regular-svg-icons";
 
@@ -17,7 +18,8 @@ import RingContents from "components/RingContents";
 
 const DetailRing = (props) => {
   const dispatch = useDispatch();
-  
+  const is_login = localStorage.getItem("uid");
+
   // 렌더될 때 ~ 한다
   useEffect(() => {
     // useEffect 랑 친한 얘
@@ -39,7 +41,7 @@ const DetailRing = (props) => {
   const [Ringshowing, setRingShowing] = useState(false);
 
   const RingDetailShowing = () => setRingShowing(!Ringshowing);
-  if (Ringshowing) {
+  if (Ringshowing && is_login) {
     return (
       <Wrap>
         <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
@@ -62,7 +64,7 @@ const DetailRing = (props) => {
         </RingDetail>
       </Wrap>
     );
-  } else {
+  } else if (is_login) {
     return (
       <Wrap>
         <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
@@ -74,6 +76,19 @@ const DetailRing = (props) => {
         </div>
       </Wrap>
     );
+  } else {
+    return (
+      <Wrap onClick={() => {window.alert("로그인이 필요한 서비스입니다.")
+      history.push("/login")
+      }} >
+        <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
+            <FontAwesomeIcon icon={faBell} />
+            {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
+          알림
+        </div>
+      </Wrap>
+    );
+
   }
 };
 
