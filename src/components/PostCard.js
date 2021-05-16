@@ -10,6 +10,9 @@ import { priceComma } from "shared/common";
 import { Timer } from "components/";
 import { history } from "../redux/configureStore";
 import { Color } from "shared/DesignSys";
+import IconHeartOn from "images/icon_HeartOn.svg";
+import IconHeartOff from "images/icon_HeartOff.svg";
+import IconBid from "images/icon_Bid.svg";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle as fasQC, faHeart as fasHeart, faPen as fasPen } from "@fortawesome/free-solid-svg-icons";
@@ -21,7 +24,7 @@ const PostCard = (props) => {
   const dispatch = useDispatch();
   const is_login = localStorage.getItem("access_token");
 
-  const { img, title, currentprice, lowBid, _onClick, _id } = props;
+  const { img, title, currentprice, lowBid, _onClick, _id, main, result } = props;
   console.log("🚚", props);
 
   // 좋아요 확인용
@@ -49,18 +52,16 @@ const PostCard = (props) => {
       <UpTime>
         <Timer day {...props} />
       </UpTime>
-      {/* <Heart onClick={() => userLike(_id)}>{likeOrNot ? <FontAwesomeIcon icon={fasHeart} /> : <FontAwesomeIcon icon={farHeart} />}</Heart> */}
+      <div onClick={() => userLike(_id)}> {likeOrNot ? <Heart img={IconHeartOn} /> : <Heart img={IconHeartOff} /> } </div>
       {img.length > 0 && <Image alt="item" img={img} onClick={() => history.push(`/product/detail/${_id}`)} />}
       <Desc>
-        <div>
+        <div style={{ width: "100%" }}>
           <Title onClick={() => history.push(`/product/detail/${_id}`)}>{title}</Title>
           {/* <Currentprice>{currentprice}</Currentprice> */}
         </div>
-        <div style={{ textAlign: "right", alignItems: "flex-end" }}>
-          <Heart onClick={() => userLike(_id)}>{likeOrNot ? <FontAwesomeIcon icon={fasHeart} /> : <FontAwesomeIcon icon={farHeart} />}</Heart>
+        <div style={{ textAlign: "right", alignItems: "flex-end", display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "10px" }}>
+          <Bid />
           <Sucbid>
-            <span className="text">최소입찰가</span>
-            <br />
             {priceComma(lowBid)}&thinsp;<span className="won">원</span>
           </Sucbid>
         </div>
@@ -77,6 +78,7 @@ PostCard.defaultPorps = {
 };
 
 const Wrap = styled.div`
+  position: relative;
   width: 300px;
   height: 420px;
   /* border: 2px solid ${Color.Primary}; */
@@ -84,12 +86,19 @@ const Wrap = styled.div`
   border-radius: 30px;
   box-sizing: border-box;
   overflow: hidden;
+  background-color: #f8f8f8;
+
+  :hover {
+    transition: 0.2s;
+    transform: scale(1.03);
+  }
 `;
 
 const Image = styled.div`
   background-image: ${(props) => `url(${props.img})`};
   background-position: center;
   background-size: cover;
+  // background-image: linear-gradient( to top, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), ${(props) => `url(${props.img})`} ;
   width: 100%;
   height: 74%;
   cursor: pointer;
@@ -115,30 +124,38 @@ const UpTime = styled.div`
 `;
 
 const Heart = styled.div`
+  position: absolute;
+  // border: 1px solid blue;
   z-index: 12;
+  top: 260px;
+  right: 11px;
   cursor: pointer;
-  width: max-content;
-  background-color: #ffffff;
-  color: ${Color.Primary};
-  /* position: absolute;
-  margin: 255px 245px;
-  font-size: 23px;
-  padding: 3px;
-  width: 38px;
-  height: 38px; */
-  text-align: center;
-  margin: 0 0 0 auto;
-  border-radius: 16px;
+  width: 40px;
+  height: 40px;
   transition: all 200ms ease-in;
+  background-color: transparent;
+  background: url(${(props) => props.img});
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.1);
   :active {
     svg {
       transform: rotate(15deg);
     }
   }
   :hover {
-    background-color: #ffffff;
-    color: ${Color.Primary};
+    transition: 0.2s ;
+    transform: scale(1.1);
   }
+`;
+
+const Bid = styled.div`
+  width: 20px;
+  height: 20px;
+  background-image: url(${IconBid});
+  background-size: cover;
+  background-position: center;
 `;
 
 const Desc = styled.div`
@@ -146,20 +163,22 @@ const Desc = styled.div`
   font-weight: bold;
   color: #2e2e2e;
   width: 100%;
-  min-height: 104px;
+  min-height: 70px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   /* flex-direction: column; */
   line-height: 180%;
-  padding-left: 22px;
-  padding-right: 15px;
-  margin-top: 10px;
+  padding: 0 20px;
+  margin-top: 12px;
+  // border: 1px solid green;
 `;
 
 const Title = styled.div`
   /* 한줄일때 */
-  display: inline-block;
-  width: 170px;
+  // border: 1px solid red;
+  // display: inline-block;
+  width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -172,7 +191,7 @@ const Sucbid = styled.div`
   line-height: 100%;
   color: ${Color.Primary};
   .text {
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 500;
     letter-spacing: -1px;
     color: ${Color.Light_4};

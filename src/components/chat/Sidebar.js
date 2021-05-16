@@ -55,7 +55,7 @@ const Sidebar = ({ room }) => {
                     onClick={() => {
                       // 채팅 페이지 이동
                       history.push(`/chat/${val.sellerunique === uid ? val.soldById : val.sellerunique}/${uid}/${val.sellerunique === uid ? val.soldBy : val.nickname}`);
-                      dispatch(chatActions.badgeOff(val.sellerunique === uid ? val.soldById : val.sellerunique));
+                      // dispatch(chatActions.badgeOff(val.sellerunique === uid ? val.soldById : val.sellerunique));
                     }}
                   >
                     <>
