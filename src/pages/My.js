@@ -19,6 +19,7 @@ const My = (props) => {
   const access_token = localStorage.getItem("access_token");
   const _user = useSelector((state) => state.mypage.user);
   const is_loading = useSelector((state) => state.product.is_loading);
+  console.log(_user);
 
   useEffect(() => {
     if (access_token) {

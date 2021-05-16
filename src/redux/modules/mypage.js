@@ -55,7 +55,7 @@ const editProfileAPI = (nickname, profile) => {
     const access_token = localStorage.getItem("access_token");
     const formData = new FormData();
     formData.append("nick", nickname);
-    formData.append("img", profile);
+    formData.append("profileImg", profile);
     fetch(`${API}/user/mypronick`, {
       method: "PUT",
       headers: {
@@ -66,6 +66,8 @@ const editProfileAPI = (nickname, profile) => {
       .then((res) => res.json())
       .then((res) => {
         if (res.okay) {
+          localStorage.removeItem("nickname");
+          localStorage.setItem("nickname", nickname);
           if (res.profileImg === profile) {
             let draft = { nickname: nickname, profile: res.profileImg };
             dispatch(setProfile(draft));

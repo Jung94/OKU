@@ -199,7 +199,7 @@ const getAlertAPI = () => {
         else {
           // dispatch(setAlert(res.alreadyCheck));
           // dispatch(setAlert(res.notCheck));
-          dispatch(setAlert(res.alreadyCheck, res.notCheck));
+          dispatch(setAlert(res));
           console.log("확인",res);
         }
       //   if (res.notCheck === "true"){

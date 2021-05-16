@@ -41,6 +41,7 @@ const Header = (props) => {
   const logout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
       dispatch(userActions.isLogout());
+      window.location.reload()
     }
   };
 

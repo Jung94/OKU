@@ -152,7 +152,6 @@ export default handleActions(
         // 디테일 페이지 찜 되어 있는지 아닌지 확인용
         let checkLike = action.payload.likelist;
         draft.is_like = checkLike.some((c) => c.productId === action.payload.id);
-        console.log(draft.is_like);
       }),
     [ADD_LIKE]: (state, action) =>
       produce(state, (draft) => {

@@ -7,6 +7,7 @@ import { actionCreators as bidActions } from "redux/modules/bid";
 import { actionCreators as likeActions } from "redux/modules/like";
 import { actionCreators as loadingActions } from "redux/modules/loading";
 import { actionCreators as postActions } from "redux/modules/post";
+import { actionCreators as mypageActions } from "redux/modules/mypage";
 
 // actions
 const SET_PRODUCT_ALL = "SET_PRODUCT_ALL";
@@ -24,7 +25,7 @@ const addAnswer = createAction(ADD_ANSWER, (qid, new_answer) => ({ qid, new_answ
 
 const initialState = {
   is_loading: false,
-  product_detail: [],
+  product_detail: {},
   qna_list: [],
   productId: null,
   related: [],
@@ -48,15 +49,19 @@ const setProductAllAPI = (_id) => {
       // Q. 이거 '비동기'관련 개념인가?
       .then((res) => res.json())
       .then((res) => {
+        // 데이터가 okay / result / seller로 되있다.
+        // get할때 response 항상 어떻게 오는지 확인하기
         if (res.okay) {
-          // 프로덕트 디테일 세팅시 필요한 api 한꺼번에 실행 (immer 활용하기 일환일까?)
+          // 프로덕트 디테일 세팅시 필요한 api 한꺼번에 실행 (immer 활용하기 일환일까?-> 관계없는애들같기도)
           // => 로딩 액션 여러번 실행되지 않게 됨
-          console.log("💨 상품디테일 💨", res.result);
-          dispatch(setProductAll(res.result._id, res.result));
+          const all = { ...res.result, profileImg: res.seller.profileImg };
+          console.log("🚩상품디테일🚩", all);
+          dispatch(setProductAll(res.result._id, all));
           dispatch(bidActions.setBidAPI(_id, res.result.lowBid));
           dispatch(setQnAAPI(_id));
           dispatch(likeActions.getLikeAPI(_id));
           dispatch(setRelatedAPI(_id, res.result.smallCategory, res.result.tag));
+          dispatch(mypageActions.setProfileAPI());
         } else {
           console.log("해당 데이터가 준비되지 않았습니다.");
         }
@@ -134,7 +139,6 @@ const setQnAAPI = (_id) => {
       .then((res) => {
         if (res.okay) {
           const _result = res.result;
-          console.log(_result);
           const unstructureObj = [];
           _result.forEach((r) => {
             // 비구조화 할당
@@ -152,7 +156,6 @@ const setQnAAPI = (_id) => {
             });
           });
           dispatch(setQnA(unstructureObj));
-          // console.log("🟢", res.result);
         } else {
           console.log("해당 데이터가 준비되지 않았습니다.");
         }
@@ -164,7 +167,6 @@ const setQnAAPI = (_id) => {
 };
 
 const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt) => {
-  console.log(_contents);
   return function (dispatch, getState, { history }) {
     dispatch(loadingActions.loading(true));
     const access_token = localStorage.getItem("access_token");
@@ -189,11 +191,13 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
       .then((res) => res.json())
       .then((res) => {
         if (res.okay) {
+          history.push(`${_id}`);
           console.log("문의글이 등록되었습니다.");
           dispatch(addQuestion(draft));
           dispatch(loadingActions.loading(false));
+          // 공부 포인트!
         } else {
-          console.log("해당 데이터가 준비되지 않았습니다.");
+          console.log("okay is false");
         }
       })
       .catch((error) => {
@@ -204,7 +208,7 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
 
 const addAnswerAPI = (_id, _answer, sellerId, updatedAt) => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
+    // dispatch(loadingActions.loading(true));
     const access_token = localStorage.getItem("access_token");
     const nickname = localStorage.getItem("nickname");
     const newQuestion = JSON.stringify({ sellerunique: sellerId, contents: _answer });
@@ -229,8 +233,8 @@ const addAnswerAPI = (_id, _answer, sellerId, updatedAt) => {
           dispatch(addAnswer(_id, draft));
           dispatch(loadingActions.loading(false));
         } else {
-          console.log("판매자가 아니거나, 답변 등록에 실패하였습니다.");
-          dispatch(loadingActions.loading(false));
+          console.log("새로고침을 하여 문의글id를 받아야하거나, 판매자가 아니거나, 답변 등록에 실패하였습니다.");
+          // dispatch(loadingActions.loading(false));
         }
       })
       .catch((error) => {
@@ -253,18 +257,15 @@ export default handleActions(
         const _related = action.payload.related;
         const _onlyFour = _related.sort(() => Math.random() - 0.5);
         draft.related = _onlyFour.slice(0, 4);
-        console.log("🟡관련상품 ", draft.related);
       }),
     [SET_QNA]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
         draft.qna_list = action.payload.question;
-        // console.log("🟡I'm qna_list: ", draft.qna_list);
       }),
     [ADD_QUESTION]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
-        // console.log("🟡", action.payload.new_question);
         // unshift: 데이터를 배열 맨 앞에 넣어줌.
         draft.qna_list.unshift(action.payload.new_question);
       }),
@@ -275,8 +276,7 @@ export default handleActions(
         }
         draft.is_loading = action.payload.is_loading;
         let idx = draft.qna_list.findIndex((e) => e._id === action.payload.qid);
-        console.log("🟡", idx); // idx는 잘나오고
-        console.log("🟡", draft.qna_list[idx]); // 이건 proxy로 나옴. 무슨 의미?
+        // console.log("🟡", draft.qna_list[idx]); // 이건 proxy로 나옴. 무슨 의미?
         draft.qna_list[idx] = { ...draft.qna_list[idx], ...action.payload.new_answer };
       }),
   },
@@ -286,6 +286,7 @@ export default handleActions(
 const actionCreators = {
   setProductAll,
   setProductAllAPI,
+
   setQnA,
   setQnAAPI,
   addQuestionAPI,
