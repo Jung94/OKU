@@ -32,7 +32,7 @@ const DetailRing = (props) => {
   console.log(alert.alreadyCheck, "alreadyCheck알럿💥");
   console.log(alert.notCheck, "notCheck알럿💥");
 
-  const [is_read, setIsRead] = React.useState(false);
+  const [is_read, setIsRead] = React.useState(true);
 
   const notiCheck = () => {
     props._onClick();
@@ -56,7 +56,7 @@ const DetailRing = (props) => {
         </div>
         ) : (
           <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
-            <Badge  invisible={is_read} color="secondary" variant="dot">
+            <Badge invisible={is_read} color="secondary" variant="dot">
             <FontAwesomeIcon icon={faBell} />
             {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
           </Badge>

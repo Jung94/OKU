@@ -22,6 +22,9 @@ const CategoryFilter = () => {
 const CategoryList = styled.div`
 display: grid;
 grid-template-columns: 1fr 1fr 1fr;
+grid-row-gap: 45px;
+grid-column-gap: 60px;
+margin-top : 100px ;
 `;
 
 export default CategoryFilter;
