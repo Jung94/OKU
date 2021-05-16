@@ -10,6 +10,7 @@ import { faQuestionCircle as fasQC, faHeart as fasHeart } from "@fortawesome/fre
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 
 import { actionCreators as productActions } from "redux/modules/product";
+import { actionCreators as loadingActions } from "redux/modules/loading";
 import { actionCreators as likeActions } from "redux/modules/like";
 import RelatedProduct from "components/global/RelatedProduct";
 import { actionCreators as bidActions } from "redux/modules/bid";
@@ -27,6 +28,8 @@ const Product = (props) => {
 
   const _id = props.match.params.id;
   const history = props.history;
+
+  const is_loading = useSelector((state) => state.loading.is_loading);
 
   const is_login = localStorage.getItem("access_token");
 
@@ -180,12 +183,14 @@ const Product = (props) => {
                 </Text>
                 <Input output info value={state && state.split("급")[0]} adornment="급" />
               </Grid>
-              <Grid flexShrink="1" margin="0 10px 0 0">
-                <Text h4 textAlign="left" marginB="5%">
-                  거래 지역
-                </Text>
-                <Input output info value={region} />
-              </Grid>
+              {region && (
+                <Grid flexShrink="1" margin="0 10px 0 0">
+                  <Text h4 textAlign="left" marginB="5%">
+                    거래 지역
+                  </Text>
+                  <Input output info value={region} />
+                </Grid>
+              )}
               <Grid flexShrink="2" margin="0 10px 0 0">
                 <Text h4 textAlign="left" marginB="5%">
                   배송 수단

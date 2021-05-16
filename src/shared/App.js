@@ -9,7 +9,7 @@ import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch, useRoutes, Link } from "react-router-dom";
 import { history } from "redux/configureStore";
 
-import Social from 'shared/Social';
+import Social from "shared/Social";
 import NotFound from "shared/NotFound";
 import Loading from "shared/Loading";
 import { Header, Footer } from "components/";
@@ -18,7 +18,7 @@ import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Re
 const App = (props) => {
   const dispatch = useDispatch();
   const is_login = localStorage.getItem("access_token") ? true : false;
-  const is_loading = useSelector((state) => state.product.is_loading);
+  // const is_loading = useSelector((state) => state.loading.is_loading);
   const header_display = useSelector((state) => state.header.header_display);
   const footer_display = useSelector((state) => state.header.footer_display);
 
@@ -28,9 +28,9 @@ const App = (props) => {
     }
   }, []);
 
-  if (is_loading) {
-    return <Loading />;
-  }
+  // if (is_loading) {
+  //   return <Loading />;
+  // }
 
   return (
     <Wrap>
@@ -53,7 +53,7 @@ const App = (props) => {
             <Route path="/chat" exact component={Chat} />
             <Route path="/chat/:otherId/:myId/:otherName" exact component={Chat} />
             <Route path="/my" component={My} />
-            <Route path='/social/:id' exact component={Social} />
+            <Route path="/social/:id" exact component={Social} />
             <Route component={NotFound} />
           </Switch>
         </ConnectedRouter>

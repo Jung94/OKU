@@ -17,7 +17,6 @@ const setMystore = createAction(SET_MYSELLING, (selling_list, sold_list, length)
 const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }));
 
 const initialState = {
-  is_loading: false,
   user: {},
   user_info: {},
   my_selling: [],
@@ -90,7 +89,6 @@ const editProfileAPI = (nickname, profile) => {
         } else {
           console.log("해당 데이터가 준비되지 않았습니다.");
         }
-        dispatch(loadingActions.loading(false));
       })
       .catch((error) => {
         console.log("editProfileAPI에 문제가 있습니다.", error);
@@ -171,17 +169,14 @@ export default handleActions(
   {
     [SET_PROFILE]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loading = action.payload.is_loading;
         draft.user = action.payload.user;
       }),
     [SET_INFO]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loading = action.payload.is_loading;
         draft.user_info = action.payload.user;
       }),
     [SET_MYSELLING]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loading = action.payload.is_loading;
         if (action.payload.selling_list === 0) {
           return;
         } else if (action.payload.selling_list < 5) {
@@ -201,7 +196,6 @@ export default handleActions(
       }),
     [SET_PREVIEW]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loading = action.payload.is_loading;
         draft.preview_image = action.payload.preview;
         draft.progress = true;
       }),

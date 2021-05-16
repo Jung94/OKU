@@ -17,7 +17,6 @@ const deleteLike = createAction(DELETE_LIKE, (id, likelist) => ({ id, likelist }
 const getMyLikeList = createAction(GET_MY_LIKE_LIST, (likelist) => ({ likelist }));
 
 const initialState = {
-  is_loading: false,
   is_like: false,
   like_list: [],
   productId: 0,
@@ -175,7 +174,6 @@ export default handleActions(
     // 마이페이지용
     [GET_MY_LIKE_LIST]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loading = action.payload.is_loading;
         draft.my_like_list = action.payload.likelist;
       }),
   },

@@ -23,8 +23,6 @@ const setPreview3 = createAction(SET_PREVIEW_3, (preview) => ({ preview }));
 const setPreviewAll = createAction(SET_PREVIEW_ALL, (preview) => ({ preview }));
 
 const initialState = {
-  is_loading: false,
-
   image: "https://mean0images.s3.ap-northeast-2.amazonaws.com/4.jpeg",
   title: "",
   cateBig: "",
@@ -79,7 +77,11 @@ const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, p
     formData.append("sucbid", sucbid);
     formData.append("deliveryprice", delivery);
     formData.append("description", productDesc);
-    formData.append("tag", tags);
+
+    tags.map((t, idx) => {
+      console.log(t);
+      return formData.append("tag", t);
+    });
 
     fetch(`${API}/product/`, {
       method: "POST",
@@ -114,7 +116,6 @@ export default handleActions(
   {
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loading = action.payload.is_loading;
         // 데이터를 배열 맨 앞에 넣어줍니다.
         // draft.image_url=action.payload.image_url;
         draft.list.unshift(action.payload.post);

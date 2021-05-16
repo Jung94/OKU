@@ -65,6 +65,8 @@ const Bid = (props) => {
         dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
         // dispatch(bidActions.warningBid("success"));
       }
+    } else if (trueBid > sucBid) {
+      setMessageBid("즉시 낙찰가보다 낮아야 해욧!");
     } else {
       dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
     }
@@ -72,8 +74,6 @@ const Bid = (props) => {
 
   const addSuccessbid = () => {
     dispatch(bidActions.addSucbidAPI(sucBid, sellerunique, Date.now()));
-    close();
-    history.replace(`/${p_id}`);
   };
 
   if (bid) {

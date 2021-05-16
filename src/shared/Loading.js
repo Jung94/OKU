@@ -8,8 +8,10 @@ import { Color } from "shared/DesignSys";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: "relative",
+    position: "flex",
     flexGrow: 1,
+    margin: "0 auto",
+    textAlign: "center",
   },
   top: {
     color: Color.Primary,
@@ -30,10 +32,10 @@ function FacebookCircularProgress(props) {
         disableShrink
         className={classes.top}
         classes={{
-          circle: classes.circle,
+          circle: classes.square,
         }}
-        size={40}
-        thickness={4}
+        size={35}
+        thickness={9}
         {...props}
       />
     </div>
@@ -44,11 +46,11 @@ export default function CircularIndeterminate() {
   const classes = useStyles();
 
   return (
-    <Grid is_flex column bg="transparent">
+    <Grid is_flex column bg="transparent" justify="center" height="50vh" margin="400px auto 0 auto">
       <div className={classes.root}>
         <FacebookCircularProgress />
+        <Text h3>조금만 기다려주세요!</Text>
       </div>
-      <Text h3>조금만 기다려주세요!</Text>
     </Grid>
   );
 }

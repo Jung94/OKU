@@ -6,7 +6,6 @@ import axios from "axios";
 import { actionCreators as bidActions } from "redux/modules/bid";
 import { actionCreators as likeActions } from "redux/modules/like";
 import { actionCreators as loadingActions } from "redux/modules/loading";
-import { actionCreators as postActions } from "redux/modules/post";
 import { actionCreators as mypageActions } from "redux/modules/mypage";
 
 // actions
@@ -24,7 +23,6 @@ const addQuestion = createAction(ADD_QUESTION, (new_question) => ({ new_question
 const addAnswer = createAction(ADD_ANSWER, (qid, new_answer) => ({ qid, new_answer }));
 
 const initialState = {
-  is_loading: false,
   product_detail: {},
   qna_list: [],
   productId: null,
@@ -233,7 +231,6 @@ const addAnswerAPI = (_id, _answer, sellerId, updatedAt) => {
       .then((res) => {
         if (res.okay) {
           dispatch(addAnswer(_id, draft));
-          dispatch(loadingActions.loading(false));
         } else {
           console.log("새로고침을 하여 문의글id를 받아야하거나, 판매자가 아니거나, 답변 등록에 실패하였습니다.");
           // dispatch(loadingActions.loading(false));
@@ -252,7 +249,6 @@ export default handleActions(
   {
     [SET_PRODUCT_ALL]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loading = action.payload.is_loading;
         draft.productId = action.payload.pid;
         draft.product_detail = action.payload.product_detail;
       }),
@@ -268,7 +264,6 @@ export default handleActions(
       }),
     [ADD_QUESTION]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loading = action.payload.is_loading;
         // unshift: 데이터를 배열 맨 앞에 넣어줌.
         draft.qna_list.unshift(action.payload.new_question);
       }),
@@ -277,7 +272,6 @@ export default handleActions(
         if (!draft.qna_list) {
           return;
         }
-        draft.is_loading = action.payload.is_loading;
         let idx = draft.qna_list.findIndex((e) => e._id === action.payload.qid);
         // console.log("🟡", draft.qna_list[idx]); // 이건 proxy로 나옴. 무슨 의미?
         draft.qna_list[idx] = { ...draft.qna_list[idx], ...action.payload.new_answer };

@@ -20,6 +20,12 @@ const initialState = {
   is_loading: false,
 };
 
+// const loading = () => {
+//   return function (dispatch, getState, { history }) {
+//     _loading(true);
+//   };
+// };
+
 export default handleActions(
   {
     [LOADING]: (state, action) =>
