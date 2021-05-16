@@ -140,6 +140,7 @@ export default handleActions(
       }),
     [BADGE]: (state, action) =>
       produce(state, (draft) => {
+        console.log();
         const idx = draft.user_list.findIndex(
           (val) => val.userId === action.payload.uid,
         );

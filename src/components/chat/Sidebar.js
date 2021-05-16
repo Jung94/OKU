@@ -48,14 +48,14 @@ const Sidebar = ({ room }) => {
           {users.length ? (
             <>
               {users.map((val, idx) => {
-                // console.log(val);
+                console.log(val);
                 return (
                   <Box 
                     key={idx + 'msg'}
                     onClick={() => {
                       // 채팅 페이지 이동
                       history.push(`/chat/${val.sellerunique === uid ? val.soldById : val.sellerunique}/${uid}/${val.sellerunique === uid ? val.soldBy : val.nickname}`);
-                      // dispatch(chatActions.badgeOff(val.id));
+                      dispatch(chatActions.badgeOff(val.sellerunique === uid ? val.soldById : val.sellerunique));
                     }}
                   >
                     <>
@@ -65,7 +65,7 @@ const Sidebar = ({ room }) => {
                       <TextBox>
                         <Up>
                           <Name>{val.sellerunique === uid ? val.soldBy : val.nickname}</Name>
-                          <Time>오후 09:11</Time>
+                          {/* <Time>오후 09:11</Time> */}
                         </Up>
                         {/* <Msg>{update}</Msg> */}
                       </TextBox>

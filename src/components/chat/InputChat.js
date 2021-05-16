@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { useSelector } from 'react-redux';
-import { actionCreators as chatActions } from 'redux/modules/chat';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
+import { actionCreators as chatActions } from "redux/modules/chat";
 
 import DaumPostcode from "react-daum-postcode";
 
-import moment from "moment"; 
+import moment from "moment";
 import "moment/locale/ko";
 
 const ChatInput = ({ room }) => {
-  const [msg, setMsg] = useState('');
+  const [msg, setMsg] = useState("");
   const [region, setRegion] = useState("");
   const [isPostOpen, setIsPostOpen] = useState(false); // 주소창 열고 닫기
   // const userImg = useSelector((state) => state.user.user?.profile_img);
   // const username = useSelector((state) => state.user.user);
   // const uid = useSelector((state) => state.user.uid);
-  const username = localStorage.getItem('nickname');
-  const uid = localStorage.getItem('uid');
+  const username = localStorage.getItem("nickname");
+  const uid = localStorage.getItem("uid");
 
   // 우편번호 / 주소 찾기
   const handleComplete = (data) => {
@@ -36,26 +36,25 @@ const ChatInput = ({ room }) => {
     setIsPostOpen(false);
   };
 
-
   // 채팅 전송 시 방 정보, 유저 이름, 유저 프로필, 메세지 전송
   const Info = {
     room: room,
     username: username,
-    profile_img: 'https://img.icons8.com/cotton/2x/gender-neutral-user--v2.png', // userImg
+    profile_img: "https://img.icons8.com/cotton/2x/gender-neutral-user--v2.png", // userImg
     msg: msg,
     uid: uid,
   };
 
   const msgSubmit = () => {
     // 아무것도 입력하지 않은 경우 리턴
-    if (msg === '') {
+    if (msg === "") {
       return;
     }
 
     const time = new Date();
     // console.log(time);
     // 채팅 전송
-    chatActions.socket.emit('send', {
+    chatActions.socket.emit("send", {
       room: Info.room,
       username: Info.username,
       // profile_img: Info.profile_img,
@@ -63,30 +62,45 @@ const ChatInput = ({ room }) => {
       msg: Info.msg,
     });
     // 알람 전송
-    chatActions.globalSocket.emit('globalSend', {
+    chatActions.globalSocket.emit("globalSend", {
       room: Info.room,
       username: Info.username,
       uid: Info.uid,
       profile_img: Info.profile_img,
       msg: Info.msg,
     });
-    setMsg('');
+    // setMsg("\n");
+    setMsg("");
   };
 
   return (
     <>
       <BtnBox>
-        <Delivery text="주소 검색" onClick={() => { setIsPostOpen(true);}}>
+        <Delivery
+          text="주소 검색"
+          onClick={() => {
+            setIsPostOpen(true);
+          }}
+        >
           배송 정보 보내기
         </Delivery>
-        <Exit>
-          거래 종료하기
-        </Exit>
+        <Exit>거래 종료하기</Exit>
       </BtnBox>
 
       <InputBox>
-        <Text type="text" placeholder="대화를 입력해주세요." onChange={(e) => { setMsg(e.target.value); }} 
-          onKeyPress={(e) => { if (e.key === 'Enter') { msgSubmit(); } }} value={msg}
+        <Text
+          type="text"
+          placeholder="대화를 입력해주세요."
+          onChange={(e) => {
+            setMsg(e.target.value);
+          }}
+          onKeyPress={(e) => {
+            if (window.event.keyCode === 13 && !e.shiftKey) {
+              msgSubmit();
+              e.preventDefault();
+            }
+          }}
+          value={msg}
         />
         <Btn onClick={msgSubmit}>전송</Btn>
       </InputBox>
@@ -166,13 +180,13 @@ const Delivery = styled.button`
 const Exit = styled.button`
   width: 172.8px;
   height: 40px;
-  color: #fff;
+  color: rgba(0, 0, 0, 0.4);
   font-size: 16px;
   font-weight: bold;
-  background: #ae00ff;
+  background: #eaeaea;
   border: none;
   border-radius: 16px;
-  cursor: pointer;
+  // cursor: pointer;
   box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
 `;
 

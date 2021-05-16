@@ -21,30 +21,44 @@ const Bid = (props) => {
 
   const [bidPrice, setBid] = useState("");
   const onChangeBid = useCallback((e) => setBid(e.target.value), []);
-  
+
   const bidInfo = React.useRef();
   const bid_before = useSelector((state) => state.bid.bid_before);
-  const [messageBid, setMessageBid] = useState('');
+  const [messageBid, setMessageBid] = useState("");
 
   const _current = useSelector((state) => state.bid.current);
 
-  React.useEffect(() => {
-    
-    if (bid_before === 'before' ) {
-      setMessageBid('현재 입찰가 보다 높아야 해욧!');
-      bidInfo.current.style.display = 'block';
-      console.log('현재 입찰가 보다 높아야 해요!');
-      return;
-    } else if (bid_before === 'time') {
-      setMessageBid('마감 시간이 종료되었어요..');
-      bidInfo.current.style.display = 'block';
-      console.log('마감 시간이 종료되었어요..');
-      return;
-    } else if (bid_before === 'success') {
-      console.log(bid_before);
-      bidInfo.current.style.display = 'none';
-    } 
+  // const checkPrice = () => {
+  //   if ( _current >= bidPrice || productOK.lowBid >= bidPrice ) {
+  //     setMessageBid('현재 입찰가 보다 높아야 해욧!');
+  //     bidInfo.current.style.display = 'block';
+  //     return;
+  //   } else {
+  //     dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
+  //     setMessageBid('입찰 성공!');
+  //   }
+  // }
 
+  React.useEffect(() => {
+    dispatch(bidActions.warningBid("success"));
+  }, []);
+
+  React.useEffect(() => {
+    if (bid_before === "before") {
+      setMessageBid("현재 입찰가 보다 높아야 해욧!");
+      bidInfo.current.style.display = "block";
+      console.log("현재 입찰가 보다 높아야 해요!");
+      return;
+    } else if (bid_before === "time") {
+      setMessageBid("마감 시간이 종료되었어요..");
+      bidInfo.current.style.display = "block";
+      console.log("마감 시간이 종료되었어요..");
+      return;
+    } else if (bid_before === "success") {
+      setMessageBid("입찰 성공!");
+      console.log(bid_before);
+      bidInfo.current.style.display = "none";
+    }
   }, [bid_before]);
 
   useInterval(() => {
@@ -76,20 +90,12 @@ const Bid = (props) => {
               </Text>
               <Timer timeProgress deadLine={deadLine} createAt={createAt} onSale={onSale} />
             </Grid>
-            {_current ? (<Price>{priceComma(_current)}원</Price>) : <Price>{priceComma(productOK.lowBid)}원</Price>}
+            {_current ? <Price>{priceComma(_current)}원</Price> : <Price>{priceComma(productOK.lowBid)}원</Price>}
             {/* <Price>{priceComma(_current)}원</Price> */}
-            <Input
-              value={input_priceComma(bidPrice)}
-              _onChange={onChangeBid}
-              num
-              width="75%"
-              margin="6% auto 0"
-              adornment="원"
-              plcholder="입찰가를 입력해주세요!"
-            />
+            <Input value={input_priceComma(bidPrice)} _onChange={onChangeBid} num width="75%" margin="6% auto 0" adornment="원" plcholder="입찰가를 입력해주세요!" />
             <InfoUl ref={bidInfo}>
               <li>{messageBid}</li>
-            </InfoUl> 
+            </InfoUl>
             <Button _onClick={addBid} width="75%" margin="4% auto 9% auto">
               입찰하기
             </Button>
@@ -115,6 +121,9 @@ const Bid = (props) => {
               {priceComma(sucBid)}
               <Text won>원</Text>
             </Text>
+            <InfoUl ref={bidInfo}>
+              <li>{messageBid}</li>
+            </InfoUl>
             <Button _onClick={addSuccessbid} width="75%" margin="0 auto 9% auto">
               즉시 낙찰하기
             </Button>
@@ -145,10 +154,10 @@ const InfoUl = styled.ul`
   list-style-type: none;
   font-size: 14px;
   text-align: center;
-  color: #ee3a57;
+  color: #ae00ff;
   position: relative;
   font-weight: 500;
-`
+`;
 
 const BidBox = styled.div`
   display: flex;

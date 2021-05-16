@@ -1,5 +1,6 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
+import { API } from "shared/Api";
 import "moment";
 import moment from "moment";
 
@@ -77,8 +78,7 @@ const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, p
     formData.append("description", productDesc);
     formData.append("tag", tags);
 
-    const API = `${API}/product/`;
-    fetch(API, {
+    fetch(`${API}/product/`, {
       method: "POST",
       headers: {
         // "content-type": "multipart/form-data",

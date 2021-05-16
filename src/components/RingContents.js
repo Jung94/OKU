@@ -9,23 +9,26 @@ import moment from "moment";
 import 'moment/locale/ko'
 
 const RingContents = (props) => {
-
-    const {alertType, productTitle, productId, creatAt} = props;
+    moment.locale("ko");
+    const {alertType, productTitle, productId, creatAt, _id} = props;
     return (
         <Box>
-            <Desc onClick={() => history.push(`/product/detail/${productId}`)}>
+            <Desc>
                 <AlertTitle>
-                <TitleLeft>{alertType}</TitleLeft>
-                <TitleRight>
-                {moment(creatAt).fromNow()}
-                </TitleRight>
+                    <TitleLeft onClick={() => history.push(`/product/detail/${productId}`)}>{alertType}</TitleLeft>
+                    <TitleRight>
+                        {moment(creatAt).fromNow()}
+                    </TitleRight>
                 </AlertTitle>
-                {alertType === "판매실패" && <AlertCotents>"{productTitle}"의 판매가 실패되었습니다.</AlertCotents>}
-                {alertType === "낙찰성공" &&  <div><AlertCotents>"{productTitle}"의 낙찰이 성사되었습니다.</AlertCotents> <Chatting>거래 채팅 진행하기</Chatting></div>}
-                {alertType === "낙찰실패"&&  <AlertCotents>"{productTitle}"의 낙찰이 실패되었습니다.</AlertCotents>}
-                {alertType === "문의" &&  <AlertCotents>"{productTitle}"의 문의댓글이 작성되었습니다.</AlertCotents>}
-                {alertType === "문의답글" &&<AlertCotents>"{productTitle}"의 문의답글이 작성되었습니다.</AlertCotents>}
-                
+                    {alertType === "판매실패" && <AlertCotents>"{productTitle}"의 판매가 실패되었습니다.</AlertCotents>}
+                    {alertType === "낙찰성공" &&  
+                    <div>
+                        <AlertCotents>"{productTitle}"의 낙찰이 성사되었습니다.</AlertCotents> 
+                        <Chatting>거래 채팅 진행하기</Chatting>
+                    </div>}
+                    {alertType === "낙찰실패"&&  <AlertCotents>"{productTitle}"의 낙찰이 실패되었습니다.</AlertCotents>}
+                    {alertType === "문의" &&  <AlertCotents>"{productTitle}"의 문의댓글이 작성되었습니다.</AlertCotents>}
+                    {alertType === "문의답글" &&<AlertCotents>"{productTitle}"의 문의답글이 작성되었습니다.</AlertCotents>} 
             </Desc>
             <Line/>
         </Box>
@@ -33,11 +36,9 @@ const RingContents = (props) => {
 }
 
 const Box = styled.div`
-
 `;
 const Desc = styled.div`
     margin: 9.2px 29px 9.2px 15px;
-    
     cursor : pointer;
 `;
 
@@ -50,6 +51,9 @@ const AlertTitle = styled.div`
 const TitleLeft = styled.span`
     color: #ae00ff;
     font-size: 14px;
+    : hover {
+        text-decoration:underline;
+     }
 `;
 const TitleRight = styled.span`
     color: #cacaca;

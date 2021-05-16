@@ -48,11 +48,11 @@ const setBidAPI = (_id, lowBid) => {
           if (_prebid.length === 0) {
             dispatch(setBid([]));
             dispatch(setCurrent(lowBid));
-          } else if (_prebid.length < 5) {
+          } else if (_prebid.length < 4) {
             dispatch(setBid(_prebid));
             dispatch(setCurrent(_prebid[0].bid));
           } else {
-            dispatch(setBid(_prebid.slice(0, 5)));
+            dispatch(setBid(_prebid.slice(0, 4)));
             dispatch(setCurrent(_prebid[0].bid));
           }
         } else {
@@ -95,7 +95,7 @@ const addBidAPI = (bidPrice, createAt) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.result);
+        // console.log(res.result);
         if (res.result === "before" || res.result === "lowBid") {
           console.log(res.result);
           dispatch(warningBid("before"));
@@ -187,6 +187,7 @@ const actionCreators = {
   addBid,
   addBidAPI,
   addSucbidAPI,
+  warningBid,
 };
 
 export { actionCreators };

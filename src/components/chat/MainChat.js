@@ -2,13 +2,13 @@ import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as chatActions } from "redux/modules/chat";
-import Message from './Message';
+import Message from "./Message";
 
-const MainChat = ({targetName}) => {
+const MainChat = ({ targetName }) => {
   const dispatch = useDispatch();
   const msgList = useSelector((state) => state.chat.chat_list);
   const loading = useSelector((state) => state.chat.is_loading);
-  
+
   useEffect(() => {
     // 로드될때 채팅 목록
     dispatch(chatActions.loadChatList());
@@ -24,7 +24,7 @@ const MainChat = ({targetName}) => {
   // 채팅 생성 시 또는 채팅방 들어갈때 스크롤이 있을경우 가장 최신 채팅을 보게함
   const endPoint = useRef(null);
   const bottomView = () => {
-    endPoint.current?.scrollIntoView();
+    endPoint.current?.scrollIntoView({ block: "end", inline: "nearest" });
   };
 
   useEffect(() => {
@@ -40,20 +40,14 @@ const MainChat = ({targetName}) => {
         <Message />
       </ChatBox> */}
       {loading ? (
-        <>
-          {/* empty */}
-        </>
+        <>{/* empty */}</>
       ) : (
-        <>
-          <Header>
-            {targetName}
-          </Header>
+        <div>
+          <Header>{targetName}</Header>
           <ChatBox>
             {msgList.length === 0 ? (
               <EmptyPost>
-                <div>
-                  경매 성공 시 구매자 또는 경매자와의 채팅이 가능하다구요!
-                </div>
+                <div>경매 성공 시 구매자 또는 경매자와의 채팅이 가능하다구요!</div>
               </EmptyPost>
             ) : null}
             {msgList.map((val, idx) => {
@@ -65,11 +59,11 @@ const MainChat = ({targetName}) => {
             })}
             <div ref={endPoint}></div>
           </ChatBox>
-        </>
+        </div>
       )}
     </>
   );
-}
+};
 
 const EmptyPost = styled.div`
   position: absolute;
@@ -81,7 +75,7 @@ const EmptyPost = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
   & div {
     font-size: 18px;
     font-weight: 500;
@@ -89,14 +83,14 @@ const EmptyPost = styled.div`
 `;
 
 const ChatBox = styled.div`
-//   border: 1px solid red;
+  //   border: 1px solid red;
   height: 458px;
   width: 744px;
   overflow: auto;
 `;
 
 const Header = styled.div`
-//   border: 1px solid red;
+  //   border: 1px solid red;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -22,7 +22,7 @@ const Card = (props) => {
 
   useEffect(() => {
     dispatch(postActions.getRecentProductsAPI());
-    dispatch(likeActions.getMyLikeListAPI());
+    dispatch(likeActions.getLikeAPI());
   }, []);
 
   const _recent_product = useSelector((state) => state.post.recent_product);
@@ -51,11 +51,19 @@ const Wrap = styled.div`
 const Head = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 30px;
+  letter-spacing: -2px;
 `;
 
 const Cards = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 65px;
+  grid-row-gap: 48px;
+  margin-top: 45px 0;
+
+  width: 100%;
+  box-sizing: border-box;
 `;
 
 export default Card;

@@ -188,11 +188,20 @@ const getAlertAPI = () => {
     fetch(_API, {
       method: "GET",
       headers: {
-        access_token: `${access_token}`,
+        access_token: access_token,
       },
     })
       .then((res) => res.json())
       .then((res) => {
+        if (res.msg === "not_login" ) {
+          console.log("로그인해야 알림을 볼텐데", res)
+        }
+        else {
+          // dispatch(setAlert(res.alreadyCheck));
+          // dispatch(setAlert(res.notCheck));
+          dispatch(setAlert(res.alreadyCheck, res.notCheck));
+          console.log("확인",res);
+        }
       //   if (res.notCheck === "true"){
       //   dispatch(setAlert(res.notCheck));
       //   console.log("미확인",res.notCheck);
@@ -200,9 +209,7 @@ const getAlertAPI = () => {
       //   //   return a.createAt > b.createAt ? -1 : a.createAt < b.createAt ? 1 : 0;
       //   // }
       // } else if (res.alreadyCheck === "true") {
-        dispatch(setAlert(res.alreadyCheck));
-        dispatch(setAlert(res.notCheck));
-        console.log("확인",res);
+        
       // }
       })
       .catch((error) => {

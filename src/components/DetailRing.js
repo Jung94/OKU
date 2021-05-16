@@ -18,16 +18,17 @@ import RingContents from "components/RingContents";
 const DetailRing = (props) => {
   const dispatch = useDispatch();
   
-
-  const { alertType, _id } = props;
   // 렌더될 때 ~ 한다
   useEffect(() => {
     // useEffect 랑 친한 얘
     dispatch(postActions.getAlertAPI());
   }, []);
 
-  const _alert = useSelector((state) => state.post.all_alert);
-  console.log("알림입니다",_alert)
+  const alert = useSelector((state) => state.post.all_alert);
+  console.log("알림입니다", alert)
+  const alert_alreadyCheck = alert.alreadyCheck
+  const alert_notCheck = alert.notCheck
+  
 
   const [is_read, setIsRead] = React.useState(true);
 
@@ -38,7 +39,6 @@ const DetailRing = (props) => {
   const [Ringshowing, setRingShowing] = useState(false);
 
   const RingDetailShowing = () => setRingShowing(!Ringshowing);
-  // console.log(_alert);
   if (Ringshowing) {
     return (
       <Wrap>
@@ -51,8 +51,8 @@ const DetailRing = (props) => {
         </div>
         <RingDetail>
           <Contents>
-            {_alert.map((i, idx) => {
-              console.log("알림입니다",_alert)
+            {alert.map((i, idx) => {
+              console.log("alert체크",alert)
               return (
             <RingContents key={idx} {...i} />
             );
