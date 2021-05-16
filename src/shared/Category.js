@@ -6,19 +6,6 @@ const MainCT = [
 ];
 
 const D2CT = [
-  { value: "피규어", label: "피규어" },
-  { value: "인형", label: "인형" },
-  { value: "키링/스트랩/아크릴", label: "키링/스트랩/아크릴" },
-  { value: "포스터/태피스트리", label: "포스터/태피스트리" },
-  { value: "문구/데스크 용품", label: "문구/데스크 용품" },
-  { value: "액세서리", label: "액세서리" },
-  { value: "CD/블루레이", label: "CD/블루레이" },
-  { value: "비공식굿즈", label: "비공식굿즈" },
-  { value: "기타", label: "기타" },
-  
-];
-
-const D3CT = [
   { value: "인형", label: "인형" },
   { value: "키링/스트랩/아크릴", label: "키링/스트랩/아크릴" },
   { value: "포토카드", label: "포토카드" },
@@ -30,7 +17,18 @@ const D3CT = [
   { value: "서적", label: "서적" },
   { value: "비공식굿즈", label: "비공식굿즈" },
   { value: "기타", label: "기타" },
-  
+];
+
+const D3CT = [
+  { value: "피규어", label: "피규어" },
+  { value: "인형", label: "인형" },
+  { value: "키링/스트랩/아크릴", label: "키링/스트랩/아크릴" },
+  { value: "포스터/태피스트리", label: "포스터/태피스트리" },
+  { value: "문구/데스크 용품", label: "문구/데스크 용품" },
+  { value: "액세서리", label: "액세서리" },
+  { value: "CD/블루레이", label: "CD/블루레이" },
+  { value: "비공식굿즈", label: "비공식굿즈" },
+  { value: "기타", label: "기타" },
 ];
 
 const D4CT = [

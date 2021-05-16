@@ -20,7 +20,7 @@ import MainLogo from "images/logo.png";
 import Submit from "images/search.png";
 import List from "images/list.png";
 
-import { MainCT, D2CT, D3CT } from "shared/Category";
+import { MainCT, D2CT, D3CT, D4CT  } from "shared/Category";
 import { Color } from "shared/DesignSys";
 import { CenterFocusStrong } from "../../node_modules/@material-ui/icons/index";
 
@@ -41,7 +41,6 @@ const Header = (props) => {
   const logout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
       dispatch(userActions.isLogout());
-      window.location.reload()
     }
   };
 
@@ -56,20 +55,20 @@ const Header = (props) => {
   // };
 
   const handleMainCategory = (e) => {
-    setMainct(e.target.value);
-    if (e.target.value === "3D") {
-      setSubct(D2CT);
-      dispatch(categoryActions.getProductMainCategotAPI(e.target.value));
-    } else if (e.target.value === "2D") {
+    setMainct(e.value);
+    if (e.value === "2D") {
       setSubct(D3CT);
-      dispatch(categoryActions.getProductMainCategotAPI(e.target.value));
+      dispatch(categoryActions.getProductMainCategotAPI(e.value));
+    } else if (e.value === "3D") {
+      setSubct(D2CT);
+      dispatch(categoryActions.getProductMainCategotAPI(e.value));
     }
   };
 
   const handleSubCategory = (e) => {
-    setSubct(e.target.value);
+    setSubct(e.value);
     console.log(handleSubCategory);
-    dispatch(categoryActions.getProductSubCategotAPI(mainct, e.target.value));
+    dispatch(categoryActions.getProductSubCategotAPI(mainct, e.value));
     history.push("/category");
   };
 
@@ -268,13 +267,13 @@ const Header = (props) => {
             </SubSelectbox>
           )}
           {/* 2D일 때 */}
-          {mainct === "2D" && (
+          {mainct === "3D" && (
             <SubSelectbox>
               <Select placeholder="중분류" onChange={handleSubCategory} options={D2CT} styles={customStyles} />
             </SubSelectbox>
           )}
           {/* 3D일 때 */}
-          {mainct === "3D" && (
+          {mainct === "2D" && (
             <SubSelectbox>
               <Select placeholder="중분류" onChange={handleSubCategory} options={D3CT} styles={customStyles} />
             </SubSelectbox>

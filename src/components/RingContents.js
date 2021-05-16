@@ -53,7 +53,7 @@ const TitleLeft = styled.span`
     font-size: 14px;
     : hover {
         text-decoration:underline;
-     }
+    }
 `;
 const TitleRight = styled.span`
     color: #cacaca;

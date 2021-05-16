@@ -197,8 +197,8 @@ const getAlertAPI = () => {
           console.log("로그인해야 알림을 볼텐데", res)
         }
         else {
-          // dispatch(setAlert(res.alreadyCheck));
-          // dispatch(setAlert(res.notCheck));
+          dispatch(setAlert(res.alreadyCheck));
+          dispatch(setAlert(res.notCheck));
           dispatch(setAlert(res));
           console.log("확인",res);
         }

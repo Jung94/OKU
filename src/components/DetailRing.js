@@ -28,13 +28,11 @@ const DetailRing = (props) => {
   }, []);
 
   const alert = useSelector((state) => state.post.all_alert);
-  const read_a = alert.alreadyCheck
-  const notread_a = alert.notCheck
-  console.log(read_a, "읽었는데")
-  console.log(notread_a, "안읽었는데")
-  
+  console.log(alert, "알럿💥");  
+  console.log(alert.alreadyCheck, "alreadyCheck알럿💥");
+  console.log(alert.notCheck, "notCheck알럿💥");
 
-  const [is_read, setIsRead] = React.useState(true);
+  const [is_read, setIsRead] = React.useState(false);
 
   const notiCheck = () => {
     props._onClick();
@@ -45,28 +43,39 @@ const DetailRing = (props) => {
   const RingDetailShowing = () => setRingShowing(!Ringshowing);
   if (Ringshowing && is_login) {
     return (
+      // 로그인이 되어있을 때
       <Wrap>
+        {alert.notCheck && alert.notCheck.length === 0 ?
+        (
         <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
-          {notread_a && notread_a.length === 0 ? (
-          <Badge color="secondary" variant="dot">
-            <FontAwesomeIcon icon={faBell} />
-            {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-          </Badge> 
-          ) : (
-            <Badge invisible={is_read} color="secondary" variant="dot">
+            <Badge color="secondary" variant="dot">
             <FontAwesomeIcon icon={faBell} />
             {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
           </Badge>
-          )}
           알림
         </div>
+        ) : (
+          <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
+            <Badge  invisible={is_read} color="secondary" variant="dot">
+            <FontAwesomeIcon icon={faBell} />
+            {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
+          </Badge>
+          알림
+        </div>
+        )}
         <RingDetail>
-        {alert && alert.length > 0 ? (
+        {alert.alreadyCheck && alert.alreadyCheck.length > 0 ? (
           <Contents>
-            {alert.map((i, idx) => {
-              console.log("alert체크",alert)
+            {alert.alreadyCheck.map((i, idx) => {
+              console.log("alreadyCheck",alert)
               return (
             <RingContents key={idx} {...i} />
+            );
+            })}
+            {alert.notCheck.map((i, idx) => {
+              console.log("notCheck",alert)
+              return (
+            <RingContents key={idx} {...i}  />
             );
             })}
           </Contents>
@@ -87,6 +96,8 @@ const DetailRing = (props) => {
       </Wrap>
     );
   } else if (is_login) {
+    
+    console.log(alert)
     return (
       <Wrap>
         <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
