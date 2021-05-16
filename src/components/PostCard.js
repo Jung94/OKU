@@ -92,6 +92,10 @@ const Wrap = styled.div`
     transition: 0.2s;
     transform: scale(1.03);
   }
+
+  &:not(hover) {
+    transition: 0.2s;
+  }
 `;
 
 const Image = styled.div`
