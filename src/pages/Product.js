@@ -359,6 +359,7 @@ const Desc = styled.div`
   -webkit-line-clamp: 7;
   -webkit-box-orient: vertical;
   display: -webkit-box;
+  white-space: pre-line;
 `;
 
 // 상품설명

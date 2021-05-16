@@ -86,7 +86,7 @@ const ChatInput = ({ room }) => {
 
       <InputBox>
         <Text type="text" placeholder="대화를 입력해주세요." onChange={(e) => { setMsg(e.target.value); }} 
-          onKeyPress={(e) => { if (e.key === 'Enter') { msgSubmit(); } }} value={msg}
+          onKeyPress={(e) => { if(window.event.keyCode === 13 && !e.shiftKey) { msgSubmit(); e.preventDefault(); } }} value={msg}
         />
         <Btn onClick={msgSubmit}>전송</Btn>
       </InputBox>
@@ -166,13 +166,13 @@ const Delivery = styled.button`
 const Exit = styled.button`
   width: 172.8px;
   height: 40px;
-  color: #fff;
+  color: rgba(0, 0, 0, 0.4);
   font-size: 16px;
   font-weight: bold;
-  background: #ae00ff;
+  background: #eaeaea;
   border: none;
   border-radius: 16px;
-  cursor: pointer;
+  // cursor: pointer;
   box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
 `;
 

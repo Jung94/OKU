@@ -152,7 +152,7 @@ const MsgR = styled.div`
   line-height: 1.2;
   word-break: break-all;
   text-align: left;
-
+  white-space: pre-line;
 `;
 
 const Box = styled.div`
@@ -226,7 +226,7 @@ const Msg = styled.div`
   line-height: 1.2;
   white-space: normal;
   text-align: left;
-  
+  white-space: pre-line;
 `;
 
 export default Message;

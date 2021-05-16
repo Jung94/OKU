@@ -28,23 +28,38 @@ const Bid = (props) => {
 
   const _current = useSelector((state) => state.bid.current);
 
+  // const checkPrice = () => {
+  //   if ( _current >= bidPrice || productOK.lowBid >= bidPrice ) {
+  //     setMessageBid('현재 입찰가 보다 높아야 해욧!');
+  //     bidInfo.current.style.display = 'block';
+  //     return;
+  //   } else {
+  //     dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
+  //     setMessageBid('입찰 성공!');
+  //   }
+  // }
+
   React.useEffect(() => {
+    dispatch(bidActions.warningBid("success"));
+  }, []);
+
+  React.useEffect(() => {
+    console.log(bid_before);
     
     if (bid_before === 'before' ) {
       setMessageBid('현재 입찰가 보다 높아야 해욧!');
       bidInfo.current.style.display = 'block';
-      console.log('현재 입찰가 보다 높아야 해요!');
       return;
     } else if (bid_before === 'time') {
       setMessageBid('마감 시간이 종료되었어요..');
       bidInfo.current.style.display = 'block';
-      console.log('마감 시간이 종료되었어요..');
       return;
     } else if (bid_before === 'success') {
-      console.log(bid_before);
-      bidInfo.current.style.display = 'none';
+      setMessageBid('입찰 성공!');
+      // bidInfo.current.style.display = 'block';
     } 
-
+    
+  
   }, [bid_before]);
 
   useInterval(() => {
@@ -145,7 +160,7 @@ const InfoUl = styled.ul`
   list-style-type: none;
   font-size: 14px;
   text-align: center;
-  color: #ee3a57;
+  color: #ae00ff;
   position: relative;
   font-weight: 500;
 `

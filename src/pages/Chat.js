@@ -64,10 +64,10 @@ const Chat = (props) => {
     chatActions.socket.emit("join", Info);
   }
 
-  if (!is_login) {
-    // history.push("/login");
-    alert("로그인후에 이용하실 수 있습니다.");
-  }
+  // if (!is_login) {
+  //   // history.push("/login");
+  //   alert("로그인후에 이용하실 수 있습니다.");
+  // }
 
   return (
     <>
@@ -85,7 +85,7 @@ const Chat = (props) => {
                 </MainBtn>
               </>
             ) : (
-              <div>ddddd</div>
+              <div>연결이 불안정합니다.</div>
             )}
           </MainRight>
         </MainContent>

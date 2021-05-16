@@ -328,7 +328,6 @@ const TextareaBox = styled.div`
   }
   textarea {
     ${(props) => (props.fix ? `resize: none;` : "")}
-    white-space: ${(props) => (props.whiteSpace ? props.whiteSpace : "")};
     box-sizing: border-box;
     width: 100%;
     background-color: transparent;

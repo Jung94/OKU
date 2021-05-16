@@ -24,7 +24,8 @@ const MainChat = ({targetName}) => {
   // 채팅 생성 시 또는 채팅방 들어갈때 스크롤이 있을경우 가장 최신 채팅을 보게함
   const endPoint = useRef(null);
   const bottomView = () => {
-    endPoint.current?.scrollIntoView();
+    console.log(endPoint.current);
+    endPoint.current?.scrollIntoView({ block: "end", inline: "nearest" });
   };
 
   useEffect(() => {

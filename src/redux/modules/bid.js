@@ -95,7 +95,7 @@ const addBidAPI = (bidPrice, createAt) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.result);
+        // console.log(res.result);
         if (res.result === "before" || res.result === "lowBid") {
           console.log(res.result);
           dispatch(warningBid("before"));
@@ -187,6 +187,7 @@ const actionCreators = {
   addBid,
   addBidAPI,
   addSucbidAPI,
+  warningBid,
 };
 
 export { actionCreators };
