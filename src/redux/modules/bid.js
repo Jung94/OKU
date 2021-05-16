@@ -48,11 +48,11 @@ const setBidAPI = (_id, lowBid) => {
           if (_prebid.length === 0) {
             dispatch(setBid([]));
             dispatch(setCurrent(lowBid));
-          } else if (_prebid.length < 5) {
+          } else if (_prebid.length < 4) {
             dispatch(setBid(_prebid));
             dispatch(setCurrent(_prebid[0].bid));
           } else {
-            dispatch(setBid(_prebid.slice(0, 5)));
+            dispatch(setBid(_prebid.slice(0, 4)));
             dispatch(setCurrent(_prebid[0].bid));
           }
         } else {

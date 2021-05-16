@@ -163,6 +163,8 @@ const GridBox = styled.div`
 
   box-sizing: border-box;
 
+  white-space: pre-line;
+
   svg {
     cursor: pointer;
   }

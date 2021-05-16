@@ -157,9 +157,9 @@ const Desc = styled.div`
 `;
 
 const Title = styled.div`
-  /* 한줄일때 글자수 줄이기 */
-  width: 180px;
+  /* 한줄일때 */
   display: inline-block;
+  width: 170px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

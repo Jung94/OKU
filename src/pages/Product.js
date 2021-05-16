@@ -25,7 +25,7 @@ const Product = (props) => {
   const dispatch = useDispatch();
   const _id = props.match.params.id;
   const history = props.history;
-
+  moment.locale("ko");
   const is_login = localStorage.getItem("access_token");
   const productOK = useSelector((state) => state.product.product_detail);
   var {
@@ -59,10 +59,12 @@ const Product = (props) => {
   const onChangeContents = useCallback((e) => setReview(e.target.value), []);
 
   const addQuestion = () => {
+    setReview("");
     dispatch(productActions.addQuestionAPI(_id, _contents, sellerunique, nickname, Date.now()));
   };
 
   useEffect(() => {
+    window.scrollY = 0;
     console.log(_id);
     dispatch(productActions.setProductAllAPI(_id));
     dispatch(bidActions.setBidAPI(_id, lowBid));
@@ -70,10 +72,10 @@ const Product = (props) => {
 
   const userLike = (_id) => {
     if (is_login) {
-      if (!_is_like) {
-        dispatch(likeActions.addLikeAPI(_id)); // 좋아요 실행
-      } else {
+      if (_is_like) {
         dispatch(likeActions.deleteLikeAPI(_id)); // 좋아요 해제 실행
+      } else {
+        dispatch(likeActions.addLikeAPI(_id)); // 좋아요 실행
       }
     } else {
       window.alert("로그인이 필요한 서비스입니다.");
@@ -138,12 +140,12 @@ const Product = (props) => {
               </Grid>
               <Grid is_flex>
                 {_is_like ? (
-                  <Button main _onClick={userLike} margin="0 5px 0 0">
+                  <Button main _onClick={() => userLike(_id)} margin="0 5px 0 0">
                     <FontAwesomeIcon icon={fasHeart} />
                     &thinsp;찜
                   </Button>
                 ) : (
-                  <Button sub _onClick={userLike} margin="0 5px 0 0">
+                  <Button sub _onClick={() => userLike(_id)} margin="0 5px 0 0">
                     <FontAwesomeIcon icon={farHeart} />
                     &thinsp;찜
                   </Button>
@@ -195,7 +197,7 @@ const Product = (props) => {
             <Grid is_flex>{tag && tag.map((t, idx) => <Tag key={idx}>{t}</Tag>)}</Grid>
           </Grid>
 
-          <Grid width="33%" margin="0 0 0 10px" overflow="hidden" max_height="240px">
+          <Grid width="33%" margin="0 0 0 10px">
             <Text h3 color={Color.Primary} marginB="10px">
               실시간 입찰 정보
               <FontAwesomeIcon icon={fasQC} className="infoSvg" />
@@ -276,7 +278,18 @@ const Product = (props) => {
             </Text>
           </Grid>
           <Grid margin="0 0 10px 0">
-            <Input text width="100%" margin="0 0 10px 0" height="250px" plcholder="문의 내용을 입력해주세요." adornment="0 / 100" _onChange={onChangeContents} fnc={addQuestion} btn="등록하기"></Input>
+            <Input
+              text
+              width="100%"
+              margin="0 0 10px 0"
+              height="250px"
+              plcholder="문의 내용을 입력해주세요."
+              adornment="0 / 100"
+              _onChange={onChangeContents}
+              value={_contents}
+              fnc={addQuestion}
+              btn="등록하기"
+            ></Input>
             {_qna_list.map((q, idx) => (
               <QnA key={idx} {...q} />
             ))}

@@ -31,4 +31,9 @@ export const stringTo = (price) => {
   return price.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
 
+//텍스트 박스 개행문자 변환
+export const toEnter = (value) => {
+  return value.replace(/\r\n/g, <br />);
+};
+
 export const KAKAO_JS_ID = "a6634d55e2a844f3e6e440e3d6fca337";

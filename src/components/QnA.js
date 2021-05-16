@@ -10,6 +10,7 @@ import moment from "moment";
 import "moment/locale/ko";
 
 import { actionCreators as productActions } from "redux/modules/product";
+import { toEnter } from "shared/common";
 
 import { Color } from "shared/DesignSys";
 
@@ -85,14 +86,7 @@ const QnA = (props) => {
               <AnswerWrap openPost>
                 {/* <svg id="레이어_1" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39.63 42.11"><title>무제-1</title><polygon points="28.89 21.89 24.91 26.11 28.09 29.1 5.8 29.1 5.8 0 0 0 0 34.9 28.09 34.9 24.91 37.89 28.89 42.11 39.63 32 28.89 21.89"/></svg> */}
                 <QnAPost openPost>
-                  <Input
-                    text
-                    fnc={addAnswer}
-                    plcholder="답변을 작성해주세요! 가장 마지막에 남긴 글만 등록됩니다."
-                    width="100%"
-                    _onChange={onChangeContents}
-                    btn="등록하기"
-                  ></Input>
+                  <Input text fnc={addAnswer} plcholder="답변을 작성해주세요! 가장 마지막에 남긴 글만 등록됩니다." width="100%" _onChange={onChangeContents} btn="등록하기"></Input>
                 </QnAPost>
               </AnswerWrap>
             )}

@@ -134,6 +134,7 @@ const setQnAAPI = (_id) => {
       .then((res) => {
         if (res.okay) {
           const _result = res.result;
+          console.log(_result);
           const unstructureObj = [];
           _result.forEach((r) => {
             // 비구조화 할당
@@ -163,6 +164,7 @@ const setQnAAPI = (_id) => {
 };
 
 const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt) => {
+  console.log(_contents);
   return function (dispatch, getState, { history }) {
     dispatch(loadingActions.loading(true));
     const access_token = localStorage.getItem("access_token");

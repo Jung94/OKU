@@ -7,7 +7,7 @@ const Profile = (props) => {
   const { img, size, nomargin } = props;
   const styles = { img: img, size: size, nomargin: nomargin };
 
-  if (img === "public/profile.png") {
+  if (img === "public/profile.png" || !img) {
     return <ProfileBlock img="https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg" size={size} />;
   }
 

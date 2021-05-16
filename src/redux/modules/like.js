@@ -36,7 +36,17 @@ const getLikeAPI = (_id) => {
       .then((res) => res.json())
       .then((res) => {
         if (res.okay && res.result.length > 0) {
-          dispatch(getLike(_id, res.result));
+          // 유저 한명당 좋아요 개수 제한 없는 상태
+          // 배열 그대로 받으면 좋아요가 여러개임
+          // 중복 productId 제거하기
+          const likeResult = res.result.filter((r, idx) => {
+            return (
+              res.result.findIndex((_r, _idx) => {
+                return r.productId === _r.productId;
+              }) === idx
+            );
+          });
+          dispatch(getLike(_id, likeResult));
         } else {
         }
       })
