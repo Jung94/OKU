@@ -195,7 +195,7 @@ const Container = (props) => {
                     key={idx}
                     {...i}
                     _onClick={() => {
-                      history.push(`product/detail/${i._id}`);
+                      history.replace(`product/detail/${i._id}`);
                     }}
                   />
                 );

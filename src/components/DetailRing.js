@@ -24,12 +24,14 @@ const DetailRing = (props) => {
   useEffect(() => {
     // useEffect 랑 친한 얘
     dispatch(postActions.getAlertAPI());
+    
   }, []);
 
   const alert = useSelector((state) => state.post.all_alert);
-  console.log("알림입니다", alert)
-  const alert_alreadyCheck = alert.alreadyCheck
-  const alert_notCheck = alert.notCheck
+  const read_a = alert.alreadyCheck
+  const notread_a = alert.notCheck
+  console.log(read_a, "읽었는데")
+  console.log(notread_a, "안읽었는데")
   
 
   const [is_read, setIsRead] = React.useState(true);
@@ -45,13 +47,21 @@ const DetailRing = (props) => {
     return (
       <Wrap>
         <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
-          <Badge invisible={is_read} color="secondary" variant="dot">
+          {notread_a && notread_a.length === 0 ? (
+          <Badge color="secondary" variant="dot">
+            <FontAwesomeIcon icon={faBell} />
+            {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
+          </Badge> 
+          ) : (
+            <Badge invisible={is_read} color="secondary" variant="dot">
             <FontAwesomeIcon icon={faBell} />
             {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
           </Badge>
+          )}
           알림
         </div>
         <RingDetail>
+        {alert && alert.length > 0 ? (
           <Contents>
             {alert.map((i, idx) => {
               console.log("alert체크",alert)
@@ -59,8 +69,20 @@ const DetailRing = (props) => {
             <RingContents key={idx} {...i} />
             );
             })}
-
           </Contents>
+          ) : (
+          <ContentsX>
+          <span>
+            최근 알림이 없습니다.
+          </span>
+            {/* {alert.map((i, idx) => {
+              console.log("alert체크",alert)
+              return (
+            <RingContents key={idx} {...i} />
+            );
+            })} */}
+          </ContentsX>
+          ) }
         </RingDetail>
       </Wrap>
     );
@@ -135,4 +157,11 @@ const Desc = styled.div`
 const Contents = styled.div`
   margin: 26px 0 103.6px 0;
 `;
+
+const ContentsX = styled.div`
+  display : block;
+  margin : 100px 69px 0 ;
+  color : #dadada;
+`;
+
 export default DetailRing;

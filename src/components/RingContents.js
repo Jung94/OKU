@@ -15,7 +15,7 @@ const RingContents = (props) => {
         <Box>
             <Desc>
                 <AlertTitle>
-                    <TitleLeft onClick={() => history.push(`/product/detail/${productId}`)}>{alertType}</TitleLeft>
+                    <TitleLeft onClick={() => history.replace(`/product/detail/${productId}`)}>{alertType}</TitleLeft>
                     <TitleRight>
                         {moment(creatAt).fromNow()}
                     </TitleRight>
