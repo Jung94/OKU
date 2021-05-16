@@ -23,33 +23,34 @@ const FooterWrap = styled.footer`
   width: 100%;
   left: 0;
   right: 0;
-  height: 151px;
+  height: 95px;
   z-index: -1;
-  background: ${Color.Light_1};
+  background: #dadada;
   position: absolute;
   ${(props) => (props.display === false ? "display : none;" : "display : flex;")}
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding-top: 45px;
   box-sizing: border-box;
 `;
 
 const FooterContent = styled.footer`
-  max-width: 80vw;
-  width: 100%;
+  margin: 0 0 40px 0;
+  width: 1030px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
-  color: ${Color.Dark_4};
+  color: #818181;
 `;
 
 const Image = styled.div`
   & > img {
-    width: 105.2px;
-    height: 52.6px;
+    width: 85.2px;
+    height: 40.6px;
   }
 `;
 
