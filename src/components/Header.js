@@ -48,10 +48,14 @@ const Header = (props) => {
   const [mainct, setMainct] = useState("");
   const [subct, setSubct] = useState("");
 
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+
   useEffect(() => {
-    window.addEventListener("scroll", headerChange);
-    // dispatch(userActions.isLogin());
-    return () => window.removeEventListener("scroll", headerChange);
+    if (isDesktop) {
+      window.addEventListener("scroll", headerChange);
+      // dispatch(userActions.isLogin());
+      return () => window.removeEventListener("scroll", headerChange);
+    }
   }, []);
 
   const logout = () => {
@@ -197,7 +201,9 @@ const Header = (props) => {
   const lengthen = useRef();
 
   const headerChange = () => {
-    if (window.innerWidth < 1024) {
+    // return null;
+    if (window.scrollY < 150 && window.innerWidth < 1024) {
+      leftLogo.current.style.display = "none";
       leftLogo.current.style.width = "0";
       leftLogo.current.style.marginRight = "0";
     } else if (window.scrollY < 150 && window.innerWidth > 1320) {
