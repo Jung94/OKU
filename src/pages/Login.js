@@ -10,6 +10,9 @@ import { Grid, Input, Line, Button, Tag, Modal, Text, Profile } from "elements/"
 
 import { Color } from "shared/DesignSys";
 
+import { faEye as farEye } from "@fortawesome/free-regular-svg-icons";
+import { faEyeSlash as farEyeSlash } from "@fortawesome/free-regular-svg-icons";
+
 import { faUser, faLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -60,6 +63,14 @@ const Login = (props) => {
     }
   };
 
+  // 비밀번호 인풋 내용 state
+  const [show, setShow] = useState(false); // show = 비밀번호 인풋에 작성한 비밀번호
+
+  // 비밀번호 인풋 내용 보기
+  const changeEye = () => {
+    setShow(show ? false : true);
+  };
+
   // 카카오 로그인
   const kakaoLoginClickHandler = (res) => {
     const kakao_access_token = res.response.access_token;
@@ -90,66 +101,68 @@ const Login = (props) => {
 
   return (
     <Wrap>
-      <Text h2 textAlign="center" marginB="20px">
-        로그인
-      </Text>
-      <Text subBody textAlign="center" color={Color.Primary} marginB="20px">
-        0부터 9까지 뭐든 It's OK!
-        <br />
-        회원가입을 통해 더욱 편리하게 OKU의 다양한 상품을 구경하세요.
-      </Text>
-      <LoginBox>
-        {/* <FontAwesomeIcon icon={faUser} color={Color.Light_3} /> */}
-        <LoginInput
-          value={email}
-          type="text"
-          placeholder="EMAIL"
-          id="loginInput"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          onKeyPress={(e) => {
-            if (window.event.keyCode === 13) {
-              login();
-            }
-          }}
-          ref={_id}
-        />
-      </LoginBox>
-      {_id_wrng && (
-        <Text subBody color={Color.Primary} marginB="20px">
-          ID를 다시 확인해주세요!
+      <Box>
+        <Text h2 textAlign="center" marginB="1rem">
+          로그인
         </Text>
-      )}
-      <LoginBox>
-        {/* <FontAwesomeIcon icon={faLock} color={Color.Light_3} /> */}
-        <LoginInput
-          type="password"
-          placeholder="PASSWORD"
-          onChange={(e) => {
-            setPw(e.target.value);
-          }}
-          onKeyPress={(e) => {
-            if (window.event.keyCode === 13) {
-              login();
-            }
-          }}
-          ref={_pw}
-        />
-      </LoginBox>
-      {_pw_wrng && (
-        <Text subBody color={Color.Primary} marginB="20px">
-          비밀번호를 다시 확인해주세요!
+        <Text subBody textAlign="center" color={Color.Primary} marginB="1rem">
+          0부터 9까지 뭐든 It's OK!
+          <br />
+          로그인을 통해 더욱 편리하게 OKU의 다양한 상품을 구경하세요.
         </Text>
-      )}
-      {_wrng && (
-        <Text subBody color={Color.Primary} marginB="20px">
-          존재하지 않는 아이디이거나, 잘못된 비밀번호입니다.
-        </Text>
-      )}
+        <LoginBox>
+          {/* <FontAwesomeIcon icon={faUser} color={Color.Light_3} /> */}
+          <LoginInput
+            value={email}
+            type="text"
+            placeholder="EMAIL"
+            id="loginInput"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            onKeyPress={(e) => {
+              if (window.event.keyCode === 13) {
+                login();
+              }
+            }}
+            ref={_id}
+          />
+        </LoginBox>
+        {_id_wrng && (
+          <Text subBody color={Color.Primary} marginB="1rem">
+            ID를 다시 확인해주세요!
+          </Text>
+        )}
+        <LoginBox>
+          {/* <FontAwesomeIcon icon={faLock} color={Color.Light_3} /> */}
+          <LoginInput
+            type={show ? "text" : "password"}
+            placeholder="PASSWORD"
+            onChange={(e) => {
+              setPw(e.target.value);
+            }}
+            onKeyPress={(e) => {
+              if (window.event.keyCode === 13) {
+                login();
+              }
+            }}
+            ref={_pw}
+          />
+          <IconEyeSpan onClick={changeEye}>{show ? <FontAwesomeIcon icon={farEyeSlash} /> : <FontAwesomeIcon icon={farEye} />}</IconEyeSpan>
+        </LoginBox>
+        {_pw_wrng && (
+          <Text subBody color={Color.Primary} marginB="1rem">
+            비밀번호를 다시 확인해주세요!
+          </Text>
+        )}
+        {_wrng && (
+          <Text subBody color={Color.Primary} marginB="1rem">
+            존재하지 않는 아이디이거나, 잘못된 비밀번호입니다.
+          </Text>
+        )}
 
-      <Check>
-        {/* <Input
+        <Check>
+          {/* <Input
           check
           checked={autoLogin}
           _onClick={() => {
@@ -161,56 +174,69 @@ const Login = (props) => {
           }}
           desc="자동 로그인"
         /> */}
-        <Input
-          check
-          checked={saveId}
-          _onClick={() => {
-            if (saveId) {
-              setId(false);
-            } else {
-              setId(true);
-            }
-          }}
-          desc="아이디 저장"
-        />
+          <Input
+            check
+            checked={saveId}
+            _onClick={() => {
+              if (saveId) {
+                setId(false);
+              } else {
+                setId(true);
+              }
+            }}
+            desc="아이디 저장"
+          />
 
-        {/* <CheckIdPw>
+          {/* <CheckIdPw>
           <a>아이디</a>
           <CheckBar>|</CheckBar>
           <a>비밀번호</a>
           <span>찾기</span>
         </CheckIdPw> */}
-      </Check>
-      <Button _onClick={login} width="100%" margin="20px 0">
-        로그인
-      </Button>
-      <SocialBox>
-        {/* <Naver/> */}
-        <KakaoBtn
-          href="http://13.124.55.186/user/kakao"
-          // token={KAKAO_JS_ID} render={(props) => <KakaoBtn onClick={props.onClick}></KakaoBtn>} onSuccess={kakaoLoginClickHandler} getProfile={true}
-        >
-          <div
-          // alt='카톡'
-          />
-        </KakaoBtn>
-        {/* <Google/> */}
-      </SocialBox>
-      <Text subBody textAlign="center" marginT="20px" color={Color.Dark_4}>
-        아직 OKU 회원이 아니신가요?
-      </Text>
-      <Text subBody weight="700" textAlign="center" color={Color.Primary} marginT="5px" marginB="10px" onClick={() => history.push("/signup")}>
-        회원가입하러 가기
-      </Text>
+        </Check>
+        <Button noflex _onClick={login} width="100%" margin="1rem 0" height="50px">
+          로그인
+        </Button>
+        <SocialBox>
+          {/* <Naver/> */}
+          <KakaoBtn
+            href="http://13.124.55.186/user/kakao"
+            // token={KAKAO_JS_ID} render={(props) => <KakaoBtn onClick={props.onClick}></KakaoBtn>} onSuccess={kakaoLoginClickHandler} getProfile={true}
+          >
+            <div
+            // alt='카톡'
+            />
+          </KakaoBtn>
+          {/* <Google/> */}
+        </SocialBox>
+        <Text subBody textAlign="center" marginT="1rem" color={Color.Dark_4}>
+          아직 OKU 회원이 아니신가요?
+        </Text>
+        <Text subBody weight="700" textAlign="center" color={Color.Primary} marginT="0.5rem" onClick={() => history.push("/signup")}>
+          회원가입하러 가기
+        </Text>
+      </Box>
     </Wrap>
   );
 };
 
 const Wrap = styled.div`
+  max-width: 100%;
   width: 350px;
-  min-height: 60vh;
-  height: 100%;
-  margin: 270px auto auto;
+
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+`;
+
+const Box = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  min-height: 600px;
+  height: 95vh;
   box-sizing: border-box;
 `;
 
@@ -354,6 +380,16 @@ const LoginInput = styled.input`
     font-size: 12px;
     user-select: none;
   }
+`;
+
+const IconEyeSpan = styled.span`
+  width: 26px;
+  float: right;
+  text-align: center;
+  padding: 3px 0 0;
+  font-size: 14px;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.4);
 `;
 
 export default Login;

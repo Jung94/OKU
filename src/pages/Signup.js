@@ -276,132 +276,135 @@ const Signup = (props) => {
 
   return (
     <>
-      <Grid is_flex justify="flex-end" width="85%">
-        <Text subBody color={Color.Dark_4} margin="20px">
+      <Grid is_flex justify="flex-end" width="100%" max_width="1320px">
+        <Text subBody color={Color.Dark_4} margin="1rem">
           about OKU
         </Text>
         <Text subBody color={Color.Dark_4}>
           about Team
         </Text>
       </Grid>
-      <Grid is_flex column margin="20px 0">
+      <Grid is_flex column margin="1rem 0">
         <img
           alt="로고이미지"
-          style={{ width: "117.8px", cursor: "pointer", zIndex: "1", margin: "20px" }}
+          style={{ width: "25vw", maxWidth: "117.8px", cursor: "pointer", zIndex: "1", margin: "1rem" }}
           src={MainLogo}
           onClick={() => {
-            history.replace("/");
+            history.push("/");
           }}
         />
-        <Text subBody textAlign="center" color={Color.Primary} marginB="20px">
-          오쿠는 각자의 덕질 취향을 존중하는 "덕후들을 위한" 굿즈 경매 사이트입니다.
+        <Text subBody textAlign="center" color={Color.Primary} marginB="1rem">
+          오쿠는 각자의 덕질 취향을 존중하는
+          <br />
+          "덕후들을 위한" 굿즈 경매 사이트입니다.
           <br />
           덕질 생활을 더욱 편리하고 행복하게 즐기세요!
         </Text>
       </Grid>
       <Wrap>
-        <Text h4 marginB="10px">
-          아이디
-        </Text>
-        <SignupBox>
-          {/* <FontAwesomeIcon icon={farEnvelope} color={Color.Light_3} /> */}
-          <SignupInput
-            type="text"
-            placeholder="EMAIL"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            onFocus={() => {
-              setMessageEmail("");
-            }}
-            onBlur={checkEm}
-            ref={_id}
-          />
-        </SignupBox>
-        <Text subBody color={Color.Primary} marginB="20px">
-          {messageEmail}
-        </Text>
+        <Box>
+          <Text h4 marginB="0.25rem">
+            아이디
+          </Text>
+          <SignupBox>
+            {/* <FontAwesomeIcon icon={farEnvelope} color={Color.Light_3} /> */}
+            <SignupInput
+              type="text"
+              placeholder="EMAIL"
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+              onFocus={() => {
+                setMessageEmail("");
+              }}
+              onBlur={checkEm}
+              ref={_id}
+            />
+          </SignupBox>
+          <Text subBody color={Color.Primary} marginB="1rem">
+            {messageEmail}
+          </Text>
 
-        <Text h4 marginB="10px">
-          비밀번호
-        </Text>
-        <SignupBox>
-          {/* <FontAwesomeIcon icon={faLock} color={Color.Light_3} /> */}
-          <PwdInput
-            type={show ? "text" : "password"}
-            placeholder="PASSWORD"
-            onChange={(e) => {
-              setPw(e.target.value);
-            }}
-            onBlur={checkPw}
-            ref={_pw}
-          />
-          <IconEyeSpan onClick={changeEye}>{show ? <FontAwesomeIcon icon={farEyeSlash} /> : <FontAwesomeIcon icon={farEye} />}</IconEyeSpan>
-        </SignupBox>
-        <Text subBody color={Color.Primary} marginB="20px">
-          {messagePw}
-        </Text>
+          <Text h4 marginB="0.25rem">
+            비밀번호
+          </Text>
+          <SignupBox>
+            {/* <FontAwesomeIcon icon={faLock} color={Color.Light_3} /> */}
+            <PwdInput
+              type={show ? "text" : "password"}
+              placeholder="PASSWORD"
+              onChange={(e) => {
+                setPw(e.target.value);
+              }}
+              onBlur={checkPw}
+              ref={_pw}
+            />
+            <IconEyeSpan onClick={changeEye}>{show ? <FontAwesomeIcon icon={farEyeSlash} /> : <FontAwesomeIcon icon={farEye} />}</IconEyeSpan>
+          </SignupBox>
+          <Text subBody color={Color.Primary} marginB="1rem">
+            {messagePw}
+          </Text>
 
-        <Text h4 marginB="10px">
-          비밀번호 확인
-        </Text>
-        <SignupBox>
-          {/* <FontAwesomeIcon icon={faLock} color={Color.Light_3} /> */}
-          <PwdInput
-            type={show2 ? "text" : "password"}
-            placeholder="PASSWORD CHECK"
-            onChange={(e) => {
-              setPwCheck(e.target.value);
-            }}
-            onFocus={doubleCheckPw}
-            onBlur={doubleCheckPw}
-            ref={_pwChk}
-          />
-          <IconEyeSpan onClick={changeEye2}>{show2 ? <FontAwesomeIcon icon={farEyeSlash} /> : <FontAwesomeIcon icon={farEye} />}</IconEyeSpan>
-        </SignupBox>
-        <Text subBody color={Color.Primary} marginB="20px">
-          {messagePwCheck}
-        </Text>
+          <Text h4 marginB="0.25rem">
+            비밀번호 확인
+          </Text>
+          <SignupBox>
+            {/* <FontAwesomeIcon icon={faLock} color={Color.Light_3} /> */}
+            <PwdInput
+              type={show2 ? "text" : "password"}
+              placeholder="PASSWORD CHECK"
+              onChange={(e) => {
+                setPwCheck(e.target.value);
+              }}
+              onFocus={doubleCheckPw}
+              onBlur={doubleCheckPw}
+              ref={_pwChk}
+            />
+            <IconEyeSpan onClick={changeEye2}>{show2 ? <FontAwesomeIcon icon={farEyeSlash} /> : <FontAwesomeIcon icon={farEye} />}</IconEyeSpan>
+          </SignupBox>
+          <Text subBody color={Color.Primary} marginB="1rem">
+            {messagePwCheck}
+          </Text>
 
-        <Text h4 marginB="10px">
-          닉네임
-        </Text>
-        <SignupBox>
-          {/* <FontAwesomeIcon icon={farUser} color={Color.Light_3} /> */}
-          <SignupInput
-            type="text"
-            placeholder="NICKNAME"
-            onChange={(e) => {
-              setNickName(e.target.value);
-            }}
-            onBlur={checkNickname}
-            ref={_nick}
-          />
-        </SignupBox>
-        <Text subBody color={Color.Primary} marginB="20px">
-          {messageNickname}
-        </Text>
+          <Text h4 marginB="0.25rem">
+            닉네임
+          </Text>
+          <SignupBox>
+            {/* <FontAwesomeIcon icon={farUser} color={Color.Light_3} /> */}
+            <SignupInput
+              type="text"
+              placeholder="NICKNAME"
+              onChange={(e) => {
+                setNickName(e.target.value);
+              }}
+              onBlur={checkNickname}
+              ref={_nick}
+            />
+          </SignupBox>
+          <Text subBody color={Color.Primary} marginB="1rem">
+            {messageNickname}
+          </Text>
 
-        <Text h4 marginB="10px">
-          전화번호
-        </Text>
-        <SignupBox>
-          {/* <FontAwesomeIcon icon={faPhone} color={Color.Light_3} /> */}
-          <SignupInput
-            type="text"
-            placeholder="PHONE NUMBER"
-            onChange={(e) => {
-              setPhone(e.target.value);
-            }}
-            onBlur={checkPhone}
-            ref={_ph}
-          />
-        </SignupBox>
-        <Text subBody color={Color.Primary} marginB="20px">
-          {messagePhone}
-        </Text>
+          <Text h4 marginB="0.25rem">
+            전화번호
+          </Text>
+          <SignupBox>
+            {/* <FontAwesomeIcon icon={faPhone} color={Color.Light_3} /> */}
+            <SignupInput
+              type="text"
+              placeholder="PHONE NUMBER"
+              onChange={(e) => {
+                setPhone(e.target.value);
+              }}
+              onBlur={checkPhone}
+              ref={_ph}
+            />
+          </SignupBox>
+          <Text subBody color={Color.Primary} marginB="1rem">
+            {messagePhone}
+          </Text>
 
-        {/* <SignupBox>
+          {/* <SignupBox>
         <IconSpan>
           <FontAwesomeIcon icon={farAddressCard} />
         </IconSpan>
@@ -431,36 +434,36 @@ const Signup = (props) => {
       <InfoUl ref={detailAddressInfo}>
         <li>{messageDetailAddress}</li>
       </InfoUl> */}
-        <Grid is_flex column>
-          <Input
-            check
-            checked={agree}
-            _onClick={() => {
-              if (agree) {
-                setAgree(false);
-              } else {
-                setAgree(true);
-              }
-            }}
-            desc="회원가입시 OKU 이용약관에 동의해 주시기 바랍니다."
-          />
-        </Grid>
-        {agree ? (
-          <Button _onClick={signUp} width="100%" margin="20px 0">
-            회원가입
-          </Button>
-        ) : (
-          <Button disabled width="100%" margin="20px 0">
-            회원가입
-          </Button>
-        )}
-        <Text subBody textAlign="center" color={Color.Dark_4}>
-          이미 OKU 회원이시라면?
-        </Text>
-        <Text subBody weight="700" textAlign="center" color={Color.Primary} marginT="5px" marginB="10px" onClick={() => history.push("/login")}>
-          로그인하러 가기
-        </Text>
-        {/* {isPostOpen && 
+          <Grid is_flex column>
+            <Input
+              check
+              checked={agree}
+              _onClick={() => {
+                if (agree) {
+                  setAgree(false);
+                } else {
+                  setAgree(true);
+                }
+              }}
+              desc="회원가입시 OKU 이용약관에 동의해 주시기 바랍니다."
+            />
+          </Grid>
+          {agree ? (
+            <Button noflex _onClick={signUp} width="100%" margin="1rem 0" height="50px">
+              회원가입
+            </Button>
+          ) : (
+            <Button noflex disabled width="100%" margin="1rem 0" height="50px">
+              회원가입
+            </Button>
+          )}
+          <Text subBody textAlign="center" color={Color.Dark_4}>
+            이미 OKU 회원이시라면?
+          </Text>
+          <Text subBody weight="700" textAlign="center" color={Color.Primary} marginT="5px" marginB="1rem" onClick={() => history.push("/login")}>
+            로그인하러 가기
+          </Text>
+          {/* {isPostOpen && 
         <Modal>
           <ModalSection>
             <DaumPostcode onComplete={handleComplete} />
@@ -469,16 +472,29 @@ const Signup = (props) => {
           </ModalBack>
         </Modal>
       } */}
+        </Box>
       </Wrap>
     </>
   );
 };
 
 const Wrap = styled.div`
+  max-width: 100%;
   width: 350px;
-  min-height: 63vh;
-  height: 100%;
-  margin: 0 auto 50px auto;
+
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+`;
+
+const Box = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  min-height: 600px;
+  /* height: 95vh; */
   box-sizing: border-box;
 `;
 
@@ -499,7 +515,8 @@ const SignupBox = styled.div`
   border-radius: 16px;
   width: 100%;
   height: 50px;
-  margin: 10px 0;
+  max-height: 50px;
+  margin: 0.25rem 0;
   padding: 10px;
   box-sizing: border-box;
   overflow: hidden;
@@ -519,6 +536,7 @@ const SignupBox = styled.div`
 `;
 
 const SignupInput = styled.input`
+  height: 100%;
   border: none;
   background-color: transparent;
   box-sizing: border-box;
@@ -538,6 +556,7 @@ const SignupInput = styled.input`
 `;
 
 const PwdInput = styled.input`
+  height: 100%;
   border: none;
   background-color: transparent;
   box-sizing: border-box;

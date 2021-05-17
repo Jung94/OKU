@@ -167,6 +167,8 @@ const setQnAAPI = (_id) => {
 const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt) => {
   return function (dispatch, getState, { history }) {
     dispatch(loadingActions.loading(true));
+    dispatch(mypageActions.setProfileAPI());
+    const userprofile = getState().mypage.user;
     const access_token = localStorage.getItem("access_token");
     const nickname = localStorage.getItem("nickname");
     const newQuestion = JSON.stringify({ sellerunique: sellerunique, contents: _contents });
@@ -177,6 +179,7 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
       createdAt: createdAt,
       productId: _id,
       sellerId: sellerunique,
+      profileImg: userprofile,
     };
     fetch(`${API}/product/quest/${_id}`, {
       method: "POST",
@@ -189,7 +192,7 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
       .then((res) => res.json())
       .then((res) => {
         if (res.okay) {
-          history.push(`${_id}`);
+          history.replace(`/product/detail/${_id}`);
           console.log("문의글이 등록되었습니다.");
           dispatch(addQuestion(draft));
           // 공부 포인트!
@@ -207,6 +210,7 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
 };
 
 const addAnswerAPI = (_id, _answer, sellerId, updatedAt) => {
+  // dispatch(mypageActions.setProfileAPI());
   return function (dispatch, getState, { history }) {
     dispatch(loadingActions.loading(true));
     const access_token = localStorage.getItem("access_token");

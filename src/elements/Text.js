@@ -4,29 +4,7 @@ import styled from "styled-components";
 import { Color } from "shared/DesignSys";
 
 const Text = (props) => {
-  const {
-    children,
-    onClick,
-    color,
-    size,
-    flexGrow,
-    margin,
-    marginB,
-    marginT,
-    textAlign,
-    lineHeight,
-    weight,
-    h1,
-    h2,
-    h3,
-    h4,
-    body,
-    subBody,
-    price,
-    won,
-    width,
-    border,
-  } = props;
+  const { children, onClick, color, size, flexGrow, margin, marginB, marginT, textAlign, lineHeight, weight, h1, h2, h3, h4, body, subBody, price, won, width, border } = props;
   const styles = {
     color: color,
     flexGrow: flexGrow,
@@ -36,8 +14,8 @@ const Text = (props) => {
     textAlign: textAlign,
     lineHeight: lineHeight,
     weight: weight,
-    width:width,
-    border:border,
+    width: width,
+    border: border,
   };
 
   // h1, h2, h3, SubHeading(h4) 디자인 시스템에 맞춘 폰트

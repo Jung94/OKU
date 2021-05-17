@@ -6,6 +6,7 @@ const Grid = (props) => {
     children,
 
     width,
+    max_width,
     height,
     max_height,
 
@@ -50,6 +51,7 @@ const Grid = (props) => {
     bgimg: bgimg ? bgimg : false,
     bgposition: bgposition,
     width: width,
+    max_width: max_width,
     height: height,
     max_height: max_height,
     margin: margin,
@@ -100,6 +102,7 @@ Grid.defaultProps = {
   bdr: false,
   bgimg: false,
   width: "100%",
+  max_width: null,
   height: null,
   max_height: null,
   margin: false,
@@ -130,6 +133,8 @@ const GridBox = styled.div`
   gap: ${(props) => props.gap};
   overflow: ${(props) => props.overflow};
   word-break: ${(props) => props.wordBreak};
+
+  max-width: ${(props) => (props.max_width ? props.max_width : "")};
 
   height: ${(props) => (props.height ? props.height : "")};
   max-height: ${(props) => (props.max_height ? props.max_height : "")};

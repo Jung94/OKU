@@ -6,8 +6,8 @@ import { Color } from "shared/DesignSys";
 
 const Button = (props) => {
   // disabled : 비활성화 모드
-  const { main, sub, _onClick, text, children, width, height, margin, disabled, needLogin } = props;
-  const styles = { onClick: _onClick, text: text, width: width, height: height, margin: margin };
+  const { main, sub, _onClick, text, children, width, height, margin, disabled, needLogin, noflex } = props;
+  const styles = { onClick: _onClick, text: text, width: width, height: height, margin: margin, noflex: noflex };
 
   if (disabled) {
     return (
@@ -49,7 +49,7 @@ Button.defaultProps = {
   _onClick: () => {},
   margin: false,
   width: "max-content",
-  height: " 50px",
+  height: "50px",
 };
 
 const Btn = styled.button`
@@ -64,7 +64,8 @@ const Btn = styled.button`
   font-size: 20px;
   font-weight: 700;
 
-  flex-grow: 1;
+  ${(props) => (props.noflex ? "" : "flex-grow: 1;")};
+
   height: ${(props) => props.height};
   width: ${(props) => props.width};
   box-sizing: border-box;
@@ -103,7 +104,7 @@ const BtnDisabled = styled.button`
   font-size: 20px;
   font-weight: 700;
 
-  flex-grow: 1;
+  /* flex-grow: 1; */
   height: ${(props) => props.height};
   width: ${(props) => props.width};
   box-sizing: border-box;
@@ -129,7 +130,7 @@ const BtnNotLogin = styled.button`
   font-size: 20px;
   font-weight: 700;
 
-  flex-grow: 1;
+  /* flex-grow: 1; */
   height: ${(props) => props.height};
   width: ${(props) => props.width};
   box-sizing: border-box;
