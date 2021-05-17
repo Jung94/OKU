@@ -146,13 +146,20 @@ const Product = (props) => {
                 <Modal bid {...productOK} />
               </Grid>
               <Grid is_flex>
-                {_is_like ? (
-                  <Button main nohover _onClick={() => userLike(_id)} margin="0 5px 0 0">
-                    <FontAwesomeIcon icon={fasHeart} />
-                    &thinsp;찜
-                  </Button>
+                {is_login ? (
+                  _is_like ? (
+                    <Button main _onClick={() => userLike(_id)} margin="0 5px 0 0">
+                      <FontAwesomeIcon icon={fasHeart} />
+                      &thinsp;찜
+                    </Button>
+                  ) : (
+                    <Button sub _onClick={() => userLike(_id)} margin="0 5px 0 0">
+                      <FontAwesomeIcon icon={farHeart} />
+                      &thinsp;찜
+                    </Button>
+                  )
                 ) : (
-                  <Button sub nohover _onClick={() => userLike(_id)} margin="0 5px 0 0">
+                  <Button sub disabled _onClick={() => userLike(_id)} margin="0 5px 0 0">
                     <FontAwesomeIcon icon={farHeart} />
                     &thinsp;찜
                   </Button>

@@ -58,27 +58,29 @@ const App = (props) => {
           </Switch>
         </ConnectedRouter>
       </Grid>
-      <Footer />
+      {/* <Footer /> */}
     </Wrap>
   );
 };
 
 const Grid = styled.div`
   margin: 0 auto;
-  max-width: 1920px;
+  max-width: 100%;
   position: relative;
   border: 1px solid red;
 `;
 
 const Wrap = styled.div`
   margin: 0 auto;
-  max-width: 1920px;
-  position: relative;
-  padding: 10px;
-  border: 1px solid blue;
+  max-width: 100%;
 
-  @media only screen and (max-width : 767px) {
-    max-width: 767px;
+  position: relative;
+  /* border: 10px solid red; */
+
+  @media only screen and (max-width: 767px) {
+    max-width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 `;
 

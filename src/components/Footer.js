@@ -37,7 +37,7 @@ const FooterWrap = styled.footer`
 
 const FooterContent = styled.footer`
   margin: 0 0 40px 0;
-  width: 1030px;
+  width: 80%;
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -1,7 +1,7 @@
 import React, { useRef, useMemo, useEffect, useState } from "react";
 import styled from "styled-components";
 import { history } from "redux/configureStore";
-import { useMediaQuery } from 'react-responsive';
+import { useMediaQuery } from "react-responsive";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as productActions } from "redux/modules/result";
 import { actionCreators as categoryActions } from "redux/modules/post";
@@ -25,23 +25,22 @@ import { MainCT, D2CT, D3CT, D4CT } from "shared/Category";
 import { Color } from "shared/DesignSys";
 import { CenterFocusStrong } from "../../node_modules/@material-ui/icons/index";
 
-const Desktop = ({children}) => {
+const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
   return isDesktop ? children : null;
-}
+};
 
 const Tablet = ({ children }) => {
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 })
-  return isTablet ? children : null
-}
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  return isTablet ? children : null;
+};
 
 const Mobile = ({ children }) => {
-  const isMobile = useMediaQuery({ maxWidth: 767 })
-  return isMobile ? children : null
-}
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  return isMobile ? children : null;
+};
 
 const Header = (props) => {
-
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const { showHeader } = props;
@@ -461,10 +460,8 @@ const Header = (props) => {
           </Fix>
         </HeaderWrap>
       </Desktop>
-      
-      <Tablet>
-        Tablet
-      </Tablet>
+
+      <Tablet>Tablet</Tablet>
 
       <Mobile>
         <HeaderWrap showHeader={showHeader} ref={navbox}>
@@ -519,11 +516,10 @@ const Header = (props) => {
                       <DetailRing />
                     </Ring>
                   </IconWrap>
-
                 </Grid>
               </Grid>
             </Grid>
-            
+
             <Grid is_flex width="100%" height="39px" alignItems="center" padding="0 4% 0 6%" bdr="1px solid green">
               {/* 카테고리 리스트 방식 */}
               {/* <ListHover/> */}
@@ -550,12 +546,10 @@ const Header = (props) => {
                 </SubSelectbox>
               )}
             </Grid>
-
           </Fix>
         </HeaderWrap>
       </Mobile>
     </>
-    
   );
 };
 
@@ -575,8 +569,8 @@ const HeaderWrap = styled.header`
   background-color: #ffffff;
   transition: box-shadow 500ms cubic-bezier(0.215, 0.61, 0.355, 1), height 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
 
-  @media only screen and (max-width : 767px) {
-    display : flex;
+  @media only screen and (max-width: 767px) {
+    display: flex;
     // border: 1px solid red;
     position: fixed;
     width: 413px;
@@ -614,7 +608,7 @@ const Fix = styled.div`
     object-position: center;
   }
 
-  @media only screen and (max-width : 767px) {
+  @media only screen and (max-width: 767px) {
     border: 1px solid blue;
     max-width: 100%;
     margin: 0 auto;
@@ -647,7 +641,7 @@ const Mainselectbox = styled.div`
   margin: 0 30px 0 10px;
   align-items: center;
 
-  @media only screen and (max-width : 767px) {
+  @media only screen and (max-width: 767px) {
     width: 147px;
     margin: 0 20px 0 20px;
     align-items: center;
@@ -658,7 +652,7 @@ const SubSelectbox = styled.div`
   width: 200px;
   align-items: center;
 
-  @media only screen and (max-width : 767px) {
+  @media only screen and (max-width: 767px) {
     width: 200px;
     align-items: center;
   }
@@ -686,7 +680,7 @@ const SearchWrap = styled.div`
     }
   }
 
-  @media only screen and (max-width : 767px) {
+  @media only screen and (max-width: 767px) {
     display: flex;
     align-items: center;
     // border-bottom: 2px solid ${Color.Dark_1};
