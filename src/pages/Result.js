@@ -25,6 +25,10 @@ const ResultContainer = styled.div`
   gap: 10px;
   margin: 170px auto 100px;
 
+  @media only screen and (max-width : 767px) {
+    
+  }
+
   @media only screen and (min-width : 1824px) {
     display: flex;
     justify-content: center;

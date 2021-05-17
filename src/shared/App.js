@@ -67,9 +67,18 @@ const Grid = styled.div`
   margin: 0 auto;
   max-width: 1920px;
   position: relative;
-  // border: 1px solid red;
+  border: 1px solid red;
 `;
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  margin: 0 auto;
+  max-width: 1920px;
+  position: relative;
+  border: 1px solid red;
+
+  @media only screen and (max-width : 767px) {
+    max-width: 767px;
+  }
+`;
 
 export default App;

@@ -1,6 +1,7 @@
 import React, { useRef, useMemo, useEffect, useState } from "react";
 import styled from "styled-components";
 import { history } from "redux/configureStore";
+import { useMediaQuery } from 'react-responsive';
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as productActions } from "redux/modules/result";
 import { actionCreators as categoryActions } from "redux/modules/post";
@@ -24,7 +25,23 @@ import { MainCT, D2CT, D3CT, D4CT  } from "shared/Category";
 import { Color } from "shared/DesignSys";
 import { CenterFocusStrong } from "../../node_modules/@material-ui/icons/index";
 
+const Desktop = ({children}) => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  return isDesktop ? children : null;
+}
+
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 })
+  return isTablet ? children : null
+}
+
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 })
+  return isMobile ? children : null
+}
+
 const Header = (props) => {
+
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
   const { showHeader } = props;
@@ -239,207 +256,306 @@ const Header = (props) => {
   };
 
   return (
-    <HeaderWrap showHeader={showHeader} ref={navbox}>
-      <Fix ref={up}>
-        {/* 로고 */}
+    <>
+      <Desktop>
+        <HeaderWrap showHeader={showHeader} ref={navbox}>
+          <Fix ref={up}>
+            {/* 로고 */}
 
-        <img
-          ref={leftLogo}
-          alt="로고이미지"
-          style={{ alignItems: "center", width: "0px", marginBottom: "2px", justifyContent: "center" }}
-          src={MainLogo}
-          onClick={() => {
-            history.replace("/");
-          }}
-        />
+            <img
+              ref={leftLogo}
+              alt="로고이미지"
+              style={{ alignItems: "center", width: "0px", marginBottom: "2px", justifyContent: "center" }}
+              src={MainLogo}
+              onClick={() => {
+                history.replace("/");
+              }}
+            />
 
-        <Grid is_flex width="40%" alignItems="center">
-          {/* 카테고리 리스트 방식 */}
-          {/* <ListHover/> */}
-          <div>카테고리</div>
-          <ListBtn />
-          <Mainselectbox>
-            <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
-          </Mainselectbox>
-          {mainct === "" && (
-            <SubSelectbox>
-              <Select placeholder="중분류" onClick={handleSubCategory} styles={customStyles} />
-            </SubSelectbox>
-          )}
-          {/* 2D일 때 */}
-          {mainct === "3D" && (
-            <SubSelectbox>
-              <Select placeholder="중분류" onChange={handleSubCategory} options={D2CT} styles={customStyles} />
-            </SubSelectbox>
-          )}
-          {/* 3D일 때 */}
-          {mainct === "2D" && (
-            <SubSelectbox>
-              <Select placeholder="중분류" onChange={handleSubCategory} options={D3CT} styles={customStyles} />
-            </SubSelectbox>
-          )}
-        </Grid>
+            <Grid is_flex width="40%" alignItems="center">
+              {/* 카테고리 리스트 방식 */}
+              {/* <ListHover/> */}
+              <div>카테고리</div>
+              <ListBtn />
+              <Mainselectbox>
+                <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
+              </Mainselectbox>
+              {mainct === "" && (
+                <SubSelectbox>
+                  <Select placeholder="중분류" onClick={handleSubCategory} styles={customStyles} />
+                </SubSelectbox>
+              )}
+              {/* 2D일 때 */}
+              {mainct === "3D" && (
+                <SubSelectbox>
+                  <Select placeholder="중분류" onChange={handleSubCategory} options={D2CT} styles={customStyles} />
+                </SubSelectbox>
+              )}
+              {/* 3D일 때 */}
+              {mainct === "2D" && (
+                <SubSelectbox>
+                  <Select placeholder="중분류" onChange={handleSubCategory} options={D3CT} styles={customStyles} />
+                </SubSelectbox>
+              )}
+            </Grid>
 
-        <Grid is_flex justify="center" width="20%">
-          {/* 로고 */}
-          <img
-            ref={hide}
-            alt="로고이미지"
-            style={{ width: "117.8px" }}
-            src={MainLogo}
-            onClick={() => {
-              history.replace("/");
-            }}
-          />
-        </Grid>
-
-        <Grid is_flex column width="40%">
-          <Grid is_flex gap="5%" justify="flex-end" margin="0 0 42px 0" ref={hide}>
-            <Text subBody color={Color.Dark_4}>
-              about OKU
-            </Text>
-            <Text subBody color={Color.Dark_4}>
-              about Team
-            </Text>
-
-            {/* 개인정보기능 */}
-            {/* 로그인 전 */}
-            {!is_login && (
-              <div style={{ display: "flex" }}>
-                <Text
-                  subBody
-                  color={Color.Dark_4}
-                  onClick={() => {
-                    history.replace("/Signup");
-                  }}
-                >
-                  회원가입
-                </Text>
-                <p style={{ fontSize: "12px", color: "#868686" }}>&thinsp;/&thinsp;</p>
-                <Text
-                  subBody
-                  color={Color.Dark_4}
-                  onClick={() => {
-                    history.push("/Login");
-                  }}
-                >
-                  로그인
-                </Text>
-              </div>
-            )}
-            {/* 로그인 후  */}
-            {is_login && (
-              <>
-                <Text subBody color={Color.Dark_4} onClick={logout}>
-                  로그아웃
-                </Text>
-                <Text subBody color={Color.Dark_4} onClick={() => history.push("/my/shopping")}>
-                  마이페이지
-                </Text>
-              </>
-            )}
-          </Grid>
-
-          <Grid is_flex justify="flex-end">
-            {/* 기능버튼 */}
-            <SearchWrap>
-              <Search
-                ref={lengthen}
-                type="text"
-                placeholder="검색하기"
-                onChange={(e) => {
-                  setKeyword(e.target.value);
-                }}
-                onKeyPress={(e) => {
-                  if (window.event.keyCode === 13) {
-                    SearchProduct();
-                  }
+            <Grid is_flex justify="center" width="20%">
+              {/* 로고 */}
+              <img
+                ref={hide}
+                alt="로고이미지"
+                style={{ width: "117.8px" }}
+                src={MainLogo}
+                onClick={() => {
+                  history.replace("/");
                 }}
               />
-              <FontAwesomeIcon icon={faSearch} />
-            </SearchWrap>
+            </Grid>
 
-            <IconWrap>
-              <Ring>
-                <DetailRing />
-              </Ring>
+            <Grid is_flex column width="40%">
+              <Grid is_flex gap="5%" justify="flex-end" margin="0 0 42px 0" ref={hide}>
+                <Text subBody color={Color.Dark_4}>
+                  about OKU
+                </Text>
+                <Text subBody color={Color.Dark_4}>
+                  about Team
+                </Text>
 
-              {!is_login && (
-                <>
-                  <Grid
-                    className="block pointer"
-                    width="max-content"
-                    padding="0 20px"
-                    is_flex
-                    gap="5px"
-                    __click={() => {
-                      history.push("/login");
+                {/* 개인정보기능 */}
+                {/* 로그인 전 */}
+                {!is_login && (
+                  <div style={{ display: "flex" }}>
+                    <Text
+                      subBody
+                      color={Color.Dark_4}
+                      onClick={() => {
+                        history.replace("/Signup");
+                      }}
+                    >
+                      회원가입
+                    </Text>
+                    <p style={{ fontSize: "12px", color: "#868686" }}>&thinsp;/&thinsp;</p>
+                    <Text
+                      subBody
+                      color={Color.Dark_4}
+                      onClick={() => {
+                        history.push("/Login");
+                      }}
+                    >
+                      로그인
+                    </Text>
+                  </div>
+                )}
+                {/* 로그인 후  */}
+                {is_login && (
+                  <>
+                    <Text subBody color={Color.Dark_4} onClick={logout}>
+                      로그아웃
+                    </Text>
+                    <Text subBody color={Color.Dark_4} onClick={() => history.push("/my/shopping")}>
+                      마이페이지
+                    </Text>
+                  </>
+                )}
+              </Grid>
+
+              <Grid is_flex justify="flex-end">
+                {/* 기능버튼 */}
+                <SearchWrap>
+                  <Search
+                    ref={lengthen}
+                    type="text"
+                    placeholder="검색하기"
+                    onChange={(e) => {
+                      setKeyword(e.target.value);
                     }}
-                  >
-                    <FontAwesomeIcon icon={chatIcon} />
-                    채팅
-                  </Grid>
-                </>
-              )}
-
-              {is_login && (
-                <>
-                  <Grid
-                    className="block pointer"
-                    width="max-content"
-                    padding="0 20px"
-                    is_flex
-                    gap="5px"
-                    __click={() => {
-                      history.push("/chat");
+                    onKeyPress={(e) => {
+                      if (window.event.keyCode === 13) {
+                        SearchProduct();
+                      }
                     }}
-                  >
-                    <FontAwesomeIcon icon={chatIcon} />
-                    채팅
-                  </Grid>
-                </>
-              )}
+                  />
+                  <FontAwesomeIcon icon={faSearch} />
+                </SearchWrap>
 
-              {!is_login && (
-                <>
-                  <Grid
-                    className="pointer"
-                    width="max-content"
-                    padding="0 0 0 20px"
-                    is_flex
-                    gap="5px"
-                    __click={() => {
-                      history.push("/login");
-                    }}
-                  >
-                    <FontAwesomeIcon icon={uploadIcon} />
-                    물건등록
-                  </Grid>
-                </>
-              )}
+                <IconWrap>
+                  <Ring>
+                    <DetailRing />
+                  </Ring>
 
-              {is_login && (
-                <>
-                  <Grid
-                    className="pointer"
-                    width="max-content"
-                    padding="0 0 0 20px"
-                    is_flex
-                    gap="5px"
-                    __click={() => {
-                      history.push("/ProductUpload");
-                    }}
-                  >
-                    <FontAwesomeIcon icon={uploadIcon} />
-                    물건등록
-                  </Grid>
-                </>
+                  {!is_login && (
+                    <>
+                      <Grid
+                        className="block pointer"
+                        width="max-content"
+                        padding="0 20px"
+                        is_flex
+                        gap="5px"
+                        __click={() => {
+                          history.push("/login");
+                        }}
+                      >
+                        <FontAwesomeIcon icon={chatIcon} />
+                        채팅
+                      </Grid>
+                    </>
+                  )}
+
+                  {is_login && (
+                    <>
+                      <Grid
+                        className="block pointer"
+                        width="max-content"
+                        padding="0 20px"
+                        is_flex
+                        gap="5px"
+                        __click={() => {
+                          history.push("/chat");
+                        }}
+                      >
+                        <FontAwesomeIcon icon={chatIcon} />
+                        채팅
+                      </Grid>
+                    </>
+                  )}
+
+                  {!is_login && (
+                    <>
+                      <Grid
+                        className="pointer"
+                        width="max-content"
+                        padding="0 0 0 20px"
+                        is_flex
+                        gap="5px"
+                        __click={() => {
+                          history.push("/login");
+                        }}
+                      >
+                        <FontAwesomeIcon icon={uploadIcon} />
+                        물건등록
+                      </Grid>
+                    </>
+                  )}
+
+                  {is_login && (
+                    <>
+                      <Grid
+                        className="pointer"
+                        width="max-content"
+                        padding="0 0 0 20px"
+                        is_flex
+                        gap="5px"
+                        __click={() => {
+                          history.push("/ProductUpload");
+                        }}
+                      >
+                        <FontAwesomeIcon icon={uploadIcon} />
+                        물건등록
+                      </Grid>
+                    </>
+                  )}
+                </IconWrap>
+              </Grid>
+            </Grid>
+          </Fix>
+        </HeaderWrap>
+      </Desktop>
+      
+      <Tablet>
+        Tablet
+      </Tablet>
+
+      <Mobile>
+        <HeaderWrap showHeader={showHeader} ref={navbox}>
+          <Fix ref={up}>
+            {/* 로고 */}
+            <Grid is_flex justify="space-between" height="58px" bdr="1px solid red">
+              {/* <img
+                ref={leftLogo}
+                alt="로고이미지"
+                style={{ border: "1px solid black", alignItems: "center", width: "0px", marginBottom: "2px", justifyContent: "center" }}
+                src={MainLogo}
+                onClick={() => {
+                  history.replace("/");
+                }}
+              /> */}
+
+              <Grid is_flex justify="center" width="20%">
+                {/* 로고 */}
+                <img
+                  ref={hide}
+                  alt="로고이미지"
+                  style={{ width: "60px" }}
+                  src={MainLogo}
+                  onClick={() => {
+                    history.replace("/");
+                  }}
+                />
+              </Grid>
+
+              <Grid is_flex column width="40%">
+                <Grid is_flex justify="flex-end">
+                  {/* 기능버튼 */}
+                  <SearchWrap>
+                    <Search
+                      ref={lengthen}
+                      type="text"
+                      placeholder="검색하기"
+                      onChange={(e) => {
+                        setKeyword(e.target.value);
+                      }}
+                      onKeyPress={(e) => {
+                        if (window.event.keyCode === 13) {
+                          SearchProduct();
+                        }
+                      }}
+                    />
+                    <FontAwesomeIcon icon={faSearch} />
+                  </SearchWrap>
+
+                  <IconWrap>
+                    <Ring>
+                      <DetailRing />
+                    </Ring>
+                  </IconWrap>
+
+                </Grid>
+              </Grid>
+            </Grid>
+            
+            <Grid is_flex width="100%" height="39px" alignItems="center" padding="0 4% 0 6%" bdr="1px solid green">
+              {/* 카테고리 리스트 방식 */}
+              {/* <ListHover/> */}
+              <div style={{ width: "60px", margin: "1px 0 0" }}>카테고리</div>
+              <ListBtn />
+              <Mainselectbox>
+                <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
+              </Mainselectbox>
+              {mainct === "" && (
+                <SubSelectbox>
+                  <Select placeholder="중분류" onClick={handleSubCategory} styles={customStyles} />
+                </SubSelectbox>
               )}
-            </IconWrap>
-          </Grid>
-        </Grid>
-      </Fix>
-    </HeaderWrap>
+              {/* 2D일 때 */}
+              {mainct === "3D" && (
+                <SubSelectbox>
+                  <Select placeholder="중분류" onChange={handleSubCategory} options={D2CT} styles={customStyles} />
+                </SubSelectbox>
+              )}
+              {/* 3D일 때 */}
+              {mainct === "2D" && (
+                <SubSelectbox>
+                  <Select placeholder="중분류" onChange={handleSubCategory} options={D3CT} styles={customStyles} />
+                </SubSelectbox>
+              )}
+            </Grid>
+
+          </Fix>
+        </HeaderWrap>
+      </Mobile>
+
+    </>
+    
   );
 };
 
@@ -458,6 +574,23 @@ const HeaderWrap = styled.header`
   z-index: 9999;
   background-color: #ffffff;
   transition: box-shadow 500ms cubic-bezier(0.215, 0.61, 0.355, 1), height 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
+
+  @media only screen and (max-width : 767px) {
+    display : flex;
+    // border: 1px solid red;
+    position: fixed;
+    width: 413px;
+    max-height: 99px;
+    max-width: 100%;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background-color: #ffffff;
+  }
 `;
 
 const Fix = styled.div`
@@ -480,17 +613,55 @@ const Fix = styled.div`
     cursor: pointer;
     object-position: center;
   }
+
+  @media only screen and (max-width : 767px) {
+    border: 1px solid blue;
+    max-width: 100%;
+    margin: 0 auto;
+    // max-width: 80vw;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    // align-items: center;
+    // justify-content: center;
+    height: 99px;
+    padding: 0 0 32px 0;
+    font-size: 11px;
+    font-weight: 500;
+    transition: margin 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
+    img {
+      transition: all 1400ms cubic-bezier(0.215, 0.61, 0.355, 1);
+      align-items: center;
+      vertical-align: center;
+      margin: auto;
+      display: flex;
+      cursor: pointer;
+      object-position: center;
+      border: 1px solid blue;
+    }
+  }
 `;
 
 const Mainselectbox = styled.div`
   width: 147px;
-  margin: 0 30px 0 38px;
+  margin: 0 30px 0 10px;
   align-items: center;
+
+  @media only screen and (max-width : 767px) {
+    width: 147px;
+    margin: 0 20px 0 20px;
+    align-items: center;
+  }
 `;
 
 const SubSelectbox = styled.div`
   width: 200px;
   align-items: center;
+
+  @media only screen and (max-width : 767px) {
+    width: 200px;
+    align-items: center;
+  }
 `;
 
 // 검색 wrap
@@ -512,6 +683,29 @@ const SearchWrap = styled.div`
     border-bottom: 2px solid ${Color.Primary};
     svg {
       color: ${Color.Primary};
+    }
+  }
+
+  @media only screen and (max-width : 767px) {
+    display: flex;
+    align-items: center;
+    // border-bottom: 2px solid ${Color.Dark_1};
+    border-bottom: none;
+    margin-right: 2rem;
+    height: 38px;
+    background-color: transparent;
+    svg {
+      transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
+      align-items: center;
+      font-size: 20px;
+      margin: auto 5px;
+      cursor: pointer;
+    }
+    &:focus-within {
+      border-bottom: 2px solid ${Color.Primary};
+      svg {
+        color: ${Color.Primary};
+      }
     }
   }
 `;

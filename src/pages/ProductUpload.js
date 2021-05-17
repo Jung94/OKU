@@ -491,6 +491,15 @@ const UploadWrap = styled.div`
     margin-left: -12px;
     margin-right: 3px;
   }
+
+  @media only screen and (max-width : 767px) {
+    max-width: 300px;
+    margin: 175px auto 100px;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    text-align: left;
+  }
 `;
 
 const Modal = styled.div`
