@@ -57,16 +57,16 @@ const Bid = (props) => {
     } else if (_current === lowBid && _current === trueBid) {
       // 최소입찰가를 입력할때
       dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
-      // dispatch(bidActions.warningBid("success"));
+    } else if (trueBid > sucBid) {
+      setMessageBid("즉시 낙찰가보다 낮아야 해욧!");
+    } else if (trueBid === sucBid) {
+      addSuccessbid();
     } else if (_current > lowBid) {
       if (trueBid < _current || trueBid < lowBid) {
         setMessageBid("현재 입찰가보다 높아야 해욧!");
       } else {
         dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
-        // dispatch(bidActions.warningBid("success"));
       }
-    } else if (trueBid > sucBid) {
-      setMessageBid("즉시 낙찰가보다 낮아야 해욧!");
     } else {
       dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
     }
