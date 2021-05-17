@@ -221,26 +221,47 @@ const ProductUpload = React.memo((props) => {
       window.alert("약관에 동의해주세요!");
       return;
     } else {
-      // 모든게 처리되고 나서야 상품등록 시도 가능
-      const true_tags = tags.split("#").filter((t) => t.length > 0);
-      dispatch(
-        uploadActions.addPostAPI(
-          fileInput.current.files[0],
-          fileInput1.current.files[0],
-          fileInput2.current.files[0],
-          title,
-          cateBig,
-          cateSmall,
-          region,
-          productState,
-          deadline,
-          lowbid,
-          sucbid,
-          delivery,
-          productDesc,
-          true_tags
-        )
-      );
+      if (!tags || tags.length === 0) {
+        dispatch(
+          uploadActions.addPostAPI(
+            fileInput.current.files[0],
+            fileInput1.current.files[0],
+            fileInput2.current.files[0],
+            title,
+            cateBig,
+            cateSmall,
+            region,
+            productState,
+            deadline,
+            lowbid,
+            sucbid,
+            delivery,
+            productDesc,
+            tags
+          )
+        );
+      } else if (tags.includes("#") && tags.length > 0) {
+        // 모든게 처리되고 나서야 상품등록 시도 가능
+        const true_tags = tags.split("#").filter((t) => t.length > 0);
+        dispatch(
+          uploadActions.addPostAPI(
+            fileInput.current.files[0],
+            fileInput1.current.files[0],
+            fileInput2.current.files[0],
+            title,
+            cateBig,
+            cateSmall,
+            region,
+            productState,
+            deadline,
+            lowbid,
+            sucbid,
+            delivery,
+            productDesc,
+            true_tags
+          )
+        );
+      }
     }
 
     // const ss = {
@@ -503,7 +524,7 @@ const UploadWrap = styled.div`
     margin-right: 3px;
   }
 
-  @media only screen and (max-width : 767px) {
+  @media only screen and (max-width: 767px) {
     max-width: 300px;
     margin: 175px auto 100px;
     display: flex;

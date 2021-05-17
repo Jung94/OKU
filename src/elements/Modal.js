@@ -51,11 +51,11 @@ const Modal = (props) => {
       <>
         {onSale ? (
           <Button {...styles} _onClick={openModal} margin="10px 0">
-            입찰표 작성
+            즉시 낙찰
           </Button>
         ) : (
           <Button {...styles} disabled margin="10px 0">
-            입찰표 작성
+            즉시 낙찰
           </Button>
         )}
         {modal ? (

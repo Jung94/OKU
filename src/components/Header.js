@@ -88,7 +88,7 @@ const Header = (props) => {
 
   const handleSubCategory = (e) => {
     setSubct(e.value);
-    dispatch(categoryActions.getProductSubCategotAPI(mainct, e.value));
+    dispatch(categoryActions.getProductSubCategotAPI(mainct ,e.value));
     history.push("/category");
   };
 
