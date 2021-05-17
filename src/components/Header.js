@@ -48,10 +48,14 @@ const Header = (props) => {
   const [mainct, setMainct] = useState("");
   const [subct, setSubct] = useState("");
 
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+
   useEffect(() => {
-    window.addEventListener("scroll", headerChange);
-    // dispatch(userActions.isLogin());
-    return () => window.removeEventListener("scroll", headerChange);
+    if (isDesktop) {
+      window.addEventListener("scroll", headerChange);
+      // dispatch(userActions.isLogin());
+      return () => window.removeEventListener("scroll", headerChange);
+    }
   }, []);
 
   const logout = () => {
@@ -197,10 +201,7 @@ const Header = (props) => {
   const lengthen = useRef();
 
   const headerChange = () => {
-    if (window.innerWidth < 1024) {
-      leftLogo.current.style.width = "0";
-      leftLogo.current.style.marginRight = "0";
-    } else if (window.scrollY < 150 && window.innerWidth > 1320) {
+    if (window.scrollY < 150 && window.innerWidth > 1320) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "9999";
       navbox.current.style.height = "140px";
@@ -470,11 +471,11 @@ const Header = (props) => {
         <HeaderWrap showHeader={showHeader} ref={navbox}>
           <Fix ref={up}>
             {/* 로고 */}
-            <Grid is_flex justify="space-between" height="58px" bdr="1px solid red">
+            <Grid is_flex justify="space-between" height="58px" bdr="1px solid red" >
               <img
                 ref={leftLogo}
                 alt="로고이미지"
-                style={{ display: "none", border: "1px solid black", alignItems: "center", width: "0px", marginBottom: "2px", justifyContent: "center" }}
+                style={{ display: "none", alignItems: "center", width: "0px", marginBottom: "2px", justifyContent: "center" }}
                 src={MainLogo}
                 onClick={() => {
                   history.replace("/");
@@ -486,7 +487,7 @@ const Header = (props) => {
                 <img
                   ref={hide}
                   alt="로고이미지"
-                  style={{ width: "60px" }}
+                  style={{ border: "1px solid black", width: "60px", }}
                   src={MainLogo}
                   onClick={() => {
                     history.replace("/");
@@ -523,7 +524,7 @@ const Header = (props) => {
               </Grid>
             </Grid>
 
-            <Grid is_flex width="100%" height="39px" alignItems="center" padding="0 4% 0 6%" bdr="1px solid green">
+            <Grid is_flex width="100%" height="39px" alignItems="center" padding="0 10px 0 20px" bdr="1px solid green">
               {/* 카테고리 리스트 방식 */}
               {/* <ListHover/> */}
               <div style={{ width: "60px", margin: "1px 0 0" }}>카테고리</div>
@@ -615,26 +616,19 @@ const Fix = styled.div`
     border: 1px solid blue;
     max-width: 100%;
     margin: 0 auto;
-    // max-width: 80vw;
     width: 100%;
     display: flex;
     flex-direction: column;
-    // align-items: center;
-    // justify-content: center;
     height: 99px;
-    padding: 0 0 32px 0;
-    font-size: 11px;
+    padding: 0;
+    font-size: 12px;
     font-weight: 500;
     transition: margin 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
     img {
       transition: all 1400ms cubic-bezier(0.215, 0.61, 0.355, 1);
       align-items: center;
-      vertical-align: center;
-      margin: auto;
-      display: flex;
       cursor: pointer;
       object-position: center;
-      border: 1px solid blue;
     }
   }
 `;
