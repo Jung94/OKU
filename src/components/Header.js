@@ -18,8 +18,8 @@ import ListHover from "components/ListHover";
 import DetailRing from "components/DetailRing";
 
 import MainLogo from "images/logo.png";
-import Submit from "images/search.png";
-import List from "images/list.png";
+import IconSearch from "images/icon_Search.svg";
+import IconRingOff from "images/icon_RingOff.svg";
 
 import { MainCT, D2CT, D3CT, D4CT } from "shared/Category";
 import { Color } from "shared/DesignSys";
@@ -88,7 +88,6 @@ const Header = (props) => {
 
   const handleSubCategory = (e) => {
     setSubct(e.value);
-    console.log(handleSubCategory);
     dispatch(categoryActions.getProductSubCategotAPI(mainct, e.value));
     history.push("/category");
   };
@@ -148,11 +147,7 @@ const Header = (props) => {
         alignItems: "center",
         color: Color.Dark_4,
       }),
-      noOptionsMessage: (provided, state) => ({
-        ...provided,
-        color: Color.Light_2,
-        content: "대분류를 선택해주세요.",
-      }),
+      
       // 메뉴 드롭 다운 바탕 박스
       menu: (provided, state) => ({
         ...provided,
@@ -201,7 +196,12 @@ const Header = (props) => {
   const lengthen = useRef();
 
   const headerChange = () => {
-    if (window.scrollY < 150 && window.innerWidth > 1320) {
+    // return null;
+    if (window.scrollY < 150 && window.innerWidth < 1024) {
+      leftLogo.current.style.display = "none";
+      leftLogo.current.style.width = "0";
+      leftLogo.current.style.marginRight = "0";
+    } else if (window.scrollY < 150 && window.innerWidth > 1320) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "9999";
       navbox.current.style.height = "140px";
@@ -487,7 +487,6 @@ const Header = (props) => {
                 <img
                   ref={hide}
                   alt="로고이미지"
-                  style={{ border: "1px solid black", width: "60px", }}
                   src={MainLogo}
                   onClick={() => {
                     history.replace("/");
@@ -502,7 +501,7 @@ const Header = (props) => {
                     <Search
                       ref={lengthen}
                       type="text"
-                      placeholder="검색하기"
+                      // placeholder="검색하기"
                       onChange={(e) => {
                         setKeyword(e.target.value);
                       }}
@@ -512,7 +511,7 @@ const Header = (props) => {
                         }
                       }}
                     />
-                    <FontAwesomeIcon icon={faSearch} />
+                    <Img src={IconSearch} />
                   </SearchWrap>
 
                   <IconWrap>
@@ -624,11 +623,14 @@ const Fix = styled.div`
     font-size: 12px;
     font-weight: 500;
     transition: margin 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
+
     img {
       transition: all 1400ms cubic-bezier(0.215, 0.61, 0.355, 1);
       align-items: center;
       cursor: pointer;
       object-position: center;
+      margin-left: 20px;
+      width: 52px;
     }
   }
 `;
@@ -679,22 +681,47 @@ const SearchWrap = styled.div`
 
   @media only screen and (max-width: 767px) {
     display: flex;
+    position: relative;
     align-items: center;
-    // border-bottom: 2px solid ${Color.Dark_1};
-    border-bottom: none;
-    margin-right: 2rem;
+    border-bottom: 1px solid ${Color.Dark_1};
+    margin-right: 1.1rem;
     height: 38px;
+    width: 0px;
     background-color: transparent;
-    svg {
-      transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
-      align-items: center;
-      font-size: 20px;
-      margin: auto 5px;
-      cursor: pointer;
-    }
-    &:focus-within {
-      border-bottom: 2px solid ${Color.Primary};
-      svg {
+
+    // &:focus-within {
+    //   width: 100%;
+    //   // border-bottom: 1px solid ${Color.Dark_1};
+
+    // }
+    
+  }
+`;
+
+const Img = styled.div`
+
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid red;
+    position: absolute;
+    top: 7px;
+    right: 0;
+    width: 27px;
+    height: 27px;
+    background-color: transparent;
+    background: url(${(props) => props.src});
+    background-size: cover;
+    background-position: center;
+    transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
+    margin: 0;
+    cursor: pointer;
+    
+
+    &:focus {
+      ${SearchWrap} {
+        width: 100px;
+      }
+      border-bottom: 1px solid ${Color.Dark_1};
+      img {
         color: ${Color.Primary};
       }
     }
@@ -704,7 +731,7 @@ const SearchWrap = styled.div`
 // 검색 input
 const Search = styled.input`
   background-color: transparent;
-  width: 130px;
+  width: 100px;
   height: 38px;
   border: 0;
   outline: 0;
@@ -741,6 +768,14 @@ const IconWrap = styled.div`
   }
   .pointer {
     cursor: pointer;
+  }
+
+  @media only screen and (max-width: 767px) {
+    width: 42px;
+
+    .pointer {
+      cursor: pointer;
+    }
   }
 `;
 

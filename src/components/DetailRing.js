@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 
 import { Badge } from "@material-ui/core";
 
@@ -9,12 +10,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { Timer } from "components/";
 import { Grid, Input, Button, Tag, Modal, Text } from "elements/";
 
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-regular-svg-icons";
 
 import List from "images/list.png";
+import IconRingOff from "images/icon_RingOff.svg";
 import RingContents from "components/RingContents";
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  return isDesktop ? children : null;
+};
+
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  return isTablet ? children : null;
+};
+
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  return isMobile ? children : null;
+};
+
 
 const DetailRing = (props) => {
   const dispatch = useDispatch();
@@ -41,74 +58,155 @@ const DetailRing = (props) => {
   if (Ringshowing && is_login) {
     return (
       // 로그인이 되어있을 때
-      <Wrap>
-        <div className="alarm" onClick={notiCheck}  >
-        <Overlay onClick={RingDetailShowing}/>
-          <Badge invisible={is_read} color="secondary" variant="dot">
-            <FontAwesomeIcon icon={faBell} />
-            {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-          </Badge>
-          알림
-        </div>
-        <RingDetail>
-        {alert.alreadyCheck && alert.alreadyCheck.length > 0 ? (
-          <Contents>
-            {alert.alreadyCheck.map((i, idx) => {
-              return (
-            <RingContents key={idx} {...i} />
-            );
-            })}
-            {alert.notCheck.map((i, idx) => {
-              return (
-            <RingContents key={idx} {...i}  />
-            );
-            })}
-            
-          </Contents>
-          ) : (
-          <ContentsX>
-          <span>
-            최근 알림이 없습니다.
-          </span>
-          </ContentsX>
-          ) }
-        </RingDetail>
-      </Wrap>
+      <>
+        <Desktop>
+          <Wrap>
+            <div className="alarm" onClick={notiCheck}  >
+            <Overlay onClick={RingDetailShowing}/>
+              <Badge invisible={is_read} color="secondary" variant="dot">
+                <FontAwesomeIcon icon={faBell} />
+                {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
+              </Badge>
+              알림
+            </div>
+            <RingDetail>
+            {alert.alreadyCheck && alert.alreadyCheck.length > 0 ? (
+              <Contents>
+                {alert.alreadyCheck.map((i, idx) => {
+                  return (
+                <RingContents key={idx} {...i} />
+                );
+                })}
+                {alert.notCheck.map((i, idx) => {
+                  return (
+                <RingContents key={idx} {...i}  />
+                );
+                })}
+                
+              </Contents>
+              ) : (
+              <ContentsX>
+              <span>
+                최근 알림이 없습니다.
+              </span>
+              </ContentsX>
+              ) }
+            </RingDetail>
+          </Wrap>
+        </Desktop>
+
+        <Mobile>
+          <Wrap>
+            <div className="alarm" onClick={notiCheck}  >
+            <Overlay onClick={RingDetailShowing}/>
+              <Badge invisible={is_read} color="secondary" variant="dot">
+                <Img src={IconRingOff} />
+                {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
+              </Badge>
+            </div>
+            <RingDetail>
+            {alert.alreadyCheck && alert.alreadyCheck.length > 0 ? (
+              <Contents>
+                {alert.alreadyCheck.map((i, idx) => {
+                  return (
+                <RingContents key={idx} {...i} />
+                );
+                })}
+                {alert.notCheck.map((i, idx) => {
+                  return (
+                <RingContents key={idx} {...i}  />
+                );
+                })}
+                
+              </Contents>
+              ) : (
+              <ContentsX>
+              <span>
+                최근 알림이 없습니다.
+              </span>
+              </ContentsX>
+              ) }
+            </RingDetail>
+          </Wrap>
+        </Mobile>
+      </>
+      
       
     );
   } else if (is_login) {
     return (
-      <Wrap>
-        {alert.notCheck && alert.notCheck.length === 0 ?(
-        <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing} >
-          <Badge invisible={is_read} color="secondary" variant="dot">
-            <FontAwesomeIcon icon={faBell} />
-            {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-          </Badge>
-          알림
-        </div>
-        ) : (
-          <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
-          <Badge color="secondary" variant="dot">
-            <FontAwesomeIcon icon={faBell} />
-            {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-          </Badge>
-          알림
-          </div>
-        )}
-      </Wrap>)
+      <>
+        <Desktop>
+          <Wrap>
+            {alert.notCheck && alert.notCheck.length === 0 ?(
+            <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing} >
+              <Badge invisible={is_read} color="secondary" variant="dot">
+                <FontAwesomeIcon icon={faBell} />
+                {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
+              </Badge>
+              알림
+            </div>
+            ) : (
+              <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
+                <Badge color="secondary" variant="dot">
+                  <FontAwesomeIcon icon={faBell} />
+                  {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
+                </Badge>
+                알림
+              </div>
+            )}
+          </Wrap>
+        </Desktop>
+
+        <Mobile>
+          <Wrap>
+            {alert.notCheck && alert.notCheck.length === 0 ?(
+            <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing} >
+              <Badge invisible={is_read} color="secondary" variant="dot">
+                <Img src={IconRingOff} />
+                {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
+              </Badge>
+            </div>
+            ) : (
+              <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
+                <Badge color="secondary" variant="dot">
+                  <Img src={IconRingOff} />
+                  {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
+                </Badge>
+              </div>
+            )}
+          </Wrap>
+        </Mobile>
+      </>
+    )
     
   } else {
     return (
-      <Wrap onClick={() => {window.alert("로그인이 필요한 서비스입니다.")
-      history.push("/login")
-      }} >
-        <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
-            <FontAwesomeIcon icon={faBell} />
-            {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-          알림
-        </div>
-      </Wrap>
+      <>
+        <Desktop>
+          <Wrap onClick={() => {window.alert("로그인이 필요한 서비스입니다.")
+          history.push("/login")
+          }} >
+            <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
+                <FontAwesomeIcon icon={faBell} />
+                {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
+              알림
+            </div>
+          </Wrap>
+        </Desktop>
+
+        <Mobile>
+          <Wrap onClick={() => {window.alert("로그인이 필요한 서비스입니다.")
+          history.push("/login")
+          }} >
+            <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
+                <Img src={IconRingOff} />
+                {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
+              알림
+            </div>
+          </Wrap>
+        </Mobile>
+      </>
     );
 
   }
@@ -117,6 +215,20 @@ const DetailRing = (props) => {
 DetailRing.defaultProps = {
   _onClick: () => {},
 };
+
+const Img = styled.div`
+  // border: 1px solid red;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  background: url(${(props) => props.src});
+  background-size: cover;
+  background-position: center;
+  transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  align-items: center;
+  margin: 0;
+  cursor: pointer;
+`
 
 const Wrap = styled.div`
   width: 80px;
@@ -147,13 +259,13 @@ const RingDetail = styled.div`
 const Overlay = styled.div`
   box-sizing: border-box;
   position: absolute;
+  top : 0;
   left : 0;
   width: 100%;
   height: 10000px;
   background-color: rgba(0, 0, 0, 0);
   cursor : Default;
 `;
-
 const Contents = styled.div`
   margin: 26px 0 103.6px 0;
 `;
