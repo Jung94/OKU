@@ -197,7 +197,10 @@ const Header = (props) => {
   const lengthen = useRef();
 
   const headerChange = () => {
-    if (window.scrollY < 150 && window.innerWidth > 1320) {
+    if (window.innerWidth < 1024) {
+      leftLogo.current.style.width = "0";
+      leftLogo.current.style.marginRight = "0";
+    } else if (window.scrollY < 150 && window.innerWidth > 1320) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "9999";
       navbox.current.style.height = "140px";
