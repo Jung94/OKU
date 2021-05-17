@@ -28,9 +28,6 @@ const DetailRing = (props) => {
   }, []);
 
   const alert = useSelector((state) => state.post.all_alert);
-  console.log(alert, "알럿💥");  
-  console.log(alert.alreadyCheck, "alreadyCheck알럿💥");
-  console.log(alert.notCheck, "notCheck알럿💥");
 
   const [is_read, setIsRead] = React.useState(true);
 
@@ -45,16 +42,6 @@ const DetailRing = (props) => {
     return (
       // 로그인이 되어있을 때
       <Wrap>
-        {alert.notCheck && alert.notCheck.length === 0 ?
-        (
-        <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
-            <Badge color="secondary" variant="dot">
-            <FontAwesomeIcon icon={faBell} />
-            {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-          </Badge>
-          알림
-        </div>
-        ) : (
           <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
             <Badge invisible={is_read} color="secondary" variant="dot">
             <FontAwesomeIcon icon={faBell} />
@@ -62,18 +49,15 @@ const DetailRing = (props) => {
           </Badge>
           알림
         </div>
-        )}
         <RingDetail>
         {alert.alreadyCheck && alert.alreadyCheck.length > 0 ? (
           <Contents>
             {alert.alreadyCheck.map((i, idx) => {
-              console.log("alreadyCheck",alert)
               return (
             <RingContents key={idx} {...i} />
             );
             })}
             {alert.notCheck.map((i, idx) => {
-              console.log("notCheck",alert)
               return (
             <RingContents key={idx} {...i}  />
             );
@@ -84,31 +68,33 @@ const DetailRing = (props) => {
           <span>
             최근 알림이 없습니다.
           </span>
-            {/* {alert.map((i, idx) => {
-              console.log("alert체크",alert)
-              return (
-            <RingContents key={idx} {...i} />
-            );
-            })} */}
           </ContentsX>
           ) }
         </RingDetail>
       </Wrap>
     );
   } else if (is_login) {
-    
-    console.log(alert)
     return (
       <Wrap>
+        {alert.notCheck && alert.notCheck.length === 0 ?(
         <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
-          <Badge color="secondary" variant="dot">
+          <Badge invisible={is_read} color="secondary" variant="dot">
             <FontAwesomeIcon icon={faBell} />
             {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
           </Badge>
           알림
         </div>
-      </Wrap>
-    );
+        ) : (
+          <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
+          <Badge color="secondary" variant="dot">
+            <FontAwesomeIcon icon={faBell} />
+            {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
+          </Badge>
+          알림
+          </div>
+        )}
+      </Wrap>)
+    
   } else {
     return (
       <Wrap onClick={() => {window.alert("로그인이 필요한 서비스입니다.")
