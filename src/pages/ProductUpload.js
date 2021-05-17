@@ -213,11 +213,16 @@ const ProductUpload = React.memo((props) => {
       window.alert("최소 입찰가를 입력해주세요!");
     } else if (!sucbid) {
       window.alert("즉시 낙찰가를 입력해주세요!");
+    } else if (sucbid > 50000000) {
+      window.alert("5천만원 이상의 낙찰가를 설정 할 수 없습니다.");
+    } else if (!tags.includes("#") && tags.length > 0) {
+      window.alert("해쉬태그 없는 태그는 한 개로 적용되어요!");
     } else if (!agree) {
       window.alert("약관에 동의해주세요!");
       return;
     } else {
       // 모든게 처리되고 나서야 상품등록 시도 가능
+      const true_tags = tags.split("#").filter((t) => t.length > 0);
       dispatch(
         uploadActions.addPostAPI(
           fileInput.current.files[0],
@@ -233,7 +238,7 @@ const ProductUpload = React.memo((props) => {
           sucbid,
           delivery,
           productDesc,
-          tags
+          true_tags
         )
       );
     }
@@ -453,9 +458,15 @@ const ProductUpload = React.memo((props) => {
       <Grid is_flex justify="center" textAlign="center" margin="20px">
         <Input check checked={agree} _onClick={handleAgree} value="상품 등록시 약관에 동의해주세요." />
       </Grid>
-      <Button _onClick={addPost} width="100%" height="60px" margin="20px auto 9% auto">
-        등록하기
-      </Button>
+      {agree ? (
+        <Button _onClick={addPost} width="100%" height="60px" margin="20px auto 9% auto">
+          등록하기
+        </Button>
+      ) : (
+        <Button disabled width="100%" height="60px" margin="20px auto 9% auto">
+          등록하기
+        </Button>
+      )}
       {isPostOpen && (
         <Modal>
           <ModalSection>

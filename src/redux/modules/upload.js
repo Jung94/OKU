@@ -45,6 +45,7 @@ const initialState = {
 
 const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, productState, deadline, lowbid, sucbid, delivery, productDesc, tags) => {
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
     dispatch(uploadProgress(true));
     let nickname = localStorage.getItem("nickname");
     let access_token = localStorage.getItem("access_token");
@@ -76,7 +77,11 @@ const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, p
     formData.append("sucbid", sucbid);
     formData.append("deliveryprice", delivery);
     formData.append("description", productDesc);
-    formData.append("tag", tags);
+
+    tags.map((t, idx) => {
+      console.log(t);
+      return formData.append("tag", t);
+    });
 
     fetch(`${API}/product/`, {
       method: "POST",
@@ -100,6 +105,9 @@ const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, p
       })
       .catch((error) => {
         console.log("addPostAPI에 문제가 있습니다.", error);
+      })
+      .finally(() => {
+        dispatch(loadingActions.loading(false));
       });
   };
 };

@@ -17,7 +17,6 @@ const deleteLike = createAction(DELETE_LIKE, (id, likelist) => ({ id, likelist }
 const getMyLikeList = createAction(GET_MY_LIKE_LIST, (likelist) => ({ likelist }));
 
 const initialState = {
-  is_loading: false,
   is_like: false,
   like_list: [],
   productId: 0,
@@ -105,6 +104,7 @@ const deleteLikeAPI = (_id) => {
 // 마이페이지용
 const getMyLikeListAPI = () => {
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
     const access_token = localStorage.getItem("access_token");
     fetch(`${API}/user/pick`, {
       method: "GET",
@@ -138,6 +138,9 @@ const getMyLikeListAPI = () => {
       })
       .catch((error) => {
         console.log("getMyLikeListAPI에 문제가 있습니다.", error);
+      })
+      .finally(() => {
+        dispatch(loadingActions.loading(false));
       });
   };
 };

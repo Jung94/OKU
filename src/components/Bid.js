@@ -19,7 +19,8 @@ const Bid = (props) => {
   const history = props.history;
   const p_id = props._id;
   const { open, close, bid, immediateBid, lowBid, sucBid, deadLine, createAt, sellerunique, _id, onSale } = props;
-  // console.log(open, close);
+  const u_id = localStorage.getItem("uid");
+
   const productOK = useSelector((state) => state.product.product_detail);
 
   const [bidPrice, setBid] = useState("");
@@ -34,7 +35,7 @@ const Bid = (props) => {
     if (bid_before === "time") {
       setMessageBid("마감 시간이 종료되었어요..");
     } else if (bid_before === "success") {
-      setMessageBid("입찰 성공!");
+      // setMessageBid("입찰 성공!");
     } else if (bid_before === "before") {
       setMessageBid("현재 입찰가보다 높아야 해욧!");
     }
@@ -56,21 +57,23 @@ const Bid = (props) => {
     } else if (_current === lowBid && _current === trueBid) {
       // 최소입찰가를 입력할때
       dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
-      dispatch(bidActions.warningBid("success"));
+      // dispatch(bidActions.warningBid("success"));
     } else if (_current > lowBid) {
       if (trueBid < _current || trueBid < lowBid) {
         setMessageBid("현재 입찰가보다 높아야 해욧!");
       } else {
         dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
-        dispatch(bidActions.warningBid("success"));
+        // dispatch(bidActions.warningBid("success"));
       }
+    } else if (trueBid > sucBid) {
+      setMessageBid("즉시 낙찰가보다 낮아야 해욧!");
+    } else {
+      dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
     }
   };
 
   const addSuccessbid = () => {
     dispatch(bidActions.addSucbidAPI(sucBid, sellerunique, Date.now()));
-    close();
-    history.replace(`/${p_id}`);
   };
 
   if (bid) {
@@ -106,10 +109,22 @@ const Bid = (props) => {
           )}
 
           <Input value={input_priceComma(bidPrice)} _onChange={onChangeBid} num width="75%" margin="10px auto 0" adornment="원" plcholder="입찰가를 입력해주세요!" />
-          <InfoUl>{messageBid}</InfoUl>
-          <Button _onClick={addBid} width="75%" margin="10px auto 9% auto">
-            입찰하기
-          </Button>
+
+          {sellerunique === u_id ? (
+            <>
+              <InfoUl>본인의 상품을 스스로 입찰할 수 없습니다.</InfoUl>
+              <Button disabled width="75%" margin="10px auto 9% auto">
+                입찰하기
+              </Button>
+            </>
+          ) : (
+            <>
+              <InfoUl>{messageBid}</InfoUl>
+              <Button _onClick={addBid} width="75%" margin="10px auto 9% auto">
+                입찰하기
+              </Button>
+            </>
+          )}
         </BidBox>
       </>
     );
@@ -131,10 +146,21 @@ const Bid = (props) => {
               {priceComma(sucBid)}
               <Text won>&ensp;원</Text>
             </Text>
+            {/* {sellerunique === u_id ? (
+              <>
+                <InfoUl>본인의 상품을 스스로 입찰할 수 없습니다.</InfoUl>
+                <Button disabled width="75%" margin="10px auto 9% auto">
+                  즉시 낙찰하기
+                </Button>
+              </>
+            ) : (
+              <> */}
             <InfoUl></InfoUl>
             <Button _onClick={addSuccessbid} width="75%" margin="10px auto 9% auto">
               즉시 낙찰하기
             </Button>
+            {/* </>
+            )} */}
           </BidBox>
         ) : (
           <></>
@@ -148,7 +174,7 @@ const InfoUl = styled.ul`
   display: flex;
   height: 20px;
   margin: 1.5% auto 0;
-  font-size: 12px;
+  font-size: 13px;
   text-align: center;
   align-items: center;
   color: ${Color.Primary};

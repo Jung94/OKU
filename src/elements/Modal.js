@@ -6,11 +6,11 @@ import { Button } from "elements/";
 import { Bid, Edit } from "components/";
 
 const Modal = (props) => {
-  const { top, bottom, margin, color, text, bid, immediateBid, sucBid, setting } = props;
+  const { top, bottom, margin, color, text, bid, immediateBid, sucBid, onSale, setting } = props;
   const styles = { top: top, bottom: bottom, margin: margin, color: color, text: text };
   const [modal, setModal] = useState(false);
 
-  // console.log(modal);
+  // console.log(props);
 
   const openModal = () => {
     setModal(true);
@@ -23,9 +23,15 @@ const Modal = (props) => {
   if (bid) {
     return (
       <>
-        <Button {...styles} _onClick={openModal} margin="10px 0">
-          입찰표 작성
-        </Button>
+        {onSale ? (
+          <Button {...styles} _onClick={openModal} margin="10px 0">
+            입찰표 작성
+          </Button>
+        ) : (
+          <Button {...styles} disabled margin="10px 0">
+            입찰표 작성
+          </Button>
+        )}
         {modal ? (
           <ModalWrap modal>
             <Screen onClick={closeModal}></Screen>
@@ -43,9 +49,15 @@ const Modal = (props) => {
   if (immediateBid) {
     return (
       <>
-        <Button {...styles} _onClick={openModal} margin="0 0 0 5px">
-          즉시 낙찰
-        </Button>
+        {onSale ? (
+          <Button {...styles} _onClick={openModal} margin="10px 0">
+            입찰표 작성
+          </Button>
+        ) : (
+          <Button {...styles} disabled margin="10px 0">
+            입찰표 작성
+          </Button>
+        )}
         {modal ? (
           <ModalWrap modal>
             <Screen onClick={closeModal}></Screen>

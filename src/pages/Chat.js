@@ -28,6 +28,11 @@ const Chat = (props) => {
   // history.replace('/');
   // }
 
+  // const otherId = props.match.params.otherId;
+  // const myId = props.match.params.myId;
+  // const otherName = props.match.params.otherName;
+  // console.log(otherId, myId, otherName, "나는 아이디" )
+
   const makeRoom = [props.match.params.otherId, props.match.params.myId].sort();
   //   // 방
   const room = makeRoom[0] + "-" + makeRoom[1];

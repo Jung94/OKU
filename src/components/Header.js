@@ -21,7 +21,7 @@ import MainLogo from "images/logo.png";
 import Submit from "images/search.png";
 import List from "images/list.png";
 
-import { MainCT, D2CT, D3CT, D4CT  } from "shared/Category";
+import { MainCT, D2CT, D3CT, D4CT } from "shared/Category";
 import { Color } from "shared/DesignSys";
 import { CenterFocusStrong } from "../../node_modules/@material-ui/icons/index";
 
@@ -58,6 +58,7 @@ const Header = (props) => {
   const logout = () => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
       dispatch(userActions.isLogout());
+      window.location.reload();
     }
   };
 

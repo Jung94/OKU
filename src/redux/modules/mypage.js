@@ -17,7 +17,6 @@ const setMystore = createAction(SET_MYSELLING, (selling_list, sold_list, length)
 const setPreview = createAction(SET_PREVIEW, (preview) => ({ preview }));
 
 const initialState = {
-  is_loading: false,
   user: {},
   user_info: {},
   my_selling: [],
@@ -27,6 +26,7 @@ const initialState = {
 
 const setProfileAPI = () => {
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
     const access_token = localStorage.getItem("access_token");
     fetch(`${API}/user/mypronick`, {
       method: "GET",
@@ -45,6 +45,9 @@ const setProfileAPI = () => {
       })
       .catch((error) => {
         console.log("setProfileAPI에 문제가 있습니다.", error);
+      })
+      .finally(() => {
+        dispatch(loadingActions.loading(false));
       });
   };
 };
@@ -86,16 +89,20 @@ const editProfileAPI = (nickname, profile) => {
         } else {
           console.log("해당 데이터가 준비되지 않았습니다.");
         }
-        dispatch(loadingActions.loading(false));
       })
       .catch((error) => {
         console.log("editProfileAPI에 문제가 있습니다.", error);
+      })
+      .finally(() => {
+        dispatch(loadingActions.loading(false));
       });
   };
 };
 
 const setInfoAPI = () => {
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
+
     const access_token = localStorage.getItem("access_token");
     fetch(`${API}/user/myinfo`, {
       method: "GET",
@@ -113,12 +120,17 @@ const setInfoAPI = () => {
       })
       .catch((error) => {
         console.log("setInfoAPI에 문제가 있습니다.", error);
+      })
+      .finally(() => {
+        dispatch(loadingActions.loading(false));
       });
   };
 };
 
 const setMystoreAPI = () => {
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
+
     const access_token = localStorage.getItem("access_token");
     fetch(`${API}/user/myproduct`, {
       method: "GET",
@@ -146,6 +158,9 @@ const setMystoreAPI = () => {
       })
       .catch((error) => {
         console.log("setInfoAPI에 문제가 있습니다.", error);
+      })
+      .finally(() => {
+        dispatch(loadingActions.loading(false));
       });
   };
 };
@@ -154,17 +169,14 @@ export default handleActions(
   {
     [SET_PROFILE]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loading = action.payload.is_loading;
         draft.user = action.payload.user;
       }),
     [SET_INFO]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loading = action.payload.is_loading;
         draft.user_info = action.payload.user;
       }),
     [SET_MYSELLING]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loading = action.payload.is_loading;
         if (action.payload.selling_list === 0) {
           return;
         } else if (action.payload.selling_list < 5) {

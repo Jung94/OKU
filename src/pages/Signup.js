@@ -445,9 +445,15 @@ const Signup = (props) => {
             desc="회원가입시 OKU 이용약관에 동의해 주시기 바랍니다."
           />
         </Grid>
-        <Button _onClick={signUp} width="100%" margin="20px 0">
-          회원가입
-        </Button>
+        {agree ? (
+          <Button _onClick={signUp} width="100%" margin="20px 0">
+            회원가입
+          </Button>
+        ) : (
+          <Button disabled width="100%" margin="20px 0">
+            회원가입
+          </Button>
+        )}
         <Text subBody textAlign="center" color={Color.Dark_4}>
           이미 OKU 회원이시라면?
         </Text>

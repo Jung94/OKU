@@ -23,7 +23,6 @@ const warningBid = createAction(WARNING_BID, (warning_bid) => ({ warning_bid }))
 const setCurrent = createAction(SET_CURRENT, (current) => ({ current }));
 
 const initialState = {
-  is_loading: false,
   bid_list: [],
   new_bid: {},
   current: 0,
@@ -32,7 +31,6 @@ const initialState = {
 
 const setBidAPI = (_id, lowBid) => {
   return function (dispatch, getState, { history }) {
-    // let id = getState().product.productId;
     fetch(`${API}/bid/bidinfo/${_id}`, {
       method: "GET",
     })
@@ -110,15 +108,16 @@ const addBidAPI = (bidPrice, createAt) => {
           dispatch(warningBid("success"));
           dispatch(addBid({ bid: res.result.bid, nickName: res.result.nickName, createAt: res.result.createAt }));
           dispatch(setCurrent(res.result.bid));
-          dispatch(loadingActions.loading(false));
           return;
         } else {
           console.log("해당 데이터가 준비되지 않았습니다.");
-          dispatch(loadingActions.loading(false));
         }
       })
       .catch((err) => {
         console.log("addBidAPI에 문제가 있습니다.", err);
+      })
+      .finally(() => {
+        dispatch(loadingActions.loading(false));
       });
   };
 };
@@ -141,10 +140,13 @@ const addSucbidAPI = (sucBid, sellerunique, createAt) => {
       .then((res) => res.json())
       .then((res) => {
         dispatch(addBid(draft));
-        dispatch(loadingActions.loading(false));
+        window.location.reload();
       })
       .catch((err) => {
         console.log("addBidAPI에 문제가 있습니다.", err);
+      })
+      .finally(() => {
+        dispatch(loadingActions.loading(false));
       });
   };
 };
@@ -153,13 +155,11 @@ export default handleActions(
   {
     [SET_BID]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loading = action.payload.is_loading;
         draft.bid_list = action.payload.bid_list;
         // console.log("🟡I'm bid_list: ", draft.bid_list);
       }),
     [ADD_BID]: (state, action) =>
       produce(state, (draft) => {
-        draft.is_loading = action.payload.is_loading;
         // unshift: 데이터를 배열 맨 앞에 넣어줌.
         draft.bid_list.unshift(action.payload.new_bid);
         if (draft.bid_list.length > 5) {

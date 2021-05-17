@@ -5,6 +5,8 @@ import axios from "axios";
 
 import { setLocal, deleteLocal } from "shared/Local";
 
+import { actionCreators as loadingActions } from "redux/modules/loading";
+
 const LOG_IN = "LOG_IN";
 const LOG_OUT = "LOG_OUT";
 const SET_USER = "SET_USER";
@@ -110,7 +112,7 @@ const loginAPI = (email, pw, autoLogin, saveId) => {
 const socialLoginDB = (id) => {
   return function (dispatch, getState, { history }) {
     axios({
-      method: 'POST',
+      method: "POST",
       url: `${API}/user/kakao`,
       data: {
         id: id,
@@ -123,17 +125,17 @@ const socialLoginDB = (id) => {
         const user = res.data.nickname;
         const uid = res.data.userid;
         // 로컬에 저장
-        setLocal('access_token', token);
-        setLocal('nickname', user);
-        setLocal('uid', uid);
+        setLocal("access_token", token);
+        setLocal("nickname", user);
+        setLocal("uid", uid);
         // 헤더에 토큰 default
         // axios.defaults.headers.common['token'] = `${jwtToken}`;
         dispatch(setUser(user, uid));
         // 뒤로가기 시 main이 보이게 끔 replace 사용(사용자 경험 개선)
-        history.replace('/');
+        history.replace("/");
       })
       .catch((e) => {
-        console.log('에러발생:', e);
+        console.log("에러발생:", e);
       });
   };
 };
