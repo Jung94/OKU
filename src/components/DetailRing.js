@@ -147,13 +147,13 @@ const RingDetail = styled.div`
 const Overlay = styled.div`
   box-sizing: border-box;
   position: absolute;
+  top : 0;
   left : 0;
   width: 100%;
   height: 10000px;
   background-color: rgba(0, 0, 0, 0);
   cursor : Default;
 `;
-
 const Contents = styled.div`
   margin: 26px 0 103.6px 0;
 `;
