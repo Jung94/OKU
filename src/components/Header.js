@@ -471,15 +471,15 @@ const Header = (props) => {
           <Fix ref={up}>
             {/* 로고 */}
             <Grid is_flex justify="space-between" height="58px" bdr="1px solid red">
-              {/* <img
+              <img
                 ref={leftLogo}
                 alt="로고이미지"
-                style={{ border: "1px solid black", alignItems: "center", width: "0px", marginBottom: "2px", justifyContent: "center" }}
+                style={{ display: "none", border: "1px solid black", alignItems: "center", width: "0px", marginBottom: "2px", justifyContent: "center" }}
                 src={MainLogo}
                 onClick={() => {
                   history.replace("/");
                 }}
-              /> */}
+              />
 
               <Grid is_flex justify="center" width="20%">
                 {/* 로고 */}
@@ -554,7 +554,6 @@ const Header = (props) => {
           </Fix>
         </HeaderWrap>
       </Mobile>
-
     </>
     
   );
