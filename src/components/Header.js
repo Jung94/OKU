@@ -88,7 +88,6 @@ const Header = (props) => {
 
   const handleSubCategory = (e) => {
     setSubct(e.value);
-    console.log(handleSubCategory);
     dispatch(categoryActions.getProductSubCategotAPI(mainct, e.value));
     history.push("/category");
   };
@@ -148,11 +147,7 @@ const Header = (props) => {
         alignItems: "center",
         color: Color.Dark_4,
       }),
-      noOptionsMessage: (provided, state) => ({
-        ...provided,
-        color: Color.Light_2,
-        content: "대분류를 선택해주세요.",
-      }),
+      
       // 메뉴 드롭 다운 바탕 박스
       menu: (provided, state) => ({
         ...provided,
