@@ -82,7 +82,7 @@ RelatedProduct.defaultProps = {
 const ImgWrap = styled.div`
   // z-index: 99;
   position: relative;
-  width: 10rem;
+  width: 12rem;
   height: 10rem;
   flex-grow: 1;
   flex-direction: row;

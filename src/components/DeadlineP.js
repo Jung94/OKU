@@ -28,7 +28,7 @@ const DeadlineP = (props) => {
           </p>
           <p
             onClick={() => {
-              history.replace("/DeadlineList");
+              history.push("/DeadlineList");
             }}
             style={{ marginTop: "41px", color: "#c0c0c0", fontSize: "16px", cursor: "pointer" }}
           >
