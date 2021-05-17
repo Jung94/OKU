@@ -235,13 +235,6 @@ const getAlertAPI = () => {
           dispatch(setAlert(res));
           console.log("확인", res);
         }
-        //   if (res.notCheck === "true"){
-        //   dispatch(setAlert(res.notCheck));
-        //   console.log("미확인",res.notCheck);
-        //   // unstructureObj.sort(function (a, b) {
-        //   //   return a.createAt > b.createAt ? -1 : a.createAt < b.createAt ? 1 : 0;
-        //   // }
-        // } else if (res.alreadyCheck === "true") {
 
         // }
       })

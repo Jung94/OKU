@@ -25,7 +25,7 @@ const DetailRing = (props) => {
     // useEffect 랑 친한 얘
     dispatch(postActions.getAlertAPI());
     
-  }, []);
+  }, [is_login]);
 
   const alert = useSelector((state) => state.post.all_alert);
 
@@ -42,8 +42,9 @@ const DetailRing = (props) => {
     return (
       // 로그인이 되어있을 때
       <Wrap>
-          <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
-            <Badge invisible={is_read} color="secondary" variant="dot">
+        <div className="alarm" onClick={notiCheck}  >
+        <Overlay onClick={RingDetailShowing}/>
+          <Badge invisible={is_read} color="secondary" variant="dot">
             <FontAwesomeIcon icon={faBell} />
             {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
           </Badge>
@@ -62,6 +63,7 @@ const DetailRing = (props) => {
             <RingContents key={idx} {...i}  />
             );
             })}
+            
           </Contents>
           ) : (
           <ContentsX>
@@ -72,12 +74,13 @@ const DetailRing = (props) => {
           ) }
         </RingDetail>
       </Wrap>
+      
     );
   } else if (is_login) {
     return (
       <Wrap>
         {alert.notCheck && alert.notCheck.length === 0 ?(
-        <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
+        <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing} >
           <Badge invisible={is_read} color="secondary" variant="dot">
             <FontAwesomeIcon icon={faBell} />
             {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
@@ -117,7 +120,6 @@ DetailRing.defaultProps = {
 
 const Wrap = styled.div`
   width: 80px;
-  display: flex;
   justify-content: flex-start;
   .alarm {
     display: flex;
@@ -142,13 +144,14 @@ const RingDetail = styled.div`
   margin: 30px 0;
   cursor: default;
 `;
-
-const Box = styled.div`
-  cursor: pointer;
-`;
-
-const Desc = styled.div`
-  margin: 9.2px 29px 9.2px 15px;
+const Overlay = styled.div`
+  box-sizing: border-box;
+  position: absolute;
+  left : 0;
+  width: 100%;
+  height: 10000px;
+  background-color: rgba(0, 0, 0, 0);
+  cursor : Default;
 `;
 
 const Contents = styled.div`
