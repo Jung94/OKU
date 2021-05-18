@@ -16,6 +16,7 @@ const Grid = (props) => {
     __click,
     bg,
     bdr,
+    bdrTop,
     bgimg,
     bgposition,
     margin,
@@ -36,6 +37,7 @@ const Grid = (props) => {
     justify,
     flexShrink,
     wordBreak,
+    display,
 
     gap,
 
@@ -48,6 +50,7 @@ const Grid = (props) => {
     dp_flex: dp_flex,
     bg: bg ? bg : false,
     bdr: bdr ? bdr : false,
+    bdrTop: bdrTop ? bdrTop : false,
     bgimg: bgimg ? bgimg : false,
     bgposition: bgposition,
     width: width,
@@ -72,6 +75,7 @@ const Grid = (props) => {
     justify: justify,
     flexShrink: flexShrink,
     wordBreak: wordBreak,
+    display: display,
     gap: gap,
 
     className: className,
@@ -100,6 +104,7 @@ Grid.defaultProps = {
   __click: null,
   bg: false,
   bdr: false,
+  bdrTop: false,
   bgimg: false,
   width: "100%",
   max_width: null,
@@ -125,6 +130,7 @@ Grid.defaultProps = {
   className: false,
   overflow: null,
   wordBreak: false,
+  display: false,
 };
 
 const GridBox = styled.div`
@@ -133,6 +139,7 @@ const GridBox = styled.div`
   gap: ${(props) => props.gap};
   overflow: ${(props) => props.overflow};
   word-break: ${(props) => props.wordBreak};
+  display: ${(props) => props.display};
 
   max-width: ${(props) => (props.max_width ? props.max_width : "")};
 
@@ -144,6 +151,7 @@ const GridBox = styled.div`
 
   border-radius: ${(props) => props.borderRadius};
   border: ${(props) => props.bdr};
+  border-top: ${(props) => props.bdrTop};
 
   background-color: ${(props) => props.bg};
   background-image: ${(props) => `url(${props.bgimg})`};
