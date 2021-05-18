@@ -202,7 +202,6 @@ const DetailRing = (props) => {
             <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
                 <Img src={IconRingOff} />
                 {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-              <p>알림</p>
             </div>
           </Wrap>
         </Mobile>
