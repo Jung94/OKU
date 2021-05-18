@@ -211,7 +211,7 @@ const Img = styled.div`
   background-position: center;
   transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
   align-items: center;
-  margin: 2px 0 0;
+  margin: 3px 0 0;
   cursor: pointer;
 `;
 

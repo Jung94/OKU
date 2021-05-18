@@ -749,6 +749,7 @@ const ImgUpload = styled.div`
 `;
 
 const Img = styled.div`
+  // border: 1px solid blue;
   position: absolute;
   top: 9px;
   right: 4px;
