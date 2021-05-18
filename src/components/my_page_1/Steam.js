@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useState , useEffect} from 'react';
 import styled from 'styled-components';
 
 import { useDispatch, useSelector } from "react-redux";
@@ -10,13 +10,18 @@ import Slider from "react-slick";
 import RelatedProduct from "components/global/RelatedProduct";
 import { history } from "redux/configureStore";
 
+import { actionCreators as mypageActions } from "redux/modules/mypage";
+import { actionCreators as likeActions } from "redux/modules/like";
+
 import { Color } from "shared/DesignSys";
 import leftIcon from "images/chevronLeftSolid.svg";
 import rightIcon from "images/chevronRightSolid.svg";
 
 function PrevArrow(props) {
+    
     const { className, style, onClick, lowBid } = props;
     return (
+        
         <LeftArrow
         className={className}
         style={{
@@ -55,7 +60,7 @@ function NextArrow(props) {
 
 const Steam = () => {
     const dispatch = useDispatch();
-
+    
     
     const settings = {
         infinite: true, // 마지막 장 다음에 첫번째가 나오게 할 것인지
@@ -64,9 +69,37 @@ const Steam = () => {
         slidesToScroll: 1,
         nextArrow: <NextArrow/>,
         prevArrow: <PrevArrow/>,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                    infinite: true,
+                    dots: true
+                }
+            },
+                {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                    initialSlide: 2
+                }
+            },
+            ]
 };
-
+    useEffect(() => {
+        if (access_token) {
+            dispatch(mypageActions.setProfileAPI());
+            dispatch(mypageActions.setInfoAPI());
+            dispatch(mypageActions.setMystoreAPI());
+            dispatch(likeActions.getMyLikeListAPI());
+        }
+        }, []);
     const my_like_list = useSelector((state) => state.like.my_like_list);
+    const access_token = localStorage.getItem("access_token");
+    
     return (
         <Wrap>
             <Text h2 textAlign="left">
@@ -99,7 +132,7 @@ const Steam = () => {
         </Box>
     </Wrap>
     );
-};
+}
 
 const Wrap = styled.div`
     max-width: 1030px;
@@ -127,7 +160,7 @@ const List = styled.div`
     div {
     margin: 2px auto 2px;
     text-align: center;
-  }
+}
 `;
 const LeftArrow = styled.div`
 position: absolute;

@@ -92,7 +92,7 @@ const ImgWrap = styled.div`
   // z-index: 99;
   position: relative;
   width: 12rem;
-  height: ${(props) => (props.height ? props.height : "")};
+  height: ${(props) => (props.height ? props.height : "200px")};
   flex-grow: 1;
   flex-direction: row;
   flex-wrap: wrap;

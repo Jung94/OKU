@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{ useState , useEffect} from 'react';
 import styled from 'styled-components'
 import {Input, Line, Button, Tag, Modal, Text, Profile } from "elements/";
 
@@ -12,8 +12,6 @@ const Myinfo = () => {
     const access_token = localStorage.getItem("access_token");
     const _user = useSelector((state) => state.mypage.user);;
     const userInfo = useSelector((state) => state.mypage.user_info);
-    console.log(userInfo,"dddd")
-    console.log(_user);
 
     useEffect(() => {
     if (access_token) {
@@ -23,14 +21,19 @@ const Myinfo = () => {
         dispatch(likeActions.getMyLikeListAPI());
     }
     }, []);
+    const [Modifyhowing, setModifyShowing] = useState(false);
 
+    const ModifyShowing = () => setModifyShowing(!Modifyhowing);
+    if(!Modifyhowing) {
     return (
         <Grid>
             <Head>
             <Text h2 textAlign="left">
             회원정보
             </Text>
-                <Modify>수정하기</Modify>
+            <Modify onClick={ModifyShowing}>
+                수정하기
+            </Modify>
             </Head>
             <InfoBox>
                 <InnerBox>
@@ -65,6 +68,58 @@ const Myinfo = () => {
             </InfoBox>
         </Grid>
     )
+    } else {
+        return(
+        <Grid>
+            <Head>
+            <Text h2 textAlign="left">
+            회원정보
+            </Text>
+            <Modify onClick={ModifyShowing}>
+                완료하기
+            </Modify>
+            </Head>
+            <InfoBox>
+                <InnerBox>
+                    <Info>
+                        <Title>
+                            닉네임
+                        </Title>
+                        <Blank placeholder={`현재 닉네임 : ${userInfo.nickname}`}>
+                        </Blank>
+                    </Info>
+                    <Info>
+                        <Title>
+                            아이디
+                        </Title>
+                        <Blank placeholder={`현재 아이디 : ${userInfo.email}`}>
+                        </Blank>
+                    </Info>
+                    <Info>
+                        <Title>
+                            비밀번호
+                        </Title>
+                        <Blank placeholder={"새로운 비밀번호를 입력해주세요."} >
+                        </Blank>
+                    </Info>
+                    <Info>
+                        <Title>
+                            비밀번호확인
+                        </Title>
+                        <Blank placeholder={"한번 더 입력해주세요."} >
+                        </Blank>
+                    </Info>
+                    <Info>
+                        <Title>
+                            전화번호
+                        </Title>
+                        <Blank placeholder={`현재 전화번호 : ${userInfo.number}`}/>
+                    </Info>
+                </InnerBox>
+            </InfoBox>
+        </Grid>
+        )
+    }   
 }
 
 const Grid = styled.div`
