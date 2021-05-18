@@ -156,6 +156,7 @@ const GridBox = styled.div`
   ${(props) => (props.is_flex ? `display:flex; align-items: center;` : "")};
   ${(props) => (props.dp_flex ? `display:flex;` : "")};
   justify-content: ${(props) => (props.justify ? props.justify : "")};
+  align-items: ${(props) => (props.align ? props.align : "")};
 
   ${(props) => (props.column ? `flex-direction: column;` : `flex-direction: row;`)}
   flex-flow: ${(props) => (props.wrap ? props.wrap : "")};

@@ -58,7 +58,7 @@ const App = (props) => {
           </Switch>
         </ConnectedRouter>
       </Grid>
-      {/* <Footer /> */}
+      <Footer />
     </Wrap>
   );
 };
@@ -67,7 +67,7 @@ const Grid = styled.div`
   margin: 0 auto;
   max-width: 100%;
   position: relative;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 `;
 
 const Wrap = styled.div`

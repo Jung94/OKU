@@ -40,6 +40,8 @@ const RelatedProduct = (props) => {
     //   window.alert("로그인해주세요!");
     // }
   };
+
+  // 마이페이지 좋아요 버튼 버전
   if (like) {
     return (
       <ImgWrap onClick={_onClick}>
@@ -47,10 +49,16 @@ const RelatedProduct = (props) => {
       </ImgWrap>
     );
   }
+
+  // 관련상품 버전
   if (relative) {
     return (
       <ImgWrap onClick={_onClick}>
-        {like ? <FontAwesomeIcon style={{ color: Color.Primary, fontSize: "32px" }} icon={fasHeart} onClick={userLike} /> : <FontAwesomeIcon style={{ color: Color.Primary, fontSize: "32px" }} icon={farHeart} onClick={userLike} />}
+        {like ? (
+          <FontAwesomeIcon style={{ color: Color.Primary, fontSize: "32px" }} icon={fasHeart} onClick={userLike} />
+        ) : (
+          <FontAwesomeIcon style={{ color: Color.Primary, fontSize: "32px" }} icon={farHeart} onClick={userLike} />
+        )}
         <Title>
           <div>
             <br />

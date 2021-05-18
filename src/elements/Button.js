@@ -104,7 +104,8 @@ const BtnDisabled = styled.button`
   font-size: 20px;
   font-weight: 700;
 
-  /* flex-grow: 1; */
+  ${(props) => (props.noflex ? "" : "flex-grow: 1;")};
+
   height: ${(props) => props.height};
   width: ${(props) => props.width};
   box-sizing: border-box;
@@ -130,7 +131,8 @@ const BtnNotLogin = styled.button`
   font-size: 20px;
   font-weight: 700;
 
-  /* flex-grow: 1; */
+  ${(props) => (props.noflex ? "" : "flex-grow: 1;")};
+
   height: ${(props) => props.height};
   width: ${(props) => props.width};
   box-sizing: border-box;

@@ -20,7 +20,7 @@ const QnA = (props) => {
   const dispatch = useDispatch();
   // console.log("🔘QnA", props);
   const is_seller = localStorage.getItem("uid");
-  const { buyernickname, buyerprofile, sellernickname, contents, answer, createdAt, updatedAt, productId, sellerId, _id } = props;
+  const { buyernickname, buyerprofile, profileImg, sellernickname, contents, answer, createdAt, updatedAt, productId, sellerId, _id, noProfile } = props;
 
   const [_answer, setAnswer] = useState("");
   const onChangeContents = useCallback((e) => setAnswer(e.target.value), []);
@@ -32,12 +32,92 @@ const QnA = (props) => {
   };
 
   const [openPost, setOpen] = useState(false);
+  if (noProfile) {
+    return (
+      <QnAWrap>
+        <Grid dp_flex>
+          <Profile img={buyerprofile || profileImg} size="50px" margin="0 15px 0 0" />
 
+          <Grid is_flex column>
+            <Grid is_flex justify="space-between" margin="1px 0 5px 0">
+              {sellernickname === buyernickname ? (
+                <IfSeller>
+                  {buyernickname}
+                  <span sytle={{ fontWeight: "400", color: Color.Dark_4 }}>(판매자)</span>
+                </IfSeller>
+              ) : (
+                <Text h4 weight="700">
+                  {buyernickname}
+                </Text>
+              )}
+              <Text subBody textAlign="right" color={Color.Dark_4}>
+                {moment(createdAt).fromNow()}
+              </Text>
+            </Grid>
+            <Grid is_flex textAlign="left">
+              {contents}
+            </Grid>
+
+            {answer && (
+              <>
+                <Grid is_flex textAlign="left">
+                  <Grid column>
+                    <Line bottom color={Color.Light_4} margin="20px 0 25px 0" />
+
+                    <Grid dp_flex textAlign="left" justify="space-between" margin="0 0 15px 0">
+                      <Grid dp_flex width="90%">
+                        <SubdirectoryArrowRightIcon style={{ marginTop: "2px", marginRight: "5px", fontSize: "15px", color: Color.Dark_4, cursor: "default" }} />
+                        <AnswerContents>
+                          <span>판매자</span>
+                          {answer}
+                        </AnswerContents>
+                      </Grid>
+                      <Text subBody color={Color.Dark_4}>
+                        {answer && moment(updatedAt).fromNow()}
+                      </Text>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </>
+            )}
+            {is_seller === sellerId && (
+              <OpenPostBtn
+                onClick={() => {
+                  if (openPost === false) {
+                    setOpen(true);
+                  } else {
+                    setOpen(false);
+                  }
+                }}
+              >
+                {answer ? "수정하기" : "답변하기"}
+              </OpenPostBtn>
+            )}
+
+            {openPost && (
+              <AnswerWrap openPost>
+                <QnAPost openPost>
+                  <Input
+                    text
+                    fnc={addAnswer}
+                    plcholder={answer ? "문의 답글을 수정합니다." : "답변을 작성해주세요! 가장 마지막에 남긴 글만 등록됩니다."}
+                    width="100%"
+                    _onChange={onChangeContents}
+                    btn={answer ? "수정하기" : "등록하기"}
+                  ></Input>
+                </QnAPost>
+              </AnswerWrap>
+            )}
+          </Grid>
+        </Grid>
+      </QnAWrap>
+    );
+  }
   // if (_qna_list) {
   return (
     <QnAWrap>
       <Grid dp_flex>
-        <Profile img={buyerprofile} size="50px" margin="0 15px 0 0" />
+        <Profile img={buyerprofile || profileImg} size="50px" margin="0 15px 0 0" />
 
         <Grid is_flex column>
           <Grid is_flex justify="space-between" margin="1px 0 5px 0">
@@ -139,6 +219,7 @@ const AnswerWrap = styled.div`
   flex-direction: column;
   background-color: ${Color.Light_3};
   border-radius: 16px;
+  margin-top: 10px;
   margin-bottom: 10px;
 `;
 
@@ -165,7 +246,7 @@ const OpenPostBtn = styled.div`
   color: ${Color.Dark_4};
   font-size: 12px;
   cursor: pointer;
-  margin: auto 0 10px auto;
+  margin: auto 0 0px auto;
   svg {
     color: whitesmoke;
     margin: auto 10px;

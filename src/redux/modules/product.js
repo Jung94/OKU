@@ -27,6 +27,8 @@ const initialState = {
   qna_list: [],
   productId: null,
   related: [],
+  related_mobile: [],
+  new_qna: {},
 };
 
 const _idTest = "609566ecc795947ca9a342bd";
@@ -168,7 +170,7 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
   return function (dispatch, getState, { history }) {
     dispatch(loadingActions.loading(true));
     dispatch(mypageActions.setProfileAPI());
-    const userprofile = getState().mypage.user;
+    const userprofile = getState().mypage.user.profile;
     const access_token = localStorage.getItem("access_token");
     const nickname = localStorage.getItem("nickname");
     const newQuestion = JSON.stringify({ sellerunique: sellerunique, contents: _contents });
@@ -192,7 +194,7 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
       .then((res) => res.json())
       .then((res) => {
         if (res.okay) {
-          history.replace(`/product/detail/${_id}`);
+          console.log(res);
           console.log("문의글이 등록되었습니다.");
           dispatch(addQuestion(draft));
           // 공부 포인트!
@@ -204,6 +206,8 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
         console.log("addQuestionAPI에 문제가 있습니다.", error);
       })
       .finally(() => {
+        // history.replace(`/`);
+        history.replace(`/product/detail/${_id}`);
         dispatch(loadingActions.loading(false));
       });
   };
@@ -261,6 +265,7 @@ export default handleActions(
         const _related = action.payload.related;
         const _onlyFour = _related.sort(() => Math.random() - 0.5);
         draft.related = _onlyFour.slice(0, 4);
+        draft.related_mobile = _onlyFour.slice(0, 3);
       }),
     [SET_QNA]: (state, action) =>
       produce(state, (draft) => {
@@ -270,6 +275,7 @@ export default handleActions(
       produce(state, (draft) => {
         // unshift: 데이터를 배열 맨 앞에 넣어줌.
         draft.qna_list.unshift(action.payload.new_question);
+        console.log(action.payload.new_question);
       }),
     [ADD_ANSWER]: (state, action) =>
       produce(state, (draft) => {
