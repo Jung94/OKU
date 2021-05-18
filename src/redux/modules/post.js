@@ -28,7 +28,7 @@ const SET_ALERT = "SET_ALERT";
 // 메인 상품 리스트
 const setPopularProducts = createAction(SET_POPULAR, (popular) => ({ popular }));
 const setRecentProducts = createAction(SET_RECENT, (recent) => ({ recent }));
-const setRecentPage = createAction(SET_RECENT_PAGE, (page) => ({ page }));
+// const setRecentPage = createAction(SET_RECENT_PAGE, (page) => ({ page }));
 const setDeadlineProducts = createAction(SET_DEADLINE, (deadline) => ({ deadline }));
 const setRecommendProducts = createAction(SET_RECOMMEND, (recommend) => ({ recommend }));
 
@@ -223,21 +223,19 @@ const getAlertAPI = () => {
       method: "GET",
       headers: {
         access_token: access_token,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
     })
       .then((res) => res.json())
       .then((res) => {
         if (res.msg === "not_login") {
-          console.log("로그인해야 알림을 볼텐데", res);
         } else {
           // dispatch(setAlert(res.alreadyCheck));
           // dispatch(setAlert(res.notCheck));
           dispatch(setAlert(res));
-          console.log("확인", res);
-        }
-
         // }
-      })
+      }})
       .catch((error) => {
         console.log("알림 문제", error);
       });
