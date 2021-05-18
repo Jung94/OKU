@@ -601,8 +601,6 @@ const HeaderWrap = styled.header`
     z-index: 9999;
     background-color: #ffffff;
   }
-
-  
 `;
 
 const Fix = styled.div`
