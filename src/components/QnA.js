@@ -32,12 +32,11 @@ const QnA = (props) => {
   };
 
   const [openPost, setOpen] = useState(false);
+
   if (noProfile) {
     return (
       <QnAWrap>
         <Grid dp_flex>
-          <Profile img={buyerprofile || profileImg} size="50px" margin="0 15px 0 0" />
-
           <Grid is_flex column>
             <Grid is_flex justify="space-between" margin="1px 0 5px 0">
               {sellernickname === buyernickname ? (
@@ -65,7 +64,7 @@ const QnA = (props) => {
                     <Line bottom color={Color.Light_4} margin="20px 0 25px 0" />
 
                     <Grid dp_flex textAlign="left" justify="space-between" margin="0 0 15px 0">
-                      <Grid dp_flex width="90%">
+                      <Grid dp_flex width="80%">
                         <SubdirectoryArrowRightIcon style={{ marginTop: "2px", marginRight: "5px", fontSize: "15px", color: Color.Dark_4, cursor: "default" }} />
                         <AnswerContents>
                           <span>판매자</span>

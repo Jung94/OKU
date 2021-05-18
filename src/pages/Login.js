@@ -200,7 +200,7 @@ const Login = (props) => {
         <SocialBox>
           {/* <Naver/> */}
           <KakaoBtn
-            href="http://13.124.55.186/user/kakao"
+            href="http://myoku.co.kr/user/kakao"
             // token={KAKAO_JS_ID} render={(props) => <KakaoBtn onClick={props.onClick}></KakaoBtn>} onSuccess={kakaoLoginClickHandler} getProfile={true}
           >
             <div
