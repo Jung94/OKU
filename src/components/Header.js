@@ -20,6 +20,8 @@ import DetailRing from "components/DetailRing";
 import MainLogo from "images/logo.png";
 import IconSearch from "images/icon_Search.svg";
 import IconRingOff from "images/icon_RingOff.svg";
+import IconChat from "images/icon_Chat.svg";
+import IconUpload from "images/icon_Upload.svg";
 
 import { MainCT, D2CT, D3CT, D4CT } from "shared/Category";
 import { Color } from "shared/DesignSys";
@@ -69,11 +71,6 @@ const Header = (props) => {
     dispatch(productActions.getProductSearch(keyword));
     history.push("/result");
   };
-
-  // const SearchProduct = () => {
-  //   dispatch(productActions.getProductSearch(keyword));
-  //   history.push("/result");
-  // };
 
   const handleMainCategory = (e) => {
     setMainct(e.value);
@@ -195,6 +192,10 @@ const Header = (props) => {
   const leftLogo = useRef();
   const lengthen = useRef();
 
+  const searchChange = () => {
+    lengthen.current.focus();
+  };
+
   const headerChange = () => {
     // return null;
     if (window.scrollY < 150 && window.innerWidth < 1024) {
@@ -279,7 +280,7 @@ const Header = (props) => {
             <Grid is_flex width="40%" alignItems="center">
               {/* 카테고리 리스트 방식 */}
               {/* <ListHover/> */}
-              <div>카테고리</div>
+              <div style={{width: "110px"}}>카테고리</div>
               <ListBtn />
               <Mainselectbox>
                 <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
@@ -363,24 +364,26 @@ const Header = (props) => {
                 )}
               </Grid>
 
-              <Grid is_flex justify="flex-end">
+              <Grid is_flex justify="flex-end" margin="0 0 1px">
                 {/* 기능버튼 */}
-                <SearchWrap>
-                  <Search
-                    ref={lengthen}
-                    type="text"
-                    placeholder="검색하기"
-                    onChange={(e) => {
-                      setKeyword(e.target.value);
-                    }}
-                    onKeyPress={(e) => {
-                      if (window.event.keyCode === 13) {
-                        SearchProduct();
-                      }
-                    }}
-                  />
-                  <FontAwesomeIcon icon={faSearch} />
-                </SearchWrap>
+                <div style={{ margin: "0", minHeight: "40px", width: "90%", display: "flex", alignItems: "center", position: "relative"}}>
+                  <SearchWrap>
+                    <Search
+                      ref={lengthen}
+                      type="text"
+                      placeholder="검색하기"
+                      onChange={(e) => {
+                        setKeyword(e.target.value);
+                      }}
+                      onKeyPress={(e) => {
+                        if (window.event.keyCode === 13) {
+                          SearchProduct();
+                        }
+                      }}
+                    />
+                  </SearchWrap>
+                  <Img src={IconSearch} />
+                </div>
 
                 <IconWrap>
                   <Ring>
@@ -394,13 +397,13 @@ const Header = (props) => {
                         width="max-content"
                         padding="0 20px"
                         is_flex
-                        gap="5px"
+                        gap="10px"
                         __click={() => {
                           history.push("/login");
                         }}
                       >
-                        <FontAwesomeIcon icon={chatIcon} />
-                        채팅
+                        <ImgChat src={IconChat} />
+                        <p style={{margin: "0 0 1px", fontSize: "16px"}} >채팅</p>
                       </Grid>
                     </>
                   )}
@@ -408,17 +411,20 @@ const Header = (props) => {
                   {is_login && (
                     <>
                       <Grid
+                        // bdr="1px solid red"
+                        height="34px"
+                        margin="1px 0 0"
                         className="block pointer"
                         width="max-content"
                         padding="0 20px"
                         is_flex
-                        gap="5px"
+                        gap="10px"
                         __click={() => {
                           history.push("/chat");
                         }}
                       >
-                        <FontAwesomeIcon icon={chatIcon} />
-                        채팅
+                        <ImgChat src={IconChat} />
+                        <p style={{margin: "0 0 1px", fontSize: "16px"}} >채팅</p>
                       </Grid>
                     </>
                   )}
@@ -430,13 +436,13 @@ const Header = (props) => {
                         width="max-content"
                         padding="0 0 0 20px"
                         is_flex
-                        gap="5px"
+                        gap="10px"
                         __click={() => {
                           history.push("/login");
                         }}
                       >
-                        <FontAwesomeIcon icon={uploadIcon} />
-                        물건등록
+                        <ImgUpload src={IconUpload} />
+                        <p style={{margin: "0 0 1px", fontSize: "16px"}} >물건등록</p>
                       </Grid>
                     </>
                   )}
@@ -444,17 +450,20 @@ const Header = (props) => {
                   {is_login && (
                     <>
                       <Grid
+                        // bdr="1px solid red"
+                        height="34px"
+                        margin="1px 0 0"
                         className="pointer"
                         width="max-content"
                         padding="0 0 0 20px"
                         is_flex
-                        gap="5px"
+                        gap="10px"
                         __click={() => {
                           history.push("/ProductUpload");
                         }}
                       >
-                        <FontAwesomeIcon icon={uploadIcon} />
-                        물건등록
+                        <ImgUpload src={IconUpload} />
+                        <p style={{margin: "0 0 1px", fontSize: "16px"}} >물건등록</p>
                       </Grid>
                     </>
                   )}
@@ -475,14 +484,14 @@ const Header = (props) => {
               <img
                 ref={leftLogo}
                 alt="로고이미지"
-                style={{ border: "1px solid red", display: "flex", alignItems: "center", width: "0px", marginBottom: "2px", justifyContent: "center" }}
+                style={{display: "none", alignItems: "center", width: "0px", marginBottom: "2px", justifyContent: "center" }}
                 src={MainLogo}
                 onClick={() => {
                   history.push("/");
                 }}
               />
 
-              <Grid is_flex justify="center" width="20%" display="none" bdr="1px solid blue">
+              <Grid is_flex justify="center" width="20%" display="none" margin="5px 0 0">
                 {/* 로고 */}
                 <img
                   ref={hide}
@@ -497,8 +506,8 @@ const Header = (props) => {
               <Grid is_flex column width="66%" >
                 <Grid is_flex justify="flex-end" width="100%" >
                   {/* 기능버튼 */}
-                  <div style={{width: "100%", display: "flex", alignItems: "center", position: "relative", border: "1px solid blue"}}>
-                    <SearchWrap>
+                  <div style={{ margin: "4px 0 0", minHeight: "40px", width: "70%", display: "flex", alignItems: "center", position: "relative"}}>
+                    <SearchWrap >
                       <Search
                         ref={lengthen}
                         type="text"
@@ -513,7 +522,7 @@ const Header = (props) => {
                         }}
                       />
                     </SearchWrap>
-                    <Img src={IconSearch}/>
+                    <Img src={IconSearch} onClick={searchChange} />
                   </div>
 
                   <IconWrap>
@@ -559,25 +568,28 @@ const Header = (props) => {
 };
 
 const HeaderWrap = styled.header`
-  max-width: 100%;
-  width: 100%;
-  position: fixed;
-  ${(props) => (props.showHeader ? "display : flex;" : "display : none;")}
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  box-shadow: 0 4px 15px 0 rgba(111, 111, 111, 0.16);
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 9999;
-  background-color: #ffffff;
-  transition: box-shadow 500ms cubic-bezier(0.215, 0.61, 0.355, 1), height 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
+
+  @media only screen and (min-width : 1024px) {
+    max-width: 100%;
+    width: 100%;
+    position: fixed;
+    ${(props) => (props.showHeader ? "display : flex;" : "display : none;")}
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    box-shadow: 0 4px 15px 0 rgba(111, 111, 111, 0.16);
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background-color: #ffffff;
+    transition: box-shadow 500ms cubic-bezier(0.215, 0.61, 0.355, 1), height 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
 
   @media only screen and (max-width: 767px) {
     display: flex;
     position: fixed;
-    width: 413px;
+    width: 100vw;
     max-height: 99px;
     max-width: 100%;
     flex-direction: column;
@@ -589,27 +601,33 @@ const HeaderWrap = styled.header`
     z-index: 9999;
     background-color: #ffffff;
   }
+
+  
 `;
 
 const Fix = styled.div`
-  max-width: 80vw;
-  width: 100%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  height: 151px;
-  padding-bottom: 32px;
-  font-size: 18px;
-  font-weight: 500;
-  transition: margin 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
-  img {
-    transition: all 1400ms cubic-bezier(0.215, 0.61, 0.355, 1);
-    align-items: center;
-    vertical-align: center;
-    margin: auto;
+  
+
+  @media only screen and (min-width : 1024px) {
+    max-width: 80vw;
+    width: 100%;
     display: flex;
-    cursor: pointer;
-    object-position: center;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 151px;
+    padding-bottom: 32px;
+    font-size: 18px;
+    font-weight: 500;
+    transition: margin 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
+    img {
+      transition: all 1400ms cubic-bezier(0.215, 0.61, 0.355, 1);
+      align-items: center;
+      vertical-align: center;
+      margin: auto;
+      display: flex;
+      cursor: pointer;
+      object-position: center;
+    }
   }
 
   @media only screen and (max-width: 767px) {
@@ -661,122 +679,154 @@ const SubSelectbox = styled.div`
 // 검색 wrap
 const SearchWrap = styled.div`
   display: flex;
+  justify-content: flex-end;
   align-items: center;
-  border-bottom: 2px solid ${Color.Dark_1};
-  margin-right: 2rem;
+  // border-bottom: 2px solid ${Color.Dark_1};
+  margin-right: 0.8rem;
   height: 38px;
+  width: 100%;
   background-color: transparent;
-  svg {
-    transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
-    align-items: center;
-    font-size: 20px;
-    margin: auto 5px;
-    cursor: pointer;
-  }
-  &:focus-within {
-    border-bottom: 2px solid ${Color.Primary};
-    svg {
-      color: ${Color.Primary};
-    }
-  }
+  transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  // border: 1px solid blue;
 
   @media only screen and (max-width: 767px) {
     display: flex;
     align-items: center;
-    border: 1px solid ${Color.Dark_1};
+    border: none;
     border-radius: 50px;
     margin-right: 0.6rem;
     height: 38px;
+    justify-content: flex-end;
     width: 100%;
-    border: 1px solid blue;
     background-color: transparent;
+    transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
 
     &:focus-within {
-      border-bottom: 1px solid ${Color.Dark_1};
-      
+      border-bottom: none;
     }
     
   }
 `;
 
+const ImgChat = styled.div`
+  top: 6px;
+  right: 20px;
+  width: 26px;
+  height: 26px;
+  background-color: transparent;
+  background: url(${(props) => props.src});
+  background-size: cover;
+  background-position: center;
+  transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  margin: 0;
+  cursor: pointer;
+  // border: 1px solid blue;
+`
+
+const ImgUpload = styled.div`
+  top: 6px;
+  right: 20px;
+  width: 26px;
+  height: 26px;
+  background-color: transparent;
+  background: url(${(props) => props.src});
+  background-size: cover;
+  background-position: center;
+  transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  margin: 0;
+  cursor: pointer;
+  // border: 1px solid blue;
+`
+
 const Img = styled.div`
+  position: absolute;
+  top: 6px;
+  right: 20px;
+  width: 26px;
+  height: 26px;
+  background-color: transparent;
+  background: url(${(props) => props.src});
+  background-size: cover;
+  background-position: center;
+  transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  margin: 0;
+  cursor: pointer;
 
   @media only screen and (max-width: 767px) {
-    // border: 1px solid red;
     position: absolute;
     top: 6px;
     right: 20px;
-    // display: none;
-    width: 27px;
-    height: 27px;
+    width: 26px;
+    height: 26px;
     background-color: transparent;
     background: url(${(props) => props.src});
     background-size: cover;
     background-position: center;
     transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
-    margin: 0;
+    margin: 2px 0 0;
     cursor: pointer;
-    
-
-    // &:active {
-    //   border-bottom: 1px solid ${Color.Dark_1};
-    //   img {
-    //     color: ${Color.Primary};
-    //   }
-    // }
   }
 `;
 
 // 검색 input
 const Search = styled.input`
   background-color: transparent;
-  width: 100px;
+  width: 65%;
   height: 38px;
   border: 0;
   outline: 0;
   font-size: 18px;
   font-weight: 700;
   transition: all 400ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  border-bottom: 1px solid ${Color.Dark_2};
   ::placeholder {
     color: ${Color.Light_4};
     font-size: 16px;
   }
   :focus {
     outline: none;
-    width: 220px;
+    width: 80%;
   }
 
   @media only screen and (max-width: 767px) {
     background-color: transparent;
     margin: 2px 6px 0 10px;
-    width: 76%;
+    width: 0%;
     height: 38px;
     border: 0;
     outline: 0;
     font-size: 14px;
     font-weight: 500;
     transition: all 400ms cubic-bezier(0.215, 0.61, 0.355, 1);
+    border-bottom: 1px solid ${Color.Dark_2};
     ::placeholder {
       color: ${Color.Light_4};
       font-size: 16px;
     }
     :focus {
       outline: none;
-      width: 76%;
-    }
-    :focus ${SearchWrap} {
-      
-      border: 1px solid red;
+      width: 100%;
     }
   }
 `;
 
 // 알림 버튼
-const Ring = styled.div``;
+const Ring = styled.div`
+  // border: 1px solid blue;
+  padding: 3.5px 0 0;
+
+  @media only screen and (max-width: 767px) {
+    padding: 0;
+  }
+`;
 
 // ICONS
 const IconWrap = styled.div`
   display: inline-flex;
+  margin: 0 0 0 30px;
+  padding: 2px 0 0;
+  height: 40px;
+  // border: 1px solid red;
   svg {
     align-items: center;
     font-size: 22px;
@@ -795,10 +845,8 @@ const IconWrap = styled.div`
 
   @media only screen and (max-width: 767px) {
     width: 42px;
-
-    .pointer {
-      cursor: pointer;
-    }
+    margin: 0;
+    height: 100%;
   }
 `;
 

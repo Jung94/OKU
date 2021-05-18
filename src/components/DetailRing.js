@@ -64,10 +64,10 @@ const DetailRing = (props) => {
             <div className="alarm" onClick={notiCheck}  >
             <Overlay onClick={RingDetailShowing}/>
               <Badge invisible={is_read} color="secondary" variant="dot">
-                <FontAwesomeIcon icon={faBell} />
+                <Img src={IconRingOff} />
                 {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
               </Badge>
-              알림
+              <p style={{margin: "4px 0 0", fontSize: "16px"}} >알림</p>
             </div>
             <RingDetail>
             {alert.alreadyCheck && alert.alreadyCheck.length > 0 ? (
@@ -141,18 +141,18 @@ const DetailRing = (props) => {
             {alert.notCheck && alert.notCheck.length === 0 ?(
             <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing} >
               <Badge invisible={is_read} color="secondary" variant="dot">
-                <FontAwesomeIcon icon={faBell} />
+                <Img src={IconRingOff} />
                 {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
               </Badge>
-              알림
+              <p style={{margin: "4px 0 0", fontSize: "16px"}} >알림</p>
             </div>
             ) : (
               <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
                 <Badge color="secondary" variant="dot">
-                  <FontAwesomeIcon icon={faBell} />
+                  <Img src={IconRingOff} />
                   {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
                 </Badge>
-                알림
+                <p style={{margin: "4px 0 0", fontSize: "16px"}} >알림</p>
               </div>
             )}
           </Wrap>
@@ -188,9 +188,9 @@ const DetailRing = (props) => {
           history.push("/login")
           }} >
             <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
-                <FontAwesomeIcon icon={faBell} />
+                <Img src={IconRingOff} />
                 {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-              알림
+              <p style={{margin: "4px 0 0", fontSize: "16px"}} >알림</p>
             </div>
           </Wrap>
         </Desktop>
@@ -202,7 +202,7 @@ const DetailRing = (props) => {
             <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
                 <Img src={IconRingOff} />
                 {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-              알림
+              <p>알림</p>
             </div>
           </Wrap>
         </Mobile>
@@ -226,7 +226,7 @@ const Img = styled.div`
   background-position: center;
   transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
   align-items: center;
-  margin: 0;
+  margin: 2px 0 0;
   cursor: pointer;
 `
 
