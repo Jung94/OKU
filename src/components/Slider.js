@@ -6,7 +6,7 @@ import { faCaretRight as fasCRight, faCaretLeft as fasCLeft } from "@fortawesome
 import { Color } from "shared/DesignSys";
 
 const Slider = (props) => {
-  const { imgList, flexGrow } = props;
+  const { imgList, flexGrow, noRadius } = props;
   const [sliderFigure, setSliding] = useState(0);
 
   // image 배열 시도
@@ -78,7 +78,8 @@ const SliderWrap = styled.div`
   width: 100%;
   height: 100%;
   overflow: hidden;
-  border-radius: 32px;
+  ${(props) => (props.noRadius ? "" : "border-radius: 32px;")}
+
   box-sizing: border-box;
 `;
 

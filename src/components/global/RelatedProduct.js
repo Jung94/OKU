@@ -96,7 +96,6 @@ const ImgWrap = styled.div`
   flex-grow: 1;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-right: 1%;
   border-radius: 16px;
   cursor: pointer;
   // border: 1px solid red;
@@ -174,7 +173,6 @@ const RelatedImg = styled.div`
   height: 100%;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-right: 1%;
   border-radius: 16px;
   border: 0.5px solid ${Color.Light_3};
   align-items: center;

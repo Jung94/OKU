@@ -19,7 +19,7 @@ const Modal = (props) => {
   const closeModal = () => {
     setModal(false);
   };
-  console.log(modal);
+
   if (bid) {
     return (
       <>

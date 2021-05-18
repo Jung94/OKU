@@ -38,7 +38,6 @@ const setBidAPI = (_id, lowBid) => {
       .then((res) => {
         // 입찰자가 있을때 응답
         // okay: true, prebid: Array(2)
-        console.log(res);
         if (res.okay) {
           let _prebid = res.prebid;
           _prebid.sort(function (a, b) {
