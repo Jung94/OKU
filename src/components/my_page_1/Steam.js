@@ -59,10 +59,9 @@ const Steam = () => {
     
     const settings = {
         infinite: true, // 마지막 장 다음에 첫번째가 나오게 할 것인지
-        speed: 500, // 넘어가는 속도는 몇으로 할 것인지
+        speed: 2500, // 넘어가는 속도는 몇으로 할 것인지
         slidesToShow: 4, 
         slidesToScroll: 1,
-        arrow : true,
         nextArrow: <NextArrow/>,
         prevArrow: <PrevArrow/>,
 };
@@ -93,7 +92,7 @@ const Steam = () => {
                 </List>
             </>
             ) : (
-            <Text h4 color={Color.Dark_4}>
+            <Text h4 color={Color.Dark_4} margin={"60px auto"}>
                 찜한 상품이 없습니다.
             </Text>
             )}

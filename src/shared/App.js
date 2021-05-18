@@ -79,8 +79,8 @@ const Wrap = styled.div`
 
   @media only screen and (max-width: 767px) {
     max-width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
   }
 `;
 
