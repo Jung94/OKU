@@ -2,6 +2,7 @@ import React, { useRef, useCallback, useState, useEffect } from "react";
 import styled from "styled-components";
 import { API } from "shared/Api";
 import { useSelector, useDispatch } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 
 import { history } from "redux/configureStore";
 import { actionCreators as userActions } from "redux/modules/user";
@@ -24,6 +25,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import _ from "lodash";
 
 // import DaumPostcode from 'react-daum-postcode';
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  return isDesktop ? children : null;
+};
+
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  return isTablet ? children : null;
+};
+
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  return isMobile ? children : null;
+};
 
 const Signup = (props) => {
   const dispatch = useDispatch();
@@ -276,31 +292,44 @@ const Signup = (props) => {
 
   return (
     <>
-      <Grid is_flex justify="flex-end" width="100%" max_width="1320px">
-        <Text subBody color={Color.Dark_4} margin="1rem">
-          about OKU
-        </Text>
-        <Text subBody color={Color.Dark_4}>
-          about Team
-        </Text>
-      </Grid>
-      <Grid is_flex column margin="1rem 0">
-        <img
-          alt="로고이미지"
-          style={{ width: "25vw", maxWidth: "117.8px", cursor: "pointer", zIndex: "1", margin: "1rem" }}
-          src={MainLogo}
-          onClick={() => {
-            history.push("/");
-          }}
-        />
-        <Text subBody textAlign="center" color={Color.Primary} marginB="1rem">
-          오쿠는 각자의 덕질 취향을 존중하는
-          <br />
-          "덕후들을 위한" 굿즈 경매 사이트입니다.
-          <br />
-          덕질 생활을 더욱 편리하고 행복하게 즐기세요!
-        </Text>
-      </Grid>
+      <Desktop>
+        <Grid is_flex justify="flex-end" width="100%" max_width="1320px">
+          <Text subBody color={Color.Dark_4} margin="1rem">
+            about OKU
+          </Text>
+          <Text subBody color={Color.Dark_4}>
+            about Team
+          </Text>
+        </Grid>
+        <Grid is_flex column margin="1rem 0">
+          <img
+            alt="로고이미지"
+            style={{ width: "25vw", maxWidth: "117.8px", cursor: "pointer", zIndex: "1", margin: "1rem" }}
+            src={MainLogo}
+            onClick={() => {
+              history.push("/");
+            }}
+          />
+          <Text subBody textAlign="center" color={Color.Primary} marginB="1rem">
+            오쿠는 각자의 덕질 취향을 존중하는
+            <br />
+            "덕후들을 위한" 굿즈 경매 사이트입니다.
+            <br />
+            덕질 생활을 더욱 편리하고 행복하게 즐기세요!
+          </Text>
+        </Grid>
+      </Desktop>
+      <Mobile>
+        <Grid is_flex column margin="125px 0 0 0">
+          <Text subBody textAlign="center" color={Color.Primary} marginB="5px">
+            오쿠는 각자의 덕질 취향을 존중하는
+            <br />
+            "덕후들을 위한" 굿즈 경매 사이트입니다.
+            <br />
+            덕질 생활을 더욱 편리하고 행복하게 즐기세요!
+          </Text>
+        </Grid>
+      </Mobile>
       <Wrap>
         <Box>
           <Text h4 marginB="0.25rem">
@@ -493,7 +522,7 @@ const Box = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  min-height: 600px;
+  min-height: 700px;
   /* height: 95vh; */
   box-sizing: border-box;
 `;

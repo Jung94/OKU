@@ -52,6 +52,7 @@ const PostCard = (props) => {
         <Timer day {...props} />
       </UpTime>
       <div onClick={() => userLike(_id)}> {likeOrNot ? <Heart img={IconHeartOn} /> : <Heart img={IconHeartOff} />} </div>
+      {/* 👇이거 중요! */}
       {img && img.length > 0 && <Image alt="item" img={img} onClick={() => history.push(`/product/detail/${_id}`)} />}
       <Desc>
         <div style={{ width: "100%" }}>
@@ -190,7 +191,6 @@ const Title = styled.div`
 `;
 
 const Sucbid = styled.div`
-  /* text-align: right; */
   line-height: 100%;
   color: ${Color.Primary};
   .text {

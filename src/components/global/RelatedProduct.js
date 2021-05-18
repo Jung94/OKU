@@ -92,11 +92,10 @@ const ImgWrap = styled.div`
   // z-index: 99;
   position: relative;
   width: 12rem;
-  height: ${(props) => (props.height ? props.height : "")};
+  height: ${(props) => (props.height ? props.height : "200px")};
   flex-grow: 1;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-right: 1%;
   border-radius: 16px;
   cursor: pointer;
   // border: 1px solid red;
@@ -174,7 +173,6 @@ const RelatedImg = styled.div`
   height: 100%;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-right: 1%;
   border-radius: 16px;
   border: 0.5px solid ${Color.Light_3};
   align-items: center;

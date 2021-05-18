@@ -68,7 +68,7 @@ const Grid = styled.div`
   max-width: 100%;
   position: relative;
   /* border: 1px solid red; */
-  
+
   @media only screen and (max-width: 767px) {
     max-width: 100%;
     padding-left: 10px;

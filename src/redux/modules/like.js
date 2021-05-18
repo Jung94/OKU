@@ -114,6 +114,7 @@ const getMyLikeListAPI = () => {
     })
       .then((res) => res.json())
       .then((res) => {
+        console.log("zxcqweqwewqedf", res);
         if (res.okay && res.result.length > 0) {
           // 유저 한명당 좋아요 개수 제한 없는 상태
           // 배열 그대로 받으면 좋아요가 여러개임

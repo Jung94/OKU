@@ -272,7 +272,7 @@ const Product = (props) => {
                 <Text h3 color={Color.Primary} marginB="10px">
                   관련 상품
                 </Text>
-                <Grid is_flex>
+                <Grid is_flex gap="1%">
                   {_related_list.map((r, idx) => {
                     // console.log(r);
                     return (
@@ -343,18 +343,18 @@ const Product = (props) => {
           <ProductWrap ref={startpoint}>
             {/* <div onMouseOver={helpPop}></div> */}
             {/* 타이머 */}
-            <Grid textAlign="center" justify="space-between" margin="0 0 30px 0">
-              <Text h2>
+            <Grid textAlign="center" justify="space-between" padding="0 30px">
+              <Text h2 marginB="5px">
                 <Timer all {...productOK} purple />
               </Text>
               <Timer timeProgress {...productOK} />
             </Grid>
 
-            <Grid dp_flex margin="0 0 20px 0">
-              <Grid width="100%" height="55vh">
-                <Slider imgList={img} />
+            <SliderWrap>
+              <Grid width="100%" height="100vw">
+                <Slider noRadius imgList={img} />
               </Grid>
-            </Grid>
+            </SliderWrap>
 
             <BidLabel>
               <Text h2 bold marginB="1rem">
@@ -417,7 +417,7 @@ const Product = (props) => {
             </BidLabel>
 
             {/* 상품정보 */}
-            <Grid margin="0 0 20px 0">
+            <Grid>
               <Text h3 color={Color.Primary} marginB="1rem">
                 상품정보
               </Text>
@@ -454,18 +454,15 @@ const Product = (props) => {
                   <Input output info value={deliveryPrice === true ? "별도" : "무료"} />
                 </Grid>
               </Grid>
+              <Line bottom margin="10px 0" color={Color.Light_2} />
               <Grid is_flex column align="flex-start">
-                <Text h4 textAlign="left" marginB="0.5rem">
-                  상품 설명
-                </Text>
                 <Desc>{description}</Desc>
               </Grid>
 
-              <Line bottom margin="10px 0" color={Color.Light_1} />
               <Grid is_flex>{tag && tag.map((t, idx) => <Tag key={idx}>{t}</Tag>)}</Grid>
             </Grid>
 
-            <Grid margin="0 0 30px 0">
+            <Grid>
               <Text h3 color={Color.Primary} marginB="10px">
                 실시간 입찰 정보
                 <FontAwesomeIcon icon={fasQC} className="infoSvg" />
@@ -496,11 +493,11 @@ const Product = (props) => {
               )}
             </Grid>
 
-            <Grid margin="0 0 30px 0">
+            <Grid>
               <Text h3 color={Color.Primary} marginB="10px">
                 관련 상품
               </Text>
-              <Grid is_flex>
+              <Grid is_flex gap="1%">
                 {_related_mobile && _related_mobile.length > 0 ? (
                   _related_mobile.map((r, idx) => {
                     // console.log(r);
@@ -523,7 +520,7 @@ const Product = (props) => {
               </Grid>
             </Grid>
 
-            <Grid margin="0 0 30px 0">
+            <Grid>
               <Text h3 color={Color.Primary} marginB="10px">
                 판매자 정보
               </Text>
@@ -598,10 +595,12 @@ const ProductWrap = styled.div`
   @media only screen and (max-width: 767px) {
     max-width: 1030px;
     margin: 0 auto;
-    margin-top: 6rem;
+    margin-top: 7rem;
     display: flex;
     flex-direction: column;
     padding: 0;
+
+    gap: 50px;
 
     margin-bottom: 100px;
 
@@ -616,6 +615,10 @@ const ProductWrap = styled.div`
       }
     }
   }
+`;
+
+const SliderWrap = styled.div`
+  margin: -10px;
 `;
 
 // 실시간 낙찰 정보 => 디자인에 따라 낙찰 정보 확인용 component로 빼기 가능
@@ -678,7 +681,7 @@ const BidLabel = styled.div`
   text-align: left;
   margin-bottom: 1%;
   @media only screen and (max-width: 767px) {
-    margin-bottom: 30px;
+    margin-bottom: 0;
   }
 `;
 

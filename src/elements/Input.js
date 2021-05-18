@@ -172,7 +172,7 @@ const Input = (props) => {
           </textarea>
           {btn ? (
             <Btn>
-              <Text h4 color={Color.Light_3}>
+              <Text subBody color={Color.Light_4}>
                 {adornment}
               </Text>
               <Button width="30%" _onClick={fnc} margin="0 0 0 10px ">
@@ -180,14 +180,14 @@ const Input = (props) => {
               </Button>
             </Btn>
           ) : smbtn ? (
-            <SmBtn>
-              <Text h4 color={Color.Light_3}>
+            <Btn>
+              <Text subBody color={Color.Light_4}>
                 {adornment}
               </Text>
               <Button _onClick={fnc} margin="0 0 0 10px ">
                 {smbtn}
               </Button>
-            </SmBtn>
+            </Btn>
           ) : (
             ""
           )}
@@ -274,6 +274,7 @@ const InputBox = styled.div`
 const RadioCheck = styled.label`
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -302,7 +303,7 @@ const RadioCheck = styled.label`
   }
   // checkmark
   span {
-    display: flex;
+    display: block;
     align-items: center;
 
     height: 20px;
@@ -374,7 +375,7 @@ const TextareaBox = styled.div`
   flex-direction: column;
   align-items: center;
   border-radius: 16px;
-  padding: 25px;
+  padding: 20px 25px 10px 25px;
   box-sizing: border-box;
 
   transition: border 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -385,9 +386,9 @@ const TextareaBox = styled.div`
   }
   textarea {
     ${(props) => (props.fix ? `resize: none;` : "")}
+    resize: none;
     box-sizing: border-box;
     width: 100%;
-    background-color: transparent;
     ::placeholder {
       text-align: left;
       align-items: center;
@@ -400,7 +401,7 @@ const TextareaBox = styled.div`
     max-width: 100%;
     min-width: 100%;
     min-height: 65px;
-    // height: 100%;
+    height: 100%;
     align-items: center;
     font-weight: 400;
     font-size: 16px;
@@ -412,19 +413,26 @@ const TextareaBox = styled.div`
 `;
 
 const Btn = styled.div`
+  width: 20%;
   display: inline-flex;
   justify-content: flex-end;
   align-items: center;
-  margin: 20px 0 0 auto;
-`;
+  margin: 10px 0 0 auto;
+  button {
+    width: 50%;
+    font-size: 16px;
+    height: 40px;
+  }
 
-const SmBtn = styled.div`
-  display: inline-flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin: 20px 0 0 auto;
-  font-size: 16px;
-  height: 40px;
+  @media only screen and (max-width: 767px) {
+    width: 60%;
+
+    button {
+      width: 50%;
+      font-size: 16px;
+      height: 40px;
+    }
+  }
 `;
 
 export default Input;
