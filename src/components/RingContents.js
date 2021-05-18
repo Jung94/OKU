@@ -15,7 +15,7 @@ const RingContents = (props) => {
         <Box>
             <Desc>
                 <AlertTitle>
-                    <TitleLeft onClick={() => history.replace(`/product/detail/${productId}`)}>{alertType}</TitleLeft>
+                    <TitleLeft onClick={() => history.push(`/product/detail/${productId}`)}>{alertType}</TitleLeft>
                     <TitleRight>
                         {moment(creatAt).fromNow()}
                     </TitleRight>
@@ -24,7 +24,7 @@ const RingContents = (props) => {
                     {alertType === "낙찰성공" &&  
                     <div>
                         <AlertCotents>"{productTitle}"의 낙찰이 성사되었습니다.</AlertCotents> 
-                        <Chatting onClick={() => history.replace("/chat")}>거래 채팅 진행하기</Chatting>
+                        <Chatting onClick={() => history.push("/chat")}>거래 채팅 진행하기</Chatting>
                     </div>}
                     {alertType === "낙찰실패"&&  <AlertCotents>"{productTitle}"의 낙찰이 실패되었습니다.</AlertCotents>}
                     {alertType === "문의" &&  <AlertCotents>"{productTitle}"의 문의댓글이 작성되었습니다.</AlertCotents>}

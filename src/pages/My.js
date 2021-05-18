@@ -10,6 +10,9 @@ import { actionCreators as mypageActions } from "redux/modules/mypage";
 import { actionCreators as likeActions } from "redux/modules/like";
 
 import { Color } from "shared/DesignSys";
+import Myinfo from "components/my_page_1/Myinfo";
+import Steam from "components/my_page_1/Steam";
+import PurchaseList from "components/my_page_1/PurchaseList";
 
 const My = (props) => {
   const dispatch = useDispatch();
@@ -40,9 +43,12 @@ const My = (props) => {
         <Modal setting {..._user} />
       </Modi>
       <Text h2 weight="600" textAlign="center" marginT="2%">
-        {_user.nickname}
+        {_user.nickname} 님 <br/> 오늘도  <span style={{color : "#AE00FF"}}>즐거운 덕질하세요!</span>
       </Text>
-      <BtnBox>
+      <Myinfo/>
+      <Steam/>
+      <PurchaseList/>
+      {/* <BtnBox>
         <Link to="/my/shopping">{nowLocation === "shopping" ? <Button>마이 쇼핑</Button> : <Button sub>마이 쇼핑</Button>}</Link>
         <Link to="/my/store">{nowLocation === "store" ? <Button>내 상점</Button> : <Button sub>내 상점</Button>}</Link>
         <Link to="/my/alert">{nowLocation === "alert" ? <Button>알림</Button> : <Button sub>알림</Button>}</Link>
@@ -65,7 +71,7 @@ const My = (props) => {
           </div>
         )}
       />
-      <Route path="/my/:menu" component={Menus} />
+      <Route path="/my/:menu" component={Menus} /> */}
     </Wrap>
   );
 };

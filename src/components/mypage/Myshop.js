@@ -1,8 +1,10 @@
 import React from "react";
+
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { Route } from "react-router-dom";
-import { Grid, Input, Line, Button, Tag, Modal, Text, Profile } from "elements/";
+import { Text } from "elements/";
+
 
 import RelatedProduct from "components/global/RelatedProduct";
 import { history } from "redux/configureStore";
@@ -11,6 +13,7 @@ import { Color } from "shared/DesignSys";
 
 const Myshop = (props) => {
   const dispatch = useDispatch();
+
 
   const my_like_list = useSelector((state) => state.like.my_like_list);
   // console.log(my_like_list);
@@ -39,9 +42,6 @@ const Myshop = (props) => {
                 />
               ))}
             </List>
-            <Text subBody color={Color.Dark_4}>
-              더보기
-            </Text>
           </>
         ) : (
           <Text h4 color={Color.Dark_4}>

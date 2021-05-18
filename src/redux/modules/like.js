@@ -126,10 +126,10 @@ const getMyLikeListAPI = () => {
             );
           });
           // 4개만 받아오기
-          if (likeResult.length <= 5) {
+          if (likeResult.length <= 10) {
             dispatch(getMyLikeList(likeResult));
           } else {
-            dispatch(getMyLikeList(likeResult.slice(0, 4)));
+            dispatch(getMyLikeList(likeResult.slice(0, 10)));
           }
         } else {
           // 아무것도 없을 때도 디스패치..!

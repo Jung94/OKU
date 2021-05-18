@@ -49,7 +49,6 @@ function NextArrow(props) {
         zIndex: "999",
         right: "25%",
         color: Color.Dark_4,
-
         fontSize: "5rem",
         content: `url(${rightIcon})`,
       }}
@@ -193,7 +192,7 @@ const Container = (props) => {
                     key={idx}
                     {...i}
                     _onClick={() => {
-                      history.replace(`product/detail/${i._id}`);
+                      history.push(`product/detail/${i._id}`);
                     }}
                   />
                 );

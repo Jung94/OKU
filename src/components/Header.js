@@ -272,7 +272,7 @@ const Header = (props) => {
               style={{ alignItems: "center", width: "0px", marginBottom: "2px", justifyContent: "center" }}
               src={MainLogo}
               onClick={() => {
-                history.replace("/");
+                history.push("/");
               }}
             />
 
@@ -311,7 +311,7 @@ const Header = (props) => {
                 style={{ width: "117.8px" }}
                 src={MainLogo}
                 onClick={() => {
-                  history.replace("/");
+                  history.push("/");
                 }}
               />
             </Grid>
@@ -333,7 +333,7 @@ const Header = (props) => {
                       subBody
                       color={Color.Dark_4}
                       onClick={() => {
-                        history.replace("/Signup");
+                        history.push("/Signup");
                       }}
                     >
                       회원가입
@@ -478,7 +478,7 @@ const Header = (props) => {
                 style={{ border: "1px solid red", display: "flex", alignItems: "center", width: "0px", marginBottom: "2px", justifyContent: "center" }}
                 src={MainLogo}
                 onClick={() => {
-                  history.replace("/");
+                  history.push("/");
                 }}
               />
 
@@ -489,7 +489,7 @@ const Header = (props) => {
                   alt="로고이미지"
                   src={MainLogo}
                   onClick={() => {
-                    history.replace("/");
+                    history.push("/");
                   }}
                 />
               </Grid>
