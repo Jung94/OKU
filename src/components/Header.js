@@ -134,7 +134,9 @@ const Header = (props) => {
         ...provided,
         color: Color.Primary,
         alignItems: "center",
+        justifyContent: "center",
         margin: "auto",
+        fontSize: "13px",
         backgroundColor: "transparent",
       }),
 
@@ -142,6 +144,7 @@ const Header = (props) => {
       placeholder: (provided, state) => ({
         ...provided,
         alignItems: "center",
+        fontSize: "13px",
         color: Color.Dark_4,
       }),
       
@@ -161,12 +164,14 @@ const Header = (props) => {
       menuList: (provided, state) => ({
         ...provided,
         backgroundColor: state.isSelected ? Color.Primary : "transparent",
+        fontSize: "13px",
         margin: "10px 0 5px 0",
       }),
       // 메뉴 드롭 다운 내 값1, 값2 ...
       option: (provided, state) => ({
         ...provided,
 
+        fontSize: "13px",
         color: state.isFocused ? Color.Primary : Color.Dark_4,
         backgroundColor: state.isSelected ? "transparent" : state.isFocused ? "transparent" : "transparent",
 
@@ -211,7 +216,7 @@ const Header = (props) => {
 
       hide.current.style.alignItems = "center";
       hide.current.style.opacity = "1";
-      hide.current.style.width = "117.8px";
+      hide.current.style.width = "90px";
 
       leftLogo.current.style.width = "0";
       leftLogo.current.style.marginRight = "0";
@@ -280,7 +285,7 @@ const Header = (props) => {
             <Grid is_flex width="40%" alignItems="center">
               {/* 카테고리 리스트 방식 */}
               {/* <ListHover/> */}
-              <div style={{width: "110px"}}>카테고리</div>
+              <div style={{width: "70px", fontSize: "13px"}}>카테고리</div>
               <ListBtn />
               <Mainselectbox>
                 <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
@@ -304,12 +309,12 @@ const Header = (props) => {
               )}
             </Grid>
 
-            <Grid is_flex justify="center" width="20%">
+            <Grid is_flex justify="center" width="20%" margin="0 0 16px">
               {/* 로고 */}
               <img
                 ref={hide}
                 alt="로고이미지"
-                style={{ width: "117.8px" }}
+                style={{ width: "90px" }}
                 src={MainLogo}
                 onClick={() => {
                   history.push("/");
@@ -424,7 +429,7 @@ const Header = (props) => {
                         }}
                       >
                         <ImgChat src={IconChat} />
-                        <p style={{margin: "0 0 1px", fontSize: "16px"}} >채팅</p>
+                        <p style={{margin: "0 0 1px", fontSize: "14px"}} >채팅</p>
                       </Grid>
                     </>
                   )}
@@ -463,7 +468,7 @@ const Header = (props) => {
                         }}
                       >
                         <ImgUpload src={IconUpload} />
-                        <p style={{margin: "0 0 1px", fontSize: "16px"}} >물건등록</p>
+                        <p style={{margin: "0 0 1px", fontSize: "14px"}} >물건등록</p>
                       </Grid>
                     </>
                   )}
@@ -491,7 +496,7 @@ const Header = (props) => {
                 }}
               />
 
-              <Grid is_flex justify="center" width="20%" display="none" margin="5px 0 0">
+              <Grid is_flex justify="center" width="20%" display="none" margin="4px 0 0">
                 {/* 로고 */}
                 <img
                   ref={hide}
@@ -537,7 +542,7 @@ const Header = (props) => {
             <Grid is_flex width="100%" height="39px" alignItems="center" padding="0 10px 0 20px" bdrTop="1px solid rgba(0, 0, 0, 0.1)">
               {/* 카테고리 리스트 방식 */}
               {/* <ListHover/> */}
-              <div style={{ width: "60px", margin: "1px 0 0" }}>카테고리</div>
+              <div style={{ fontSize: "12px", width: "76px", margin: "1px 0 0 2px" }}>카테고리</div>
               <ListBtn />
               <Mainselectbox>
                 <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
@@ -569,7 +574,24 @@ const Header = (props) => {
 
 const HeaderWrap = styled.header`
 
-  @media only screen and (min-width : 1024px) {
+  @media only screen and (min-width: 1024px) {
+    max-width: 100%;
+    width: 100%;
+    position: fixed;
+    ${(props) => (props.showHeader ? "display : flex;" : "display : none;")}
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    box-shadow: 0 4px 15px 0 rgba(111, 111, 111, 0.16);
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    background-color: #ffffff;
+    transition: box-shadow 500ms cubic-bezier(0.215, 0.61, 0.355, 1), height 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
     max-width: 100%;
     width: 100%;
     position: fixed;
@@ -606,7 +628,30 @@ const HeaderWrap = styled.header`
 const Fix = styled.div`
   
 
-  @media only screen and (min-width : 1024px) {
+  @media only screen and (min-width: 1024px) {
+    border: 1px solid blue;
+    max-width: 1030px;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    height: 151px;
+    padding-bottom: 32px;
+    font-size: 18px;
+    font-weight: 500;
+    transition: margin 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
+    img {
+      transition: all 1400ms cubic-bezier(0.215, 0.61, 0.355, 1);
+      align-items: center;
+      vertical-align: center;
+      margin: auto;
+      display: flex;
+      cursor: pointer;
+      object-position: center;
+    }
+  }
+
+  @media only screen and (min-width: 768px) and (max-width: 1023px) {
     max-width: 80vw;
     width: 100%;
     display: flex;
@@ -653,19 +698,19 @@ const Fix = styled.div`
 `;
 
 const Mainselectbox = styled.div`
-  width: 147px;
-  margin: 0 30px 0 10px;
+  width: 100px;
+  margin: 0 10px 0 10px;
   align-items: center;
 
   @media only screen and (max-width: 767px) {
-    width: 147px;
-    margin: 0 20px 0 20px;
+    width: 120px;
+    margin: 0 10px 0 10px;
     align-items: center;
   }
 `;
 
 const SubSelectbox = styled.div`
-  width: 200px;
+  width: 160px;
   align-items: center;
 
   @media only screen and (max-width: 767px) {
@@ -754,8 +799,8 @@ const Img = styled.div`
     position: absolute;
     top: 6px;
     right: 20px;
-    width: 26px;
-    height: 26px;
+    width: 25px;
+    height: 25px;
     background-color: transparent;
     background: url(${(props) => props.src});
     background-size: cover;

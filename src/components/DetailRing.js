@@ -67,7 +67,7 @@ const DetailRing = (props) => {
                 <Img src={IconRingOff} />
                 {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
               </Badge>
-              <p style={{margin: "4px 0 0", fontSize: "16px"}} >알림</p>
+              <p style={{margin: "4px 0 0", fontSize: "14px"}} >알림</p>
             </div>
             <RingDetail>
             {alert.alreadyCheck && alert.alreadyCheck.length > 0 ? (
@@ -144,7 +144,7 @@ const DetailRing = (props) => {
                 <Img src={IconRingOff} />
                 {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
               </Badge>
-              <p style={{margin: "4px 0 0", fontSize: "16px"}} >알림</p>
+              <p style={{margin: "4px 0 0", fontSize: "14px"}} >알림</p>
             </div>
             ) : (
               <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
@@ -152,7 +152,7 @@ const DetailRing = (props) => {
                   <Img src={IconRingOff} />
                   {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
                 </Badge>
-                <p style={{margin: "4px 0 0", fontSize: "16px"}} >알림</p>
+                <p style={{margin: "4px 0 0", fontSize: "14px"}} >알림</p>
               </div>
             )}
           </Wrap>
@@ -190,7 +190,7 @@ const DetailRing = (props) => {
             <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
                 <Img src={IconRingOff} />
                 {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-              <p style={{margin: "4px 0 0", fontSize: "16px"}} >알림</p>
+              <p style={{margin: "4px 0 0", fontSize: "14px"}} >알림</p>
             </div>
           </Wrap>
         </Desktop>
@@ -218,8 +218,8 @@ DetailRing.defaultProps = {
 
 const Img = styled.div`
   // border: 1px solid red;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   background-color: transparent;
   background: url(${(props) => props.src});
   background-size: cover;
