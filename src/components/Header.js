@@ -85,7 +85,7 @@ const Header = (props) => {
 
   const handleSubCategory = (e) => {
     setSubct(e.value);
-    dispatch(categoryActions.getProductSubCategotAPI(mainct ,e.value));
+    dispatch(categoryActions.getProductSubCategotAPI(mainct, e.value));
     history.push("/category");
   };
 
@@ -147,7 +147,7 @@ const Header = (props) => {
         fontSize: "14px",
         color: Color.Dark_4,
       }),
-      
+
       // 메뉴 드롭 다운 바탕 박스
       menu: (provided, state) => ({
         ...provided,
@@ -203,11 +203,10 @@ const Header = (props) => {
 
   const headerChange = () => {
     // return null;
-    if (window.scrollY < 150 && window.innerWidth < 1024) {
-      leftLogo.current.style.display = "none";
-      leftLogo.current.style.width = "0";
-      leftLogo.current.style.marginRight = "0";
-    } else if (window.scrollY < 150 && window.innerWidth > 1320) {
+
+    // 스크롤을 내림 X
+
+    if (window.scrollY < 150) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "9999";
       navbox.current.style.height = "125px";
@@ -220,21 +219,8 @@ const Header = (props) => {
 
       leftLogo.current.style.width = "0";
       leftLogo.current.style.marginRight = "0";
-    } else if (window.scrollY < 150 && window.innerWidth < 1320) {
-      navbox.current.style.position = "fixed";
-      navbox.current.style.zIndex = "9999";
-      navbox.current.style.height = "125px";
-      navbox.current.style.boxShadow = `0 4px 15px 0 ${Color.Light_4}77`;
-      up.current.style.marginTop = "0px";
 
-      hide.current.style.alignItems = "center";
-      hide.current.style.opacity = "0";
-      hide.current.style.width = "0px";
-
-      leftLogo.current.style.maxWidth = "70px";
-      leftLogo.current.style.width = "60px";
-      leftLogo.current.style.marginRight = "3vw";
-    } else if (window.scrollY > 150 && window.innerWidth < 1320) {
+    } else if (window.scrollY > 150) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "9999";
       navbox.current.style.height = "96px";
@@ -248,20 +234,7 @@ const Header = (props) => {
       leftLogo.current.style.maxWidth = "70px";
       leftLogo.current.style.width = "60px";
       leftLogo.current.style.marginRight = "3vw";
-    } else if (window.scrollY > 150 && window.innerWidth > 1320) {
-      navbox.current.style.position = "fixed";
-      navbox.current.style.zIndex = "9999";
-      navbox.current.style.boxShadow = `0 4px 15px 0 ${Color.Secondary_2}77`;
-      navbox.current.style.height = "96px";
-      up.current.style.marginTop = "-38px";
 
-      hide.current.style.alignItems = "center";
-      hide.current.style.opacity = "0";
-      hide.current.style.width = "0px";
-
-      leftLogo.current.style.maxWidth = "70px";
-      leftLogo.current.style.width = "60px";
-      leftLogo.current.style.marginRight = "3vw";
     }
   };
 
@@ -282,10 +255,10 @@ const Header = (props) => {
               }}
             />
 
-            <Grid is_flex width="40%" alignItems="center" >
+            <Grid is_flex width="40%" alignItems="center">
               {/* 카테고리 리스트 방식 */}
               {/* <ListHover/> */}
-              <div style={{width: "70px", fontSize: "14px", margin: "1px 0 0"}}>카테고리</div>
+              <div style={{ width: "70px", fontSize: "14px", margin: "1px 0 0" }}>카테고리</div>
               <ListBtn />
               <Mainselectbox>
                 <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
@@ -371,12 +344,12 @@ const Header = (props) => {
 
               <Grid is_flex justify="flex-end" margin="0 0 1px">
                 {/* 기능버튼 */}
-                <div style={{ margin: "0", minHeight: "40px", width: "90%", display: "flex", alignItems: "center", position: "relative"}}>
+                <div style={{ margin: "0", minHeight: "40px", width: "90%", display: "flex", alignItems: "center", position: "relative" }}>
                   <SearchWrap>
                     <Search
                       ref={lengthen}
                       type="text"
-                      placeholder="검색"
+                      placeholder="검색하기"
                       onChange={(e) => {
                         setKeyword(e.target.value);
                       }}
@@ -400,7 +373,7 @@ const Header = (props) => {
                       <Grid
                         className="block pointer"
                         width="max-content"
-                        padding="0 14px"
+                        padding="0 14px 1px"
                         is_flex
                         gap="9px"
                         __click={() => {
@@ -408,7 +381,7 @@ const Header = (props) => {
                         }}
                       >
                         <ImgChat src={IconChat} />
-                        <Text h4 >채팅</Text>
+                        <Text h4>채팅</Text>
                       </Grid>
                     </>
                   )}
@@ -418,10 +391,9 @@ const Header = (props) => {
                       <Grid
                         // bdr="1px solid red"
                         height="34px"
-                        margin="1px 0 0"
                         className="block pointer"
                         width="max-content"
-                        padding="0 14px"
+                        padding="0 14px 1px"
                         is_flex
                         gap="9px"
                         __click={() => {
@@ -429,7 +401,7 @@ const Header = (props) => {
                         }}
                       >
                         <ImgChat src={IconChat} />
-                        <Text h4 >채팅</Text>
+                        <Text h4>채팅</Text>
                       </Grid>
                     </>
                   )}
@@ -439,7 +411,7 @@ const Header = (props) => {
                       <Grid
                         className="pointer"
                         width="max-content"
-                        padding="0 0 0 14px"
+                        padding="0 0 1px 14px"
                         is_flex
                         gap="9px"
                         __click={() => {
@@ -447,7 +419,7 @@ const Header = (props) => {
                         }}
                       >
                         <ImgUpload src={IconUpload} />
-                        <Text h4 >물건등록</Text>
+                        <Text h4>물건등록</Text>
                       </Grid>
                     </>
                   )}
@@ -457,10 +429,9 @@ const Header = (props) => {
                       <Grid
                         // bdr="1px solid red"
                         height="34px"
-                        margin="1px 0 0"
                         className="pointer"
                         width="max-content"
-                        padding="0 0 0 14px"
+                        padding="0 0 1px 14px"
                         is_flex
                         gap="9px"
                         __click={() => {
@@ -468,7 +439,7 @@ const Header = (props) => {
                         }}
                       >
                         <ImgUpload src={IconUpload} />
-                        <Text h4 >물건등록</Text>
+                        <Text h4>물건등록</Text>
                       </Grid>
                     </>
                   )}
@@ -485,11 +456,11 @@ const Header = (props) => {
         <HeaderWrap showHeader={showHeader} ref={navbox}>
           <Fix ref={up}>
             {/* 로고 */}
-            <Grid is_flex justify="space-between" height="58px" >
+            <Grid is_flex justify="space-between" height="58px">
               <img
                 ref={leftLogo}
                 alt="로고이미지"
-                style={{display: "none", alignItems: "center", width: "0px", marginBottom: "2px", justifyContent: "center" }}
+                style={{ display: "none", alignItems: "center", width: "0px", marginBottom: "2px", justifyContent: "center" }}
                 src={MainLogo}
                 onClick={() => {
                   history.push("/");
@@ -508,11 +479,11 @@ const Header = (props) => {
                 />
               </Grid>
 
-              <Grid is_flex column width="66%" >
-                <Grid is_flex justify="flex-end" width="100%" >
+              <Grid is_flex column width="66%">
+                <Grid is_flex justify="flex-end" width="100%">
                   {/* 기능버튼 */}
-                  <div style={{ margin: "4px 0 0", minHeight: "40px", width: "70%", display: "flex", alignItems: "center", position: "relative"}}>
-                    <SearchWrap >
+                  <div style={{ margin: "4px 0 0", minHeight: "40px", width: "70%", display: "flex", alignItems: "center", position: "relative" }}>
+                    <SearchWrap>
                       <Search
                         ref={lengthen}
                         type="text"
@@ -573,7 +544,6 @@ const Header = (props) => {
 };
 
 const HeaderWrap = styled.header`
-
   @media only screen and (min-width: 1024px) {
     max-width: 100%;
     width: 100%;
@@ -628,7 +598,6 @@ const HeaderWrap = styled.header`
 `;
 
 const Fix = styled.div`
-
   @media only screen and (min-width: 1024px) {
     // border: 1px solid blue;
     max-width: 1030px;
@@ -724,9 +693,9 @@ const SearchWrap = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin-right: 0rem;
+  margin: 0;
   height: 38px;
-  width: 100%;
+  width: 150px;
   background-color: transparent;
   transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
   // border: 1px solid blue;
@@ -746,7 +715,6 @@ const SearchWrap = styled.div`
     &:focus-within {
       border-bottom: none;
     }
-    
   }
 `;
 
@@ -763,7 +731,7 @@ const ImgChat = styled.div`
   margin: 0;
   cursor: pointer;
   // border: 1px solid blue;
-`
+`;
 
 const ImgUpload = styled.div`
   top: 6px;
@@ -778,11 +746,11 @@ const ImgUpload = styled.div`
   margin: 0;
   cursor: pointer;
   // border: 1px solid blue;
-`
+`;
 
 const Img = styled.div`
   position: absolute;
-  top: 10px;
+  top: 9px;
   right: 4px;
   width: 21px;
   height: 21px;
@@ -814,11 +782,12 @@ const Img = styled.div`
 const Search = styled.input`
   background-color: transparent;
   width: 70%;
-  height: 32px;
+  height: 28px;
   border: 0;
   outline: 0;
   font-size: 14px;
   font-weight: 500;
+  padding: 0 30px 0 5px;
   transition: all 400ms cubic-bezier(0.215, 0.61, 0.355, 1);
   border-bottom: 1px solid ${Color.Dark_2};
   ::placeholder {
@@ -828,7 +797,7 @@ const Search = styled.input`
   }
   :focus {
     outline: none;
-    width: 100%;
+    width: 90%;
   }
 
   @media only screen and (max-width: 767px) {
@@ -856,7 +825,7 @@ const Search = styled.input`
 // 알림 버튼
 const Ring = styled.div`
   // border: 1px solid blue;
-  padding: 5px 0 0;
+  padding: 4px 0 0;
   width: 69px;
 
   @media only screen and (max-width: 767px) {
