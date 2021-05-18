@@ -17,6 +17,7 @@ const DeadlineP = (props) => {
   useEffect(() => {
     dispatch(postActions.getDeadlineProductAPI());
   }, []);
+
   const _deadline_product = useSelector((state) => state.post.deadline_product);
 
   if (_deadline_product && _deadline_product.length > 0) {
@@ -47,6 +48,7 @@ const DeadlineP = (props) => {
       </Wrap>
     );
   }
+
   return null;
 };
 

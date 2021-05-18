@@ -147,7 +147,7 @@ const Heart = styled.div`
       transform: rotate(15deg);
     }
   }
-  :hover {
+  :active {
     transition: 0.2s;
     transform: scale(1.1);
   }
