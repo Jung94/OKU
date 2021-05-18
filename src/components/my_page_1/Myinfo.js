@@ -34,7 +34,7 @@ const Myinfo = () => {
                     </Title>
                     
                     <Blank>
-                        <input/>    
+                        <input type="password"/>    
                     </Blank>
                 </Info>
                 <Info>
