@@ -136,7 +136,7 @@ const Header = (props) => {
         alignItems: "center",
         justifyContent: "center",
         margin: "auto",
-        fontSize: "13px",
+        fontSize: "14px",
         backgroundColor: "transparent",
       }),
 
@@ -144,7 +144,7 @@ const Header = (props) => {
       placeholder: (provided, state) => ({
         ...provided,
         alignItems: "center",
-        fontSize: "13px",
+        fontSize: "14px",
         color: Color.Dark_4,
       }),
       
@@ -164,14 +164,14 @@ const Header = (props) => {
       menuList: (provided, state) => ({
         ...provided,
         backgroundColor: state.isSelected ? Color.Primary : "transparent",
-        fontSize: "13px",
+        fontSize: "14px",
         margin: "10px 0 5px 0",
       }),
       // 메뉴 드롭 다운 내 값1, 값2 ...
       option: (provided, state) => ({
         ...provided,
 
-        fontSize: "13px",
+        fontSize: "14px",
         color: state.isFocused ? Color.Primary : Color.Dark_4,
         backgroundColor: state.isSelected ? "transparent" : state.isFocused ? "transparent" : "transparent",
 
@@ -210,20 +210,20 @@ const Header = (props) => {
     } else if (window.scrollY < 150 && window.innerWidth > 1320) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "9999";
-      navbox.current.style.height = "140px";
+      navbox.current.style.height = "125px";
       navbox.current.style.boxShadow = `0 4px 15px 0 ${Color.Light_4}77`;
       up.current.style.marginTop = "0px";
 
       hide.current.style.alignItems = "center";
       hide.current.style.opacity = "1";
-      hide.current.style.width = "90px";
+      hide.current.style.width = "110px";
 
       leftLogo.current.style.width = "0";
       leftLogo.current.style.marginRight = "0";
     } else if (window.scrollY < 150 && window.innerWidth < 1320) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "9999";
-      navbox.current.style.height = "140px";
+      navbox.current.style.height = "125px";
       navbox.current.style.boxShadow = `0 4px 15px 0 ${Color.Light_4}77`;
       up.current.style.marginTop = "0px";
 
@@ -237,7 +237,7 @@ const Header = (props) => {
     } else if (window.scrollY > 150 && window.innerWidth < 1320) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "9999";
-      navbox.current.style.height = "79px";
+      navbox.current.style.height = "96px";
       navbox.current.style.boxShadow = `0 4px 15px 0 ${Color.Secondary_2}77`;
       up.current.style.marginTop = "-38px";
 
@@ -252,7 +252,7 @@ const Header = (props) => {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "9999";
       navbox.current.style.boxShadow = `0 4px 15px 0 ${Color.Secondary_2}77`;
-      navbox.current.style.height = "79px";
+      navbox.current.style.height = "96px";
       up.current.style.marginTop = "-38px";
 
       hide.current.style.alignItems = "center";
@@ -282,10 +282,10 @@ const Header = (props) => {
               }}
             />
 
-            <Grid is_flex width="40%" alignItems="center">
+            <Grid is_flex width="40%" alignItems="center" >
               {/* 카테고리 리스트 방식 */}
               {/* <ListHover/> */}
-              <div style={{width: "70px", fontSize: "13px"}}>카테고리</div>
+              <div style={{width: "70px", fontSize: "14px", margin: "1px 0 0"}}>카테고리</div>
               <ListBtn />
               <Mainselectbox>
                 <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
@@ -309,12 +309,12 @@ const Header = (props) => {
               )}
             </Grid>
 
-            <Grid is_flex justify="center" width="20%" margin="0 0 16px">
+            <Grid is_flex justify="center" width="20%" margin="0 0 14px 0">
               {/* 로고 */}
               <img
                 ref={hide}
                 alt="로고이미지"
-                style={{ width: "90px" }}
+                style={{ width: "110px", margin: "10px 0 0" }}
                 src={MainLogo}
                 onClick={() => {
                   history.push("/");
@@ -322,8 +322,8 @@ const Header = (props) => {
               />
             </Grid>
 
-            <Grid is_flex column width="40%">
-              <Grid is_flex gap="5%" justify="flex-end" margin="0 0 42px 0" ref={hide}>
+            <Grid is_flex column height="100px" width="40%" >
+              <Grid is_flex gap="5%" justify="flex-end" margin="10px 2px 36px 0" ref={hide} >
                 <Text subBody color={Color.Dark_4}>
                   about OKU
                 </Text>
@@ -400,15 +400,15 @@ const Header = (props) => {
                       <Grid
                         className="block pointer"
                         width="max-content"
-                        padding="0 20px"
+                        padding="0 14px"
                         is_flex
-                        gap="10px"
+                        gap="9px"
                         __click={() => {
                           history.push("/login");
                         }}
                       >
                         <ImgChat src={IconChat} />
-                        <p style={{margin: "0 0 1px", fontSize: "16px"}} >채팅</p>
+                        <Text h4 >채팅</Text>
                       </Grid>
                     </>
                   )}
@@ -421,15 +421,15 @@ const Header = (props) => {
                         margin="1px 0 0"
                         className="block pointer"
                         width="max-content"
-                        padding="0 20px"
+                        padding="0 14px"
                         is_flex
-                        gap="10px"
+                        gap="9px"
                         __click={() => {
                           history.push("/chat");
                         }}
                       >
                         <ImgChat src={IconChat} />
-                        <p style={{margin: "0 0 1px", fontSize: "14px"}} >채팅</p>
+                        <Text h4 >채팅</Text>
                       </Grid>
                     </>
                   )}
@@ -439,15 +439,15 @@ const Header = (props) => {
                       <Grid
                         className="pointer"
                         width="max-content"
-                        padding="0 0 0 20px"
+                        padding="0 0 0 14px"
                         is_flex
-                        gap="10px"
+                        gap="9px"
                         __click={() => {
                           history.push("/login");
                         }}
                       >
                         <ImgUpload src={IconUpload} />
-                        <p style={{margin: "0 0 1px", fontSize: "16px"}} >물건등록</p>
+                        <Text h4 >물건등록</Text>
                       </Grid>
                     </>
                   )}
@@ -460,15 +460,15 @@ const Header = (props) => {
                         margin="1px 0 0"
                         className="pointer"
                         width="max-content"
-                        padding="0 0 0 20px"
+                        padding="0 0 0 14px"
                         is_flex
-                        gap="10px"
+                        gap="9px"
                         __click={() => {
                           history.push("/ProductUpload");
                         }}
                       >
                         <ImgUpload src={IconUpload} />
-                        <p style={{margin: "0 0 1px", fontSize: "14px"}} >물건등록</p>
+                        <Text h4 >물건등록</Text>
                       </Grid>
                     </>
                   )}
@@ -577,6 +577,7 @@ const HeaderWrap = styled.header`
   @media only screen and (min-width: 1024px) {
     max-width: 100%;
     width: 100%;
+    height: 125px;
     position: fixed;
     ${(props) => (props.showHeader ? "display : flex;" : "display : none;")}
     flex-direction: column;
@@ -588,6 +589,7 @@ const HeaderWrap = styled.header`
     right: 0;
     z-index: 9999;
     background-color: #ffffff;
+    // border: 1px solid blue;
     transition: box-shadow 500ms cubic-bezier(0.215, 0.61, 0.355, 1), height 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 
@@ -626,18 +628,16 @@ const HeaderWrap = styled.header`
 `;
 
 const Fix = styled.div`
-  
 
   @media only screen and (min-width: 1024px) {
-    border: 1px solid blue;
+    // border: 1px solid blue;
     max-width: 1030px;
     width: 100%;
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
-    height: 151px;
-    padding-bottom: 32px;
-    font-size: 18px;
+    height: 125px;
+    padding-bottom: 19px;
     font-weight: 500;
     transition: margin 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
     img {
@@ -724,8 +724,7 @@ const SearchWrap = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  // border-bottom: 2px solid ${Color.Dark_1};
-  margin-right: 0.8rem;
+  margin-right: 0rem;
   height: 38px;
   width: 100%;
   background-color: transparent;
@@ -754,8 +753,8 @@ const SearchWrap = styled.div`
 const ImgChat = styled.div`
   top: 6px;
   right: 20px;
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   background-color: transparent;
   background: url(${(props) => props.src});
   background-size: cover;
@@ -769,8 +768,8 @@ const ImgChat = styled.div`
 const ImgUpload = styled.div`
   top: 6px;
   right: 20px;
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   background-color: transparent;
   background: url(${(props) => props.src});
   background-size: cover;
@@ -783,10 +782,10 @@ const ImgUpload = styled.div`
 
 const Img = styled.div`
   position: absolute;
-  top: 6px;
-  right: 20px;
-  width: 26px;
-  height: 26px;
+  top: 10px;
+  right: 4px;
+  width: 21px;
+  height: 21px;
   background-color: transparent;
   background: url(${(props) => props.src});
   background-size: cover;
@@ -814,21 +813,22 @@ const Img = styled.div`
 // 검색 input
 const Search = styled.input`
   background-color: transparent;
-  width: 65%;
-  height: 38px;
+  width: 70%;
+  height: 32px;
   border: 0;
   outline: 0;
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 500;
   transition: all 400ms cubic-bezier(0.215, 0.61, 0.355, 1);
   border-bottom: 1px solid ${Color.Dark_2};
   ::placeholder {
     color: ${Color.Light_4};
-    font-size: 16px;
+    font-weight: 500;
+    font-size: 14px;
   }
   :focus {
     outline: none;
-    width: 80%;
+    width: 100%;
   }
 
   @media only screen and (max-width: 767px) {
@@ -856,7 +856,8 @@ const Search = styled.input`
 // 알림 버튼
 const Ring = styled.div`
   // border: 1px solid blue;
-  padding: 3.5px 0 0;
+  padding: 5px 0 0;
+  width: 69px;
 
   @media only screen and (max-width: 767px) {
     padding: 0;

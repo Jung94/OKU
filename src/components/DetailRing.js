@@ -65,7 +65,7 @@ const DetailRing = (props) => {
                 <Img src={IconRingOff} />
                 {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
               </Badge>
-              <p style={{ margin: "4px 0 0", fontSize: "14px" }}>알림</p>
+              <Text h4 margin="4px 0 0">알림</Text>
             </div>
             <RingDetail>
               {alert.alreadyCheck && alert.alreadyCheck.length > 0 ? (
@@ -126,7 +126,7 @@ const DetailRing = (props) => {
                   <Img src={IconRingOff} />
                   {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
                 </Badge>
-                <p style={{ margin: "4px 0 0", fontSize: "14px" }}>알림</p>
+                <Text h4 margin="4px 0 0">알림</Text>
               </div>
             ) : (
               <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
@@ -134,7 +134,7 @@ const DetailRing = (props) => {
                   <Img src={IconRingOff} />
                   {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
                 </Badge>
-                <p style={{ margin: "4px 0 0", fontSize: "14px" }}>알림</p>
+                <Text h4 margin="4px 0 0">알림</Text>
               </div>
             )}
           </Wrap>
@@ -174,7 +174,7 @@ const DetailRing = (props) => {
             <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
               <Img src={IconRingOff} />
               {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-              <p style={{ margin: "4px 0 0", fontSize: "14px" }}>알림</p>
+              <Text h4 margin="4px 0 0">알림</Text>
             </div>
           </Wrap>
         </Desktop>
@@ -203,8 +203,8 @@ DetailRing.defaultProps = {
 
 const Img = styled.div`
   // border: 1px solid red;
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   background-color: transparent;
   background: url(${(props) => props.src});
   background-size: cover;

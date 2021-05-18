@@ -46,7 +46,7 @@ const Text = (props) => {
   // sub h4: 가격명 - 16px
   if (h4) {
     return (
-      <TextBox size="16px" onClick={onClick} {...styles}>
+      <TextBox size="14px" onClick={onClick} {...styles}>
         {children}
       </TextBox>
     );
