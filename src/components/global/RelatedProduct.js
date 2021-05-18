@@ -14,7 +14,7 @@ import { Color } from "shared/DesignSys";
 const RelatedProduct = (props) => {
   const dispatch = useDispatch();
 
-  const { title, img, lowBid, _id, _onClick, like, relative } = props;
+  const { title, img, lowBid, _id, _onClick, height, like, relative } = props;
 
   const _is_like = useSelector((state) => state.like.is_like);
   const like_list = useSelector((state) => state.like.like_list);
@@ -73,7 +73,7 @@ const RelatedProduct = (props) => {
   }
 
   return (
-    <ImgWrap onClick={_onClick}>
+    <ImgWrap onClick={_onClick} height={height}>
       <TitlePrice>
         {title ? <div>{title}</div> : ""}
         {lowBid ? <div>{priceComma(lowBid)}원</div> : ""}
@@ -85,13 +85,14 @@ const RelatedProduct = (props) => {
 
 RelatedProduct.defaultProps = {
   img: "https://movie-phinf.pstatic.net/20210308_97/1615182990261ekXlL_JPEG/movie_image.jpg",
+  height: "10rem",
 };
 
 const ImgWrap = styled.div`
   // z-index: 99;
   position: relative;
   width: 12rem;
-  height: 10rem;
+  height: ${(props) => (props.height ? props.height : "")};
   flex-grow: 1;
   flex-direction: row;
   flex-wrap: wrap;

@@ -421,15 +421,15 @@ const Product = (props) => {
               <Text h3 color={Color.Primary} marginB="1rem">
                 상품정보
               </Text>
-              <Grid is_flex justify="space-around" margin="0 0 1rem 0">
-                <Grid flexShrink="1" margin="0 0.5rem 0 0">
+              <Grid is_flex margin="0 0 1rem 0">
+                <Grid margin="0 0.5rem 0 0">
                   <Text h4 textAlign="left" marginB="0.5rem">
                     카테고리
                     <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                   </Text>
                   <Input output info value={`${bigCategory} > ${smallCategory}`} />
                 </Grid>
-                <Grid flexShrink="4">
+                <Grid width="50%">
                   <Text h4 textAlign="left" marginB="0.5rem">
                     상품상태
                     <FontAwesomeIcon icon={fasQC} className="infoSvg" />
@@ -438,16 +438,16 @@ const Product = (props) => {
                 </Grid>
               </Grid>
 
-              <Grid is_flex justify="space-around" margin="0 0 1rem 0">
+              <Grid is_flex margin="0 0 1rem 0">
                 {region && (
-                  <Grid flexShrink="1" margin="0 0.5rem 0 0">
+                  <Grid margin="0 0.5rem 0 0">
                     <Text h4 textAlign="left" marginB="0.5rem">
                       거래 지역
                     </Text>
                     <Input output info value={region} />
                   </Grid>
                 )}
-                <Grid flexShrink="4">
+                <Grid width="50%">
                   <Text h4 textAlign="left" marginB="0.5rem">
                     배송비
                   </Text>
@@ -506,6 +506,7 @@ const Product = (props) => {
                     // console.log(r);
                     return (
                       <RelatedProduct
+                        height="7rem"
                         key={idx}
                         img={r.img[0]}
                         title={r.title}
@@ -558,8 +559,8 @@ const Product = (props) => {
                   _onChange={onChangeContents}
                   value={_contents}
                   fnc={addQuestion}
-                  btn="등록하기"
-                ></Input>
+                  smbtn="등록하기"
+                />
                 {_qna_list.map((q, idx) => (
                   <QnA noProfile key={idx} {...q} />
                 ))}
@@ -691,7 +692,7 @@ const Desc = styled.div`
   white-space: pre-line;
 
   @media only screen and (max-width: 767px) {
-    padding: 10px;
+    padding: 0 10px 10px 10px;
   }
 `;
 
@@ -706,6 +707,10 @@ const Blank = styled.div`
   margin: auto;
   height: 80%;
   user-select: none;
+
+  @media only screen and (max-width: 767px) {
+    padding-top: 10px;
+  }
 `;
 
 export default Product;

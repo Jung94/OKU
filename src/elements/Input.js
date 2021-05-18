@@ -51,6 +51,7 @@ const Input = (props) => {
     type,
     fnc,
     btn,
+    smbtn,
     desc,
   } = props;
 
@@ -169,15 +170,26 @@ const Input = (props) => {
           <textarea fix={fix} type={type} ref={inputEl} placeholder={plcholder} value={value} maxLength={maxLength} onChange={_onChange} onKeyPress={_onKeyPress} onFocus={_onFocus} onBlur={_onBlur}>
             {children}
           </textarea>
-          {btn && (
-            <div>
+          {btn ? (
+            <Btn>
               <Text h4 color={Color.Light_3}>
                 {adornment}
               </Text>
               <Button width="30%" _onClick={fnc} margin="0 0 0 10px ">
                 {btn}
               </Button>
-            </div>
+            </Btn>
+          ) : smbtn ? (
+            <SmBtn>
+              <Text h4 color={Color.Light_3}>
+                {adornment}
+              </Text>
+              <Button _onClick={fnc} margin="0 0 0 10px ">
+                {smbtn}
+              </Button>
+            </SmBtn>
+          ) : (
+            ""
           )}
         </TextareaBox>
       </>
@@ -397,14 +409,22 @@ const TextareaBox = styled.div`
       outline: none;
     }
   }
-  div {
-    width: 30%;
-    display: inline-flex;
-    justify-content: flex-end;
-    text-align: right;
-    align-items: center;
-    margin: 20px 0 0 auto;
-  }
+`;
+
+const Btn = styled.div`
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 20px 0 0 auto;
+`;
+
+const SmBtn = styled.div`
+  display: inline-flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 20px 0 0 auto;
+  font-size: 16px;
+  height: 40px;
 `;
 
 export default Input;
