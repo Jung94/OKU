@@ -52,9 +52,9 @@ const MDContainer = styled.div`
 
 const Grid =styled.div`
 display: grid;
-grid-template-columns: 1fr 1fr 1fr;
-grid-row-gap: 45px;
-grid-column-gap: 60px;
+grid-template-columns: 1fr 1fr 1fr 1fr;
+grid-column-gap: 30px;
+grid-row-gap: 66px;
 margin-top : 100px ;
 
 `;

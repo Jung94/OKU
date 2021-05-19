@@ -13,15 +13,15 @@ const Myinfo = () => {
   const _user = useSelector((state) => state.mypage.user);
   const userInfo = useSelector((state) => state.mypage.user_info);
 
-  useEffect(() => {
+    useEffect(() => {
     if (access_token) {
-      dispatch(mypageActions.setProfileAPI());
-      dispatch(mypageActions.setInfoAPI());
-      dispatch(mypageActions.setMystoreAPI());
-      dispatch(likeActions.getMyLikeListAPI());
+        dispatch(mypageActions.setProfileAPI());
+        dispatch(mypageActions.setInfoAPI());
+        dispatch(mypageActions.setMystoreAPI());
+        dispatch(likeActions.getMyLikeListAPI());
     }
-  }, []);
-  const [Modifyhowing, setModifyShowing] = useState(false);
+    }, []);
+    const [Modifyhowing, setModifyShowing] = useState(false);
 
   const ModifyShowing = () => setModifyShowing(!Modifyhowing);
   if (!Modifyhowing) {
