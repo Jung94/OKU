@@ -9,6 +9,7 @@ import Slider from "react-slick";
 
 import RelatedProduct from "components/global/RelatedProduct";
 import { history } from "redux/configureStore";
+import { useMediaQuery } from "react-responsive";
 
 import { actionCreators as mypageActions } from "redux/modules/mypage";
 import { actionCreators as likeActions } from "redux/modules/like";
@@ -16,6 +17,21 @@ import { actionCreators as likeActions } from "redux/modules/like";
 import { Color } from "shared/DesignSys";
 import leftIcon from "images/chevronLeftSolid.svg";
 import rightIcon from "images/chevronRightSolid.svg";
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  return isDesktop ? children : null;
+};
+
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  return isTablet ? children : null;
+};
+
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  return isMobile ? children : null;
+};
 
 function PrevArrow(props) {
   const { className, style, onClick, lowBid } = props;
@@ -100,55 +116,111 @@ const Steam = () => {
 
   return (
     <Wrap>
-      <Text h2 textAlign="left">
-        찜 목록
-      </Text>
-      <Box>
-        {my_like_list && my_like_list.length > 0 ? (
-          <>
-            <List>
-              <Slider {...settings}>
-                {my_like_list.map((r, idx) => (
-                  <RelatedProduct
-                    like
-                    key={idx}
-                    _id={r.productId}
-                    img={r.productImage}
-                    _onClick={() => {
-                      history.push(`/product/detail/${r.productId}`);
-                    }}
-                  />
-                ))}
-              </Slider>
-            </List>
-          </>
-        ) : (
-          <Text h4 color={Color.Dark_4} margin={"60px auto"}>
-            찜한 상품이 없습니다.
+      <Desktop>
+        <Head>
+          <Text h1 textAlign="left">
+            찜 목록
           </Text>
-        )}
-      </Box>
+        </Head>
+        <Box>
+          {my_like_list && my_like_list.length > 0 ? (
+            <>
+              <List>
+                <Slider {...settings}>
+                  {my_like_list.map((r, idx) => (
+                    <RelatedProduct
+                      key={idx}
+                      _id={r.productId}
+                      img={r.productImage}
+                      _onClick={() => {
+                        history.push(`/product/detail/${r.productId}`);
+                      }}
+                    />
+                  ))}
+                </Slider>
+              </List>
+            </>
+          ) : (
+            <Text h4 color={Color.Dark_4} margin={"60px auto"}>
+              찜한 상품이 없습니다.
+            </Text>
+          )}
+        </Box>
+      </Desktop>
+
+      <Mobile>
+        <Head>
+          <Text h1 textAlign="left">
+            찜 목록
+          </Text>
+        </Head>
+        <Box>
+          {my_like_list && my_like_list.length > 0 ? (
+            my_like_list.map((r, idx) => (
+              <RelatedProduct
+                like
+                width="40vw"
+                height="40vw"
+                key={idx}
+                _id={r.productId}
+                img={r.productImage}
+                _onClick={() => {
+                  history.push(`/product/detail/${r.productId}`);
+                }}
+              />
+            ))
+          ) : (
+            <Text h4 color={Color.Dark_4} margin={"60px auto"}>
+              찜한 상품이 없습니다.
+            </Text>
+          )}
+        </Box>
+      </Mobile>
     </Wrap>
   );
 };
 
+const H2 = "20px";
+const Body = "14px";
+const Sub = "12px";
+
 const Wrap = styled.div`
   max-width: 1030px;
   width: 100%;
-  min-height: 180px;
+  margin-top: 25px;
+`;
+
+const Head = styled.div`
   display: flex;
-  gap: 20px;
-  flex-direction: column;
-  margin-top: 129px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 25px;
+  margin-bottom: 10px;
+
+  @media only screen and (max-width: 767px) {
+    div:nth-child(1) {
+      font-size: ${H2};
+    }
+    div:nth-child(2) {
+      font-size: ${Sub};
+    }
+  }
 `;
 
 const Box = styled.div`
-  width: 100%;
-  min-height: 180px;
-  padding: 10px;
+  box-sizing: border-box;
   display: flex;
-  background-color: ${Color.Light_1};
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  padding: 15px;
+  gap: 10px;
+
+  background: ${Color.Light_1};
   border-radius: 12px;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
 `;
 
 const List = styled.div`

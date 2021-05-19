@@ -443,6 +443,7 @@ const ProductUpload = React.memo((props) => {
 
             <Input
               text
+              fix
               _onChange={(e) => {
                 setProductDesc(e.target.value);
                 setDecCnt(e.target.value);
@@ -623,7 +624,7 @@ const ProductUpload = React.memo((props) => {
               onChange={(e) => {
                 setProductState(e.target.value);
               }}
-              style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%", marginLeft: "10px", gap: "5px" }}
+              style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%", marginLeft: "10px", gap: "10px" }}
             >
               <Input radio name="state" value="A급" desc="포장지 파손 없는 미개봉 제품" />
               <Input radio name="state" value="B급" desc="개봉되었으나 미전시품" />
@@ -639,6 +640,7 @@ const ProductUpload = React.memo((props) => {
 
             <Input
               text
+              fix
               _onChange={(e) => {
                 setProductDesc(e.target.value);
                 setDecCnt(e.target.value);

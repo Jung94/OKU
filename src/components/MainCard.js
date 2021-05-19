@@ -198,10 +198,9 @@ const Title = styled.div`
   width: 470px;
 
   @media only screen and (max-width: 767px) {
-    width: 280px;
-    background-color: green;
+    width: 320px;
     font-size: 10px;
-    margin: 20px 0 0 27px;
+    margin: 20px 0 0 20px;
     color: #ffffff;
   }
 `;

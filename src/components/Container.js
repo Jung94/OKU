@@ -167,7 +167,7 @@ const Container = (props) => {
     draggable: false,
     className: "center",
     centerMode: true,
-    centerPadding: "31%",
+    centerPadding: "25%",
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
 
@@ -218,27 +218,25 @@ const Container = (props) => {
 
       <Mobile>
         <Main>
-          <Box>
-            <div style={{ margin: "0px 20px" }}>
-              <Slide>
-                <Slider {...settings}>
-                  {_popular_product.map((i, idx) => {
-                    let real = input_priceComma(`${i.lowBid}`);
-                    return (
-                      <MainCard
-                        lowBid={real}
-                        key={idx}
-                        {...i}
-                        _onClick={() => {
-                          history.push(`product/detail/${i._id}`);
-                        }}
-                      />
-                    );
-                  })}
-                </Slider>
-              </Slide>
-            </div>
-          </Box>
+          <div>
+            <Slide>
+              <Slider {...settings}>
+                {_popular_product.map((i, idx) => {
+                  let real = input_priceComma(`${i.lowBid}`);
+                  return (
+                    <MainCard
+                      lowBid={real}
+                      key={idx}
+                      {...i}
+                      _onClick={() => {
+                        history.push(`product/detail/${i._id}`);
+                      }}
+                    />
+                  );
+                })}
+              </Slider>
+            </Slide>
+          </div>
         </Main>
       </Mobile>
     </>
@@ -302,17 +300,21 @@ const Main = styled.div`
     transform: scale(0.75);
   }
   @media only screen and (max-width: 767px) {
-    width : 100%;
-    margin: 80px 0 45px;
+    width: 100%;
+    margin: 100px 0 45px 0;
     .slick-dots {
       margin: 30px 0;
-    }
     }
   }
 `;
 
 const Box = styled.div``;
 
-const Slide = styled.div``;
+const Slide = styled.div`
+  @media only screen and (max-width: 767px) {
+    height: 300px;
+    align-items: center;
+  }
+`;
 
 export default Container;
