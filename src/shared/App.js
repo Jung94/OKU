@@ -38,7 +38,7 @@ const App = (props) => {
       <Header showHeader={header_display} />
       <Grid>
         <ConnectedRouter history={history}>
-          <ScrollToTop> 
+          <ScrollToTop>
             <Switch>
               <Route path="/" exact component={Home} />
               <Route path="/login" exact component={Login} />

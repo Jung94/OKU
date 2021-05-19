@@ -35,23 +35,16 @@ const Footer = (props) => {
   const { display } = props;
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
-  const [ sidebar, setSidebar ] = useState(false);
-  const showSidebar = () => setSidebar(!sidebar);
 
   const slider = useRef();
+
   const slide = () => {
     const btn = slider.current.style.left;
     if (btn === "-100%") {
-      slider.current.style.position = "fixed";
-      slider.current.style.zIndex = "1000";
       slider.current.style.left = "0%";
-      slider.current.style.boxShadow = "4px 4px 15px 0 rgba(111, 111, 111, 0.16)";
       
-    } else if (btn === "0%") {
-      slider.current.style.position = "fixed";
-      slider.current.style.zIndex = "1000";
+    } else {
       slider.current.style.left = "-100%";
-      slider.current.style.boxShadow = "none";
     }
   };
   const slideClose = () => {
@@ -182,7 +175,7 @@ const SidebarWrap = styled.div`
   background: #fff;
   position: fixed;
   z-index: 1000;
-  top: 0;
+  top: 0%;
   left: -100%;
   width: 100vw;
   height: 100vh;
@@ -193,7 +186,7 @@ const SidebarWrap = styled.div`
 
 const Exit = styled.div`
   position: absolute;
-  top: 22px;
+  top: 21px;
   right: 24px;
 
   & > svg {
@@ -350,8 +343,8 @@ const FooterWrap = styled.footer`
     left: 0;
     right: 0;
     bottom: 0;
-    // ${(props) => (props.display === false ? "display : none;" : "display : flex;")}
-    display : flex;
+    ${(props) => (props.display === false ? "display : none;" : "display : flex;")}
+    // display : flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -387,6 +380,18 @@ const FooterContent = styled.footer`
     font-weight: 500;
     color: #818181;
   }
+
+  @media only screen and (max-width: 767px) {
+    margin: 0 0 40px 0;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    font-size: 18px;
+    font-weight: 500;
+    color: #818181;
+  }
 `;
 
 const Image = styled.div`
@@ -399,6 +404,13 @@ const Image = styled.div`
   }
 
   @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    & > img {
+      width: 85.2px;
+      height: 40.6px;
+    }
+  }
+
+  @media only screen and (max-width: 767px) {
     & > img {
       width: 85.2px;
       height: 40.6px;

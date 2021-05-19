@@ -4,6 +4,22 @@ import Card from 'components/chat/Card';
 import { history } from 'redux/configureStore';
 import { useSelector, useDispatch } from 'react-redux';
 import { actionCreators as chatActions } from 'redux/modules/chat';
+import { useMediaQuery } from "react-responsive";
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  return isDesktop ? children : null;
+};
+
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  return isTablet ? children : null;
+};
+
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  return isMobile ? children : null;
+};
 
 const Sidebar = ({ room }) => {
   const dispatch = useDispatch();
@@ -40,17 +56,62 @@ const Sidebar = ({ room }) => {
           <Card />
         </Main>
       </Wrap> */}
-      <Wrap>
-        <Header>
-          거래자 채팅 목록
-        </Header>
-        <Main>
+      <Desktop>
+        <Wrap>
+          <Header>
+            거래자 채팅 목록
+          </Header>
+          <Main>
+            {users.length ? (
+              <>
+                {users.map((val, idx) => {
+                  console.log(val);
+                  return (
+                    <Box 
+                      key={idx + 'msg'}
+                      onClick={() => {
+                        // 채팅 페이지 이동
+                        history.push(`/chat/${val.sellerunique === uid ? val.soldById : val.sellerunique}/${uid}/${val.sellerunique === uid ? val.soldBy : val.nickname}`);
+                        // dispatch(chatActions.badgeOff(val.sellerunique === uid ? val.soldById : val.sellerunique));
+                      }}
+                    >
+                      <>
+                        <ProfileImg>
+                          {/* {val.profile_img === ' ' ? val.nickname[0] : null} */}
+                        </ProfileImg>
+                        <TextBox>
+                          <Up>
+                            <Name>{val.sellerunique === uid ? val.soldBy : val.nickname}</Name>
+                            {/* <Time>오후 09:11</Time> */}
+                          </Up>
+                          {/* <Msg>{update}</Msg> */}
+                        </TextBox>
+                      </>
+                    </Box>
+                  );
+                })}
+              </>
+            ) : (
+              <Empty>
+                <div>요이요이~</div>
+                <div>거래자가 없다구욧!!</div>
+              </Empty>
+            )}
+            
+          </Main>
+        </Wrap>
+      </Desktop>
+
+      <Tablet>Tablet</Tablet>
+
+      <Mobile>
+        <WrapM>
           {users.length ? (
             <>
               {users.map((val, idx) => {
                 console.log(val);
                 return (
-                  <Box 
+                  <UserBox 
                     key={idx + 'msg'}
                     onClick={() => {
                       // 채팅 페이지 이동
@@ -59,33 +120,74 @@ const Sidebar = ({ room }) => {
                     }}
                   >
                     <>
-                      <ProfileImg>
+                      <ImgM>
                         {/* {val.profile_img === ' ' ? val.nickname[0] : null} */}
-                      </ProfileImg>
-                      <TextBox>
-                        <Up>
-                          <Name>{val.sellerunique === uid ? val.soldBy : val.nickname}</Name>
-                          {/* <Time>오후 09:11</Time> */}
-                        </Up>
+                      </ImgM>
+                        <NameM>{val.sellerunique === uid ? val.soldBy : val.nickname}</NameM>
+                        {/* <Time>오후 09:11</Time> */}
                         {/* <Msg>{update}</Msg> */}
-                      </TextBox>
                     </>
-                  </Box>
+                  </UserBox>
                 );
               })}
             </>
-          ) : (
-            <Empty>
-              <div>요이요이~</div>
-              <div>거래자가 없다구욧!!</div>
-            </Empty>
+          ) : (<div style={{fontSize: "14px", fontWeight: "500", width: "200px", margin: "0 auto", textAlign: "center"}}>어이어이~ 거래자가 없다구욧!</div>
+            // <Empty>
+            //   <div>요이요이~</div>
+            //   <div>거래자가 없다구욧!!</div>
+            // </Empty>
           )}
-          
-        </Main>
-      </Wrap>
+        </WrapM>
+      </Mobile>
+      
     </>
   );
 };
+
+const WrapM = styled.div`
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  gap: 4px;
+  overflow: auto;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 6px 8px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+`;
+
+const UserBox = styled.div`
+  // border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 72px;
+`;
+
+const ImgM = styled.div`
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+//   background-image: url("${(props) => props.img}");
+  background-image: url('https://img.icons8.com/cotton/2x/gender-neutral-user--v2.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+`;
+
+const NameM = styled.div`
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  width: 70px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+
 
 const Empty = styled.div`
   display: flex;

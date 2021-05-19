@@ -1,12 +1,28 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 import { actionCreators as chatActions } from "redux/modules/chat";
 
 import DaumPostcode from "react-daum-postcode";
 
 import moment from "moment";
 import "moment/locale/ko";
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  return isDesktop ? children : null;
+};
+
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  return isTablet ? children : null;
+};
+
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  return isMobile ? children : null;
+};
 
 const ChatInput = ({ room }) => {
   const [msg, setMsg] = useState("");
@@ -75,44 +91,90 @@ const ChatInput = ({ room }) => {
 
   return (
     <>
-      <BtnBox>
-        <Delivery
-          text="주소 검색"
-          onClick={() => {
-            setIsPostOpen(true);
-          }}
-        >
-          배송 정보 보내기
-        </Delivery>
-        <Exit>거래 종료하기</Exit>
-      </BtnBox>
+      <Desktop>
+        <BtnBox>
+          <Delivery
+            text="주소 검색"
+            onClick={() => {
+              setIsPostOpen(true);
+            }}
+          >
+            배송 정보 보내기
+          </Delivery>
+          <Exit>거래 종료하기</Exit>
+        </BtnBox>
 
-      <InputBox>
-        <Text
-          type="text"
-          placeholder="대화를 입력해주세요."
-          onChange={(e) => {
-            setMsg(e.target.value);
-          }}
-          onKeyPress={(e) => {
-            if (window.event.keyCode === 13 && !e.shiftKey) {
-              msgSubmit();
-              e.preventDefault();
-            }
-          }}
-          value={msg}
-        />
-        <Btn onClick={msgSubmit}>전송</Btn>
-      </InputBox>
+        <InputBox>
+          <Text
+            type="text"
+            placeholder="대화를 입력해주세요."
+            onChange={(e) => {
+              setMsg(e.target.value);
+            }}
+            onKeyPress={(e) => {
+              if (window.event.keyCode === 13 && !e.shiftKey) {
+                msgSubmit();
+                e.preventDefault();
+              }
+            }}
+            value={msg}
+          />
+          <Btn onClick={msgSubmit}>전송</Btn>
+        </InputBox>
 
-      {isPostOpen && (
-        <Modal>
-          <ModalSection>
-            <DaumPostcode onComplete={handleComplete} />
-          </ModalSection>
-          <ModalBack onClick={() => setIsPostOpen(false)}></ModalBack>
-        </Modal>
-      )}
+        {isPostOpen && (
+          <Modal>
+            <ModalSection>
+              <DaumPostcode onComplete={handleComplete} />
+            </ModalSection>
+            <ModalBack onClick={() => setIsPostOpen(false)}></ModalBack>
+          </Modal>
+        )}
+      </Desktop>
+
+      <Tablet>Tablet</Tablet>
+
+      <Mobile>
+        <BtnBox>
+          <Delivery
+            text="주소 검색"
+            onClick={() => {
+              setIsPostOpen(true);
+            }}
+          >
+            배송 정보 보내기
+          </Delivery>
+          <Exit>거래 종료하기</Exit>
+        </BtnBox>
+
+        <InputBox>
+          <Text
+            type="text"
+            placeholder="대화를 입력해주세요."
+            onChange={(e) => {
+              setMsg(e.target.value);
+            }}
+            onKeyPress={(e) => {
+              if (window.event.keyCode === 13 && !e.shiftKey) {
+                msgSubmit();
+                e.preventDefault();
+              }
+            }}
+            value={msg}
+          />
+          <Btn onClick={msgSubmit}>전송</Btn>
+        </InputBox>
+
+        {isPostOpen && (
+          <Modal>
+            <ModalSection>
+              <DaumPostcode onComplete={handleComplete} />
+            </ModalSection>
+            <ModalBack onClick={() => setIsPostOpen(false)}></ModalBack>
+          </Modal>
+        )}
+      </Mobile>
+      
     </>
   );
 };
@@ -162,6 +224,16 @@ const BtnBox = styled.div`
   gap: 25.2px;
   width: 744px;
   margin-bottom: 22.6px;
+
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25.2px;
+    width: 100vw;
+    margin-bottom: 12px;
+  }
 `;
 
 const Delivery = styled.button`
@@ -175,6 +247,20 @@ const Delivery = styled.button`
   border-radius: 16px;
   cursor: pointer;
   box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
+
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid green;
+    width: 120px;
+    height: 30px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    background: #ae00ff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.3);
+  }
 `;
 
 const Exit = styled.button`
@@ -188,6 +274,20 @@ const Exit = styled.button`
   border-radius: 16px;
   // cursor: pointer;
   box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
+
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid green;
+    width: 120px;
+    height: 30px;
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 12px;
+    font-weight: 500;
+    background: #eaeaea;
+    border: none;
+    border-radius: 10px;
+    // cursor: pointer;
+    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 const InputBox = styled.div`
@@ -195,6 +295,16 @@ const InputBox = styled.div`
   gap: 12px;
   width: 680px;
   margin-bottom: 19.4px;
+
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid green;
+    display: flex;
+    justify-content: space-between;
+    gap: 7px;
+    width: 100vw;
+    padding: 0 10px;
+    margin-bottom: 8px;
+  }
 `;
 
 const Text = styled.textarea`
@@ -209,19 +319,52 @@ const Text = styled.textarea`
   word-break: break-all;
   outline: none;
   resize: none;
+
+  @media only screen and (max-width: 767px) {
+    border: 1px solid green;
+    width: 100%;
+    height: 36px;
+    background: #fff;
+    border-radius: 12px;
+    border: 0.5px solid #c1c1c1;
+    font-size: 12px;
+    padding: 10px 14px 0;
+    white-space: normal;
+    word-break: break-all;
+    outline: none;
+    resize: none;
+
+    ::placeholder {
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
 `;
 
 const Btn = styled.button`
-  width: 73px;
+  width: 40px;
   height: 80px;
   color: #fff;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   background: #ae00ff;
   border: none;
   border-radius: 16px;
   cursor: pointer;
   box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
+
+  @media only screen and (max-width: 767px) {
+    width: 57px;
+    height: 36px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 500;
+    background: #ae00ff;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
+  }
 `;
 
 export default ChatInput;

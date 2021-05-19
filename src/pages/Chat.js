@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 import Sider from "components/chat/Sidebar";
 import Main from "components/chat/Main";
 import InputChat from "components/chat/InputChat";
@@ -10,28 +11,31 @@ import { actionCreators as headerActions } from "redux/modules/header";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  return isDesktop ? children : null;
+};
+
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  return isTablet ? children : null;
+};
+
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  return isMobile ? children : null;
+};
+
 const Chat = (props) => {
   const dispatch = useDispatch();
   const { history } = props;
 
+  useEffect(() => {
+    dispatch(headerActions.setHeader(false));
+  }, []);
+
   // 로컬에 저장된 토큰 조회
   const is_login = localStorage.getItem("access_token") ? true : false;
-
-  // 토큰이 없을 경우 사용을 못하게 로그인 화면으로 이동시키기
-  // if (!is_login) {
-  //   swal({
-  //     title: '토큰이 만료되었거나 잘못된 접근입니다.',
-  //     text: '다시 로그인 해주세요!',
-  //     icon: 'error',
-  //   });
-  // 로그인창으로 이동
-  // history.replace('/');
-  // }
-
-  // const otherId = props.match.params.otherId;
-  // const myId = props.match.params.myId;
-  // const otherName = props.match.params.otherName;
-  // console.log(otherId, myId, otherName, "나는 아이디" )
 
   const makeRoom = [props.match.params.otherId, props.match.params.myId].sort();
   //   // 방
@@ -76,28 +80,74 @@ const Chat = (props) => {
 
   return (
     <>
-      <Wrap>
-        <MainContent>
-          <MainLeft>
-            <Sider room={room} />
-          </MainLeft>
-          <MainRight>
-            {chatActions.socket ? (
-              <>
-                <Main targetName={targetName} room={room} />
-                <MainBtn>
-                  <InputChat room={room} />
-                </MainBtn>
-              </>
-            ) : (
-              <div>연결이 불안정합니다.</div>
-            )}
-          </MainRight>
-        </MainContent>
-      </Wrap>
+      <Desktop>
+        <Wrap>
+          <MainContent>
+            <MainLeft>
+              <Sider room={room} />
+            </MainLeft>
+            <MainRight>
+              {chatActions.socket ? (
+                <>
+                  <Main targetName={targetName} room={room} />
+                  <MainBtn>
+                    <InputChat room={room} />
+                  </MainBtn>
+                </>
+              ) : (
+                <div>연결이 불안정합니다.</div>
+              )}
+            </MainRight>
+          </MainContent>
+        </Wrap>
+      </Desktop>
+
+      <Tablet>Tablet</Tablet>
+
+      <Mobile>
+        <Wrap>
+          <MainContent>
+            <MainTop>
+              <Sider room={room} />
+            </MainTop>
+            <MainBottom>
+              <Main targetName={targetName} room={room} />
+              <MainBtnM>
+                <InputChat room={room} />
+              </MainBtnM>
+            </MainBottom>
+          </MainContent>
+        </Wrap>
+      </Mobile>
     </>
   );
 };
+
+const MainBtnM = styled.div`
+  // border: 1px solid red;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 56px;
+  width: 100vw;
+  // height: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const MainTop = styled.div`
+  // border: 1px solid red;
+  
+  width: 100vw;
+  height: 90px;
+`;
+
+const MainBottom = styled.div`
+  // border: 1px solid blue;
+  width: 100vw;
+  // height: 100px;
+`;
 
 const Wrap = styled.div`
   // border: 1px solid #000;
@@ -106,7 +156,12 @@ const Wrap = styled.div`
   align-items: center;
   justify-content: center;
 
-  @media only screen and (min-width: 1824px) {
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid green;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 `;
 
@@ -128,19 +183,25 @@ const MainContent = styled.section`
     box-sizing: border-box;
     margin: 85.6px 0 85.6px;
   }
+
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-width: 100vw;
+    max-height: 100vh;
+    box-sizing: border-box;
+    margin: 2px 0 0;
+  }
 `;
 
 const MainLeft = styled.section`
   width: 285.4px;
   height: 729.4px;
-  //   flex-basis: 25%;
   display: block;
   box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
-  //   @media only screen and (max-width: 375px) {
-  //     display: ${(props) => (props.toggle ? "block" : "none")};
-  //     flex-basis: ${(props) => (props.toggle ? "100%" : "0%")};
-  //   }
 `;
 
 const MainBtn = styled.div`
@@ -153,7 +214,7 @@ const MainBtn = styled.div`
 `;
 
 const MainRight = styled.section`
-  //   flex-basis: 75%;
+
   display: flex;
   flex-direction: column;
   align-items: space-between;
@@ -163,14 +224,6 @@ const MainRight = styled.section`
   box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.2);
   border-radius: 16px;
   position: relative;
-  //   @media only screen and (max-width: 768px) {
-  //     padding: 16px 0;
-  //   }
-  //   @media only screen and (max-width: 375px) {
-  //     display: ${(props) => (props.toggle ? "none" : "block")};
-  //     flex-basis: ${(props) => (props.toggle ? "0%" : "100%")};
-  //     padding: 5px;
-  //   }
 `;
 
 export default Chat;

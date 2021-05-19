@@ -29,6 +29,13 @@ const Wrap = styled.div`
 //     background-color: #d8d9dc; /* color of the scroll thumb */
 //     border-radius: 20px; /* roundness of the scroll thumb */
 //   }
+
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid red;
+    width: 100vw;
+    height: 70%;
+    border-radius: 0;
+  }
 `;
 
 export default Main;

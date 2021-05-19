@@ -1,8 +1,24 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
+import { useMediaQuery } from "react-responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as chatActions } from "redux/modules/chat";
 import Message from "./Message";
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  return isDesktop ? children : null;
+};
+
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  return isTablet ? children : null;
+};
+
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  return isMobile ? children : null;
+};
 
 const MainChat = ({ targetName }) => {
   const dispatch = useDispatch();
@@ -39,28 +55,64 @@ const MainChat = ({ targetName }) => {
       <ChatBox>
         <Message />
       </ChatBox> */}
-      {loading ? (
-        <>{/* empty */}</>
-      ) : (
-        <div>
-          <Header>{targetName}</Header>
-          <ChatBox>
-            {msgList.length === 0 ? (
-              <EmptyPost>
-                <div>경매 성공 시 구매자 또는 경매자와의 채팅이 가능하다구요!</div>
-              </EmptyPost>
-            ) : null}
-            {msgList.map((val, idx) => {
-              return (
-                <>
-                  <Message key={idx} {...val} />
-                </>
-              );
-            })}
-            <div ref={endPoint}></div>
-          </ChatBox>
-        </div>
-      )}
+      <Desktop>
+        {loading ? (
+          <>{/* empty */}</>
+        ) : (
+          <div>
+            <Header>{targetName}</Header>
+            <ChatBox>
+              {msgList.length === 0 ? (
+                <EmptyPost>
+                  <div>경매 성공 시 구매자 또는 경매자와의 채팅이 가능하다구요!</div>
+                </EmptyPost>
+              ) : null}
+              {msgList.map((val, idx) => {
+                return (
+                  <>
+                    <Message key={idx} {...val} />
+                  </>
+                );
+              })}
+              <div ref={endPoint}></div>
+            </ChatBox>
+          </div>
+        )}
+      </Desktop>
+
+      <Tablet>Tablet</Tablet>
+
+      <Mobile>
+        {loading ? (
+          <>
+            <div style={{padding: "40% 0 0",fontSize: "14px", fontWeight: "500", width: "220px", margin: "0 auto", textAlign: "center"}}>
+              경매 성공 시 구매자 또는 경매자와의 채팅이 가능하다구요!
+            </div>
+          </>
+        ) : (
+          <div>
+            <Header>{targetName}</Header>
+            <ChatBox>
+              {msgList.length === 0 ? (
+                <EmptyPost>
+                  <div style={{fontSize: "14px", fontWeight: "500", width: "200px", margin: "0 auto", textAlign: "center"}}>
+                    경매 성공 시 구매자 또는 경매자와의 채팅이 가능하다구요!
+                  </div>
+                </EmptyPost>
+              ) : null}
+              {msgList.map((val, idx) => {
+                return (
+                  <>
+                    <Message key={idx} {...val} />
+                  </>
+                );
+              })}
+              <div ref={endPoint}></div>
+            </ChatBox>
+          </div>
+        )}
+      </Mobile>
+      
     </>
   );
 };
@@ -87,6 +139,16 @@ const ChatBox = styled.div`
   height: 458px;
   width: 744px;
   overflow: auto;
+
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid red;
+    min-height: 290px;
+    max-height: 350px;
+    height: 50vh;
+    width: 100vw;
+    overflow: auto;
+  }
+
 `;
 
 const Header = styled.div`
@@ -103,6 +165,22 @@ const Header = styled.div`
   border-bottom: 3px solid rgba(0, 0, 0, 0.1);
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
+
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 34px;
+    color: #434343;
+    font-size: 14px;
+    font-weight: bold;
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
 `;
 
 export default MainChat;

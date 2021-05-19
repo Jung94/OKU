@@ -584,6 +584,7 @@ const HeaderWrap = styled.header`
     width: 100vw;
     max-height: 99px;
     max-width: 100%;
+    ${(props) => (props.showHeader ? "display : flex;" : "display : none;")}
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
