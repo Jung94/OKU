@@ -8,19 +8,40 @@ import { input_priceComma } from "shared/common";
 // import { Upload } from "components/";
 import Upload from "shared/Upload";
 
+import { useMediaQuery } from "react-responsive";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle as faCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
 import { Color } from "shared/DesignSys";
 import { MainCT, D2CT, D3CT, D4CT } from "shared/Category";
 
 import DaumPostcode from "react-daum-postcode";
 
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  return isDesktop ? children : null;
+};
+
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  return isTablet ? children : null;
+};
+
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  return isMobile ? children : null;
+};
+
 // React.memo => re-render 방지용임
 const ProductUpload = React.memo((props) => {
   const { history } = props;
   const dispatch = useDispatch();
   const is_login = localStorage.getItem("access_token");
+
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  const isMobile = useMediaQuery({ maxWidth: 767 });
 
   const [agree, setAgree] = useState(false); // 이용약관 동의
 
@@ -158,6 +179,7 @@ const ProductUpload = React.memo((props) => {
     }
   };
 
+  // 이용약관 동의
   const handleAgree = () => {
     if (agree) {
       setAgree(false);
@@ -282,7 +304,10 @@ const ProductUpload = React.memo((props) => {
     // }
   };
 
-  const [count, setCount] = useState("");
+  // 글자수 제한 count
+  const [count, setCount] = useState(""); // 제목
+  const [count_desc, setCount_desc] = useState(""); // 상세설명
+  const [count_, setCount_] = useState(""); // 제목
 
   if (!is_login) {
     // history.push("/login");
@@ -291,211 +316,417 @@ const ProductUpload = React.memo((props) => {
 
   return (
     <UploadWrap>
-      <Grid margin="0 0 35px 0">
-        <Text h2 bold>
-          상품등록
-        </Text>
-      </Grid>
-      <Grid margin="0 0 35px 0">
-        <Text h3 bold marginB="20px">
-          <FontAwesomeIcon icon={faCircle} className="cirSvg" />
-          제목
-        </Text>
-        <Input
-          _onChange={(e) => {
-            setTitle(e.target.value);
-            setCount(e.target.value);
-          }}
-          adorn
-          margin="6% auto"
-          adornment={`${count.length} / 25`}
-          maxLength="25"
-          plcholder="최대 25자 작성 가능합니다."
-          ref={_title}
-        ></Input>
-      </Grid>
-      <Grid margin="0 0 35px 0">
-        <Text h3 bold marginB="20px">
-          <FontAwesomeIcon icon={faCircle} className="cirSvg" />
-          카테고리
-        </Text>
-        <Grid is_flex>
-          <div style={{ width: "25%", margin: "0 20px 0 0" }}>
-            <Select onChange={handleCateBig} options={MainCT} value={MainCT.find((obj) => obj.value === cateBig)} placeholder="2D / 3D" />
-          </div>
-          {cateBig === "3D" && (
-            <div style={{ width: "50%", margin: "0" }}>
-              <Select onChange={handleCateSmall} value={D2CT.find((obj) => obj.value === cateSmall)} placeholder="3D 상세 분류" options={D2CT} />
-            </div>
-          )}
-          {cateBig === "2D" && (
-            <div style={{ width: "50%", margin: "0" }}>
-              <Select onChange={handleCateSmall} value={D3CT.find((obj) => obj.value === cateSmall)} placeholder="2D 상세 분류" options={D3CT} />
-            </div>
-          )}
-        </Grid>
-      </Grid>
-      <Grid margin="0 0 35px 0">
-        <Text h3 bold marginB="20px">
-          희망 거래 장소
-        </Text>
-        <Grid is_flex>
-          <Input
-            value={region}
-            _onChange={(e) => {
-              setRegion(e.target.value);
-            }}
-            plcholder="거래를 진행할 지역을 검색하세요. 또는 바로 입력하실 수 있습니다."
-            width="70%"
-            margin="0 10px 0 0"
-            left
-          />
+      <Grid is_flex column gap="35px" margin="0 0 20px 0">
+        <Desktop>
+          <Grid>
+            <Text h2 bold>
+              상품등록
+            </Text>
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+              제목
+            </Text>
+            <Input
+              _onChange={(e) => {
+                setTitle(e.target.value);
+                setCount(e.target.value);
+              }}
+              margin="6% auto"
+              adorn
+              adornment={`${count.length} / 25`}
+              maxLength="25"
+              plcholder="최대 25자 작성 가능합니다."
+              ref={_title}
+            ></Input>
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+              카테고리
+            </Text>
+            <Grid is_flex>
+              <div style={{ width: "25%", margin: "0 20px 0 0" }}>
+                <Select onChange={handleCateBig} options={MainCT} value={MainCT.find((obj) => obj.value === cateBig)} placeholder="2D / 3D" />
+              </div>
+              {cateBig === "3D" && (
+                <div style={{ width: "50%", margin: "0" }}>
+                  <Select onChange={handleCateSmall} value={D2CT.find((obj) => obj.value === cateSmall)} placeholder="3D 상세 분류" options={D2CT} />
+                </div>
+              )}
+              {cateBig === "2D" && (
+                <div style={{ width: "50%", margin: "0" }}>
+                  <Select onChange={handleCateSmall} value={D3CT.find((obj) => obj.value === cateSmall)} placeholder="2D 상세 분류" options={D3CT} />
+                </div>
+              )}
+            </Grid>
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              희망 거래 장소
+            </Text>
+            <Grid is_flex>
+              <Input
+                value={region}
+                _onChange={(e) => {
+                  setRegion(e.target.value);
+                }}
+                plcholder="거래를 진행할 지역을 검색하세요. 혹은 바로 입력하실 수 있습니다."
+                width="70%"
+                margin="0 10px 0 0"
+                left
+              />
 
-          <Button
-            text="주소 검색"
-            _onClick={() => {
-              setIsPostOpen(true);
-            }}
-            margin="0 10px 0 0"
-          />
-        </Grid>
-      </Grid>
-      <Grid margin="0 0 35px 0">
-        <Text h3 bold marginB="20px">
-          <FontAwesomeIcon icon={faCircle} className="cirSvg" />
-          상품이미지
-        </Text>
-        <Grid is_flex gap="20px">
-          <PreviewBtn2 for="fileInput" src={preview1.length ? preview1 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}>
-            {/* 업로드 하기 */}
-            <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange1} disabled={progress} ref={fileInput} />
-          </PreviewBtn2>
-          <PreviewBtn2
-            for="fileInput1"
-            src={preview2.length ? preview2 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
-          >
-            {/* 업로드 하기 */}
-            <input style={{ display: "none" }} id="fileInput1" type="file" onChange={handleChange2} disabled={progress} ref={fileInput1} />
-          </PreviewBtn2>
-          <PreviewBtn2
-            for="fileInput2"
-            src={preview3.length ? preview3 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
-          >
-            {/* 업로드 하기 */}
-            <input style={{ display: "none" }} id="fileInput2" type="file" onChange={handleChange3} disabled={progress} ref={fileInput2} />
-          </PreviewBtn2>
-        </Grid>
-        {/* {preview &&
+              <Button
+                text="주소 검색"
+                _onClick={() => {
+                  setIsPostOpen(true);
+                }}
+              />
+            </Grid>
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+              상품이미지
+            </Text>
+            <Grid is_flex gap="20px">
+              <PreviewBtn2
+                for="fileInput"
+                src={preview1.length ? preview1 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
+              >
+                {/* 업로드 하기 */}
+                <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange1} disabled={progress} ref={fileInput} />
+              </PreviewBtn2>
+              <PreviewBtn2
+                for="fileInput1"
+                src={preview2.length ? preview2 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
+              >
+                {/* 업로드 하기 */}
+                <input style={{ display: "none" }} id="fileInput1" type="file" onChange={handleChange2} disabled={progress} ref={fileInput1} />
+              </PreviewBtn2>
+              <PreviewBtn2
+                for="fileInput2"
+                src={preview3.length ? preview3 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
+              >
+                {/* 업로드 하기 */}
+                <input style={{ display: "none" }} id="fileInput2" type="file" onChange={handleChange3} disabled={progress} ref={fileInput2} />
+              </PreviewBtn2>
+            </Grid>
+            {/* {preview &&
           preview.map((p, idx) => {
             return <Upload key={idx} {...p} />;
           })} */}
-      </Grid>
-      <Grid margin="0 0 35px 0">
-        <Text h3 bold marginB="20px">
-          <FontAwesomeIcon icon={faCircle} className="cirSvg" />
-          상품 상태 등급
-        </Text>
-        <form
-          onChange={(e) => {
-            setProductState(e.target.value);
-          }}
-          style={{ display: "flex", justifyContent: "space-between", width: "100%" }}
-        >
-          <Input radio name="state" value="A급" desc="포장지 파손 없는 미개봉 제품" />
-          <Input radio name="state" value="B급" desc="개봉되었으나 미전시품" />
-          <Input radio name="state" value="C급" desc="개봉되었고 전시된 제품" />
-          <Input radio name="state" value="D급" desc="포장지가 없고 사용감이 있는 제품" />
-        </form>
-      </Grid>
-      <Grid margin="0 0 35px 0">
-        <Text h3 bold marginB="20px">
-          <FontAwesomeIcon icon={faCircle} className="cirSvg" />
-          상품 상세 정보
-        </Text>
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+              상품 상태 등급
+            </Text>
+            <form
+              onChange={(e) => {
+                setProductState(e.target.value);
+              }}
+              style={{ display: "flex", justifyContent: "space-between", width: "100%" }}
+            >
+              <Input radio name="state" value="A급" desc="포장지 파손 없는 미개봉 제품" />
+              <Input radio name="state" value="B급" desc="개봉되었으나 미전시품" />
+              <Input radio name="state" value="C급" desc="개봉되었고 전시된 제품" />
+              <Input radio name="state" value="D급" desc="포장지가 없고 사용감이 있는 제품" />
+            </form>
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+              상품 상세 정보
+            </Text>
 
-        <Input
-          text
-          _onChange={(e) => {
-            setProductDesc(e.target.value);
-          }}
-          plcholder="상품 정보를 입력해주세요. 자세할수록 입찰 또는 낙찰에 도움이 됩니다."
-          style={{ padding: "6px 10px", marginTop: "13px", width: "700px", height: "200px", fontSize: "14px" }}
-          rows="10"
-          whiteSpace="pre-line"
-        ></Input>
-      </Grid>
-      <Grid margin="0 0 35px 0">
-        <Text h3 bold marginB="20px">
-          상품 연관 태그
-        </Text>
-        <Input
-          _onChange={(e) => {
-            setTags(e.target.value);
-          }}
-          type="text"
-          plcholder="태그는 해쉬태그로 달아주세요. ex. #피규어#포스터#카드"
-        />
-      </Grid>
-      <Grid dp_flex margin="0 0 35px 0" justify="space-between" gap="30px">
-        <Grid>
-          <Text h3 bold marginB="20px">
-            <FontAwesomeIcon icon={faCircle} className="cirSvg" />
-            경매 기간
-          </Text>
-          <Select onChange={handleDeadline} value={D4CT.find((obj) => obj.value === deadline)} placeholder="경매 기간" options={D4CT} />
+            <Input
+              text
+              _onChange={(e) => {
+                setProductDesc(e.target.value);
+                setCount_desc(e.target.value);
+              }}
+              adornment={`${count_desc.length} / 200`}
+              maxLength="200"
+              plcholder="상품 정보를 입력해주세요. 자세할수록 입찰 혹은 낙찰에 도움이 됩니다. (최대 200자 작성 가능)"
+              whiteSpace="pre-line"
+            ></Input>
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              상품 연관 태그
+            </Text>
+            <Input
+              _onChange={(e) => {
+                setTags(e.target.value);
+              }}
+              type="text"
+              plcholder="#피규어#포스터#카드"
+            />
+          </Grid>
+
+          {/* 경매기간 / 상품 배송 정보 / 최소입찰가 / 즉시낙찰가 에서만 반응형 나눔*/}
+
+          <Grid dp_flex justify="space-between" gap="30px">
+            <Grid>
+              <Text h3 bold marginB="20px">
+                <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+                경매 기간
+              </Text>
+              <Select onChange={handleDeadline} value={D4CT.find((obj) => obj.value === deadline)} placeholder="경매 기간" options={D4CT} />
+            </Grid>
+
+            <Grid>
+              <Text h3 bold marginB="20px">
+                <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+                상품 배송 정보
+              </Text>
+
+              <form onChange={handleDelivery} style={{ display: "inline-flex", justifyContent: "space-between", gap: "50px" }}>
+                <Input radio name="delivery" value="무료 배송" desc="혹은 직거래일 경우" />
+                <Input radio name="delivery" value="배송비 별도" />
+              </form>
+            </Grid>
+          </Grid>
+
+          <Grid dp_flex justify="space-between" gap="30px">
+            <Grid>
+              <Text h3 bold marginB="20px">
+                <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+                최소입찰가
+              </Text>
+
+              <Input num _onChange={handleLowbid} value={lowbidFake} adornment="원" />
+            </Grid>
+
+            <Grid>
+              <Text h3 bold marginB="20px">
+                <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+                즉시 낙찰가&ensp;
+                <span style={{ fontSize: "12px", fontWeight: "400", color: Color.Dark_4 }}>5천 만원 이하의 금액만 가능합니다.</span>
+              </Text>
+
+              <Input num _onChange={handleSucbid} value={sucbidFake} adornment="원" plcholder="최소입찰가보다 높아야 합니다." />
+            </Grid>
+          </Grid>
+        </Desktop>
+
+        <Tablet></Tablet>
+
+        <Mobile>
+          <Grid>
+            <Text h2 bold marginB="-15px">
+              상품등록
+            </Text>
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              제목
+              <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+            </Text>
+            <Input
+              _onChange={(e) => {
+                setTitle(e.target.value);
+                setCount(e.target.value);
+              }}
+              adorn
+              margin="6% auto"
+              adornment={`${count.length} / 25`}
+              maxLength="25"
+              plcholder="최대 25자 작성 가능합니다."
+              ref={_title}
+            ></Input>
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              카테고리
+              <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+            </Text>
+            <Grid is_flex column align="flex-start" gap="10px">
+              <div style={{ width: "100%", margin: "0 20px 0 0" }}>
+                <Select onChange={handleCateBig} options={MainCT} value={MainCT.find((obj) => obj.value === cateBig)} placeholder="2D / 3D" />
+              </div>
+              {cateBig === "3D" && (
+                <div style={{ width: "100%", margin: "0" }}>
+                  <Select onChange={handleCateSmall} value={D2CT.find((obj) => obj.value === cateSmall)} placeholder="3D 상세 분류" options={D2CT} />
+                </div>
+              )}
+              {cateBig === "2D" && (
+                <div style={{ width: "100%", margin: "0" }}>
+                  <Select onChange={handleCateSmall} value={D3CT.find((obj) => obj.value === cateSmall)} placeholder="2D 상세 분류" options={D3CT} />
+                </div>
+              )}
+            </Grid>
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              희망 거래 장소
+            </Text>
+            <Grid is_flex column gap="10px">
+              <Input
+                value={region}
+                _onChange={(e) => {
+                  setRegion(e.target.value);
+                }}
+                plcholder="거래할 지역을 검색 또는 바로 입력해주세요."
+                width="100%"
+              />
+              <Button
+                width="100%"
+                text="주소 검색"
+                _onClick={() => {
+                  setIsPostOpen(true);
+                }}
+              />
+            </Grid>
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              상품이미지
+              <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+            </Text>
+            <Grid is_flex justify="space-between">
+              <PreviewBtn2
+                for="fileInput"
+                src={preview1.length ? preview1 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
+              >
+                {/* 업로드 하기 */}
+                <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange1} disabled={progress} ref={fileInput} />
+              </PreviewBtn2>
+              <PreviewBtn2
+                for="fileInput1"
+                src={preview2.length ? preview2 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
+              >
+                {/* 업로드 하기 */}
+                <input style={{ display: "none" }} id="fileInput1" type="file" onChange={handleChange2} disabled={progress} ref={fileInput1} />
+              </PreviewBtn2>
+              <PreviewBtn2
+                for="fileInput2"
+                src={preview3.length ? preview3 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
+              >
+                {/* 업로드 하기 */}
+                <input style={{ display: "none" }} id="fileInput2" type="file" onChange={handleChange3} disabled={progress} ref={fileInput2} />
+              </PreviewBtn2>
+            </Grid>
+            {/* {preview &&
+          preview.map((p, idx) => {
+            return <Upload key={idx} {...p} />;
+          })} */}
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              상품 상태 등급
+              <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+            </Text>
+            <form
+              onChange={(e) => {
+                setProductState(e.target.value);
+              }}
+              style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%", marginLeft: "10px", gap: "5px" }}
+            >
+              <Input radio name="state" value="A급" desc="포장지 파손 없는 미개봉 제품" />
+              <Input radio name="state" value="B급" desc="개봉되었으나 미전시품" />
+              <Input radio name="state" value="C급" desc="개봉되었고 전시된 제품" />
+              <Input radio name="state" value="D급" desc="포장지가 없고 사용감이 있는 제품" />
+            </form>
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              상품 상세 정보
+              <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+            </Text>
+
+            <Input
+              text
+              _onChange={(e) => {
+                setProductDesc(e.target.value);
+                setCount_desc(e.target.value);
+              }}
+              adornment={`${count_desc.length} / 200`}
+              maxLength="200"
+              plcholder="상품 정보를 입력해주세요. 자세할수록 입찰 혹은 낙찰에 도움이 됩니다. (최대 200자 작성 가능)"
+              height="300px"
+              whiteSpace="pre-line"
+            ></Input>
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              상품 연관 태그
+            </Text>
+            <Input
+              _onChange={(e) => {
+                setTags(e.target.value);
+              }}
+              type="text"
+              plcholder="#피규어#포스터#카드"
+            />
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              경매 기간
+              <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+            </Text>
+            <Select onChange={handleDeadline} value={D4CT.find((obj) => obj.value === deadline)} placeholder="경매 기간" options={D4CT} />
+          </Grid>
+
+          <Grid>
+            <Text h3 bold marginB="20px">
+              상품 배송 정보
+              <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+            </Text>
+
+            <form onChange={handleDelivery} style={{ display: "inline-flex", justifyContent: "space-between", gap: "30px" }}>
+              <Input radio name="delivery" value="무료 배송" desc="혹은 직거래일 경우" />
+              <Input radio name="delivery" value="배송비 별도" />
+            </form>
+          </Grid>
+          <Grid>
+            <Text h3 bold marginB="20px">
+              최소입찰가
+              <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+            </Text>
+
+            <Input num _onChange={handleLowbid} value={lowbidFake} adornment="원" />
+          </Grid>
+
+          <Grid>
+            <Text h3 bold marginB="5px">
+              즉시 낙찰가
+              <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+            </Text>
+            <Text subBody color={Color.Dark_4} marginB="20px">
+              5천 만원 이하의 금액만 가능합니다.
+            </Text>
+
+            <Input num _onChange={handleSucbid} value={sucbidFake} adornment="원" plcholder="최소입찰가보다 높아야 합니다." />
+          </Grid>
+        </Mobile>
+
+        <Grid is_flex justify="center" textAlign="center" margin="10px auto -10px auto">
+          <Input check checked={agree} _onClick={handleAgree} value="상품 등록시 약관에 동의해주세요." />
         </Grid>
 
-        <Grid>
-          <Text h3 bold marginB="20px">
-            <FontAwesomeIcon icon={faCircle} className="cirSvg" />
-            상품 배송 정보
-          </Text>
+        {agree ? (
+          <Button _onClick={addPost} width="100%" height="60px">
+            상품 등록하기
+          </Button>
+        ) : (
+          <Button disabled width="100%" height="60px">
+            상품 등록하기
+          </Button>
+        )}
 
-          <form onChange={handleDelivery} style={{ display: "inline-flex", justifyContent: "space-between", gap: "50px" }}>
-            <Input radio name="delivery" value="무료 배송" desc="혹은 직거래일 경우" />
-            <Input radio name="delivery" value="배송비 별도" />
-          </form>
-        </Grid>
+        {isPostOpen && (
+          <Modal>
+            <ModalSection>
+              <DaumPostcode onComplete={handleComplete} />
+            </ModalSection>
+            <ModalBack onClick={() => setIsPostOpen(false)}></ModalBack>
+          </Modal>
+        )}
       </Grid>
-      <Grid dp_flex margin="0 0 35px 0" justify="space-between" gap="30px">
-        <Grid>
-          <Text h3 bold marginB="20px">
-            <FontAwesomeIcon icon={faCircle} className="cirSvg" />
-            최소입찰가
-          </Text>
-
-          <Input num _onChange={handleLowbid} value={lowbidFake} adornment="원" />
-        </Grid>
-
-        <Grid>
-          <Text h3 bold marginB="20px">
-            <FontAwesomeIcon icon={faCircle} className="cirSvg" />
-            즉시 낙찰가
-          </Text>
-
-          <Input num _onChange={handleSucbid} value={sucbidFake} adornment="원" plcholder="최소입찰가보다 높아야 합니다." />
-        </Grid>
-      </Grid>
-      <Grid is_flex justify="center" textAlign="center" margin="20px">
-        <Input check checked={agree} _onClick={handleAgree} value="상품 등록시 약관에 동의해주세요." />
-      </Grid>
-      {agree ? (
-        <Button _onClick={addPost} width="100%" height="60px" margin="20px auto 9% auto">
-          등록하기
-        </Button>
-      ) : (
-        <Button disabled width="100%" height="60px" margin="20px auto 9% auto">
-          등록하기
-        </Button>
-      )}
-      {isPostOpen && (
-        <Modal>
-          <ModalSection>
-            <DaumPostcode onComplete={handleComplete} />
-          </ModalSection>
-          <ModalBack onClick={() => setIsPostOpen(false)}></ModalBack>
-        </Modal>
-      )}
     </UploadWrap>
   );
 });
@@ -507,12 +738,12 @@ ProductUpload.defaultProps = {
 const UploadWrap = styled.div`
   max-width: 1030px;
   margin: 0 auto;
-  margin-top: 190px;
+  margin-top: 160px;
   display: flex;
   flex-direction: column;
   padding: 0;
 
-  margin-bottom: 50px;
+  margin-bottom: 100px;
 
   text-align: left;
 
@@ -525,12 +756,22 @@ const UploadWrap = styled.div`
   }
 
   @media only screen and (max-width: 767px) {
-    max-width: 300px;
-    margin: 175px auto 100px;
+    width: 100%;
+
+    margin: 120px auto auto auto;
     display: flex;
     flex-direction: column;
-    padding: 0;
+
     text-align: left;
+
+    margin-bottom: 80px;
+
+    .cirSvg {
+      color: ${Color.Primary};
+      font-size: 8px;
+      vertical-align: 17px;
+      margin-left: 5px;
+    }
   }
 `;
 
@@ -595,6 +836,14 @@ const PreviewBtn2 = styled.label`
   background-image: url("${(props) => props.src}");
   background-size: cover;
   background-position: center;
+
+  @media only screen and (max-width: 767px) {
+    width: 30vw;
+    height: 30vw;
+    /* margin: 120px auto auto auto; */
+    flex-direction: column;
+    text-align: left;
+  }
 `;
 
 export default ProductUpload;

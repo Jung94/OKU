@@ -74,7 +74,7 @@ const Modal = (props) => {
 
   if (setting) {
     return (
-      <>
+      <Wrap>
         <FontAwesomeIcon icon={fasModi} onClick={openModal} className="setting" />
         {modal ? (
           <ModalWrap modal>
@@ -86,7 +86,7 @@ const Modal = (props) => {
         ) : (
           <></>
         )}
-      </>
+      </Wrap>
     );
   }
 };
@@ -135,6 +135,12 @@ const ModalWrap = styled.div`
       margin-top: -50px;
       opacity: 0;
     }
+  }
+`;
+
+const Wrap = styled.div`
+  .setting {
+    border: 2px solid white;
   }
 `;
 

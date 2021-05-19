@@ -15,9 +15,11 @@ import { Color } from "shared/DesignSys";
 
 const MainCard = (props) => {
   const { img, title, deadLine, sucBid, _id } = props;
+  console.log(img);
+  const imgl = Math.floor(Math.random() * img.length);
   return (
     <Section>
-      <Image img={img} className="img" onClick={() => history.push(`/product/detail/${_id}`)}>
+      <Image img={img[imgl]} className="img" onClick={() => history.push(`/product/detail/${_id}`)}>
         {/* <img src={i.img[0]} /> */}
         <Desc>
           <Title className="title">
@@ -84,6 +86,8 @@ const Desc = styled.div`
   z-index: 10;
   position: absolute;
   width: 0px;
+
+  /* height: 500px; */
 `;
 
 const Title = styled.div`
@@ -111,8 +115,8 @@ const Screen = styled.div`
 `;
 
 const Image = styled.div`
-  width: 700px;
-  height: 700px;
+  width: 522px;
+  height: 522px;
   margin: 0 auto;
   cursor: pointer;
   border-radius: 30px;
@@ -127,13 +131,13 @@ const Image = styled.div`
 `;
 
 const Bottom = styled.div`
-  position: relative;
-  display: flex;
+  position: absolute;
 
+  display: flex;
+  top: 500px;
   width: 700px;
   height: min-content;
   justify-content: space-between;
-  margin-top: 390px;
   padding: 50px;
 `;
 

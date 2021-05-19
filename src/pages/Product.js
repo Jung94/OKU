@@ -203,28 +203,28 @@ const Product = (props) => {
                       카테고리
                       <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                     </Text>
-                    <Input output info value={`${bigCategory} > ${smallCategory}`} />
+                    <Input outputcentervalue={`${bigCategory} > ${smallCategory}`} />
                   </Grid>
                   <Grid flexShrink="4" margin="0 10px 0 0">
                     <Text h4 textAlign="left" marginB="5%">
                       상품상태
                       <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                     </Text>
-                    <Input output info value={state && state.split("급")[0]} adornment="급" />
+                    <Input outputcentervalue={state && state.split("급")[0]} adornment="급" />
                   </Grid>
                   {region && (
                     <Grid flexShrink="1" margin="0 10px 0 0">
                       <Text h4 textAlign="left" marginB="5%">
                         거래 지역
                       </Text>
-                      <Input output info value={region} />
+                      <Input outputcentervalue={region} />
                     </Grid>
                   )}
                   <Grid flexShrink="2" margin="0 10px 0 0">
                     <Text h4 textAlign="left" marginB="5%">
                       배송 수단
                     </Text>
-                    <Input output info value={deliveryPrice === true ? "배송비 별도" : "무료 배송"} />
+                    <Input outputcentervalue={deliveryPrice === true ? "배송비 별도" : "무료 배송"} />
                   </Grid>
                 </Grid>
                 <Line bottom margin="10px 0" />
@@ -232,7 +232,7 @@ const Product = (props) => {
                   <Desc>{description}</Desc>
                 </Grid>
 
-                <Grid is_flex>{tag && tag.map((t, idx) => <Tag key={idx}>{t}</Tag>)}</Grid>
+                <TagWrap>{tag && tag.map((t, idx) => <Tag key={idx}>{t}</Tag>)}</TagWrap>
               </Grid>
 
               <Grid width="33%" margin="0 0 0 10px">
@@ -351,7 +351,7 @@ const Product = (props) => {
             </Grid>
 
             <SliderWrap>
-              <Grid width="100%" height="100vw">
+              <Grid width="100%" height="95vw">
                 <Slider noRadius imgList={img} />
               </Grid>
             </SliderWrap>
@@ -427,14 +427,14 @@ const Product = (props) => {
                     카테고리
                     <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                   </Text>
-                  <Input output info value={`${bigCategory} > ${smallCategory}`} />
+                  <Input outputcentervalue={`${bigCategory} > ${smallCategory}`} />
                 </Grid>
                 <Grid width="50%">
                   <Text h4 textAlign="left" marginB="0.5rem">
                     상품상태
                     <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                   </Text>
-                  <Input output info value={state && state.split("급")[0]} adornment="급" />
+                  <Input outputcentervalue={state && state.split("급")[0]} adornment="급" />
                 </Grid>
               </Grid>
 
@@ -444,14 +444,14 @@ const Product = (props) => {
                     <Text h4 textAlign="left" marginB="0.5rem">
                       거래 지역
                     </Text>
-                    <Input output info value={region} />
+                    <Input outputcentervalue={region} />
                   </Grid>
                 )}
                 <Grid width="50%">
                   <Text h4 textAlign="left" marginB="0.5rem">
                     배송비
                   </Text>
-                  <Input output info value={deliveryPrice === true ? "별도" : "무료"} />
+                  <Input outputcentervalue={deliveryPrice === true ? "별도" : "무료"} />
                 </Grid>
               </Grid>
               <Line bottom margin="10px 0" color={Color.Light_2} />
@@ -459,7 +459,7 @@ const Product = (props) => {
                 <Desc>{description}</Desc>
               </Grid>
 
-              <Grid is_flex>{tag && tag.map((t, idx) => <Tag key={idx}>{t}</Tag>)}</Grid>
+              <TagWrap>{tag && tag.map((t, idx) => <Tag key={idx}>{t}</Tag>)}</TagWrap>
             </Grid>
 
             <Grid>
@@ -472,7 +472,7 @@ const Product = (props) => {
               {_bid_list && _bid_list.length > 0 ? (
                 _bid_list.map((b, idx) => {
                   return (
-                    <LiveBid key={idx} margin="5%">
+                    <LiveBid key={idx}>
                       <Text h4 flexGrow="1">
                         {b.nickName}
                       </Text>
@@ -574,7 +574,7 @@ const Product = (props) => {
 const ProductWrap = styled.div`
   max-width: 1030px;
   margin: 0 auto;
-  margin-top: 190px;
+  margin-top: 160px;
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -595,7 +595,8 @@ const ProductWrap = styled.div`
   @media only screen and (max-width: 767px) {
     max-width: 1030px;
     margin: 0 auto;
-    margin-top: 7rem;
+    margin-top: 115px;
+
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -618,7 +619,7 @@ const ProductWrap = styled.div`
 `;
 
 const SliderWrap = styled.div`
-  margin: -10px;
+  margin: -30px -10px;
 `;
 
 // 실시간 낙찰 정보 => 디자인에 따라 낙찰 정보 확인용 component로 빼기 가능
@@ -634,6 +635,24 @@ const LiveBid = styled.div`
   align-items: center;
   background-color: ${Color.Light_3};
   border-radius: 16px;
+  div:nth-child(1) {
+    width: 50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  div:nth-child(2) {
+    width: 45%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  div:nth-child(3) {
+    width: 23%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   @media only screen and (max-width: 767px) {
     div:nth-child(1) {
@@ -652,6 +671,7 @@ const LiveBid = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding: 20px;
   }
 `;
 
@@ -677,7 +697,6 @@ const BidLabel = styled.div`
   display: flex;
   box-sizing: border-box;
   flex-direction: column;
-  background-color: white;
   text-align: left;
   margin-bottom: 1%;
   @media only screen and (max-width: 767px) {
@@ -699,7 +718,13 @@ const Desc = styled.div`
   }
 `;
 
-// 상품설명
+// Tag wrapping
+const TagWrap = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+// 입찰자 Blank block
 const Blank = styled.div`
   display: flex;
   align-items: center;

@@ -8,6 +8,8 @@ import Post from "components/Post";
 import DeadlineP from "components/DeadlineP";
 import Card from "components/Card";
 
+import { useMediaQuery } from "react-responsive";
+
 import { actionCreators as headerActions } from "redux/modules/header";
 
 const Home = (props) => {

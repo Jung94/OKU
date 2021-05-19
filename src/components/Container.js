@@ -13,9 +13,26 @@ import { Timer } from "components/";
 import Slider from "react-slick";
 import { input_priceComma } from "shared/common";
 
+import { useMediaQuery } from "react-responsive";
+
 import leftIcon from "images/chevronLeftSolid.svg";
 import rightIcon from "images/chevronRightSolid.svg";
 import { Color } from "shared/DesignSys";
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  return isDesktop ? children : null;
+};
+
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  return isTablet ? children : null;
+};
+
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  return isMobile ? children : null;
+};
 
 // 왼쪽
 function PrevArrow(props) {
@@ -27,7 +44,7 @@ function PrevArrow(props) {
         ...style,
         display: "block",
         zIndex: "999",
-        left: "25%",
+        left: "30%",
         color: Color.Dark_4,
         fontSize: "5rem",
         content: `url(${leftIcon})`,
@@ -47,7 +64,7 @@ function NextArrow(props) {
         ...style,
         display: "block",
         zIndex: "999",
-        right: "25%",
+        right: "30%",
         color: Color.Dark_4,
         fontSize: "5rem",
         content: `url(${rightIcon})`,
@@ -150,7 +167,7 @@ const Container = (props) => {
     draggable: false,
     className: "center",
     centerMode: true,
-    centerPadding: "20%",
+    centerPadding: "31%",
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
 
@@ -176,9 +193,21 @@ const Container = (props) => {
           prevArrow: <PrevArrow_ />,
         },
       },
+      {
+        breakpoint: 429, // 화면 사이즈 429px
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          centerMode: false,
+          nextArrow: <NextArrow_ />,
+          prevArrow: <PrevArrow_ />,
+        },
+      },
     ],
   };
   return (
+    <>
+    <Desktop>
     <Main>
       <Box>
         <div style={{ margin: "0px 50px 50px" }}>
@@ -202,6 +231,18 @@ const Container = (props) => {
         </div>
       </Box>
     </Main>
+    </Desktop>
+
+    <Tablet>
+
+    </Tablet>
+    
+    <Mobile>
+    <Main>
+      asd
+    </Main>
+    </Mobile>
+    </>
   );
 };
 
@@ -240,9 +281,13 @@ const RightArrow_ = styled.div`
   position: absolute;
   top: 50%;
 `;
+
 const Main = styled.div`
   text-align: center;
-  margin: 200px 0;
+  margin: 180px 0;
+  .slick-dots {
+    /* margin: 10px 0; */
+  }
   .slick-dots li button:before {
     color: #ae00ff;
   }
@@ -257,6 +302,9 @@ const Main = styled.div`
     -moz-transform: scale(0.75);
     transform: scale(0.75);
   }
+  // @media only screen and (max-width: 767px) {
+  //   width : 100%;
+  // }
 `;
 
 const Box = styled.div``;

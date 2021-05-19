@@ -75,7 +75,7 @@ const Edit = (props) => {
             }}
           />
           <Button _onClick={editProfile} width="75%" margin="0 auto 9% auto">
-            정보 수정하기
+            프로필사진 수정하기
           </Button>
         </EditBox>
       ) : (

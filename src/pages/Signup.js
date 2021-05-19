@@ -158,6 +158,26 @@ const Signup = (props) => {
   const _nick = useRef();
   const _ph = useRef();
 
+  const [messageEmail, setMessageEmail] = useState("");
+  const [messagePw, setMessagePw] = useState("");
+  const [messagePwCheck, setMessagePwCheck] = useState("");
+  const [messageNickname, setMessageNickname] = useState("");
+  const [messagePhone, setMessagePhone] = useState("");
+
+  // 이용약관 동의 체크박스
+  const [agree, setAgree] = useState(false);
+
+  // 이용약관 동의
+  const handleAgree = () => {
+    if (!email || !pw || !pwCheck || !nickName) {
+      window.alert("양식을 채워주세요!");
+    } else if (agree) {
+      setAgree(false);
+    } else {
+      setAgree(true);
+    }
+  };
+
   // 회원가입 버튼 클릭 시
   const signUp = () => {
     if (email === "") {
@@ -171,30 +191,20 @@ const Signup = (props) => {
       setMessagePwCheck("비밀번호를 한번 더 입력해주세요.");
     } else if (nickName === "") {
       _nick.current.focus();
-    } else if (phone === "") {
-      _ph.current.focus();
-    }
-
-    // if (email === "") {
-    //   _id.current.focus();
-    // } else if (email === "") {
-    //   _id.current.focus();
-    // } else if (email === "") {
-    //   _id.current.focus();
-    // } else if (email === "") {
-    //   _id.current.focus();
-    // } else if (email === "") {
-    //   _id.current.focus();
-    // } else if (email === "") {
-    //   _id.current.focus();
-    // } else if (pw !== pwCheck) {
-    //   alert("비밀번호를 확인해주세요.");
-    //   return;
-    // }
-    else if (!agree) {
+      setMessageNickname("닉네임을 입력해주세요.");
+    } else if (!agree) {
       alert("이용약관에 동의해 주시기 바랍니다.");
     } else {
-      dispatch(userActions.signupAPI(email, pw, pwCheck, nickName, phone));
+      dispatch(userActions.signupAPI(email, pw, pwCheck, nickName));
+    }
+  };
+
+  // 이메일 작성 없을 경우 또는 이메일 형식에 맞지 않을 경우, 포커스 아웃 되면 동작
+  const checkEm = () => {
+    if (email === "") {
+    } else if (!emailCheck(email)) {
+      setMessageEmail("이메일 형식에 맞게 작성해 주시기 바랍니다.");
+    } else if (checkEmailAPI(email)) {
     }
   };
 
@@ -226,24 +236,6 @@ const Signup = (props) => {
       });
   };
 
-  const [messageEmail, setMessageEmail] = useState("");
-  const [messagePw, setMessagePw] = useState("");
-  const [messagePwCheck, setMessagePwCheck] = useState("");
-  const [messageNickname, setMessageNickname] = useState("");
-  const [messagePhone, setMessagePhone] = useState("");
-
-  // 이용약관 동의 체크박스
-  const [agree, setAgree] = useState(false);
-
-  // 이메일 작성 없을 경우 또는 이메일 형식에 맞지 않을 경우, 포커스 아웃 되면 동작
-  const checkEm = () => {
-    if (email === "") {
-    } else if (!emailCheck(email)) {
-      setMessageEmail("이메일 형식에 맞게 작성해 주시기 바랍니다.");
-    } else if (checkEmailAPI(email)) {
-    }
-  };
-
   // 비밀번호 작성 없이 포커스 아웃 되었을 때
   const checkPw = () => {
     if (!pw) {
@@ -272,7 +264,11 @@ const Signup = (props) => {
   const checkNickname = () => {
     if (nickName === "") {
       setMessageNickname("");
-    } else {
+    } else if (nickName === null) {
+      console.log("null?");
+    } else if (nickName === false) {
+      console.log("false?");
+    } else if (nickName === null) {
       checkNicknameAPI(nickName);
     }
   };
@@ -414,11 +410,11 @@ const Signup = (props) => {
             {messageNickname}
           </Text>
 
-          <Text h4 marginB="0.25rem">
+          {/* <Text h4 marginB="0.25rem">
             전화번호
           </Text>
           <SignupBox>
-            {/* <FontAwesomeIcon icon={faPhone} color={Color.Light_3} /> */}
+            <FontAwesomeIcon icon={faPhone} color={Color.Light_3} />
             <SignupInput
               type="text"
               placeholder="PHONE NUMBER"
@@ -431,7 +427,7 @@ const Signup = (props) => {
           </SignupBox>
           <Text subBody color={Color.Primary} marginB="1rem">
             {messagePhone}
-          </Text>
+          </Text> */}
 
           {/* <SignupBox>
         <IconSpan>
@@ -463,19 +459,9 @@ const Signup = (props) => {
       <InfoUl ref={detailAddressInfo}>
         <li>{messageDetailAddress}</li>
       </InfoUl> */}
+
           <Grid is_flex column>
-            <Input
-              check
-              checked={agree}
-              _onClick={() => {
-                if (agree) {
-                  setAgree(false);
-                } else {
-                  setAgree(true);
-                }
-              }}
-              desc="회원가입시 OKU 이용약관에 동의해 주시기 바랍니다."
-            />
+            <Input check checked={agree} _onClick={handleAgree} desc="회원가입시 OKU 이용약관에 동의해 주시기 바랍니다." />
           </Grid>
           {agree ? (
             <Button noflex _onClick={signUp} width="100%" margin="1rem 0" height="50px">
@@ -522,7 +508,8 @@ const Box = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  min-height: 700px;
+  min-height: 580px;
+  margin-bottom: 60px;
   /* height: 95vh; */
   box-sizing: border-box;
 `;
