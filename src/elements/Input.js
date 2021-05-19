@@ -222,6 +222,7 @@ Input.defaultProps = {
 };
 
 const Inputsize = "14px"; // 내부 내용 폰트 사이즈
+const Inputsize_sm = "12px"; // 내부 내용 부속 폰트 사이즈
 
 // basic input form
 const InputBox = styled.div`
@@ -268,7 +269,7 @@ const InputBox = styled.div`
       align-items: center;
       font-size: ${Inputsize};
       font-weight: 400;
-      color: #c0c0c0;
+      color: ${Color.Holder};
     }
     &:focus {
       outline: none;
@@ -280,7 +281,7 @@ const InputBox = styled.div`
     font-weight: 500;
     align-items: center;
     padding: auto 0;
-    ${(props) => (props.adorn ? `width: 70px; color: #c0c0c0; font-size: 12px; text-align:right;` : `width: max-content; font-size: ${Inputsize};`)}
+    ${(props) => (props.adorn ? `width: 70px; color: ${Color.Holder}; font-size: ${Inputsize_sm}; text-align:right;` : `width: max-content; font-size: ${Inputsize};`)}
   }
 `;
 
@@ -411,7 +412,7 @@ const TextareaBox = styled.div`
       align-items: center;
       font-size: ${Inputsize};
 
-      color: #c0c0c0;
+      color: ${Color.Holder};
     }
     border: 0px;
     width: 100%;
