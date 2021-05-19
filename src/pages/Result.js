@@ -26,7 +26,13 @@ const ResultContainer = styled.div`
   margin: 170px auto 100px;
 
   @media only screen and (max-width : 767px) {
-    
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 1030px;
+    height: 100%;
+    gap: 10px;
+    margin: 100px auto 100px;
   }
 
   @media only screen and (min-width : 1824px) {
@@ -47,6 +53,16 @@ const ResultText = styled.div`
   & span {
     font-size: 1.25rem;
     font-weight: 700;
+  }
+
+  @media only screen and (max-width : 767px) {
+    text-align: center;
+    margin: 3rem 0;
+
+    & span {
+      font-size: 16px;
+      font-weight: 700;
+    }
   }
 `;
 

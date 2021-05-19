@@ -19,9 +19,9 @@ const SearchResult = (props) => {
   //     dispatch(productActions.getMoiveScroll());
   // };
 
-  useEffect(() => {
-    console.log(search_list);
-  }, [search_list]);
+  // useEffect(() => {
+  //   console.log(search_list);
+  // }, [search_list]);
 
   return (
     <ProductList>

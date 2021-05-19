@@ -6,8 +6,8 @@ import { Color } from "shared/DesignSys";
 
 const Button = (props) => {
   // disabled : 비활성화 모드
-  const { main, sub, _onClick, text, children, width, height, margin, disabled, needLogin, noflex } = props;
-  const styles = { onClick: _onClick, text: text, width: width, height: height, margin: margin, noflex: noflex };
+  const { main, sub, _onClick, text, children, width, height, margin, disabled, needLogin, noflex, size } = props;
+  const styles = { onClick: _onClick, text: text, width: width, height: height, margin: margin, noflex: noflex, size:size };
 
   if (disabled) {
     return (
@@ -50,6 +50,7 @@ Button.defaultProps = {
   margin: false,
   width: "max-content",
   height: "50px",
+  size: false,
 };
 
 const Btn = styled.button`
@@ -61,7 +62,7 @@ const Btn = styled.button`
   border-radius: 12px;
 
   color: ${(props) => props.contrast};
-  font-size: 17px;
+  font-size: ${(props) => (props.size ? props.size : "17px")};
   font-weight: 700;
 
   ${(props) => (props.noflex ? "" : "flex-grow: 1;")};
