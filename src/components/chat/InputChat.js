@@ -244,7 +244,7 @@ const Delivery = styled.button`
   font-weight: bold;
   background: #ae00ff;
   border: none;
-  border-radius: 16px;
+  border-radius: 12px;
   cursor: pointer;
   box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
 
@@ -271,7 +271,7 @@ const Exit = styled.button`
   font-weight: bold;
   background: #eaeaea;
   border: none;
-  border-radius: 16px;
+  border-radius: 12px;
   // cursor: pointer;
   box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
 
@@ -311,7 +311,7 @@ const Text = styled.textarea`
   width: 595px;
   height: 80px;
   background: #fff;
-  border-radius: 16px;
+  border-radius: 12px;
   border: 0.5px solid #c1c1c1;
   font-size: 16px;
   padding: 14px;
@@ -349,7 +349,7 @@ const Btn = styled.button`
   font-weight: bold;
   background: #ae00ff;
   border: none;
-  border-radius: 16px;
+  border-radius: 12px;
   cursor: pointer;
   box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
 

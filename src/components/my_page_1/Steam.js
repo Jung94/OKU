@@ -148,7 +148,7 @@ const Box = styled.div`
   padding: 10px;
   display: flex;
   background-color: ${Color.Light_1};
-  border-radius: 16px;
+  border-radius: 12px;
 `;
 
 const List = styled.div`

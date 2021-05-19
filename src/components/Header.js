@@ -217,7 +217,6 @@ const Header = (props) => {
 
       leftLogo.current.style.width = "0";
       leftLogo.current.style.marginRight = "0";
-
     } else if (window.scrollY > 150) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "999";
@@ -232,7 +231,6 @@ const Header = (props) => {
       leftLogo.current.style.maxWidth = "70px";
       leftLogo.current.style.width = "60px";
       leftLogo.current.style.marginRight = "3vw";
-
     }
   };
 
@@ -293,8 +291,8 @@ const Header = (props) => {
               />
             </Grid>
 
-            <Grid is_flex column height="100px" width="40%" >
-              <Grid is_flex gap="4%" justify="flex-end" margin="10px 2px 36px 0" ref={hide} >
+            <Grid is_flex column height="100px" width="40%">
+              <Grid is_flex gap="4%" justify="flex-end" margin="10px 2px 36px 0" ref={hide}>
                 <Text subBody color={Color.Dark_4}>
                   about OKU
                 </Text>
@@ -448,7 +446,216 @@ const Header = (props) => {
         </HeaderWrap>
       </Desktop>
 
-      <Tablet>Tablet</Tablet>
+      <Tablet>
+        {" "}
+        <HeaderWrap showHeader={showHeader} ref={navbox}>
+          <Fix ref={up}>
+            {/* 로고 */}
+
+            <img
+              ref={leftLogo}
+              alt="로고이미지"
+              style={{ alignItems: "center", width: "0px", marginBottom: "2px", justifyContent: "center" }}
+              src={MainLogo}
+              onClick={() => {
+                history.push("/");
+              }}
+            />
+
+            <Grid is_flex width="40%" alignItems="center">
+              {/* 카테고리 리스트 방식 */}
+              {/* <ListHover/> */}
+              <div style={{ width: "70px", fontSize: "14px", margin: "1px 0 0" }}>카테고리</div>
+              <ListBtn />
+              <Mainselectbox>
+                <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
+              </Mainselectbox>
+              {mainct === "" && (
+                <SubSelectbox>
+                  <Select placeholder="중분류" onClick={handleSubCategory} styles={customStyles} />
+                </SubSelectbox>
+              )}
+              {/* 2D일 때 */}
+              {mainct === "3D" && (
+                <SubSelectbox>
+                  <Select placeholder="중분류" onChange={handleSubCategory} options={D2CT} styles={customStyles} />
+                </SubSelectbox>
+              )}
+              {/* 3D일 때 */}
+              {mainct === "2D" && (
+                <SubSelectbox>
+                  <Select placeholder="중분류" onChange={handleSubCategory} options={D3CT} styles={customStyles} />
+                </SubSelectbox>
+              )}
+            </Grid>
+
+            <Grid is_flex justify="center" width="20%" margin="0 0 14px 0">
+              {/* 로고 */}
+              <img
+                ref={hide}
+                alt="로고이미지"
+                style={{ width: "110px", margin: "10px 0 0" }}
+                src={MainLogo}
+                onClick={() => {
+                  history.push("/");
+                }}
+              />
+            </Grid>
+
+            <Grid is_flex column height="100px" width="40%">
+              <Grid is_flex gap="4%" justify="flex-end" margin="10px 2px 36px 0" ref={hide}>
+                <Text subBody color={Color.Dark_4}>
+                  about OKU
+                </Text>
+                <Text subBody color={Color.Dark_4}>
+                  about Team
+                </Text>
+
+                {/* 개인정보기능 */}
+                {/* 로그인 전 */}
+                {!is_login && (
+                  <div style={{ display: "flex" }}>
+                    <Text
+                      subBody
+                      color={Color.Dark_4}
+                      onClick={() => {
+                        history.push("/Signup");
+                      }}
+                    >
+                      회원가입
+                    </Text>
+                    <p style={{ fontSize: "12px", color: "#868686" }}>&thinsp;/&thinsp;</p>
+                    <Text
+                      subBody
+                      color={Color.Dark_4}
+                      onClick={() => {
+                        history.push("/Login");
+                      }}
+                    >
+                      로그인
+                    </Text>
+                  </div>
+                )}
+                {/* 로그인 후  */}
+                {is_login && (
+                  <>
+                    <Text subBody color={Color.Dark_4} onClick={logout}>
+                      로그아웃
+                    </Text>
+                    <Text subBody color={Color.Dark_4} onClick={() => history.push("/my/shopping")}>
+                      마이페이지
+                    </Text>
+                  </>
+                )}
+              </Grid>
+
+              <Grid is_flex justify="flex-end" margin="0 0 1px">
+                {/* 기능버튼 */}
+                <div style={{ margin: "0", minHeight: "40px", width: "90%", display: "flex", alignItems: "center", position: "relative" }}>
+                  <SearchWrap>
+                    <Search
+                      ref={lengthen}
+                      type="text"
+                      placeholder="검색하기"
+                      onChange={(e) => {
+                        setKeyword(e.target.value);
+                      }}
+                      onKeyPress={(e) => {
+                        if (window.event.keyCode === 13) {
+                          SearchProduct();
+                        }
+                      }}
+                    />
+                  </SearchWrap>
+                  <Img src={IconSearch} />
+                </div>
+
+                <IconWrap>
+                  <Ring>
+                    <DetailRing />
+                  </Ring>
+
+                  {!is_login && (
+                    <>
+                      <Grid
+                        className="block pointer"
+                        width="max-content"
+                        padding="0 14px 1px"
+                        is_flex
+                        gap="9px"
+                        __click={() => {
+                          history.push("/login");
+                        }}
+                      >
+                        <ImgChat src={IconChat} />
+                        <Text h4>채팅</Text>
+                      </Grid>
+                    </>
+                  )}
+
+                  {is_login && (
+                    <>
+                      <Grid
+                        // bdr="1px solid red"
+                        height="34px"
+                        className="block pointer"
+                        width="max-content"
+                        padding="0 14px 1px"
+                        is_flex
+                        gap="9px"
+                        __click={() => {
+                          history.push("/chat");
+                        }}
+                      >
+                        <ImgChat src={IconChat} />
+                        <Text h4>채팅</Text>
+                      </Grid>
+                    </>
+                  )}
+
+                  {!is_login && (
+                    <>
+                      <Grid
+                        className="pointer"
+                        width="max-content"
+                        padding="0 0 1px 14px"
+                        is_flex
+                        gap="9px"
+                        __click={() => {
+                          history.push("/login");
+                        }}
+                      >
+                        <ImgUpload src={IconUpload} />
+                        <Text h4>물건등록</Text>
+                      </Grid>
+                    </>
+                  )}
+
+                  {is_login && (
+                    <>
+                      <Grid
+                        // bdr="1px solid red"
+                        height="34px"
+                        className="pointer"
+                        width="max-content"
+                        padding="0 0 1px 14px"
+                        is_flex
+                        gap="9px"
+                        __click={() => {
+                          history.push("/ProductUpload");
+                        }}
+                      >
+                        <ImgUpload src={IconUpload} />
+                        <Text h4>물건등록</Text>
+                      </Grid>
+                    </>
+                  )}
+                </IconWrap>
+              </Grid>
+            </Grid>
+          </Fix>
+        </HeaderWrap>
+      </Tablet>
 
       <Mobile>
         <HeaderWrap showHeader={showHeader} ref={navbox}>
@@ -780,9 +987,7 @@ const Img = styled.div`
 
 // 검색 input
 const Search = styled.input`
-
   @media only screen and (min-width: 1024px) {
-
     background-color: transparent;
     width: 70%;
     height: 28px;
@@ -801,7 +1006,7 @@ const Search = styled.input`
     :focus {
       outline: none;
       width: 90%;
-    } 
+    }
   }
 
   @media only screen and (max-width: 767px) {

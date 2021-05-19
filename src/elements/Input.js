@@ -103,7 +103,7 @@ const Input = (props) => {
           {children}
         </input>
         <span className="checkmark" />
-        <div>&ensp;{value && value}&ensp;</div>
+        <Text h4>{value && value}</Text>
         <Text subBody color={Color.Dark_4} margin="5px 0">
           {desc}
         </Text>
@@ -147,7 +147,7 @@ const Input = (props) => {
           {children}
         </input>
         <div>
-          {value && <>&ensp;{value}</>}&ensp;
+          <Text h4>{value && value}</Text>
           <Text subBody color={Color.Dark_4}>
             {desc}
           </Text>
@@ -222,12 +222,13 @@ Input.defaultProps = {
 };
 
 const Inputsize = "14px"; // 내부 내용 폰트 사이즈
+const Inputsize_money = "18px"; // 내부 내용 폰트 사이즈
 const Inputsize_sm = "12px"; // 내부 내용 부속 폰트 사이즈
 
-// basic input form
+// basic input
 const InputBox = styled.div`
   width: ${(props) => (props.width ? props.width : "")};
-  height: ${(props) => (props.height ? props.height : "50px")};
+  height: ${(props) => (props.height ? props.height : "45px")};
   margin: ${(props) => (props.width ? props.margin : "")};
   border: 1px solid ${Color.Light_3};
   border-radius: 12px;
@@ -241,11 +242,12 @@ const InputBox = styled.div`
   // grey backColor input
   ${(props) =>
     props.output
-      ? `background-color: ${Color.Light_3}; user-select: none; height: 50px;`
+      ? `background-color: ${Color.Light_3}; user-select: none; `
       : `background-color: transparent;
       &:focus-within {
     border: 1px solid ${Color.Primary};
     box-shadow: 0 0 0 3px ${Color.Primary}33;
+    user-select: none;
   }`}
 
   input {
@@ -262,7 +264,7 @@ const InputBox = styled.div`
     font-size: ${Inputsize};
 
     ${(props) => (props.center ? `font-size: ${Inputsize}; text-align: center;` : props.left ? `font-size: ${Inputsize}; text-align: left;` : `font-size: ${Inputsize};`)}
-    ${(props) => (props.num ? `text-align: right; ` : "")}
+    ${(props) => (props.num ? `text-align: right; font-size: ${Inputsize_money};` : "")}
 
     ::placeholder {
       text-align: left;
@@ -281,19 +283,25 @@ const InputBox = styled.div`
     font-weight: 500;
     align-items: center;
     padding: auto 0;
+    margin-bottom: -1px;
     ${(props) => (props.adorn ? `width: 70px; color: ${Color.Holder}; font-size: ${Inputsize_sm}; text-align:right;` : `width: max-content; font-size: ${Inputsize};`)}
   }
 `;
 
+// radio input
 const RadioCheck = styled.label`
-  align-items: center;
-  display: flex;
-  flex-wrap: wrap;
+  // text drag 방지
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
   transition: background-color 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
   :hover {
     svg {
       box-shadow: 0 0 0 3px ${Color.Primary}33;
@@ -303,10 +311,12 @@ const RadioCheck = styled.label`
       background-color: ${Color.Light_2};
     }
   }
+
   input {
     opacity: 0;
     height: 0;
     width: 0;
+
     &:focus {
       outline: none;
     }
@@ -315,28 +325,34 @@ const RadioCheck = styled.label`
       border: 7px solid ${Color.Primary};
     }
   }
+
   // checkmark
   span {
     display: block;
     align-items: center;
 
-    height: 20px;
     width: 20px;
-    background-color: ${Color.Light_3};
+    height: 20px;
+
     border-radius: 50%;
+    background-color: ${Color.Light_3};
+
     transition: box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
     :hover {
       box-shadow: 0 0 0 3px ${Color.Primary}33;
     }
   }
-  // desc
-  div {
+
+  // {value}로 받음
+  div:nth-child(1) {
+    margin-left: 10px;
     display: flex;
     align-items: center;
-    //회색글씨
-    div {
-      flex-wrap: wrap;
-    }
+  }
+  // {desc}로 받음
+  div:nth-child(2) {
+    font-size: ${Inputsize_sm};
+    flex-wrap: wrap;
   }
 `;
 
@@ -357,6 +373,7 @@ const CheckBox = styled.label`
       background-color: ${Color.Light_2};
     }
   }
+
   input {
     opacity: 0;
     height: 0;
@@ -365,19 +382,22 @@ const CheckBox = styled.label`
       outline: none;
     }
   }
+
   svg {
     display: flex;
     align-items: center;
     border-radius: 7px;
-    height: 20px;
-    width: 20px;
+    height: 18px;
+    width: 18px;
     transition: box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
     :hover {
       box-shadow: 0 0 0 3px ${Color.Primary}33;
     }
   }
-  // desc
+
+  // {value}로 받음
   div {
+    margin-left: 10px;
     display: flex;
     align-items: center;
   }
@@ -385,9 +405,10 @@ const CheckBox = styled.label`
 
 const TextareaBox = styled.div`
   width: ${(props) => (props.width ? props.width : "")};
-  height: ${(props) => (props.height ? props.height : "178px")};
-  margin: ${(props) => (props.margin ? props.margin : "")};
+  height: ${(props) => (props.height ? props.height : "160px")};
   min-height: 100px;
+  margin: ${(props) => (props.margin ? props.margin : "")};
+
   border: 1px solid ${Color.Light_3};
   display: flex;
   flex-direction: column;
@@ -397,23 +418,16 @@ const TextareaBox = styled.div`
   box-sizing: border-box;
 
   transition: border 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  ${(props) => (props.output ? `background-color: ${Color.Light_3}; user-select: none; height: 50px;` : "background-color: white;")}
+
   &:focus-within {
     border: 1px solid ${Color.Primary};
     box-shadow: 0 0 0 3px ${Color.Primary}33;
   }
+
   textarea {
     ${(props) => (props.fix ? `resize: none;` : "")}
-    resize: none;
     box-sizing: border-box;
     width: 100%;
-    ::placeholder {
-      text-align: left;
-      align-items: center;
-      font-size: ${Inputsize};
-
-      color: ${Color.Holder};
-    }
     border: 0px;
     width: 100%;
     max-width: 100%;
@@ -424,6 +438,13 @@ const TextareaBox = styled.div`
     font-weight: 400;
     font-size: ${Inputsize};
     ${(props) => (props.num ? "text-align: right;" : "")}
+    ::placeholder {
+      text-align: left;
+      align-items: center;
+      font-size: ${Inputsize};
+
+      color: ${Color.Holder};
+    }
     &:focus {
       outline: none;
     }
@@ -438,9 +459,9 @@ const Btn = styled.div`
   display: inline-flex;
   justify-content: flex-end;
   align-items: center;
-  margin: 10px 0 0 auto;
+  margin: 10px -15px 0 auto;
   button {
-    width: 50%;
+    width: 20%;
     font-size: ${Inputsize};
     height: 40px;
   }

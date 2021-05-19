@@ -33,6 +33,8 @@ const QnA = (props) => {
 
   const [openPost, setOpen] = useState(false);
 
+  const [ACnt, setACnt] = useState(""); // 문의 답글
+
   if (noProfile) {
     return (
       <QnAWrap>
@@ -54,7 +56,7 @@ const QnA = (props) => {
               </Text>
             </Grid>
             <Grid is_flex textAlign="left">
-              {contents}
+              <Text h4>{contents}</Text>
             </Grid>
 
             {answer && (
@@ -98,10 +100,16 @@ const QnA = (props) => {
                 <QnAPost openPost>
                   <Input
                     text
-                    fnc={addAnswer}
+                    fix
+                    adornment={`${ACnt.length} / 500`}
                     plcholder={answer ? "문의 답글을 수정합니다." : "답변을 작성해주세요! 가장 마지막에 남긴 글만 등록됩니다."}
                     width="100%"
-                    _onChange={onChangeContents}
+                    fnc={addAnswer}
+                    _onChange={(e) => {
+                      setAnswer(e.target.value);
+                      setACnt(e.target.value);
+                    }}
+                    maxLength="500"
                     btn={answer ? "수정하기" : "등록하기"}
                   ></Input>
                 </QnAPost>
@@ -119,7 +127,7 @@ const QnA = (props) => {
         <Profile img={buyerprofile || profileImg} size="50px" margin="0 15px 0 0" />
 
         <Grid is_flex column>
-          <Grid is_flex justify="space-between" margin="1px 0 5px 0">
+          <Grid is_flex justify="space-between" margin="2.5px 0 5px 0">
             {sellernickname === buyernickname ? (
               <IfSeller>
                 {buyernickname}
@@ -135,7 +143,7 @@ const QnA = (props) => {
             </Text>
           </Grid>
           <Grid is_flex textAlign="left">
-            {contents}
+            <Text h4>{contents}</Text>
           </Grid>
 
           {answer && (
@@ -179,10 +187,16 @@ const QnA = (props) => {
               <QnAPost openPost>
                 <Input
                   text
-                  fnc={addAnswer}
+                  fix
+                  adornment={`${ACnt.length} / 500`}
                   plcholder={answer ? "문의 답글을 수정합니다." : "답변을 작성해주세요! 가장 마지막에 남긴 글만 등록됩니다."}
                   width="100%"
-                  _onChange={onChangeContents}
+                  fnc={addAnswer}
+                  _onChange={(e) => {
+                    setAnswer(e.target.value);
+                    setACnt(e.target.value);
+                  }}
+                  maxLength="500"
                   btn={answer ? "수정하기" : "등록하기"}
                 ></Input>
               </QnAPost>
@@ -208,7 +222,7 @@ const QnAWrap = styled.div`
   padding: 21px 25px;
   flex-direction: column;
   background-color: ${Color.Light_3};
-  border-radius: 16px;
+  border-radius: 12px;
   margin-bottom: 10px;
 `;
 
@@ -217,13 +231,13 @@ const AnswerWrap = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${Color.Light_3};
-  border-radius: 16px;
+  border-radius: 12px;
   margin-top: 10px;
-  margin-bottom: 10px;
 `;
 
 // 문의글 남긴 사람이 판매자일때
 const IfSeller = styled.div`
+  font-size: 14px;
   font-weight: 700;
   span {
     margin-left: 5px;

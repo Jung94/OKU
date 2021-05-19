@@ -7,7 +7,7 @@ import { Color } from "shared/DesignSys";
 const Button = (props) => {
   // disabled : 비활성화 모드
   const { main, sub, _onClick, text, children, width, height, margin, disabled, needLogin, noflex, size } = props;
-  const styles = { onClick: _onClick, text: text, width: width, height: height, margin: margin, noflex: noflex, size:size };
+  const styles = { onClick: _onClick, text: text, width: width, height: height, margin: margin, noflex: noflex, size: size };
 
   if (disabled) {
     return (
@@ -49,7 +49,7 @@ Button.defaultProps = {
   _onClick: () => {},
   margin: false,
   width: "max-content",
-  height: "50px",
+  height: "45px",
   size: false,
 };
 
@@ -85,11 +85,34 @@ const Btn = styled.button`
       color: ${(props) => props.color};
     }
   }
+
   &:active {
     box-shadow: 0 0 0 3px ${Color.Primary}33;
   }
   svg {
     color: ${(props) => props.contrast};
+  }
+
+  @media only screen and (max-width: 767px) {
+    &:hover {
+      background-color: ${(props) => props.color};
+      color: ${(props) => props.contrast};
+      border: 1px solid ${Color.Primary};
+      box-shadow: 0 0 0 3px ${Color.Primary}00;
+      svg {
+        color: ${(props) => props.color};
+      }
+    }
+
+    &:active {
+      background-color: ${(props) => props.contrast};
+      color: ${(props) => props.color};
+      border: 1px solid ${Color.Primary};
+      box-shadow: 0 0 0 3px ${Color.Primary}33;
+      svg {
+        color: ${(props) => props.color};
+      }
+    }
   }
 `;
 
@@ -107,7 +130,7 @@ const BtnDisabled = styled.button`
 
   ${(props) => (props.noflex ? "" : "flex-grow: 1;")};
 
-  height: ${(props) => props.height};
+  height: ${(props) => (props.height ? props.height : "45px")};
   width: ${(props) => props.width};
   box-sizing: border-box;
 
@@ -134,7 +157,7 @@ const BtnNotLogin = styled.button`
 
   ${(props) => (props.noflex ? "" : "flex-grow: 1;")};
 
-  height: ${(props) => props.height};
+  height: ${(props) => (props.height ? props.height : "45px")};
   width: ${(props) => props.width};
   box-sizing: border-box;
 

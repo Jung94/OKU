@@ -140,7 +140,7 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${Color.Light_1};
-  border-radius: 16px;
+  border-radius: 12px;
   & button {
     align-items: center;
     margin: 20px auto 0;
@@ -165,7 +165,7 @@ const Card = styled.div`
   width: 220px;
   height: 220px;
   img {
-    border-radius: 16px;
+    border-radius: 12px;
     width: 220px;
     height: 220px;
     object-fit: cover;

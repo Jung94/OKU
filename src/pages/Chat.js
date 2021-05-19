@@ -201,7 +201,11 @@ const MainLeft = styled.section`
   height: 729.4px;
   display: block;
   box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.2);
-  border-radius: 16px;
+  border-radius: 12px;
+  //   @media only screen and (max-width: 375px) {
+  //     display: ${(props) => (props.toggle ? "block" : "none")};
+  //     flex-basis: ${(props) => (props.toggle ? "100%" : "0%")};
+  //   }
 `;
 
 const MainBtn = styled.div`
@@ -222,7 +226,7 @@ const MainRight = styled.section`
   height: 729.4px;
   background: #fff;
   box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.2);
-  border-radius: 16px;
+  border-radius: 12px;
   position: relative;
 `;
 

@@ -202,8 +202,7 @@ const Login = (props) => {
           <KakaoBtn
             href="http://13.124.55.186/user/kakao"
             // token={KAKAO_JS_ID} render={(props) => <KakaoBtn onClick={props.onClick}></KakaoBtn>} onSuccess={kakaoLoginClickHandler} getProfile={true}
-          >
-          </KakaoBtn>
+          ></KakaoBtn>
           {/* <Google/> */}
         </SocialBox>
         <Text subBody textAlign="center" marginT="1rem" color={Color.Dark_4}>
@@ -278,7 +277,7 @@ const KakaoBtn = styled.a`
   width: 100%;
   height: 50px;
   background-color: #fee500;
-  border-radius: 16px;
+  border-radius: 12px;
   background-image: url("kakao_login_large_wide.png");
   background-size: 100%;
   background-position: center;

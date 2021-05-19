@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 import DaumPostcode from "react-daum-postcode";
-import { actionCreators as chatActions } from 'redux/modules/chat';
+import { actionCreators as chatActions } from "redux/modules/chat";
 
 const Btns = (props) => {
-
   const [region, setRegion] = useState("");
   const [isPostOpen, setIsPostOpen] = useState(false); // 주소창 열고 닫기
   // 우편번호 / 주소 찾기
@@ -24,16 +23,19 @@ const Btns = (props) => {
     setRegion(fullAddress);
     setIsPostOpen(false);
   };
-  
+
   return (
     <>
       <BtnBox>
-        <Delivery text="주소 검색" onClick={() => { setIsPostOpen(true);}}>
+        <Delivery
+          text="주소 검색"
+          onClick={() => {
+            setIsPostOpen(true);
+          }}
+        >
           배송 정보 보내기
         </Delivery>
-        <Exit>
-          거래 종료하기
-        </Exit>
+        <Exit>거래 종료하기</Exit>
       </BtnBox>
       {isPostOpen && (
         <Modal>
@@ -102,7 +104,7 @@ const Delivery = styled.button`
   font-weight: bold;
   background: #ae00ff;
   border: none;
-  border-radius: 16px;
+  border-radius: 12px;
   cursor: pointer;
   box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
 `;
@@ -115,7 +117,7 @@ const Exit = styled.button`
   font-weight: bold;
   background: #ae00ff;
   border: none;
-  border-radius: 16px;
+  border-radius: 12px;
   cursor: pointer;
   box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
 `;

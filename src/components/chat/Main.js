@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import MainChat from './MainChat';
+import React from "react";
+import styled from "styled-components";
+import MainChat from "./MainChat";
 
-const Main = ({targetName}) => {
+const Main = ({ targetName }) => {
   // 채팅 리스트 상위 컴포넌트
   return (
     <>
@@ -11,10 +11,10 @@ const Main = ({targetName}) => {
       </Wrap>
     </>
   );
-}
+};
 
 const Wrap = styled.div`
-//   border: 1px solid red;
+  //   border: 1px solid red;
   width: 744px;
   height: 538px;
   border-radius: 16px;

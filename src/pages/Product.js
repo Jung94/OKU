@@ -109,30 +109,34 @@ const Product = (props) => {
     }
   };
 
+  const [QCnt, setQCnt] = useState(""); // QnA
+
   if (productOK) {
     return (
       <>
         <Desktop>
           <ProductWrap ref={startpoint}>
             {/* <div onMouseOver={helpPop}></div> */}
-            <Grid dp_flex margin="0 0 20px 0">
-              <Grid width="66%" margin="0 10px 0 0">
+            {/* 💎 1단 : 상품사진 & 입찰표 */}
+            <Grid end_flex margin="0 0 20px 0" height="600px" gap="20px">
+              {/* 상품사진 */}
+              <SliderWrap>
                 <Slider imgList={img} />
-              </Grid>
-
-              <Grid width="33%" margin="0 0 0 10px">
+              </SliderWrap>
+              {/* 입찰표 */}
+              <Grid width="40%">
+                {/* 타이머 */}
                 <Grid textAlign="center" justify="space-between" margin="0 0 30px 0">
-                  <Text h2>
+                  <Text h1>
                     <Timer all {...productOK} purple />
                   </Text>
                   <Timer timeProgress {...productOK} />
                 </Grid>
-
+                {/* 제목 */}
                 <Grid height="100px" margin="0 0 10px 0" overflow="hidden" wordBreak="break-all">
-                  <Text h2 bold>
-                    {title}
-                  </Text>
+                  <Text h1>{title}</Text>
                 </Grid>
+                {/* 입찰표 */}
                 <BidLabel>
                   <Text h4 textAlign="right" marginB="2px">
                     현재 입찰 가격
@@ -152,14 +156,14 @@ const Product = (props) => {
                     <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                   </Text>
                   <Input output num value={lowBid && priceComma(lowBid)} adornment="원" />
-                  <Grid height="10px"></Grid>
+                  <Grid height="10px" />
 
                   <Text h4 lineHeight="220%">
                     즉시 낙찰가
                     <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                   </Text>
                   <Input output num value={sucBid && priceComma(sucBid)} adornment="원" />
-                  <Grid height="50px">
+                  <Grid height="40px">
                     <Text subBody textAlign="right" color={Color.Dark_4} lineHeight="220%">
                       * 이 가격을 제안하면 즉시 구매 가능합니다.
                     </Text>
@@ -167,21 +171,21 @@ const Product = (props) => {
                   <Grid is_flex>
                     <Modal bid {...productOK} />
                   </Grid>
-                  <Grid is_flex>
+                  <Grid is_flex gap="10px" margin="10px 0 0 0">
                     {is_login ? (
                       _is_like ? (
-                        <Button main _onClick={() => userLike(_id)} margin="0 5px 0 0">
+                        <Button main _onClick={() => userLike(_id)}>
                           <FontAwesomeIcon icon={fasHeart} />
                           &thinsp;찜
                         </Button>
                       ) : (
-                        <Button sub _onClick={() => userLike(_id)} margin="0 5px 0 0">
+                        <Button sub _onClick={() => userLike(_id)}>
                           <FontAwesomeIcon icon={farHeart} />
                           &thinsp;찜
                         </Button>
                       )
                     ) : (
-                      <Button sub disabled _onClick={() => userLike(_id)} margin="0 5px 0 0">
+                      <Button sub disabled _onClick={() => userLike(_id)}>
                         <FontAwesomeIcon icon={farHeart} />
                         &thinsp;찜
                       </Button>
@@ -192,8 +196,10 @@ const Product = (props) => {
               </Grid>
             </Grid>
 
-            <Grid dp_flex margin="0 0 20px 0">
-              <Grid width="66%" margin="0 10px 0 0">
+            {/* 💎 2단 : 상품정보 & 실시간 입찰 정보 */}
+            <Grid dp_flex margin="0 0 20px 0" gap="20px">
+              {/* 💎 상품정보 */}
+              <Grid width="73%">
                 <Text h3 color={Color.Primary} marginB="10px">
                   상품정보
                 </Text>
@@ -203,28 +209,28 @@ const Product = (props) => {
                       카테고리
                       <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                     </Text>
-                    <Input outputcentervalue={`${bigCategory} > ${smallCategory}`} />
+                    <Input output center value={`${bigCategory} > ${smallCategory}`} />
                   </Grid>
                   <Grid flexShrink="4" margin="0 10px 0 0">
                     <Text h4 textAlign="left" marginB="5%">
                       상품상태
                       <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                     </Text>
-                    <Input outputcentervalue={state && state.split("급")[0]} adornment="급" />
+                    <Input output center value={state && state.split("급")[0]} adornment="급" />
                   </Grid>
                   {region && (
                     <Grid flexShrink="1" margin="0 10px 0 0">
                       <Text h4 textAlign="left" marginB="5%">
                         거래 지역
                       </Text>
-                      <Input outputcentervalue={region} />
+                      <Input output center value={region} />
                     </Grid>
                   )}
-                  <Grid flexShrink="2" margin="0 10px 0 0">
+                  <Grid flexShrink="2">
                     <Text h4 textAlign="left" marginB="5%">
                       배송 수단
                     </Text>
-                    <Input outputcentervalue={deliveryPrice === true ? "배송비 별도" : "무료 배송"} />
+                    <Input output center value={deliveryPrice === true ? "배송비 별도" : "무료 배송"} />
                   </Grid>
                 </Grid>
                 <Line bottom margin="10px 0" />
@@ -235,13 +241,13 @@ const Product = (props) => {
                 <TagWrap>{tag && tag.map((t, idx) => <Tag key={idx}>{t}</Tag>)}</TagWrap>
               </Grid>
 
-              <Grid width="33%" margin="0 0 0 10px">
+              {/* 💎 실시간 입찰 정보 */}
+              <Grid width="27%">
                 <Text h3 color={Color.Primary} marginB="10px">
                   실시간 입찰 정보
                   <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                 </Text>
 
-                {/* 실시간 입찰 정보 */}
                 {_bid_list && _bid_list.length > 0 ? (
                   _bid_list.map((b, idx) => {
                     return (
@@ -252,7 +258,7 @@ const Product = (props) => {
                         <Text h4 textAlign="right" flexGrow="6" margin="0 2% 0 0">
                           {priceComma(b.bid)}&thinsp;원
                         </Text>
-                        <Text subBody width="34px" textAlign="right" marginT="auto" marginB="auto" color={Color.Dark_4} flexGrow="1">
+                        <Text subBody width="34px" textAlign="right" color={Color.Dark_4} flexGrow="1">
                           {moment(b.createAt).fromNow()}
                         </Text>
                       </LiveBid>
@@ -267,8 +273,9 @@ const Product = (props) => {
               </Grid>
             </Grid>
 
+            {/* 💎 3단 : 관련상품 & 판매자 정보 */}
             <Grid dp_flex margin="0 0 20px 0">
-              <Grid width="66%" margin="0 10px 0 0">
+              <Grid width="73%" margin="0 10px 0 0">
                 <Text h3 color={Color.Primary} marginB="10px">
                   관련 상품
                 </Text>
@@ -290,7 +297,7 @@ const Product = (props) => {
                 </Grid>
               </Grid>
 
-              <Grid width="33%" margin="0 0 0 0px">
+              <Grid width="27%" margin="0 0 0 0px">
                 <Text h3 color={Color.Primary} marginB="10px">
                   판매자 정보
                 </Text>
@@ -303,13 +310,14 @@ const Product = (props) => {
                       </Text>
                     </div>
                   </Grid>
-                  <Button disabled width="100%" _onClick={() => window.alert("서비스 준비중입니다.")}>
+                  <Button disabled noflex width="100%" _onClick={() => window.alert("서비스 준비중입니다.")}>
                     상점으로 이동하기&ensp;{">"}
                   </Button>
                 </Seller>
               </Grid>
             </Grid>
 
+            {/* 💎 4단 : Q&A */}
             <Grid is_flex column margin="0 0 10px 0">
               <Grid>
                 <Text h3 color={Color.Primary} marginB="10px">
@@ -319,13 +327,16 @@ const Product = (props) => {
               <Grid margin="0 0 10px 0">
                 <Input
                   text
+                  fix
                   width="100%"
                   margin="0 0 10px 0"
-                  height="250px"
                   plcholder="문의 내용을 입력해주세요."
-                  adornment="0 / 100"
-                  _onChange={onChangeContents}
-                  value={_contents}
+                  adornment={`${QCnt.length} / 500`}
+                  maxLength="500"
+                  _onChange={(e) => {
+                    setReview(e.target.value);
+                    setQCnt(e.target.value);
+                  }}
                   fnc={addQuestion}
                   btn="등록하기"
                 ></Input>
@@ -342,22 +353,21 @@ const Product = (props) => {
         <Mobile>
           <ProductWrap ref={startpoint}>
             {/* <div onMouseOver={helpPop}></div> */}
-            {/* 타이머 */}
+            {/* 💎 타이머 */}
             <Grid textAlign="center" justify="space-between" padding="0 30px">
-              <Text h2 marginB="5px">
+              <Text h1 marginB="5px">
                 <Timer all {...productOK} purple />
               </Text>
               <Timer timeProgress {...productOK} />
             </Grid>
 
+            {/* 💎 슬라이더 */}
             <SliderWrap>
-              <Grid width="100%" height="95vw">
-                <Slider noRadius imgList={img} />
-              </Grid>
+              <Slider noRadius imgList={img} />
             </SliderWrap>
 
             <BidLabel>
-              <Text h2 bold marginB="1rem">
+              <Text h1 bold marginB="1rem">
                 {title}
               </Text>
               <Text h4 textAlign="right" marginB="2px">
@@ -390,24 +400,24 @@ const Product = (props) => {
                   * 이 가격을 제안하면 즉시 구매 가능합니다.
                 </Text>
               </Grid>
-              <Grid is_flex margin="-10px 0 0 0">
+              <Grid is_flex margin="0 0 10px 0">
                 <Modal bid {...productOK} />
               </Grid>
-              <Grid is_flex margin="-10px 0 0 0">
+              <Grid is_flex gap="10px">
                 {is_login ? (
                   _is_like ? (
-                    <Button main _onClick={() => userLike(_id)} margin="0 5px 0 0">
+                    <Button main _onClick={() => userLike(_id)} width="30%">
                       <FontAwesomeIcon icon={fasHeart} />
                       &thinsp;찜
                     </Button>
                   ) : (
-                    <Button sub _onClick={() => userLike(_id)} margin="0 5px 0 0">
+                    <Button sub _onClick={() => userLike(_id)} width="30%">
                       <FontAwesomeIcon icon={farHeart} />
                       &thinsp;찜
                     </Button>
                   )
                 ) : (
-                  <Button sub disabled _onClick={() => userLike(_id)} margin="0 5px 0 0">
+                  <Button sub disabled _onClick={() => userLike(_id)} width="30%">
                     <FontAwesomeIcon icon={farHeart} />
                     &thinsp;찜
                   </Button>
@@ -427,14 +437,14 @@ const Product = (props) => {
                     카테고리
                     <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                   </Text>
-                  <Input outputcentervalue={`${bigCategory} > ${smallCategory}`} />
+                  <Input output center value={`${bigCategory} > ${smallCategory}`} />
                 </Grid>
                 <Grid width="50%">
                   <Text h4 textAlign="left" marginB="0.5rem">
                     상품상태
                     <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                   </Text>
-                  <Input outputcentervalue={state && state.split("급")[0]} adornment="급" />
+                  <Input output center value={state && state.split("급")[0]} adornment="급" />
                 </Grid>
               </Grid>
 
@@ -444,14 +454,14 @@ const Product = (props) => {
                     <Text h4 textAlign="left" marginB="0.5rem">
                       거래 지역
                     </Text>
-                    <Input outputcentervalue={region} />
+                    <Input output center value={region} />
                   </Grid>
                 )}
                 <Grid width="50%">
                   <Text h4 textAlign="left" marginB="0.5rem">
                     배송비
                   </Text>
-                  <Input outputcentervalue={deliveryPrice === true ? "별도" : "무료"} />
+                  <Input output center value={deliveryPrice === true ? "별도" : "무료"} />
                 </Grid>
               </Grid>
               <Line bottom margin="10px 0" color={Color.Light_2} />
@@ -479,7 +489,7 @@ const Product = (props) => {
                       <Text h4 textAlign="right" flexGrow="6" margin="0 2% 0 0">
                         {priceComma(b.bid)}&thinsp;원
                       </Text>
-                      <Text subBody width="34px" textAlign="right" marginT="auto" marginB="auto" color={Color.Dark_4} flexGrow="1">
+                      <Text subBody textAlign="right" color={Color.Dark_4} flexGrow="1">
                         {moment(b.createAt).fromNow()}
                       </Text>
                     </LiveBid>
@@ -520,6 +530,7 @@ const Product = (props) => {
               </Grid>
             </Grid>
 
+            {/* 3단 : 관련상품 & 판매자 정보 */}
             <Grid>
               <Text h3 color={Color.Primary} marginB="10px">
                 판매자 정보
@@ -533,7 +544,7 @@ const Product = (props) => {
                     </Text>
                   </div>
                 </Grid>
-                <Button disabled width="100%" _onClick={() => window.alert("서비스 준비중입니다.")}>
+                <Button disabled noflex width="100%" _onClick={() => window.alert("서비스 준비중입니다.")}>
                   상점으로 이동하기&ensp;{">"}
                 </Button>
               </Seller>
@@ -548,13 +559,16 @@ const Product = (props) => {
               <Grid margin="0 0 10px 0">
                 <Input
                   text
+                  fix
                   width="100%"
                   margin="0 0 10px 0"
-                  height="250px"
                   plcholder="문의 내용을 입력해주세요."
-                  adornment="0 / 100"
-                  _onChange={onChangeContents}
-                  value={_contents}
+                  adornment={`${QCnt.length} / 500`}
+                  maxLength="500"
+                  _onChange={(e) => {
+                    setReview(e.target.value);
+                    setQCnt(e.target.value);
+                  }}
                   fnc={addQuestion}
                   smbtn="등록하기"
                 />
@@ -570,6 +584,8 @@ const Product = (props) => {
   }
 };
 
+const FontBody = "14px";
+
 // Product 컴포넌트 감싸기
 const ProductWrap = styled.div`
   max-width: 1030px;
@@ -578,6 +594,8 @@ const ProductWrap = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0;
+
+  font-size: ${FontBody};
 
   margin-bottom: 100px;
 
@@ -619,7 +637,21 @@ const ProductWrap = styled.div`
 `;
 
 const SliderWrap = styled.div`
-  margin: -30px -10px;
+  width: 60%;
+  height: 600px;
+
+  display: flex;
+
+  @media only screen and (max-width: 767px) {
+    display: flex;
+    align-items: center;
+    margin-top: -30px;
+    margin-bottom: -10px;
+    /* ignore parent's padding */
+    width: calc(100% + 20px);
+    margin-left: -10px;
+    height: 100vw;
+  }
 `;
 
 // 실시간 낙찰 정보 => 디자인에 따라 낙찰 정보 확인용 component로 빼기 가능
@@ -630,11 +662,11 @@ const LiveBid = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  height: 50px;
+  height: 45px;
   box-sizing: border-box;
   align-items: center;
   background-color: ${Color.Light_3};
-  border-radius: 16px;
+  border-radius: 12px;
   div:nth-child(1) {
     width: 50%;
     white-space: nowrap;
@@ -677,19 +709,17 @@ const LiveBid = styled.div`
 
 // 판매자 카드 => 유저 카드로 재활용?
 const Seller = styled.div`
-  display: inline-flex;
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   align-items: center;
   text-align: center;
   box-sizing: border-box;
   border: 0.5px solid ${Color.Light_3};
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 3%;
-  height: 10rem;
   flex-direction: column;
-  & > button {
-    height: 50px;
-  }
+  height: 10rem;
 `;
 
 // 제품 타이틀 및 가격표
@@ -698,7 +728,6 @@ const BidLabel = styled.div`
   box-sizing: border-box;
   flex-direction: column;
   text-align: left;
-  margin-bottom: 1%;
   @media only screen and (max-width: 767px) {
     margin-bottom: 0;
   }

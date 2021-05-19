@@ -80,7 +80,7 @@ const Bid = (props) => {
     return (
       <>
         <BidBox>
-          <Text h2 marginT="10%">
+          <Text h1 marginT="10%">
             입찰표 작성
             {/* <FontAwesomeIcon icon={fasQC} /> */}
           </Text>
@@ -135,11 +135,11 @@ const Bid = (props) => {
       <>
         {open ? (
           <BidBox {...props} open={open}>
-            <Text h2 marginT="10%">
+            <Text h1 marginT="10%">
               즉시 낙찰
               {/* <FontAwesomeIcon icon={fasQC} /> */}
             </Text>
-            <Text h4 marginB="30px">
+            <Text h4 marginT="10px" marginB="30px">
               즉시 낙찰가에 낙찰이 진행됩니다!
             </Text>
             <Text price>
@@ -172,8 +172,8 @@ const Bid = (props) => {
 
 const InfoUl = styled.ul`
   display: flex;
-  height: 20px;
-  margin: 1.5% auto 0;
+  height: 18px;
+  margin: 1% auto 0;
   font-size: 13px;
   text-align: center;
   align-items: center;
@@ -193,19 +193,19 @@ const BidNow = styled.div`
   display: flex;
   align-items: center;
   width: 75%;
-  height: 50px;
+  height: 45px;
   padding: 0 25px;
   background-color: ${Color.Light_3};
-  border-radius: 16px;
+  border-radius: 12px;
   color: ${Color.Dark_4};
 
   margin: 0 auto;
 
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   div:nth-child(1) {
     text-align: left;
-    font-size: 16px;
+    font-size: 14px;
     width: 50%;
   }
   div:nth-child(2) {
@@ -213,7 +213,7 @@ const BidNow = styled.div`
     width: 50%;
   }
   span {
-    font-size: 16px;
+    font-size: 14px;
   }
 `;
 

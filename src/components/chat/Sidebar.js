@@ -23,7 +23,7 @@ const Mobile = ({ children }) => {
 
 const Sidebar = ({ room }) => {
   const dispatch = useDispatch();
-  const [ update, setUpdate ] = useState('');
+  const [update, setUpdate] = useState("");
   const uid = localStorage.getItem("uid");
   const users = useSelector((state) => state.chat.user_list);
   const msgList = useSelector((state) => state.chat.chat_list);
@@ -139,7 +139,6 @@ const Sidebar = ({ room }) => {
           )}
         </WrapM>
       </Mobile>
-      
     </>
   );
 };
@@ -204,7 +203,7 @@ const Wrap = styled.div`
   width: 285.4px;
   height: 729.4px;
   background: #fff;
-  border-radius: 16px;
+  border-radius: 12px;
   border-right: 2px solid rgba(0, 0, 0, 0.1);
 `;
 
@@ -220,8 +219,8 @@ const Header = styled.div`
   font-weight: bold;
   background: #fff;
   border-bottom: 3px solid rgba(0, 0, 0, 0.1);
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 `;
 
 const Main = styled.div`
@@ -233,8 +232,8 @@ const Main = styled.div`
   font-size: 20px;
   font-weight: bold;
   background: #fff;
-  border-bottom-left-radius: 16px;
-  border-bottom-right-radius: 16px;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 `;
 
 const Box = styled.div`
@@ -253,8 +252,8 @@ const ProfileImg = styled.div`
   height: 40px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 30px;
-//   background-image: url("${(props) => props.img}");
-  background-image: url('https://img.icons8.com/cotton/2x/gender-neutral-user--v2.png');
+  //   background-image: url("${(props) => props.img}");
+  background-image: url("https://img.icons8.com/cotton/2x/gender-neutral-user--v2.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -264,7 +263,7 @@ const TextBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-//   border: 1px solid red;
+  //   border: 1px solid red;
   width: 190px;
   height: 100%;
   background: #fff;
@@ -281,7 +280,7 @@ const Up = styled.div`
 `;
 
 const Name = styled.div`
-//   border: 1px solid green;
+  //   border: 1px solid green;
   position: absolute;
   width: 110px;
   height: 21px;
@@ -295,7 +294,7 @@ const Name = styled.div`
 `;
 
 const Time = styled.div`
-//   border: 1px solid green;
+  //   border: 1px solid green;
   display: inline-block;
   position: absolute;
   width: 80px;
@@ -309,7 +308,7 @@ const Time = styled.div`
 `;
 
 const Msg = styled.div`
-//   border: 1px solid red;
+  //   border: 1px solid red;
   max-width: 190px;
   height: 30px;
   background: #fff;
