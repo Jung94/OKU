@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
 
+
 import { useMediaQuery } from "react-responsive";
 
 import { actionCreators as postActions } from "redux/modules/post";
@@ -9,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { history } from "../redux/configureStore";
 import PostCard from "components/PostCard";
+import PostCard_m from "./PostCard_m";
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
@@ -72,7 +74,27 @@ const DeadlineP = (props) => {
       </Tablet>
       
       <Mobile>
-            asd
+      <Wrap>
+        <Head>
+          <p style={{ fontSize: "30px", fontWeight: "bold" }}>
+            마감 임박 상품은 <span style={{ color: "#AE27FF" }}>못참지~</span>
+          </p>
+        </Head>
+        <Cards>
+          {!_deadline_product ? (
+            <div style={{ color: "#c0c0c0 ", fontSize: "20px" }}>마감임박 상품이 없습니다</div>
+          ) : (
+            _deadline_product.map((k, index) => {
+              return <PostCard_m key={index} {...k} />;
+            })
+          )}
+        </Cards>
+          <More onClick={() => {
+              history.push("/DeadlineList");
+            }}> 
+        더보기
+      </More>
+      </Wrap>
       </Mobile>
       </>
     );
@@ -82,26 +104,56 @@ const DeadlineP = (props) => {
 };
 
 const Wrap = styled.div`
-  margin: 0 auto 130px auto;
+  margin: 0 auto 180px auto;
   max-width: 1030px;
+  @media only screen and (max-width: 767px) {
+    margin: 0 auto 55px auto;
+    }
 `;
 
 const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 50px;
+display: flex;
+justify-content: space-between;
+margin-bottom: 50px;
+letter-spacing: -2px;
+
+@media only screen and (max-width: 767px) {
+  width : 100%;
+  display : block;
+  text-align : center;
   letter-spacing: -2px;
+  margin-bottom: 25px;
+}
 `;
 
 const Cards = styled.div`
-  display: grid;
+display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-gap: 30px;
   grid-row-gap: 66px;
-  margin-top: 50px;
-
+  // margin-bottom: 150px;
   width: 100%;
   box-sizing: border-box;
+
+  @media only screen and (max-width: 767px) {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    grid-row-gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    }
 `;
+const More = styled.button`
+width : 100%;
+margin-top: 20px;
+height : 40px;
+background : #ae27ff;
+color : #ffffff;
+font-size : 17px;
+border-radius : 30px;
+border : solid #ae27ff;
+`;
+
 
 export default DeadlineP;

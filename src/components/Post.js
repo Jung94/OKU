@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import PostCard from "components/PostCard";
 import { history } from "../redux/configureStore";
+import PostCard_m from "./PostCard_m";
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
@@ -65,15 +66,15 @@ const Post = (props) => {
       </Wrap>
       </Desktop>
 
-      <Tablet>
+      {/* <Tablet>
 
-      </Tablet>
+      </Tablet> */}
 
       <Mobile>
       <Wrap>
         <Head>
           <p style={{ fontSize: "27px", fontWeight: "bold" }}>
-            관심가는 물건을 추천해주는 MD, <span style={{ color: "#AE27FF" }}>제법 젠틀해요 </span>
+            관심가는 물건을 추천해주는 MD, <span style={{ color: "#AE27FF" }}> 제법 젠틀해요 </span>
           </p>
         </Head>
         <Cards>
@@ -82,18 +83,15 @@ const Post = (props) => {
           ) : (
             _recommend_product &&
             _recommend_product.map((l, idx) => {
-              return <PostCard key={idx} {...l} />;
+              return <PostCard_m key={idx} {...l} />;
             })
           )}
         </Cards>
-        <p
-            onClick={() => {
+        <More onClick={() => {
               history.push("/MdList");
-            }}
-            style={{ color: "#c0c0c0", fontSize: "16px", cursor: "pointer" }}
-          >
-            더보기
-          </p>
+            }}> 
+        더보기
+      </More>
       </Wrap>
       </Mobile>
       </>
@@ -106,26 +104,55 @@ const Post = (props) => {
 Post.defaultProps = {};
 
 const Wrap = styled.div`
-  margin: -10px auto 130px auto;
+  margin: 0 auto 180px auto;
   max-width: 1030px;
+  @media only screen and (max-width: 767px) {
+    margin: 0 auto 55px auto;
+    }
 `;
 
 const Head = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 50px;
+display: flex;
+justify-content: space-between;
+margin-bottom: 50px;
+letter-spacing: -2px;
+
+@media only screen and (max-width: 767px) {
+  width : 100%;
+  margin 0 auto;
+  text-align : center;
   letter-spacing: -2px;
+  margin-bottom: 25px;
+}
 `;
 
 const Cards = styled.div`
-  display: grid;
+display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-column-gap: 30px;
   grid-row-gap: 66px;
   // margin-bottom: 150px;
-
   width: 100%;
   box-sizing: border-box;
+
+  @media only screen and (max-width: 767px) {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    grid-row-gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    }
+`;
+const More = styled.button`
+width : 100%;
+margin-top: 20px;
+height : 40px;
+background : #ae27ff;
+color : #ffffff;
+font-size : 17px;
+border-radius : 30px;
+border : solid #ae27ff;
 `;
 
 export default Post;
