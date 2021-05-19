@@ -73,7 +73,7 @@ const RelatedProduct = (props) => {
   }
 
   return (
-    <ImgWrap onClick={_onClick} height={height}>
+    <ImgWrap onClick={_onClick}>
       <TitlePrice>
         {title ? <div>{title}</div> : ""}
         {lowBid ? <div>{priceComma(lowBid)}원</div> : ""}
@@ -92,11 +92,11 @@ const ImgWrap = styled.div`
   // z-index: 99;
   position: relative;
   width: 12rem;
-  height: ${(props) => (props.height ? props.height : "200px")};
+  height: ${(props) => (props.height ? props.height : "10rem")};
   flex-grow: 1;
   flex-direction: row;
   flex-wrap: wrap;
-  border-radius: 16px;
+  border-radius: 12px;
   cursor: pointer;
   // border: 1px solid red;
 
@@ -130,7 +130,7 @@ const TitlePrice = styled.span`
   color: #fff;
   font-weight: 500;
   padding: 10px;
-  border-radius: 16px;
+  border-radius: 12px;
 
   :hover {
     opacity: 1;
@@ -152,7 +152,7 @@ const Title = styled.span`
   opacity: 0;
   transition: 0.2s;
   font-weight: 500;
-  border-radius: 16px;
+  border-radius: 12px;
   background-color: rgba(0, 0, 0, 0);
   line-height: 190%;
   div {
@@ -173,7 +173,7 @@ const RelatedImg = styled.div`
   height: 100%;
   flex-direction: row;
   flex-wrap: wrap;
-  border-radius: 16px;
+  border-radius: 12px;
   border: 0.5px solid ${Color.Light_3};
   align-items: center;
 

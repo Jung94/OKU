@@ -101,8 +101,8 @@ const Header = styled.div`
   font-weight: bold;
   background: #fff;
   border-bottom: 3px solid rgba(0, 0, 0, 0.1);
-  border-top-left-radius: 16px;
-  border-top-right-radius: 16px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
 `;
 
 export default MainChat;

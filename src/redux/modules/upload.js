@@ -47,7 +47,6 @@ const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, p
   return function (dispatch, getState, { history }) {
     dispatch(loadingActions.loading(true));
     dispatch(uploadProgress(true));
-    let nickname = localStorage.getItem("nickname");
     let access_token = localStorage.getItem("access_token");
     if (!access_token) {
       alert("로그인을 먼저 해주세요!");
@@ -66,7 +65,6 @@ const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, p
       formData.append("img", image3);
     }
 
-    formData.append("nickname", nickname);
     formData.append("title", title);
     formData.append("bigCategory", cateBig);
     formData.append("smallCategory", cateSmall);

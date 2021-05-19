@@ -35,60 +35,61 @@ const MainCard = (props) => {
   const imgl = Math.floor(Math.random() * img.length);
   return (
     <>
-    <Desktop>
-    <Section>
-      <Image img={img[imgl]} className="img" onClick={() => history.push(`/product/detail/${_id}`)}>
-        {/* <img src={i.img[0]} /> */}
-        <Desc>
-          <Title className="title">
-          <Text h1> {title} </Text>
-          </Title>
+      <Desktop>
+        <Section>
+          <Image img={img[imgl]} className="img" onClick={() => history.push(`/product/detail/${_id}`)}>
+            {/* <img src={i.img[0]} /> */}
+            <Desc>
+              <Title className="title">
+                <Text h0> {title} </Text>
+              </Title>
 
-          <Bottom className="text">
-            <TimerWrap>
-              <Text h2>
-                <Timer all {...props} white />
-              </Text>
-              <Timer timeProgress white {...props} />
-            </TimerWrap>
-            {/* <Currentprice>{i.currentprice}</Currentprice> */}
-            <Sucbid>
-              <div>
-                <FontAwesomeIcon icon={faCircle} />
-                <span> 최소 입찰가&ensp;</span>
-              </div>
-              <div className="price">
-                <span className="text">&thinsp;{priceComma(sucBid)}&thinsp;</span>원&thinsp;
-              </div>
-            </Sucbid>
-          </Bottom>
-        </Desc>
-        <Screen className="screen" />
-      </Image>
-    </Section>
-    </Desktop>
-    <Mobile>
-    <Section>
-      <Image img={img[imgl]} className="img" onClick={() => history.push(`/product/detail/${_id}`)}>
-        {/* <img src={i.img[0]} /> */}
-        <Desc>
-          <Title className="title">
-            <Text h2>{title}</Text>
-          </Title>
+              <Bottom className="text">
+                <TimerWrap>
+                  <Text h2>
+                    <Timer all {...props} white />
+                  </Text>
+                  <Timer timeProgress white {...props} />
+                </TimerWrap>
+                {/* <Currentprice>{i.currentprice}</Currentprice> */}
+                <Sucbid>
+                  <div>
+                    <FontAwesomeIcon icon={faCircle} />
+                    <span> 최소 입찰가&ensp;</span>
+                  </div>
+                  <div className="price">
+                    <span className="text">&thinsp;{priceComma(sucBid)}&thinsp;</span>원&thinsp;
+                  </div>
+                </Sucbid>
+              </Bottom>
+            </Desc>
+            <Screen className="screen" />
+          </Image>
+        </Section>
+      </Desktop>
 
-          <Bottom className="text">
-            {/* <Currentprice>{i.currentprice}</Currentprice> */}
-            <Sucbid>
-              <div className="price">
-                <span className="text">&thinsp;{priceComma(sucBid)}&thinsp;</span>원&thinsp;
-              </div>
-            </Sucbid>
-          </Bottom>
-        </Desc>
-        <Screen className="screen" />
-      </Image>
-    </Section>
-    </Mobile>
+      <Mobile>
+        <Section>
+          <Image img={img[imgl]} className="img" onClick={() => history.push(`/product/detail/${_id}`)}>
+            {/* <img src={i.img[0]} /> */}
+            <Desc>
+              <Title className="title">
+                <Text h1>{title}</Text>
+              </Title>
+
+              <Bottom className="text">
+                {/* <Currentprice>{i.currentprice}</Currentprice> */}
+                <Sucbid>
+                  <div className="price">
+                    <span className="text">&thinsp;{priceComma(sucBid)}&thinsp;</span>원&thinsp;
+                  </div>
+                </Sucbid>
+              </Bottom>
+            </Desc>
+            <Screen className="screen" />
+          </Image>
+        </Section>
+      </Mobile>
     </>
   );
 };
@@ -118,7 +119,7 @@ const Section = styled.div`
     .text {
     }
     .price {
-      border-radius: 16px;
+      border-radius: 12px;
       background-color: ${Color.Primary}99;
     }
   }
@@ -152,7 +153,6 @@ const Section = styled.div`
       }
     }
   }
-
 `;
 
 const Desc = styled.div`
@@ -163,18 +163,47 @@ const Desc = styled.div`
   /* height: 500px; */
 `;
 
-const Title = styled.div`
-  text-align: Left;
-  width: 600px;
-  color: #ffffff;
-  margin: 50px 0 0 50px;
-  text-shadow: 0 1.5px 10px rgba(0, 0, 0, 0.2);
+const Image = styled.div`
+  width: 550px;
+  height: 550px;
+  margin: 0 auto;
+  cursor: pointer;
+  border-radius: 30px;
+  object-fit: cover;
+  overflow: hidden;
+  background-color: ${Color.Light_1};
+  background: url(${(props) => props.img}) no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  /* background-color: #00000022; */
 
   @media only screen and (max-width: 767px) {
-    font-size : 20px;
-    margin : 20px 0 0 27px;
-    color : #ffffff
-    }
+    width: 332px;
+    height: 332px;
+    border-radius: 30px;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+  }
+`;
+
+const Title = styled.div`
+  text-align: Left;
+  color: #ffffff;
+  margin: 40px 0 0 40px;
+  text-shadow: 0 1.5px 10px rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  width: 470px;
+
+  @media only screen and (max-width: 767px) {
+    width: 280px;
+    background-color: green;
+    font-size: 10px;
+    margin: 20px 0 0 27px;
+    color: #ffffff;
+  }
 `;
 
 const Screen = styled.div`
@@ -193,40 +222,15 @@ const Screen = styled.div`
   opacity: 0.4;
 `;
 
-const Image = styled.div`
-  width: 522px;
-  height: 522px;
-  margin: 0 auto;
-  cursor: pointer;
-  border-radius: 30px;
-  object-fit: cover;
-  overflow: hidden;
-  background-color: ${Color.Light_1};
-  background: url(${(props) => props.img}) no-repeat;
-  background-position: center;
-  background-size: cover;
-
-  /* background-color: #00000022; */
-
-  @media only screen and (max-width: 767px) {
-    width : 332px;
-    height : 332px;
-    border-radius: 30px;
-    background-position: center;
-    background-size: cover;
-    overflow: hidden;
-  }
-`;
-
 const Bottom = styled.div`
   position: absolute;
 
   display: flex;
-  top: 500px;
-  width: 700px;
+  top: 370px;
+  width: 470px;
+  margin: 40px;
   height: min-content;
   justify-content: space-between;
-  padding: 50px;
 `;
 
 const TimerWrap = styled.div`
@@ -235,6 +239,8 @@ const TimerWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-self: flex-end;
+  text-align: left;
+  max-width: 200px;
 
   text-shadow: 0 1.5px 10px rgba(0, 0, 0, 0.25);
 `;
@@ -244,11 +250,12 @@ const Sucbid = styled.div`
   flex-direction: column;
   align-items: flex-end;
   align-self: flex-end;
-
   color: #ffffff;
-  font-size: 35px;
+  font-size: 30px;
   font-weight: 700;
+  text-align: right;
   span {
+    text-align: right;
     font-size: 20px;
     font-weight: 500;
   }
@@ -269,12 +276,6 @@ const Sucbid = styled.div`
       color: ${Color.Primary};
     }
   }
-`;
-
-// const Currentprice = styled.div``;
-const Deadline = styled.div`
-  width: 252px;
-  text-shadow: 0 1.5px 10px rgba(0, 0, 0, 0.25);
 `;
 
 export default MainCard;

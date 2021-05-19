@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Color } from "shared/DesignSys";
 
 const Text = (props) => {
-  const { children, onClick, color, size, flexGrow, margin, marginB, marginT, textAlign, lineHeight, weight, h0, h1, h2, h3, h4, body, subBody, price, won, width, border } = props;
+  const { children, onClick, color, size, bold, flexGrow, margin, marginB, marginT, textAlign, lineHeight, weight, h0, h1, h2, h3, h4, body, subBody, price, won, width, border } = props;
   const styles = {
     color: color,
     flexGrow: flexGrow,
@@ -44,7 +44,7 @@ const Text = (props) => {
     );
   }
 
-  // h35 : 버튼 폰트 크기와 동일 - 18px
+  //
   if (h3) {
     return (
       <TextBox size="18px" bold onClick={onClick} {...styles}>
@@ -52,7 +52,8 @@ const Text = (props) => {
       </TextBox>
     );
   }
-  // sub h4: 가격명 - 16px
+
+  // sub h4: 가격명
   if (h4) {
     return (
       <TextBox size="14px" onClick={onClick} {...styles}>

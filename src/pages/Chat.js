@@ -136,7 +136,7 @@ const MainLeft = styled.section`
   //   flex-basis: 25%;
   display: block;
   box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.2);
-  border-radius: 16px;
+  border-radius: 12px;
   //   @media only screen and (max-width: 375px) {
   //     display: ${(props) => (props.toggle ? "block" : "none")};
   //     flex-basis: ${(props) => (props.toggle ? "100%" : "0%")};
@@ -161,7 +161,7 @@ const MainRight = styled.section`
   height: 729.4px;
   background: #fff;
   box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.2);
-  border-radius: 16px;
+  border-radius: 12px;
   position: relative;
   //   @media only screen and (max-width: 768px) {
   //     padding: 16px 0;

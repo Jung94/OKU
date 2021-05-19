@@ -304,10 +304,9 @@ const ProductUpload = React.memo((props) => {
     // }
   };
 
-  // 글자수 제한 count
-  const [count, setCount] = useState(""); // 제목
-  const [count_desc, setCount_desc] = useState(""); // 상세설명
-  const [count_, setCount_] = useState(""); // 제목
+  // 글자수 제한 TitleCnt
+  const [TitleCnt, setTitleCnt] = useState(""); // 제목
+  const [DecCnt, setDecCnt] = useState(""); // 상세설명
 
   if (!is_login) {
     // history.push("/login");
@@ -331,11 +330,11 @@ const ProductUpload = React.memo((props) => {
             <Input
               _onChange={(e) => {
                 setTitle(e.target.value);
-                setCount(e.target.value);
+                setTitleCnt(e.target.value);
               }}
               margin="6% auto"
               adorn
-              adornment={`${count.length} / 25`}
+              adornment={`${TitleCnt.length} / 25`}
               maxLength="25"
               plcholder="최대 25자 작성 가능합니다."
               ref={_title}
@@ -446,9 +445,9 @@ const ProductUpload = React.memo((props) => {
               text
               _onChange={(e) => {
                 setProductDesc(e.target.value);
-                setCount_desc(e.target.value);
+                setDecCnt(e.target.value);
               }}
-              adornment={`${count_desc.length} / 200`}
+              adornment={`${DecCnt.length} / 200`}
               maxLength="200"
               plcholder="상품 정보를 입력해주세요. 자세할수록 입찰 혹은 낙찰에 도움이 됩니다. (최대 200자 작성 가능)"
               whiteSpace="pre-line"
@@ -529,11 +528,11 @@ const ProductUpload = React.memo((props) => {
             <Input
               _onChange={(e) => {
                 setTitle(e.target.value);
-                setCount(e.target.value);
+                setTitleCnt(e.target.value);
               }}
               adorn
               margin="6% auto"
-              adornment={`${count.length} / 25`}
+              adornment={`${TitleCnt.length} / 25`}
               maxLength="25"
               plcholder="최대 25자 작성 가능합니다."
               ref={_title}
@@ -642,9 +641,9 @@ const ProductUpload = React.memo((props) => {
               text
               _onChange={(e) => {
                 setProductDesc(e.target.value);
-                setCount_desc(e.target.value);
+                setDecCnt(e.target.value);
               }}
-              adornment={`${count_desc.length} / 200`}
+              adornment={`${DecCnt.length} / 200`}
               maxLength="200"
               plcholder="상품 정보를 입력해주세요. 자세할수록 입찰 혹은 낙찰에 도움이 됩니다. (최대 200자 작성 가능)"
               height="300px"
@@ -813,7 +812,7 @@ const PreviewBtn = styled.label`
   display: flex;
   width: 180px;
   height: 180px;
-  border-radius: 16px;
+  border-radius: 12px;
   background-color: ${Color.Light_3};
   align-items: center;
   justify-content: center;
@@ -827,7 +826,7 @@ const PreviewBtn2 = styled.label`
   display: flex;
   width: 180px;
   height: 180px;
-  border-radius: 16px;
+  border-radius: 12px;
   // background-color: ${Color.Light_3};
   border: 1px solid ${Color.Light_4};
   align-items: center;

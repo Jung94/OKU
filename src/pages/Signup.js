@@ -528,7 +528,7 @@ const InfoUl = styled.ul`
 
 const SignupBox = styled.div`
   border: 1px solid ${Color.Light_3};
-  border-radius: 16px;
+  border-radius: 12px;
   width: 100%;
   height: 50px;
   max-height: 50px;

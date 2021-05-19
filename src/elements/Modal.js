@@ -24,11 +24,11 @@ const Modal = (props) => {
     return (
       <>
         {onSale ? (
-          <Button {...styles} _onClick={openModal} margin="10px 0">
+          <Button {...styles} _onClick={openModal}>
             입찰표 작성
           </Button>
         ) : (
-          <Button {...styles} disabled margin="10px 0">
+          <Button {...styles} disabled>
             입찰표 작성
           </Button>
         )}
@@ -50,11 +50,11 @@ const Modal = (props) => {
     return (
       <>
         {onSale ? (
-          <Button {...styles} _onClick={openModal} margin="10px 0">
+          <Button {...styles} _onClick={openModal} noflex width="270px">
             즉시 낙찰
           </Button>
         ) : (
-          <Button {...styles} disabled margin="10px 0">
+          <Button {...styles} disabled noflex width="270px">
             즉시 낙찰
           </Button>
         )}
@@ -163,10 +163,16 @@ const ModalBox = styled.div`
   justify-content: space-evenly;
   background-color: white;
   box-shadow: 0 2px 30px #00000088;
-  border-radius: 16px;
+  border-radius: 12px;
   width: 30vw;
   min-width: 400px;
   z-index: 9999;
+
+  @media only screen and (max-width: 767px) {
+    min-width: 300px;
+    width: 90%;
+    max-width: 600px;
+  }
 `;
 
 export default Modal;

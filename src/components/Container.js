@@ -43,7 +43,7 @@ function PrevArrow(props) {
       style={{
         ...style,
         display: "block",
-        zIndex: "999",
+        zIndex: "99",
         left: "30%",
         color: Color.Dark_4,
         fontSize: "5rem",
@@ -63,7 +63,7 @@ function NextArrow(props) {
       style={{
         ...style,
         display: "block",
-        zIndex: "999",
+        zIndex: "99",
         right: "30%",
         color: Color.Dark_4,
         fontSize: "5rem",
@@ -82,7 +82,7 @@ function _PrevArrow(props) {
       style={{
         ...style,
         display: "block",
-        zIndex: "999",
+        zIndex: "99",
         left: "15%",
         content: `url(${leftIcon})`,
       }}
@@ -99,7 +99,7 @@ function _NextArrow(props) {
       style={{
         ...style,
         display: "block",
-        zIndex: "999",
+        zIndex: "99",
         right: "15%",
         content: `url(${rightIcon})`,
       }}
@@ -116,7 +116,7 @@ function PrevArrow_(props) {
       style={{
         ...style,
         display: "block",
-        zIndex: "999",
+        zIndex: "99",
         content: `url(${leftIcon})`,
       }}
       onClick={onClick}
@@ -132,7 +132,7 @@ function NextArrow_(props) {
       style={{
         ...style,
         display: "block",
-        zIndex: "999",
+        zIndex: "99",
         content: `url(${rightIcon})`,
       }}
       onClick={onClick}
@@ -177,70 +177,70 @@ const Container = (props) => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode : false,
-          nextArrow: <NextArrow_/>,
-          prevArrow: <PrevArrow_/>,
+          centerMode: false,
+          nextArrow: <NextArrow_ />,
+          prevArrow: <PrevArrow_ />,
         },
       },
     ],
   };
   return (
     <>
-    <Desktop>
-    <Main>
-      <Box>
-        <div style={{ margin: "0px 50px 50px" }}>
-          <Slide>
-            <Slider {...settings}>
-              {_popular_product.map((i, idx) => {
-                let real = input_priceComma(`${i.lowBid}`);
-                return (
-                  <MainCard
-                    lowBid={real}
-                    key={idx}
-                    {...i}
-                    _onClick={() => {
-                      history.push(`product/detail/${i._id}`);
-                    }}
-                  />
-                );
-              })}
-            </Slider>
-          </Slide>
-        </div>
-      </Box>
-    </Main>
-    </Desktop>
+      <Desktop>
+        <Main>
+          <Box>
+            <div style={{ margin: "0px 50px 50px" }}>
+              <Slide>
+                <Slider {...settings}>
+                  {_popular_product.map((i, idx) => {
+                    let real = input_priceComma(`${i.lowBid}`);
+                    return (
+                      <MainCard
+                        lowBid={real}
+                        key={idx}
+                        {...i}
+                        _onClick={() => {
+                          history.push(`product/detail/${i._id}`);
+                        }}
+                      />
+                    );
+                  })}
+                </Slider>
+              </Slide>
+            </div>
+          </Box>
+        </Main>
+      </Desktop>
 
-    {/* <Tablet>
+      {/* <Tablet>
 
     </Tablet> */}
-    
-    <Mobile>
-    <Main>
-    <Box>
-        <div style={{ margin: "0px 20px" }}>
-          <Slide>
-            <Slider {...settings}>
-              {_popular_product.map((i, idx) => {
-                let real = input_priceComma(`${i.lowBid}`);
-                return (
-                  <MainCard
-                    lowBid={real}
-                    key={idx}
-                    {...i}
-                    _onClick={() => {
-                      history.push(`product/detail/${i._id}`);
-                    }}
-                  />
-                );
-              })}
-            </Slider>
-          </Slide>
-        </div>
-      </Box>
-    </Main>
-    </Mobile>
+
+      <Mobile>
+        <Main>
+          <Box>
+            <div style={{ margin: "0px 20px" }}>
+              <Slide>
+                <Slider {...settings}>
+                  {_popular_product.map((i, idx) => {
+                    let real = input_priceComma(`${i.lowBid}`);
+                    return (
+                      <MainCard
+                        lowBid={real}
+                        key={idx}
+                        {...i}
+                        _onClick={() => {
+                          history.push(`product/detail/${i._id}`);
+                        }}
+                      />
+                    );
+                  })}
+                </Slider>
+              </Slide>
+            </div>
+          </Box>
+        </Main>
+      </Mobile>
     </>
   );
 };

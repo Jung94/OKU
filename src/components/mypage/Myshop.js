@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route } from "react-router-dom";
 import { Text } from "elements/";
 
-
 import RelatedProduct from "components/global/RelatedProduct";
 import { history } from "redux/configureStore";
 
@@ -13,7 +12,6 @@ import { Color } from "shared/DesignSys";
 
 const Myshop = (props) => {
   const dispatch = useDispatch();
-
 
   const my_like_list = useSelector((state) => state.like.my_like_list);
   // console.log(my_like_list);
@@ -123,7 +121,7 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${Color.Light_1};
-  border-radius: 16px;
+  border-radius: 12px;
   & button {
     align-items: center;
     margin: 20px auto 0;
@@ -148,7 +146,7 @@ const Card = styled.div`
   width: 220px;
   height: 220px;
   img {
-    border-radius: 16px;
+    border-radius: 12px;
     width: 220px;
     height: 220px;
     object-fit: cover;

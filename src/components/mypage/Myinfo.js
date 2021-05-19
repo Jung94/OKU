@@ -60,7 +60,7 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${Color.Light_1};
-  border-radius: 16px;
+  border-radius: 12px;
   & button {
     align-items: center;
     margin: 20px auto 0;
