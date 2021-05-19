@@ -111,8 +111,8 @@ const Screen = styled.div`
 `;
 
 const Image = styled.div`
-  width: 700px;
-  height: 700px;
+  width: 522px;
+  height: 522px;
   margin: 0 auto;
   cursor: pointer;
   border-radius: 30px;
