@@ -172,35 +172,14 @@ const Container = (props) => {
     prevArrow: <PrevArrow />,
 
     responsive: [
-      // 반응형 웹 구현 옵션
       {
-        breakpoint: 1550, // 화면 사이즈 1550px
+        breakpoint: 767, // 화면 사이즈 767px
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
-          centerMode: false,
-          nextArrow: <_NextArrow />,
-          prevArrow: <_PrevArrow />,
-        },
-      },
-      {
-        breakpoint: 1200, // 화면 사이즈 1200px
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerMode: false,
-          nextArrow: <NextArrow_ />,
-          prevArrow: <PrevArrow_ />,
-        },
-      },
-      {
-        breakpoint: 429, // 화면 사이즈 429px
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerMode: false,
-          nextArrow: <NextArrow_ />,
-          prevArrow: <PrevArrow_ />,
+          centerMode : false,
+          nextArrow: <NextArrow_/>,
+          prevArrow: <PrevArrow_/>,
         },
       },
     ],
@@ -233,13 +212,33 @@ const Container = (props) => {
     </Main>
     </Desktop>
 
-    <Tablet>
+    {/* <Tablet>
 
-    </Tablet>
+    </Tablet> */}
     
     <Mobile>
     <Main>
-      asd
+    <Box>
+        <div style={{ margin: "0px 20px" }}>
+          <Slide>
+            <Slider {...settings}>
+              {_popular_product.map((i, idx) => {
+                let real = input_priceComma(`${i.lowBid}`);
+                return (
+                  <MainCard
+                    lowBid={real}
+                    key={idx}
+                    {...i}
+                    _onClick={() => {
+                      history.push(`product/detail/${i._id}`);
+                    }}
+                  />
+                );
+              })}
+            </Slider>
+          </Slide>
+        </div>
+      </Box>
     </Main>
     </Mobile>
     </>
@@ -302,9 +301,14 @@ const Main = styled.div`
     -moz-transform: scale(0.75);
     transform: scale(0.75);
   }
-  // @media only screen and (max-width: 767px) {
-  //   width : 100%;
-  // }
+  @media only screen and (max-width: 767px) {
+    width : 100%;
+    margin: 80px 0 45px;
+    .slick-dots {
+      margin: 30px 0;
+    }
+    }
+  }
 `;
 
 const Box = styled.div``;
