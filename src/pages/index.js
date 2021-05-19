@@ -6,7 +6,6 @@ import ProductUpload from "./ProductUpload";
 import Agreement from "./Agreement";
 import Signup from "./Signup";
 import Login from "./Login";
-import SocialLogin from "./SocialLogin";
 
 import Result from "./Result";
 
@@ -18,4 +17,4 @@ import My from "./My";
 import DeadList from './DeadList'
 import MdList from './MdList'
 
-export { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, Chat, CategoryResult, My, MdList,DeadList };
+export { Home, Product, ProductUpload, Signup, Login, Agreement, Result, Chat, CategoryResult, My, MdList,DeadList };

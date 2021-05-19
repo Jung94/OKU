@@ -17,6 +17,7 @@ const Grid = (props) => {
     bg,
     bdr,
     bdrTop,
+    bdrBottom,
     bgimg,
     bgposition,
     margin,
@@ -51,6 +52,7 @@ const Grid = (props) => {
     bg: bg ? bg : false,
     bdr: bdr ? bdr : false,
     bdrTop: bdrTop ? bdrTop : false,
+    bdrBottom: bdrBottom ? bdrBottom : false,
     bgimg: bgimg ? bgimg : false,
     bgposition: bgposition,
     width: width,
@@ -105,6 +107,7 @@ Grid.defaultProps = {
   bg: false,
   bdr: false,
   bdrTop: false,
+  bdrBottom: false,
   bgimg: false,
   width: "100%",
   max_width: null,
@@ -152,6 +155,7 @@ const GridBox = styled.div`
   border-radius: ${(props) => props.borderRadius};
   border: ${(props) => props.bdr};
   border-top: ${(props) => props.bdrTop};
+  border-bottom: ${(props) => props.bdrBottom};
 
   background-color: ${(props) => props.bg};
   background-image: ${(props) => `url(${props.bgimg})`};

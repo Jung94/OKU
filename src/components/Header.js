@@ -206,7 +206,7 @@ const Header = (props) => {
 
     if (window.scrollY < 150) {
       navbox.current.style.position = "fixed";
-      navbox.current.style.zIndex = "9999";
+      navbox.current.style.zIndex = "999";
       navbox.current.style.height = "125px";
       navbox.current.style.boxShadow = `0 4px 15px 0 ${Color.Light_4}77`;
       up.current.style.marginTop = "0px";
@@ -220,7 +220,7 @@ const Header = (props) => {
 
     } else if (window.scrollY > 150) {
       navbox.current.style.position = "fixed";
-      navbox.current.style.zIndex = "9999";
+      navbox.current.style.zIndex = "999";
       navbox.current.style.height = "96px";
       navbox.current.style.boxShadow = `0 4px 15px 0 ${Color.Secondary_2}77`;
       up.current.style.marginTop = "-38px";
@@ -511,7 +511,7 @@ const Header = (props) => {
             <Grid is_flex width="100%" height="39px" alignItems="center" padding="0 10px 0 20px" bdrTop="1px solid rgba(0, 0, 0, 0.1)">
               {/* 카테고리 리스트 방식 */}
               {/* <ListHover/> */}
-              <div style={{ fontSize: "12px", width: "76px", margin: "1px 0 0 2px" }}>카테고리</div>
+              <div style={{ fontSize: "14px", width: "76px", margin: "1px 0 0 2px" }}>카테고리</div>
               <ListBtn />
               <Mainselectbox>
                 <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
@@ -555,7 +555,7 @@ const HeaderWrap = styled.header`
     top: 0;
     left: 0;
     right: 0;
-    z-index: 9999;
+    z-index: 999;
     background-color: #ffffff;
     // border: 1px solid blue;
     transition: box-shadow 500ms cubic-bezier(0.215, 0.61, 0.355, 1), height 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -573,7 +573,7 @@ const HeaderWrap = styled.header`
     top: 0;
     left: 0;
     right: 0;
-    z-index: 9999;
+    z-index: 999;
     background-color: #ffffff;
     transition: box-shadow 500ms cubic-bezier(0.215, 0.61, 0.355, 1), height 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
   }
@@ -590,7 +590,7 @@ const HeaderWrap = styled.header`
     top: 0;
     left: 0;
     right: 0;
-    z-index: 9999;
+    z-index: 999;
     background-color: #ffffff;
   }
 `;
@@ -763,10 +763,10 @@ const Img = styled.div`
 
   @media only screen and (max-width: 767px) {
     position: absolute;
-    top: 6px;
+    top: 8px;
     right: 20px;
-    width: 25px;
-    height: 25px;
+    width: 23px;
+    height: 23px;
     background-color: transparent;
     background: url(${(props) => props.src});
     background-size: cover;
@@ -779,24 +779,28 @@ const Img = styled.div`
 
 // 검색 input
 const Search = styled.input`
-  background-color: transparent;
-  width: 70%;
-  height: 28px;
-  border: 0;
-  outline: 0;
-  font-size: 14px;
-  font-weight: 500;
-  padding: 0 30px 0 5px;
-  transition: all 400ms cubic-bezier(0.215, 0.61, 0.355, 1);
-  border-bottom: 1px solid ${Color.Dark_2};
-  ::placeholder {
-    color: ${Color.Light_4};
-    font-weight: 500;
+
+  @media only screen and (min-width: 1024px) {
+
+    background-color: transparent;
+    width: 70%;
+    height: 28px;
+    border: 0;
+    outline: 0;
     font-size: 14px;
-  }
-  :focus {
-    outline: none;
-    width: 90%;
+    font-weight: 500;
+    padding: 0 30px 0 5px;
+    transition: all 400ms cubic-bezier(0.215, 0.61, 0.355, 1);
+    border-bottom: 1px solid ${Color.Dark_2};
+    ::placeholder {
+      color: ${Color.Light_4};
+      font-weight: 500;
+      font-size: 14px;
+    }
+    :focus {
+      outline: none;
+      width: 90%;
+    } 
   }
 
   @media only screen and (max-width: 767px) {

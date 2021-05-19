@@ -9,11 +9,12 @@ import { ConnectedRouter } from "connected-react-router";
 import { Route, Switch, useRoutes, Link } from "react-router-dom";
 import { history } from "redux/configureStore";
 
+import ScrollToTop from "shared/ScrollToTop";
 import Social from "shared/Social";
 import NotFound from "shared/NotFound";
 import Loading from "shared/Loading";
 import { Header, Footer } from "components/";
-import { Home, Product, ProductUpload, Signup, Login, Agreement, SocialLogin, Result, My, Chat, CategoryResult, MdList, DeadList } from "pages/";
+import { Home, Product, ProductUpload, Signup, Login, Agreement, Result, My, Chat, CategoryResult, MdList, DeadList } from "pages/";
 
 const App = (props) => {
   const dispatch = useDispatch();
@@ -37,25 +38,26 @@ const App = (props) => {
       <Header showHeader={header_display} />
       <Grid>
         <ConnectedRouter history={history}>
-          <Switch>
-            <Route path="/" exact component={Home} />
-            <Route path="/login" exact component={Login} />
-            <Route path="/signup" exact component={Signup} />
-            <Route path="/sociallogin" exact component={SocialLogin} />
-            <Route path="/agreement" exact component={Agreement} />
-            <Route path="/product" exact component={Product} />
-            <Route path="/product/detail/:id" exact component={Product} />
-            <Route path="/productupload" exact component={ProductUpload} />
-            <Route path="/result" exact component={Result} />
-            <Route path="/category" exact component={CategoryResult} />
-            <Route path="/MDList" exact component={MdList} />
-            <Route path="/DeadlineList" exact component={DeadList} />
-            <Route path="/chat" exact component={Chat} />
-            <Route path="/chat/:otherId/:myId/:otherName" exact component={Chat} />
-            <Route path="/my" component={My} />
-            <Route path="/social/:id" exact component={Social} />
-            <Route component={NotFound} />
-          </Switch>
+          <ScrollToTop> 
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/signup" exact component={Signup} />
+              <Route path="/agreement" exact component={Agreement} />
+              <Route path="/product" exact component={Product} />
+              <Route path="/product/detail/:id" exact component={Product} />
+              <Route path="/productupload" exact component={ProductUpload} />
+              <Route path="/result" exact component={Result} />
+              <Route path="/category" exact component={CategoryResult} />
+              <Route path="/MDList" exact component={MdList} />
+              <Route path="/DeadlineList" exact component={DeadList} />
+              <Route path="/chat" exact component={Chat} />
+              <Route path="/chat/:otherId/:myId/:otherName" exact component={Chat} />
+              <Route path="/my" component={My} />
+              <Route path="/social/:id" exact component={Social} />
+              <Route component={NotFound} />
+            </Switch>
+          </ScrollToTop> 
         </ConnectedRouter>
       </Grid>
       <Footer />
