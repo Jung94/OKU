@@ -109,13 +109,13 @@ const loginAPI = (email, pw, autoLogin, saveId) => {
 };
 
 // 소셜로그인
-const socialLoginDB = (id) => {
+const socialLoginDB = (_id) => {
   return function (dispatch, getState, { history }) {
     axios({
       method: "POST",
       url: `${API}/user/kakao`,
       data: {
-        kakaoId: id,
+        kakaoId: _id,
       },
     })
       .then((res) => {

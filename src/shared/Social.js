@@ -5,15 +5,16 @@ import Spinner from 'shared/Spinner';
 
 // 소셜 로그인 리다이렉트 페이지
 
-function Social(props) {
-  const id = props.match.params.id;
+const Social = (props) => {
+  console.log(props.match);
+  const _id = props.match.params.id;
   const dispatch = useDispatch();
-  console.log(id);
+  console.log(_id);
 
   useEffect(() => {
     
     // 회원정보 디스패치
-    dispatch(userActions.socialLoginDB(id));
+    dispatch(userActions.socialLoginDB(_id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
