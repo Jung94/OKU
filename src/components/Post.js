@@ -21,21 +21,21 @@ const Post = (props) => {
     return (
       <Wrap>
         <Head>
-          <p style={{ fontSize: "45px", fontWeight: "bold" }}>
+          <p style={{ fontSize: "30px", fontWeight: "bold" }}>
             관심가는 물건을 추천해주는 MD, <span style={{ color: "#AE27FF" }}>제법 젠틀해요 </span>
           </p>
           <p
             onClick={() => {
               history.push("/MdList");
             }}
-            style={{ marginTop: "41px", color: "#c0c0c0", fontSize: "16px", cursor: "pointer" }}
+            style={{ color: "#c0c0c0", fontSize: "16px", cursor: "pointer" }}
           >
             더보기
           </p>
         </Head>
         <Cards>
           {!_recommend_product ? (
-            <div style={{ margin: "100px auto", color: "#c0c0c0 ", fontSize: "20px" }}>MD 추천상품이 없습니다</div>
+            <div style={{ color: "#c0c0c0 ", fontSize: "20px" }}>MD 추천상품이 없습니다</div>
           ) : (
             _recommend_product &&
             _recommend_product.map((l, idx) => {
@@ -52,23 +52,23 @@ const Post = (props) => {
 Post.defaultProps = {};
 
 const Wrap = styled.div`
-  margin: 100px auto;
+  margin: 0 auto 180px auto;
   max-width: 1030px;
 `;
 
 const Head = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   letter-spacing: -2px;
 `;
 
 const Cards = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 65px;
-  grid-row-gap: 48px;
-  margin-top: 45px 0;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 30px;
+  grid-row-gap: 66px;
+  // margin-bottom: 150px;
 
   width: 100%;
   box-sizing: border-box;

@@ -29,7 +29,7 @@ const Card = (props) => {
   return (
     <Wrap>
       <Head>
-        <p style={{ fontSize: "45px", fontWeight: "bold" }}>
+        <p style={{ fontSize: "30px", fontWeight: "bold" }}>
           방금 등록된 굿즈 <span style={{ color: "#AE27FF" }}> 어서오고~</span>
         </p>
       </Head>
@@ -43,23 +43,23 @@ const Card = (props) => {
 };
 
 const Wrap = styled.div`
-  margin: 100px auto 200px auto;
+  margin: 0 auto 180px auto;
   max-width: 1030px;
 `;
 
 const Head = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   letter-spacing: -2px;
 `;
 
 const Cards = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 65px;
-  grid-row-gap: 48px;
-  margin-top: 45px 0;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 30px;
+  grid-row-gap: 66px;
+  margin-top: 50px;
 
   width: 100%;
   box-sizing: border-box;

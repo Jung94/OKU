@@ -115,7 +115,7 @@ const socialLoginDB = (id) => {
       method: "POST",
       url: `${API}/user/kakao`,
       data: {
-        id: id,
+        kakaoId: id,
       },
     })
       .then((res) => {

@@ -204,8 +204,6 @@ const Header = (props) => {
   const headerChange = () => {
     // return null;
 
-    // 스크롤을 내림 X
-
     if (window.scrollY < 150) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "9999";
@@ -749,6 +747,7 @@ const ImgUpload = styled.div`
 `;
 
 const Img = styled.div`
+  // border: 1px solid blue;
   position: absolute;
   top: 9px;
   right: 4px;

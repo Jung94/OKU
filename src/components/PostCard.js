@@ -59,7 +59,7 @@ const PostCard = (props) => {
           <Title onClick={() => history.push(`/product/detail/${_id}`)}>{title}</Title>
           {/* <Currentprice>{currentprice}</Currentprice> */}
         </div>
-        <div style={{ textAlign: "right", alignItems: "flex-end", display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "10px" }}>
+        <div style={{ textAlign: "right", alignItems: "flex-end", display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "8px" }}>
           <Bid />
           <Sucbid>
             {priceComma(lowBid)}&thinsp;<span className="won">원</span>
@@ -78,10 +78,10 @@ PostCard.defaultPorps = {
 };
 
 const Wrap = styled.div`
+  // border: 1px solid red;
   position: relative;
-  width: 300px;
-  height: 420px;
-  /* border: 2px solid ${Color.Primary}; */
+  width: 228px;
+  height: 315px;
   box-shadow: 0 0 10px ${Color.Light_4};
   border-radius: 30px;
   box-sizing: border-box;
@@ -115,10 +115,10 @@ const UpTime = styled.div`
   position: absolute;
   background-color: #ffffff88;
   border-radius: 14px;
-  margin-top: 18px;
-  margin-left: 18px;
-  padding: 5px 10px;
-  font-size: 20px;
+  margin-top: 16px;
+  margin-left: 16px;
+  padding: 6px 10px 4px;
+  font-size: 17px;
   color: ${Color.Dark_2};
   transition: all 200ms ease-in-out;
   :hover {
@@ -131,11 +131,11 @@ const Heart = styled.div`
   position: absolute;
   // border: 1px solid blue;
   z-index: 12;
-  top: 260px;
+  top: 191px;
   right: 11px;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
+  width: 32px;
+  height: 32px;
   transition: all 200ms ease-in;
   background-color: transparent;
   background: url(${(props) => props.img});
@@ -155,26 +155,27 @@ const Heart = styled.div`
 `;
 
 const Bid = styled.div`
-  width: 20px;
-  height: 20px;
+  // border: 1px solid red;
+  width: 18px;
+  height: 18px;
   background-image: url(${IconBid});
   background-size: cover;
   background-position: center;
 `;
 
 const Desc = styled.div`
-  font-size: 20px;
+  font-size: 17px;
   font-weight: bold;
   color: #2e2e2e;
   width: 100%;
-  min-height: 70px;
+  min-height: 58px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   /* flex-direction: column; */
   line-height: 180%;
-  padding: 0 20px;
-  margin-top: 12px;
+  padding: 0 18px 0 17px;
+  margin-top: 10px;
   // border: 1px solid green;
 `;
 
@@ -194,7 +195,6 @@ const Sucbid = styled.div`
   line-height: 100%;
   color: ${Color.Primary};
   .text {
-    font-size: 20px;
     font-weight: 500;
     letter-spacing: -1px;
     color: ${Color.Light_4};

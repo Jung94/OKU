@@ -8,8 +8,10 @@ import Spinner from 'shared/Spinner';
 function Social(props) {
   const id = props.match.params.id;
   const dispatch = useDispatch();
+  console.log(id);
 
   useEffect(() => {
+    
     // 회원정보 디스패치
     dispatch(userActions.socialLoginDB(id));
     // eslint-disable-next-line react-hooks/exhaustive-deps

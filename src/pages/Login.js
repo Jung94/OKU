@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { KAKAO_JS_ID } from "shared/common";
+// import { KAKAO_JS_ID } from "shared/common";
 import { history } from "redux/configureStore";
 import { actionCreators as userActions } from "redux/modules/user";
 import { actionCreators as headerActions } from "redux/modules/header";
@@ -200,7 +200,7 @@ const Login = (props) => {
         <SocialBox>
           {/* <Naver/> */}
           <KakaoBtn
-            href="http://myoku.co.kr/user/kakao"
+            href="http://13.124.55.186/user/kakao"
             // token={KAKAO_JS_ID} render={(props) => <KakaoBtn onClick={props.onClick}></KakaoBtn>} onSuccess={kakaoLoginClickHandler} getProfile={true}
           >
             <div
