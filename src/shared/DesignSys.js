@@ -20,6 +20,11 @@ const Color = {
   Light_3: "#EAEAEA",
   Light_4: "#DADADA",
   // black white
+  Holder: "#C0C0C0",
+};
+
+const Size = {
+  Inbox: "14px",
 };
 
 export { Color };

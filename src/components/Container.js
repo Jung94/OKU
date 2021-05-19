@@ -240,9 +240,13 @@ const RightArrow_ = styled.div`
   position: absolute;
   top: 50%;
 `;
+
 const Main = styled.div`
   text-align: center;
-  margin: 200px 0;
+  margin: 180px 0;
+  .slick-dots {
+    /* margin: 10px 0; */
+  }
   .slick-dots li button:before {
     color: #ae00ff;
   }

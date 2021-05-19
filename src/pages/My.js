@@ -1,4 +1,4 @@
-import React, {useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,9 +22,8 @@ const My = (props) => {
   const access_token = localStorage.getItem("access_token");
   const _user = useSelector((state) => state.mypage.user);
   const userInfo = useSelector((state) => state.mypage.user_info);
-  
+
   const is_loading = useSelector((state) => state.product.is_loading);
-  
 
   useEffect(() => {
     if (access_token) {
@@ -38,6 +37,7 @@ const My = (props) => {
   if (is_loading) {
     return <Loading />;
   }
+
   return (
     <Wrap>
       <Modi>
@@ -45,11 +45,11 @@ const My = (props) => {
         <Modal setting {..._user} />
       </Modi>
       <Text h2 weight="600" textAlign="center" marginT="2%">
-        {_user.nickname} 님 <br/> 오늘도  <span style={{color : "#AE00FF"}}>즐거운 덕질하세요!</span>
+        {_user.nickname} 님 <br /> 오늘도 <span style={{ color: "#AE00FF" }}>즐거운 덕질하세요!</span>
       </Text>
-      <Myinfo/>
-      <Steam/>
-      <PurchaseList/>
+      <Myinfo />
+      <Steam />
+      <PurchaseList />
       {/* <BtnBox>
         <Link to="/my/shopping">{nowLocation === "shopping" ? <Button>마이 쇼핑</Button> : <Button sub>마이 쇼핑</Button>}</Link>
         <Link to="/my/store">{nowLocation === "store" ? <Button>내 상점</Button> : <Button sub>내 상점</Button>}</Link>

@@ -26,7 +26,7 @@ const Input = (props) => {
     text,
     check,
     radio,
-    info,
+    center,
     fix,
     left,
     disabled,
@@ -71,7 +71,7 @@ const Input = (props) => {
     height: height,
     margin: margin,
     num: num,
-    info: info,
+    center: center,
     left: left,
     output: output,
     fix: fix,
@@ -83,7 +83,7 @@ const Input = (props) => {
   if (output) {
     return (
       <InputBox {...styles}>
-        <input type={type} ouput={output} info={info} placeholder={plcholder} name={name} value={value}>
+        <input type={type} ouput={output} center={center} placeholder={plcholder} name={name} value={value}>
           {children}
         </input>
         {adornment && <span>{adornment}</span>}
@@ -99,16 +99,14 @@ const Input = (props) => {
           inputEl.current.focus();
         }}
       >
-        <input type="radio" ouput={output} info={info} ref={inputEl} placeholder={plcholder} name={name} value={value} onChange={_onChange} onFocus={_onFocus} onBlur={_onBlur}>
+        <input type="radio" ouput={output} center={center} ref={inputEl} placeholder={plcholder} name={name} value={value} onChange={_onChange} onFocus={_onFocus} onBlur={_onBlur}>
           {children}
         </input>
         <span className="checkmark" />
-        <div>
-          {value && <>&ensp;{value}</>}&ensp;
-          <Text subBody color={Color.Dark_4}>
-            {desc}
-          </Text>
-        </div>
+        <div>&ensp;{value && value}&ensp;</div>
+        <Text subBody color={Color.Dark_4} margin="5px 0">
+          {desc}
+        </Text>
       </RadioCheck>
     );
   }
@@ -136,7 +134,7 @@ const Input = (props) => {
           type="checkbox"
           checked={checked}
           ouput={output}
-          info={info}
+          center={center}
           ref={inputEl}
           placeholder={plcholder}
           name={name}
@@ -189,7 +187,9 @@ const Input = (props) => {
               </Button>
             </Btn>
           ) : (
-            ""
+            <Text subBody color={Color.Light_4}>
+              {adornment}
+            </Text>
           )}
         </TextareaBox>
       </>
@@ -221,19 +221,27 @@ Input.defaultProps = {
   _onBlur: () => {},
 };
 
+const Inputsize = "14px"; // 내부 내용 폰트 사이즈
+
+// basic input form
 const InputBox = styled.div`
   width: ${(props) => (props.width ? props.width : "")};
+  height: ${(props) => (props.height ? props.height : "50px")};
   margin: ${(props) => (props.width ? props.margin : "")};
   border: 1px solid ${Color.Light_3};
+  border-radius: 12px;
+  padding: 10px;
+
   display: flex;
   align-items: center;
-  border-radius: 16px;
-  padding: 10px;
+
   transition: border 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  // grey backColor input
   ${(props) =>
     props.output
       ? `background-color: ${Color.Light_3}; user-select: none; height: 50px;`
-      : `background-color: white;
+      : `background-color: transparent;
       &:focus-within {
     border: 1px solid ${Color.Primary};
     box-shadow: 0 0 0 3px ${Color.Primary}33;
@@ -241,33 +249,38 @@ const InputBox = styled.div`
 
   input {
     background-color: transparent;
+    align-items: center;
+    border: 0px;
+    outline: 0;
+
+    width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    font-weight: 400;
+    font-size: ${Inputsize};
+
+    ${(props) => (props.center ? `font-size: ${Inputsize}; text-align: center;` : props.left ? `font-size: ${Inputsize}; text-align: left;` : `font-size: ${Inputsize};`)}
+    ${(props) => (props.num ? `text-align: right; ` : "")}
+
     ::placeholder {
       text-align: left;
       align-items: center;
-      font-size: 16px;
+      font-size: ${Inputsize};
       font-weight: 400;
       color: #c0c0c0;
     }
-    border: 0px;
-    padding-left: 10px;
-    padding-right: 10px;
-    width: 100%;
-    align-items: center;
-    font-weight: 400;
-    ${(props) => (props.info ? "font-size: 16px; text-align: center;" : props.left ? "font-size: 16px; text-align: left;" : "font-size: 20px;")}
-    ${(props) => (props.num ? `text-align: right; ` : "")}
     &:focus {
       outline: none;
     }
   }
   span {
+    user-select: none;
     padding-right: 10px;
-    font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
     align-items: center;
     padding: auto 0;
-    width: max-content;
-    ${(props) => (props.adorn ? `width: 70px;` : `width: max-content;`)}
+    ${(props) => (props.adorn ? `width: 70px; color: #c0c0c0; font-size: 12px; text-align:right;` : `width: max-content; font-size: ${Inputsize};`)}
   }
 `;
 
@@ -319,6 +332,10 @@ const RadioCheck = styled.label`
   div {
     display: flex;
     align-items: center;
+    //회색글씨
+    div {
+      flex-wrap: wrap;
+    }
   }
 `;
 
@@ -367,14 +384,14 @@ const CheckBox = styled.label`
 
 const TextareaBox = styled.div`
   width: ${(props) => (props.width ? props.width : "")};
-  height: 178px;
+  height: ${(props) => (props.height ? props.height : "178px")};
   margin: ${(props) => (props.margin ? props.margin : "")};
   min-height: 100px;
   border: 1px solid ${Color.Light_3};
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 20px 25px 10px 25px;
   box-sizing: border-box;
 
@@ -392,8 +409,8 @@ const TextareaBox = styled.div`
     ::placeholder {
       text-align: left;
       align-items: center;
-      font-size: 16px;
-      font-weight: 400;
+      font-size: ${Inputsize};
+
       color: #c0c0c0;
     }
     border: 0px;
@@ -404,11 +421,14 @@ const TextareaBox = styled.div`
     height: 100%;
     align-items: center;
     font-weight: 400;
-    font-size: 16px;
+    font-size: ${Inputsize};
     ${(props) => (props.num ? "text-align: right;" : "")}
     &:focus {
       outline: none;
     }
+  }
+  div {
+    ${(props) => (props.adorn ? `width: 70px; color:${Color.Light_4}` : `width:100%; text-align:right;`)}
   }
 `;
 
@@ -420,7 +440,7 @@ const Btn = styled.div`
   margin: 10px 0 0 auto;
   button {
     width: 50%;
-    font-size: 16px;
+    font-size: ${Inputsize};
     height: 40px;
   }
 
@@ -429,7 +449,7 @@ const Btn = styled.div`
 
     button {
       width: 50%;
-      font-size: 16px;
+      font-size: ${Inputsize};
       height: 40px;
     }
   }

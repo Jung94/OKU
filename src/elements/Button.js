@@ -58,10 +58,10 @@ const Btn = styled.button`
 
   background-color: ${(props) => props.color};
   border: 1px solid ${Color.Primary};
-  border-radius: 16px;
+  border-radius: 12px;
 
   color: ${(props) => props.contrast};
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 700;
 
   ${(props) => (props.noflex ? "" : "flex-grow: 1;")};
@@ -98,10 +98,10 @@ const BtnDisabled = styled.button`
 
   background-color: ${(props) => props.color};
   border: 1px solid ${Color.Light_4};
-  border-radius: 16px;
+  border-radius: 12px;
 
   color: ${(props) => props.contrast};
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 700;
 
   ${(props) => (props.noflex ? "" : "flex-grow: 1;")};
@@ -125,10 +125,10 @@ const BtnNotLogin = styled.button`
 
   background-color: ${(props) => props.color};
   border: 1px solid ${Color.Light_4};
-  border-radius: 16px;
+  border-radius: 12px;
 
   color: ${(props) => props.contrast};
-  font-size: 20px;
+  font-size: 17px;
   font-weight: 700;
 
   ${(props) => (props.noflex ? "" : "flex-grow: 1;")};

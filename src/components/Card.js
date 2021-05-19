@@ -43,7 +43,7 @@ const Card = (props) => {
 };
 
 const Wrap = styled.div`
-  margin: 0 auto 180px auto;
+  margin: 0 auto 130px auto;
   max-width: 1030px;
 `;
 
