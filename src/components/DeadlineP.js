@@ -24,21 +24,21 @@ const DeadlineP = (props) => {
     return (
       <Wrap>
         <Head>
-          <p style={{ fontSize: "45px", fontWeight: "bold" }}>
+          <p style={{ fontSize: "30px", fontWeight: "bold" }}>
             마감 임박 상품은 <span style={{ color: "#AE27FF" }}>못참지~</span>
           </p>
           <p
             onClick={() => {
               history.push("/DeadlineList");
             }}
-            style={{ marginTop: "41px", color: "#c0c0c0", fontSize: "16px", cursor: "pointer" }}
+            style={{ color: "#c0c0c0", fontSize: "16px", cursor: "pointer" }}
           >
             더보기
           </p>
         </Head>
         <Cards>
           {!_deadline_product ? (
-            <div style={{ margin: "100px auto", color: "#c0c0c0 ", fontSize: "20px" }}>마감임박 상품이 없습니다</div>
+            <div style={{ color: "#c0c0c0 ", fontSize: "20px" }}>마감임박 상품이 없습니다</div>
           ) : (
             _deadline_product.map((k, index) => {
               return <PostCard key={index} {...k} />;
@@ -53,23 +53,23 @@ const DeadlineP = (props) => {
 };
 
 const Wrap = styled.div`
-  margin: 100px auto;
+  margin: 0 auto 180px auto;
   max-width: 1030px;
 `;
 
 const Head = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
   letter-spacing: -2px;
 `;
 
 const Cards = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 65px;
-  grid-row-gap: 48px;
-  margin-top: 45px 0;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 30px;
+  grid-row-gap: 66px;
+  margin-top: 50px;
 
   width: 100%;
   box-sizing: border-box;
