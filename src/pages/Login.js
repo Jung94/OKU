@@ -203,9 +203,6 @@ const Login = (props) => {
             href="http://13.124.55.186/user/kakao"
             // token={KAKAO_JS_ID} render={(props) => <KakaoBtn onClick={props.onClick}></KakaoBtn>} onSuccess={kakaoLoginClickHandler} getProfile={true}
           >
-            <div
-            // alt='카톡'
-            />
           </KakaoBtn>
           {/* <Google/> */}
         </SocialBox>
