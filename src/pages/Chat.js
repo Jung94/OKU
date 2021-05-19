@@ -30,8 +30,12 @@ const Chat = (props) => {
   const dispatch = useDispatch();
   const { history } = props;
 
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+
   useEffect(() => {
-    dispatch(headerActions.setHeader(false));
+    if (isMobile) {
+      dispatch(headerActions.setHeader(false));
+    }
   }, []);
 
   // 로컬에 저장된 토큰 조회

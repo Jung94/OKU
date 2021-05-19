@@ -29,7 +29,8 @@ const ResultContainer = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
-    max-width: 1030px;
+    max-width: 100%;
+    width: 100%;
     height: 100%;
     gap: 10px;
     margin: 100px auto 100px;
@@ -57,11 +58,11 @@ const ResultText = styled.div`
 
   @media only screen and (max-width : 767px) {
     text-align: center;
-    margin: 3rem 0;
+    margin: 3rem 0 1.4rem;
 
     & span {
-      font-size: 16px;
-      font-weight: 700;
+      font-size: 14px;
+      font-weight: 500;
     }
   }
 `;

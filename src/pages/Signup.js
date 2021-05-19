@@ -9,6 +9,8 @@ import { actionCreators as userActions } from "redux/modules/user";
 import { actionCreators as headerActions } from "redux/modules/header";
 
 import { emailCheck } from "shared/common";
+import { pwMacth } from "shared/common";
+import { nicknameCheck } from "shared/common";
 
 import { Grid, Input, Line, Button, Tag, Modal, Text, Profile } from "elements/";
 import { Color } from "shared/DesignSys";
@@ -240,11 +242,15 @@ const Signup = (props) => {
   const checkPw = () => {
     if (!pw) {
       setMessagePw("");
+      return;
     } else if (pw === "") {
       setMessagePw("");
-    } else {
-      setMessagePw("✔ 사용 가능한 비밀번호입니다!");
-    }
+      return;
+    } else if (!pwMacth(pw)) {
+      setMessagePw("영문 대소문자/숫자/특수문자 모두 포함(8~15자)");
+      return;
+    } 
+    setMessagePw("✔ 사용 가능한 비밀번호입니다!");
   };
 
   // 비밀번호 확인 작성 없을 경우 또는 앞서 작성한 비밀번호 내용과 다를 경우, 포커스 아웃 되었을 때
@@ -268,7 +274,9 @@ const Signup = (props) => {
       console.log("null?");
     } else if (nickName === false) {
       console.log("false?");
-    } else if (nickName === null) {
+    } else if (!nicknameCheck(nickName)) {
+      setMessageNickname("특수문자 제외(2~10자)");
+    } else {
       checkNicknameAPI(nickName);
     }
   };

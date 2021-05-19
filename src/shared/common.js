@@ -7,9 +7,9 @@ export const idCheck = (id) => {
 //패스워드 체크 정규식  https://beagle-dev.tistory.com/114
 export const pwMacth = (pw) => {
   const _reg = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-
-  const reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/;
-  return _reg.test(pw) && pw.search(/\s/) === -1 ? true : false;
+  const __reg = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
+  const reg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,15}/;
+  return reg.test(pw) && pw.search(/\s/) === -1 ? true : false;
 };
 
 //이메일 체크 정규식
@@ -40,8 +40,9 @@ export const toEnter = (value) => {
 
 //닉네임 체크 정규식  https://rubberduck-debug.tistory.com/82
 export const nicknameCheck = (nickname) => {
-  let _reg = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/;
-  return _reg.test(nickname);
+  const _reg = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/;
+  const reg = /^[a-z0-9_-]{2,10}$/;
+  return reg.test(nickname);
 };
 
 export const KAKAO_JS_ID = "a6634d55e2a844f3e6e440e3d6fca337";
