@@ -103,10 +103,8 @@ const Input = (props) => {
           {children}
         </input>
         <span className="checkmark" />
-        <Text h4>{value && value}</Text>
-        <Text subBody color={Color.Dark_4} margin="5px 0">
-          {desc}
-        </Text>
+        <div className="value">{value && value}</div>
+        <div className="desc">{desc && desc}</div>
       </RadioCheck>
     );
   }
@@ -146,12 +144,8 @@ const Input = (props) => {
         >
           {children}
         </input>
-        <div>
-          <Text h4>{value && value}</Text>
-          <Text subBody color={Color.Dark_4}>
-            {desc}
-          </Text>
-        </div>
+        <div className="value">{value && value}</div>
+        <div className="desc">{desc && desc}</div>
       </CheckBox>
     );
   }
@@ -343,26 +337,30 @@ const RadioCheck = styled.label`
     }
   }
 
-  // {value}로 받음
-  div:nth-child(1) {
-    margin-left: 10px;
+  .value {
+    margin-left: 8px;
     display: flex;
-    align-items: center;
   }
-  // {desc}로 받음
-  div:nth-child(2) {
+
+  .desc {
+    vertical-align: -2px;
+    margin-left: 5px;
     font-size: ${Inputsize_sm};
+    color: ${Color.Dark_4};
     flex-wrap: wrap;
   }
 `;
 
 const CheckBox = styled.label`
-  align-items: center;
-  display: flex;
+  // text drag 방지
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
+  display: flex;
+  align-items: center;
+
   transition: background-color 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   :hover {
     svg {
@@ -395,11 +393,17 @@ const CheckBox = styled.label`
     }
   }
 
-  // {value}로 받음
-  div {
-    margin-left: 10px;
+  .value {
+    margin-left: 8px;
     display: flex;
-    align-items: center;
+  }
+
+  .desc {
+    vertical-align: -2px;
+    margin-left: 5px;
+    font-size: ${Inputsize_sm};
+    color: ${Color.Dark_4};
+    flex-wrap: wrap;
   }
 `;
 

@@ -7,11 +7,17 @@ import { Color } from "shared/DesignSys";
 const PurchaseList = () => {
   return (
     <Wrap>
-      <Text h2 textAlign="left">
+      <Text h1 textAlign="left">
         구매 목록
       </Text>
+
       <Box>
-        <Item>
+        <Blank>
+          <Text subBody color={Color.Dark_4}>
+            구매 목록이 없습니다!
+          </Text>
+        </Blank>
+        {/*  <Item>
           <Left>
             <Img>이미지</Img>
           </Left>
@@ -94,7 +100,7 @@ const PurchaseList = () => {
               <Date>10일 전</Date>
             </Bottom>
           </Right>
-        </Item>
+        </Item> */}
       </Box>
     </Wrap>
   );
@@ -108,6 +114,11 @@ const Wrap = styled.div`
   gap: 20px;
   flex-direction: column;
   margin-top: 129px;
+`;
+
+const Blank = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const Box = styled.div`

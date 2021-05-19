@@ -3,9 +3,27 @@ import styled from "styled-components";
 import { Input, Line, Button, Tag, Modal, Text, Profile } from "elements/";
 
 import { useSelector, useDispatch } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 
 import { actionCreators as mypageActions } from "redux/modules/mypage";
 import { actionCreators as likeActions } from "redux/modules/like";
+
+import { Color } from "shared/DesignSys";
+
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  return isDesktop ? children : null;
+};
+
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  return isTablet ? children : null;
+};
+
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  return isMobile ? children : null;
+};
 
 const Myinfo = () => {
   const dispatch = useDispatch();
@@ -24,130 +42,151 @@ const Myinfo = () => {
   const [Modifyhowing, setModifyShowing] = useState(false);
 
   const ModifyShowing = () => setModifyShowing(!Modifyhowing);
+
   if (!Modifyhowing) {
     return (
-      <Grid>
+      <Wrap>
         <Head>
-          <Text h2 textAlign="left">
+          <Text h1 textAlign="left">
             회원정보
           </Text>
-          <Modify onClick={ModifyShowing}>수정하기</Modify>
+          {/* <Modify onClick={ModifyShowing}>수정하기</Modify> */}
         </Head>
-        <InfoBox>
-          <InnerBox>
-            <Info>
-              <Title>닉네임</Title>
-              <Blank disabled placeholder={`${userInfo.nickname}`} />
-            </Info>
-            <Info>
-              <Title>아이디</Title>
-              <Blank disabled placeholder={`${userInfo.email}`} />
-            </Info>
-            <Info>
+        <Box>
+          <Info>
+            <Title>닉네임</Title>
+            <Blank disabled placeholder={`${userInfo.nickname}`} />
+          </Info>
+          <Info>
+            <Title>이메일</Title>
+            <Blank disabled placeholder={`${userInfo?.email ? userInfo.email : "-"}`} />
+          </Info>
+          {/* <Info>
               <Title>비밀번호</Title>
               <Blank disabled type="password" />
-            </Info>
-            <Info>
-              <Title>전화번호</Title>
-              <Blank disabled placeholder={`${userInfo.number}`} />
-            </Info>
-          </InnerBox>
-        </InfoBox>
-      </Grid>
+            </Info> */}
+          {/* <Info>
+            <Title>전화번호</Title>
+            <Blank disabled placeholder={`${userInfo.number}`} />
+          </Info> */}
+        </Box>
+      </Wrap>
     );
   } else {
     return (
-      <Grid>
+      <Wrap>
         <Head>
-          <Text h2 textAlign="left">
+          <Text h1 textAlign="left">
             회원정보
           </Text>
-          <Modify onClick={ModifyShowing}>완료하기</Modify>
+          {/* <Modify onClick={ModifyShowing}>완료하기</Modify> */}
         </Head>
-        <InfoBox>
-          <InnerBox>
-            <Info>
-              <Title>닉네임</Title>
-              <Blank placeholder={`${userInfo.nickname}`} />
-            </Info>
-            <Info>
-              <Title>아이디</Title>
-              <Blank disabled placeholder={"서비스 준비중."} />
-            </Info>
-            <Info>
+        <Box>
+          <Info>
+            <Title>닉네임</Title>
+            <Blank placeholder={`${userInfo.nickname}`} />
+          </Info>
+          <Info>
+            <Title>이메일</Title>
+            <Blank disabled placeholder={"서비스 준비중."} />
+          </Info>
+          {/* <Info>
               <Title>비밀번호</Title>
               <Blank disabled placeholder={"서비스 준비중."} />
             </Info>
             <Info>
               <Title>비밀번호확인</Title>
               <Blank disabled placeholder={"서비스 준비중."} />
-            </Info>
-            <Info>
-              <Title>전화번호</Title>
-              <Blank disabled placeholder={"서비스 준비중."} />
-            </Info>
-          </InnerBox>
-        </InfoBox>
-      </Grid>
+            </Info> */}
+          {/* <Info>
+            <Title>전화번호</Title>
+            <Blank disabled placeholder={"서비스 준비중."} />
+          </Info> */}
+        </Box>
+      </Wrap>
     );
   }
 };
 
-const Grid = styled.div``;
+const H2 = "20px";
+const Body = "14px";
+const Sub = "12px";
+
+const Wrap = styled.div`
+  max-width: 1030px;
+  width: 100%;
+  margin-top: 25px;
+`;
 
 const Head = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 1030px;
-  margin: 25px auto 19px;
+  align-items: flex-end;
+  width: 100%;
+  margin-bottom: 10px;
+
+  @media only screen and (max-width: 767px) {
+    div:nth-child(1) {
+      font-size: ${H2};
+    }
+  }
 `;
 
 const Modify = styled.div`
-  font-size: 16px;
-  margin: 20px;
   cursor: pointer;
+  font-size: ${Sub};
 `;
 
-const InfoBox = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1030px;
-  background: #f8f8f8;
-  border-radius: 12px;
+const Box = styled.div`
   box-sizing: border-box;
-  height: 326px;
-`;
-
-const InnerBox = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  box-sizing: border-box;
-  height: 80%;
-  width: 90%;
+  align-items: center;
+  justify-content: center;
+
+  padding: 15px;
+  gap: 10px;
+
+  background: ${Color.Light_1};
+  border-radius: 12px;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
 `;
 
 const Info = styled.div`
+  align-items: center;
   display: flex;
-  max-width: 1030px;
-  height: 50px;
-  justify-content: space-between;
+
+  height: 45px;
+  width: 100%;
 `;
 
 const Title = styled.p`
-  font-size: 16px;
-  height: 50px;
-  padding: 12.5px;
+  max-width: 120px;
+  width: 30%;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  margin: auto 0;
+
+  text-align: left;
+  font-size: ${Body};
 `;
 
 const Blank = styled.input`
-  border: 1px solid #eee;
-  border-radius: 8px;
-  width: 806px;
-  height: 50px;
-  font-size: 16px;
+  width: 100%;
+  height: 45px;
+  padding: 10px;
+  align-items: center;
+
+  text-align: left;
+  font-size: ${Body};
+
+  border-radius: 12px;
+
+  border: 0;
   outline: none;
+
+  background-color: white;
 `;
 
 export default Myinfo;

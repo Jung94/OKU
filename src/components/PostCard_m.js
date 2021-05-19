@@ -89,9 +89,8 @@ const Image = styled.div`
 `;
 
 const Heart = styled.div`
-  // border: 1px solid blue;
   cursor: pointer;
-  z-index: 12;
+  z-index: 1;
   width: 30px;
   height: 30px;
 
@@ -131,7 +130,7 @@ const HeartWrap = styled.div`
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  z-index: 999;
+  z-index: 1;
 `;
 
 const Title = styled.div`

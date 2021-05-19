@@ -8,22 +8,22 @@ import { actionCreators as likeActions } from "redux/modules/like";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle as fasQC, faHeart as fasHeart, faPen as fasPen } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+import IconHeartOn from "images/icon_HeartOn.svg";
+import IconHeartOff from "images/icon_HeartOff.svg";
 
 import { Color } from "shared/DesignSys";
 
 const RelatedProduct = (props) => {
   const dispatch = useDispatch();
 
-  const { title, img, lowBid, _id, _onClick, height, like, relative } = props;
+  const { title, img, lowBid, _id, _onClick, width, height, like, relative } = props;
 
   const _is_like = useSelector((state) => state.like.is_like);
   const like_list = useSelector((state) => state.like.like_list);
 
-  const checkLike = (r) => {
-    if (r.productId === _id) {
-      return true;
-    }
-  };
+  // 좋아요 확인용
+  // console.log("💛", like_list);
+  const likeOrNot = like_list.some((e) => e.productId === _id); // props로 넘어오는 각 프로덕트의 _id와 같은지 확인
 
   // const like = like_list.some(checkLike);
 
@@ -44,9 +44,11 @@ const RelatedProduct = (props) => {
   // 마이페이지 좋아요 버튼 버전
   if (like) {
     return (
-      <ImgWrap onClick={_onClick}>
-        <RelatedImg like img={img}></RelatedImg>
-      </ImgWrap>
+      <LikeImgWrap width={width} height={width}>
+        <RelatedImg like img={img} onClick={_onClick}></RelatedImg>
+
+        <HeartWrap onClick={() => userLike(_id)}> {likeOrNot ? <Heart img={IconHeartOn} /> : <Heart img={IconHeartOff} />} </HeartWrap>
+      </LikeImgWrap>
     );
   }
 
@@ -91,9 +93,8 @@ RelatedProduct.defaultProps = {
 const ImgWrap = styled.div`
   // z-index: 99;
   position: relative;
-  width: 12rem;
+  ${(props) => (props.width ? `width: ${props.width};` : "width:12rem; flex-grow: 1;")};
   height: ${(props) => (props.height ? props.height : "10rem")};
-  flex-grow: 1;
   flex-direction: row;
   flex-wrap: wrap;
   border-radius: 12px;
@@ -101,6 +102,27 @@ const ImgWrap = styled.div`
   // border: 1px solid red;
 
   :hover {
+    transition: 0.2s;
+    transform: scale(1.05);
+  }
+
+  &:not(hover) {
+    transition: 0.2s;
+  }
+`;
+
+const LikeImgWrap = styled.div`
+  // z-index: 99;
+  position: relative;
+  ${(props) => (props.width ? `width: ${props.width};` : "width:12rem; flex-grow: 1;")};
+  height: ${(props) => (props.height ? props.height : "10rem")};
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-radius: 12px;
+  cursor: pointer;
+  // border: 1px solid red;
+
+  :active {
     transition: 0.2s;
     transform: scale(1.05);
   }
@@ -184,6 +206,45 @@ const RelatedImg = styled.div`
 
   &:not(hover) {
     transition: 0.2s;
+  }
+`;
+
+const HeartWrap = styled.div`
+  /* margin-top: -11vw;
+  margin-left: 29vw; */
+  margin-top: -300px;
+  margin-left: 509px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  z-index: 1;
+`;
+
+const Heart = styled.div`
+  cursor: pointer;
+  z-index: 1;
+  width: 30px;
+  height: 30px;
+
+  transition: all 200ms ease-in;
+  background-color: transparent;
+  background: url(${(props) => props.img});
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%;
+  box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.1);
+  :active {
+    svg {
+      transform: rotate(15deg);
+    }
+  }
+  :active {
+    transition: 0.2s;
+    transform: scale(1.1);
   }
 `;
 
