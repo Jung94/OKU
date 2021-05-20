@@ -13,8 +13,9 @@ import Chat from "./Chat";
 
 import CategoryResult from "./CategoryResult";
 import My from "./My";
+import MyShop from './MyShop'
 
 import DeadList from './DeadList'
 import MdList from './MdList'
 
-export { Home, Product, ProductUpload, Signup, Login, Agreement, Result, Chat, CategoryResult, My, MdList,DeadList };
+export { Home, Product, ProductUpload, Signup, Login, Agreement, Result, Chat, CategoryResult, My, MdList,DeadList,MyShop };

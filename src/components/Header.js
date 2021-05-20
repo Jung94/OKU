@@ -334,6 +334,9 @@ const Header = (props) => {
                     <Text subBody color={Color.Dark_4} onClick={logout}>
                       로그아웃
                     </Text>
+                    <Text subBody color={Color.Dark_4} onClick={() => history.push("/MyShop")}>
+                      내 상점
+                    </Text>
                     <Text subBody color={Color.Dark_4} onClick={() => history.push("/my/shopping")}>
                       마이페이지
                     </Text>

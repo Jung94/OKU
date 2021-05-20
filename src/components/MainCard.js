@@ -251,7 +251,6 @@ const Bottom = styled.div`
 
 const TimerWrap = styled.div`
   width: max-content;
-
   display: flex;
   flex-direction: column;
   align-self: flex-end;

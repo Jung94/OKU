@@ -134,7 +134,7 @@ const HeartWrap = styled.div`
 `;
 
 const Title = styled.div`
-  width: 170px;
+  width: 160px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
