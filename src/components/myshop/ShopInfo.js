@@ -14,8 +14,8 @@ const ShopInfomation = () => {
     const my_like_list = useSelector((state) => state.like.my_like_list);
     const ShopDesc = useSelector((state) => state.myshop.desc_shop);
     const SellingProduct = useSelector((state) => state.myshop.Product_selling);
-    console.log(ShopDesc, SellingProduct, "eeeeeeee")
-    console.log(SellingProduct)
+    console.log(ShopDesc, SellingProduct, "eeeeeeee");
+    console.log(SellingProduct);
 
     useEffect(() => {
         dispatch(mypageActions.setProfileAPI());
@@ -42,7 +42,8 @@ const ShopInfomation = () => {
                     <Item>
                         <span>
                             판매중인 물건 <span style={{color :"#ae27ff"}}>
-                                {/* {SellingProduct} */}
+                                {/* {SellingProduct.length > 0 ? SellingProduct.length : 0} */}
+                                {SellingProduct && SellingProduct.length > 0 ? SellingProduct.length : 0}
                             </span>개
                         </span>
                         <span>
