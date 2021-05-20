@@ -8,6 +8,7 @@ import Loading from "shared/Loading";
 
 import { actionCreators as mypageActions } from "redux/modules/mypage";
 import { actionCreators as likeActions } from "redux/modules/like";
+import { actionCreators as headerActions } from "redux/modules/header";
 
 import { useMediaQuery } from "react-responsive";
 
@@ -43,6 +44,7 @@ const My = (props) => {
   const is_loading = useSelector((state) => state.product.is_loading);
 
   useEffect(() => {
+    dispatch(headerActions.setHeader(true));
     if (access_token) {
       dispatch(mypageActions.setProfileAPI());
       dispatch(mypageActions.setInfoAPI());
@@ -78,9 +80,8 @@ const My = (props) => {
       </Mobile>
       <Myinfo />
       <Steam />
-      {/* 
-      <Steam />
-      <PurchaseList /> */}
+      <PurchaseList />
+
       {/* <BtnBox>
         <Link to="/my/shopping">{nowLocation === "shopping" ? <Button>마이 쇼핑</Button> : <Button sub>마이 쇼핑</Button>}</Link>
         <Link to="/my/store">{nowLocation === "store" ? <Button>내 상점</Button> : <Button sub>내 상점</Button>}</Link>

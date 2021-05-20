@@ -28,6 +28,7 @@ const QnA = (props) => {
   const addAnswer = () => {
     dispatch(productActions.addAnswerAPI(_id, _answer, sellerId, Date.now()));
     setAnswer("");
+    setACnt("");
     setOpen(false);
   };
 

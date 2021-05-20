@@ -1,9 +1,14 @@
-import React, { useRef, createRef, useState } from "react";
+import React, { useEffect, useRef, createRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import styled from "styled-components";
 import { Grid, Input, Line, Button, Tag, Text, Profile } from "elements/";
+
 import Select from "react-select";
-import { useSelector, useDispatch } from "react-redux";
+
 import { actionCreators as uploadActions } from "redux/modules/upload";
+import { actionCreators as headerActions } from "redux/modules/header";
+
 import { input_priceComma } from "shared/common";
 // import { Upload } from "components/";
 import Upload from "shared/Upload";
@@ -38,6 +43,10 @@ const ProductUpload = React.memo((props) => {
   const { history } = props;
   const dispatch = useDispatch();
   const is_login = localStorage.getItem("access_token");
+
+  useEffect(() => {
+    dispatch(headerActions.setHeader(true));
+  }, []);
 
   const isDesktop = useMediaQuery({ minWidth: 1024 });
   const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
@@ -82,7 +91,7 @@ const ProductUpload = React.memo((props) => {
   const handleChange1 = (e) => {
     const reader = new FileReader();
     const file = fileInput.current.files[0];
-    console.log(file);
+    // console.log(file);
     reader.readAsDataURL(file); // 파일 내용을 읽어오기
 
     // 읽기가 끝나면 발생하는 이벤트 핸들러
@@ -93,7 +102,7 @@ const ProductUpload = React.memo((props) => {
   const handleChange2 = (e) => {
     const reader = new FileReader();
     const file = fileInput1.current.files[0];
-    console.log(file);
+    // console.log(file);
     reader.readAsDataURL(file); // 파일 내용을 읽어오기
 
     // 읽기가 끝나면 발생하는 이벤트 핸들러
@@ -104,7 +113,7 @@ const ProductUpload = React.memo((props) => {
   const handleChange3 = (e) => {
     const reader = new FileReader();
     const file = fileInput2.current.files[0];
-    console.log(file);
+    // console.log(file);
     reader.readAsDataURL(file); // 파일 내용을 읽어오기
 
     // 읽기가 끝나면 발생하는 이벤트 핸들러

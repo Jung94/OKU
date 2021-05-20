@@ -421,6 +421,8 @@ const TextareaBox = styled.div`
   padding: 20px 25px 10px 25px;
   box-sizing: border-box;
 
+  background-color: white;
+
   transition: border 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
   &:focus-within {

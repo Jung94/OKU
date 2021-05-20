@@ -249,7 +249,7 @@ const Signup = (props) => {
     } else if (!pwMacth(pw)) {
       setMessagePw("영문 대소문자/숫자/특수문자 모두 포함(8~15자)");
       return;
-    } 
+    }
     setMessagePw("✔ 사용 가능한 비밀번호입니다!");
   };
 
@@ -323,8 +323,17 @@ const Signup = (props) => {
           </Text>
         </Grid>
       </Desktop>
+
       <Mobile>
-        <Grid is_flex column margin="125px 0 0 0">
+        <Grid is_flex column margin="35px 0 0 0">
+          <img
+            alt="로고이미지"
+            style={{ width: "25vw", maxWidth: "117.8px", cursor: "pointer", marginBottom: "1rem" }}
+            src={MainLogo}
+            onClick={() => {
+              history.push("/");
+            }}
+          />
           <Text subBody textAlign="center" color={Color.Primary} marginB="5px">
             오쿠는 각자의 덕질 취향을 존중하는
             <br />

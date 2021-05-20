@@ -7,7 +7,7 @@ import IconPlus from "images/icon_Plus.svg";
 import IconChat from "images/icon_Chat.svg";
 import IconMenu from "images/icon_Menu.svg";
 import { Color } from "shared/DesignSys";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { history } from "redux/configureStore";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as userActions } from "redux/modules/user";
@@ -31,6 +31,7 @@ const Mobile = ({ children }) => {
   return isMobile ? children : null;
 };
 
+// display란 이름으로 props를 넘겨줄때 불리안으로 하면 콘솔에 오류가 남
 const Footer = (props) => {
   const { display } = props;
   const dispatch = useDispatch();
@@ -42,7 +43,6 @@ const Footer = (props) => {
     const btn = slider.current.style.left;
     if (btn === "-100%") {
       slider.current.style.left = "0%";
-      
     } else {
       slider.current.style.left = "-100%";
     }
@@ -86,17 +86,40 @@ const Footer = (props) => {
         <FooterWrap display={display}>
           {!is_login && (
             <>
-              <Plus src={IconPlus} onClick={() => {alert("로그인이 필요한 서비스입니다!"); history.push("/login");}} />
+              <Plus
+                src={IconPlus}
+                onClick={() => {
+                  alert("로그인이 필요한 서비스입니다!");
+                  history.push("/login");
+                }}
+              />
               <FourWrap>
                 <Left>
                   {/* <Home src={IconPlus} /> */}
-                  <FontAwesomeIcon icon={faHome} onClick={() => {history.push("/");}} />
-                  <FontAwesomeIcon icon={faCommentDots} onClick={() => {alert("로그인이 필요한 서비스입니다!"); history.push("/login");}} />
+                  <FontAwesomeIcon
+                    icon={faHome}
+                    onClick={() => {
+                      history.push("/");
+                    }}
+                  />
+                  <FontAwesomeIcon
+                    icon={faCommentDots}
+                    onClick={() => {
+                      alert("로그인이 필요한 서비스입니다!");
+                      history.push("/login");
+                    }}
+                  />
                   {/* <Chat src={IconChat} /> */}
                 </Left>
                 <Right>
                   {/* <Mypage src={IconPlus} /> */}
-                  <FontAwesomeIcon icon={faCog} onClick={() => {alert("로그인이 필요한 서비스입니다!"); history.push("/login");}} />
+                  <FontAwesomeIcon
+                    icon={faCog}
+                    onClick={() => {
+                      alert("로그인이 필요한 서비스입니다!");
+                      history.push("/login");
+                    }}
+                  />
                   <FontAwesomeIcon icon={faEllipsisH} onClick={slide} />
                   {/* <Menu src={IconMenu} /> */}
                 </Right>
@@ -105,44 +128,69 @@ const Footer = (props) => {
           )}
           {is_login && (
             <>
-              <Plus src={IconPlus} onClick={() => {history.push("/productupload");}} />
+              <Plus
+                src={IconPlus}
+                onClick={() => {
+                  history.push("/productupload");
+                }}
+              />
               <FourWrap>
                 <Left>
                   {/* <Home src={IconPlus} /> */}
-                  <FontAwesomeIcon icon={faHome} onClick={() => {history.push("/");}} />
-                  <FontAwesomeIcon icon={faCommentDots} onClick={() => {history.push("/chat");}} />
+                  <FontAwesomeIcon
+                    icon={faHome}
+                    onClick={() => {
+                      history.push("/");
+                    }}
+                  />
+                  <FontAwesomeIcon
+                    icon={faCommentDots}
+                    onClick={() => {
+                      history.push("/chat");
+                    }}
+                  />
                   {/* <Chat src={IconChat} /> */}
                 </Left>
                 <Right>
                   {/* <Mypage src={IconPlus} /> */}
-                  <FontAwesomeIcon icon={faCog} onClick={() => {history.push("/my");}} />
+                  <FontAwesomeIcon
+                    icon={faCog}
+                    onClick={() => {
+                      history.push("/my");
+                    }}
+                  />
                   <FontAwesomeIcon icon={faEllipsisH} onClick={slide} />
                   {/* <Menu src={IconMenu} /> */}
                 </Right>
               </FourWrap>
             </>
           )}
-          
         </FooterWrap>
         <SidebarWrap ref={slider}>
           <Exit>
             <FontAwesomeIcon icon={faTimes} onClick={slideClose} />
           </Exit>
-          
+
           {/* <Exit src={IconExit} /> */}
           <Grid height="110px" width="100%" bdrBottom="1px solid rgba(0, 0, 0, 0.1)">
-            <div style={{ margin: "24px 30px"}}>
-              <Text h4 >오쿠에 오신걸 환영합니다!</Text>
-              <div style={{ margin: "18px 0 0"}}>
+            <div style={{ margin: "24px 30px" }}>
+              <Text h4>오쿠에 오신걸 환영합니다!</Text>
+              <div style={{ margin: "18px 0 0" }}>
                 {!is_login && (
                   <>
-                    <Button main size="16px" width="120px" height="46px" margin="0 15px 0 0" _onClick={login}>로그인</Button>
-                    <Button sub size="16px" width="120px" height="46px" _onClick={signup}>회원가입</Button>
+                    <Button main size="16px" width="120px" height="46px" margin="0 15px 0 0" _onClick={login}>
+                      로그인
+                    </Button>
+                    <Button sub size="16px" width="120px" height="46px" _onClick={signup}>
+                      회원가입
+                    </Button>
                   </>
                 )}
                 {is_login && (
                   <>
-                    <Button sub size="16px" width="120px" height="46px" _onClick={logout}>로그아웃</Button>
+                    <Button sub size="16px" width="120px" height="46px" _onClick={logout}>
+                      로그아웃
+                    </Button>
                   </>
                 )}
               </div>
@@ -150,23 +198,22 @@ const Footer = (props) => {
           </Grid>
           <Grid is_flex justify="flex-start" padding="0 30px" height="80px" width="100%" bdrBottom="1px solid rgba(0, 0, 0, 0.1)">
             <div>
-              <Text h4 >About OKU</Text>
+              <Text h4>About OKU</Text>
             </div>
           </Grid>
           <Grid is_flex justify="flex-start" padding="0 30px" height="80px" width="100%" bdrBottom="1px solid rgba(0, 0, 0, 0.1)">
             <div>
-              <Text h4 >About Team</Text>
+              <Text h4>About Team</Text>
             </div>
           </Grid>
           <Grid is_flex justify="flex-start" padding="0 30px" height="80px" width="100%" bdrBottom="1px solid rgba(0, 0, 0, 0.1)">
             <div>
-              <Text h4 >서비스 문의하기</Text>
+              <Text h4>서비스 문의하기</Text>
             </div>
           </Grid>
         </SidebarWrap>
       </Mobile>
     </>
-    
   );
 };
 
@@ -194,7 +241,6 @@ const Exit = styled.div`
     color: rgba(0, 0, 0, 0.3);
   }
 
-
   // width: 28px;
   // height: 28px;
   // background-color: transparent;
@@ -202,7 +248,6 @@ const Exit = styled.div`
   // background-size: cover;
   // background-position: center;
   // transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
-  
 `;
 
 const Left = styled.div`
@@ -283,7 +328,6 @@ const Plus = styled.img`
   background-position: center;
   transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
   background-color: ${Color.Light_4};
-
 `;
 
 const FourWrap = styled.div`
@@ -295,7 +339,6 @@ const FourWrap = styled.div`
 `;
 
 const FooterWrap = styled.footer`
-
   @media only screen and (min-width: 1024px) {
     max-width: 100%;
     width: 100%;
@@ -331,7 +374,6 @@ const FooterWrap = styled.footer`
   }
 
   @media only screen and (max-width: 767px) {
-
     // width: 100%;
     max-width: 100vw;
     height: 56px;
@@ -350,13 +392,12 @@ const FooterWrap = styled.footer`
     justify-content: center;
     padding: 0 40px;
     box-sizing: border-box;
-    border-Top: 1px solid rgba(0, 0, 0, 0.08);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: 0 4px 10px 1px rgba(111, 111, 111, 0.2);
   }
 `;
 
 const FooterContent = styled.footer`
-
   @media only screen and (min-width: 1024px) {
     margin: 0 0 40px 0;
     width: 80%;
@@ -395,7 +436,6 @@ const FooterContent = styled.footer`
 `;
 
 const Image = styled.div`
-
   @media only screen and (min-width: 1024px) {
     & > img {
       width: 85.2px;

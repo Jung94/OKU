@@ -79,7 +79,7 @@ const Steam = () => {
     infinite: true, // 마지막 장 다음에 첫번째가 나오게 할 것인지
     speed: 500, // 넘어가는 속도는 몇으로 할 것인지
     lazyLoad: true,
-    slidesToShow: 4,
+    slidesToShow: 1, // 이거때문에 두줄씩 밑에도 나오는거임
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
@@ -221,6 +221,10 @@ const Box = styled.div`
   background: ${Color.Light_1};
   border-radius: 12px;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
+
+  @media only screen and (max-width: 767px) {
+    justify-content: space-between;
+  }
 `;
 
 const List = styled.div`

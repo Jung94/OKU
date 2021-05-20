@@ -11,6 +11,7 @@ import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 
 import { useMediaQuery } from "react-responsive";
 
+import { actionCreators as headerActions } from "redux/modules/header";
 import { actionCreators as productActions } from "redux/modules/product";
 import { actionCreators as loadingActions } from "redux/modules/loading";
 import { actionCreators as likeActions } from "redux/modules/like";
@@ -86,11 +87,13 @@ const Product = (props) => {
   const onChangeContents = useCallback((e) => setReview(e.target.value), []);
 
   const addQuestion = () => {
-    setReview("");
     dispatch(productActions.addQuestionAPI(_id, _contents, sellerunique, nickname, Date.now()));
+    setReview("");
+    setQCnt("");
   };
 
   useEffect(() => {
+    dispatch(headerActions.setHeader(true));
     dispatch(productActions.setProductAllAPI(_id));
     dispatch(bidActions.setBidAPI(_id, lowBid));
   }, [_id, new_qna]);
@@ -337,6 +340,7 @@ const Product = (props) => {
                     setReview(e.target.value);
                     setQCnt(e.target.value);
                   }}
+                  value={QCnt}
                   fnc={addQuestion}
                   btn="등록하기"
                 ></Input>

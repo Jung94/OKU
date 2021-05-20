@@ -77,14 +77,16 @@ const MainCard = (props) => {
                 <Text h1>{title}</Text>
               </Title>
 
-              <Bottom className="text">
+              <MobileTimerSucbid className="text">
+                <Text h2>
+                  <Timer all {...props} white />
+                </Text>
+                <Timer timeProgress white {...props} />
                 {/* <Currentprice>{i.currentprice}</Currentprice> */}
-                <Sucbid>
-                  <div className="price">
-                    <span className="text">&thinsp;{priceComma(sucBid)}&thinsp;</span>원&thinsp;
-                  </div>
-                </Sucbid>
-              </Bottom>
+                <div className="price">
+                  <span className="text">&thinsp;{priceComma(sucBid)}&thinsp;</span>원&thinsp;
+                </div>
+              </MobileTimerSucbid>
             </Desc>
             <Screen className="screen" />
           </Image>
@@ -93,6 +95,12 @@ const MainCard = (props) => {
     </>
   );
 };
+
+const H0 = "40px";
+const H1 = "30px";
+const H2 = "20px";
+const Body = "14px";
+const Sub = "12px";
 
 const Section = styled.div`
   .img {
@@ -198,7 +206,7 @@ const Title = styled.div`
   width: 470px;
 
   @media only screen and (max-width: 767px) {
-    width: 320px;
+    width: 300px;
     font-size: 10px;
     margin: 20px 0 0 20px;
     color: #ffffff;
@@ -230,6 +238,15 @@ const Bottom = styled.div`
   margin: 40px;
   height: min-content;
   justify-content: space-between;
+
+  @media only screen and (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+    top: 215px;
+    width: 290px;
+    margin: 20px;
+    background-color: blue;
+  }
 `;
 
 const TimerWrap = styled.div`
@@ -250,12 +267,12 @@ const Sucbid = styled.div`
   align-items: flex-end;
   align-self: flex-end;
   color: #ffffff;
-  font-size: 30px;
+  font-size: ${H1};
   font-weight: 700;
   text-align: right;
   span {
     text-align: right;
-    font-size: 20px;
+    font-size: ${H2};
     font-weight: 500;
   }
 
@@ -263,7 +280,7 @@ const Sucbid = styled.div`
 
   .text {
     display: inline-block;
-    font-size: 40px;
+    font-size: ${H0};
     font-weight: 700;
     vertical-align: -2px;
   }
@@ -274,6 +291,33 @@ const Sucbid = styled.div`
       font-size: 15px;
       color: ${Color.Primary};
     }
+  }
+`;
+
+const MobileTimerSucbid = styled.div`
+  width: max-content;
+
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  max-width: 200px;
+  font-weight: 700;
+
+  margin-top: 130px;
+  margin-left: 20px;
+  position: absolute;
+
+  color: #ffffff;
+
+  text-shadow: 0 1.5px 10px rgba(0, 0, 0, 0.25);
+  font-size: ${H2};
+
+  .text {
+    font-size: ${H1};
+    display: inline-block;
+  }
+  :hover {
+    /* color: ${Color.Primary}; */
   }
 `;
 

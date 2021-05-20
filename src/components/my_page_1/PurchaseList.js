@@ -7,14 +7,16 @@ import { Color } from "shared/DesignSys";
 const PurchaseList = () => {
   return (
     <Wrap>
-      <Text h1 textAlign="left">
-        구매 목록
-      </Text>
+      <Head>
+        <Text h1 textAlign="left">
+          구매 목록
+        </Text>
+      </Head>
 
       <Box>
         <Blank>
           <Text subBody color={Color.Dark_4}>
-            구매 목록이 없습니다!
+            🎀 서비스 준비 중입니다! 🎀
           </Text>
         </Blank>
         {/*  <Item>
@@ -106,31 +108,62 @@ const PurchaseList = () => {
   );
 };
 
+const H2 = "20px";
+const Body = "14px";
+const Sub = "12px";
+
 const Wrap = styled.div`
   max-width: 1030px;
   width: 100%;
-  min-height: 180px;
+  margin-top: 25px;
+`;
+
+const Head = styled.div`
   display: flex;
-  gap: 20px;
-  flex-direction: column;
-  margin-top: 129px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 25px;
+  margin-bottom: 10px;
+
+  @media only screen and (max-width: 767px) {
+    div:nth-child(1) {
+      font-size: ${H2};
+    }
+    div:nth-child(2) {
+      font-size: ${Sub};
+    }
+  }
+`;
+
+const Box = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+
+  padding: 15px;
+  gap: 10px;
+
+  background: ${Color.Light_1};
+  border-radius: 12px;
+  box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
+
+  //   width: 100%;
+  //   min-height: 180px;
+  //   padding: 30px 40px 30px 30px;
+  //   display: grid;
+  //   grid-template-columns: 1fr 1fr;
+  //   row-gap: 20px;
+  //   flex-direction: column;
+  //   background-color: ${Color.Light_1};
+  //   border-radius: 12px;
 `;
 
 const Blank = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const Box = styled.div`
-  width: 100%;
-  min-height: 180px;
-  padding: 30px 40px 30px 30px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  row-gap: 20px;
-  flex-direction: column;
-  background-color: ${Color.Light_1};
-  border-radius: 12px;
 `;
 
 const Item = styled.div`

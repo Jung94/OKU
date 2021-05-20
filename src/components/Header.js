@@ -53,7 +53,7 @@ const Header = (props) => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
 
   useEffect(() => {
-    if (isDesktop) {
+    if (isDesktop && showHeader) {
       window.addEventListener("scroll", headerChange);
       // dispatch(userActions.isLogin());
       return () => window.removeEventListener("scroll", headerChange);
@@ -202,8 +202,11 @@ const Header = (props) => {
   };
 
   const headerChange = () => {
-    // return null;
+    // style null 에러페이지 방지
 
+    if (navbox === null || up === null || hide === null || leftLogo === null) {
+      return;
+    }
     if (window.scrollY < 150) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "999";
@@ -447,7 +450,6 @@ const Header = (props) => {
       </Desktop>
 
       <Tablet>
-        {" "}
         <HeaderWrap showHeader={showHeader} ref={navbox}>
           <Fix ref={up}>
             {/* 로고 */}
@@ -903,7 +905,7 @@ const SearchWrap = styled.div`
   height: 38px;
   width: 150px;
   background-color: transparent;
-  transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
   // border: 1px solid blue;
 
   @media only screen and (max-width: 767px) {
@@ -916,7 +918,7 @@ const SearchWrap = styled.div`
     justify-content: flex-end;
     width: 100%;
     background-color: transparent;
-    transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition: all 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
 
     &:focus-within {
       border-bottom: none;

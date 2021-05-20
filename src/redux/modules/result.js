@@ -2,6 +2,8 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { API } from "shared/Api";
 
+import { actionCreators as loadingActions } from "redux/modules/loading";
+
 const SET_PRODUCT_SEARCH = "SET_PRODUCT_SEARCH"; // 검색 페이지
 const SET_SEARCH_PAGE = "SET_SEARCH_PAGE"; // 검색 페이지 - 무한 스크롤
 const CLEAR_SEARCH_PAGE = "CLEAR_SEARCH_PAGE"; // 새롭게 검색할때 초기화

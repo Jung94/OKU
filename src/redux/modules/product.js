@@ -3,9 +3,10 @@ import { produce } from "immer";
 import { API } from "shared/Api";
 import axios from "axios";
 
+import { actionCreators as loadingActions } from "redux/modules/loading";
+
 import { actionCreators as bidActions } from "redux/modules/bid";
 import { actionCreators as likeActions } from "redux/modules/like";
-import { actionCreators as loadingActions } from "redux/modules/loading";
 import { actionCreators as mypageActions } from "redux/modules/mypage";
 
 // actions
@@ -35,7 +36,6 @@ const _idTest = "609566ecc795947ca9a342bd";
 
 const setProductAllAPI = (_id) => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     // 추후에 product 클릭 id를 가져와야함
     // _id
     fetch(`${API}/product/detail/${_id}`, {
@@ -69,9 +69,7 @@ const setProductAllAPI = (_id) => {
       .catch((error) => {
         console.log("setProductAllAPI에 문제가 있습니다.", error);
       })
-      .finally(() => {
-        dispatch(loadingActions.loading(false));
-      });
+      .finally(() => {});
   };
 };
 
@@ -168,7 +166,6 @@ const setQnAAPI = (_id) => {
 
 const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt) => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     dispatch(mypageActions.setProfileAPI());
     const userprofile = getState().mypage.user.profile;
     const access_token = localStorage.getItem("access_token");
@@ -195,6 +192,7 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
       .then((res) => {
         if (res.okay) {
           console.log(res);
+          console.log(res.questId);
           console.log("문의글이 등록되었습니다.");
           dispatch(addQuestion(draft));
           // 공부 포인트!
@@ -208,7 +206,6 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
       .finally(() => {
         // history.replace(`/`);
         history.replace(`/product/detail/${_id}`);
-        dispatch(loadingActions.loading(false));
       });
   };
 };
@@ -216,7 +213,6 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
 const addAnswerAPI = (_id, _answer, sellerId, updatedAt) => {
   // dispatch(mypageActions.setProfileAPI());
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     const access_token = localStorage.getItem("access_token");
     const nickname = localStorage.getItem("nickname");
     const newQuestion = JSON.stringify({ sellerunique: sellerId, contents: _answer });
@@ -241,15 +237,12 @@ const addAnswerAPI = (_id, _answer, sellerId, updatedAt) => {
           dispatch(addAnswer(_id, draft));
         } else {
           console.log("새로고침을 하여 문의글id를 받아야하거나, 판매자가 아니거나, 답변 등록에 실패하였습니다.");
-          // dispatch(loadingActions.loading(false));
         }
       })
       .catch((error) => {
         console.log("addAnswerAPI에 문제가 있습니다.", error);
       })
-      .finally(() => {
-        dispatch(loadingActions.loading(false));
-      });
+      .finally(() => {});
   };
 };
 

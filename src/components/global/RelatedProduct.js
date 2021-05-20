@@ -95,7 +95,7 @@ const ImgWrap = styled.div`
   position: relative;
   ${(props) => (props.width ? `width: ${props.width};` : "width:12rem; flex-grow: 1;")};
   height: ${(props) => (props.height ? props.height : "10rem")};
-  flex-direction: row;
+
   flex-wrap: wrap;
   border-radius: 12px;
   cursor: pointer;
@@ -116,13 +116,12 @@ const LikeImgWrap = styled.div`
   position: relative;
   ${(props) => (props.width ? `width: ${props.width};` : "width:12rem; flex-grow: 1;")};
   height: ${(props) => (props.height ? props.height : "10rem")};
-  flex-direction: row;
   flex-wrap: wrap;
   border-radius: 12px;
   cursor: pointer;
   // border: 1px solid red;
 
-  :active {
+  :hover {
     transition: 0.2s;
     transform: scale(1.05);
   }
@@ -210,18 +209,18 @@ const RelatedImg = styled.div`
 `;
 
 const HeartWrap = styled.div`
-  /* margin-top: -11vw;
-  margin-left: 29vw; */
-  margin-top: -300px;
-  margin-left: 509px;
-
+  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
   width: 35px;
   height: 35px;
   border-radius: 50%;
-  z-index: 1;
+  z-index: 999;
+
+  @media only screen and (max-width: 767px) {
+    margin-top: -11vw;
+    margin-left: 29vw;
+  }
 `;
 
 const Heart = styled.div`

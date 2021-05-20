@@ -82,7 +82,7 @@ const Wrap = styled.div`
   position: relative;
   width: 228px;
   height: 315px;
-  box-shadow: 0 0 10px ${Color.Light_4};
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
   border-radius: 30px;
   box-sizing: border-box;
   overflow: hidden;
@@ -108,7 +108,9 @@ const Image = styled.div`
   cursor: pointer;
 `;
 
+// 마감 시간
 const UpTime = styled.div`
+  user-select: none;
   z-index: 10;
   display: flex;
   width: max-content;
@@ -117,12 +119,16 @@ const UpTime = styled.div`
   border-radius: 14px;
   margin-top: 16px;
   margin-left: 16px;
-  padding: 6px 10px 4px;
+  padding: 6px 10px;
   font-size: 17px;
   color: ${Color.Dark_2};
+  border: 0.5px solid ${Color.Light_1}55;
   transition: all 200ms ease-in-out;
   :hover {
-    background-color: #ffffff;
+    background-color: #ffffffcc;
+    border: 0.5px solid ${Color.Light_1}77;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+
     color: ${Color.Primary};
   }
 `;

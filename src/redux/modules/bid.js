@@ -95,15 +95,15 @@ const addBidAPI = (bidPrice, createAt) => {
       .then((res) => {
         // console.log(res.result);
         if (res.result === "before" || res.result === "lowBid") {
-          console.log(res.result);
+          // console.log(res.result);
           dispatch(warningBid("before"));
           return;
         } else if (res.result === "time") {
-          console.log(res.result);
+          // console.log(res.result);
           dispatch(warningBid("time"));
           return;
         } else if (res.result._id) {
-          console.log(res.result);
+          // console.log(res.result);
           dispatch(warningBid("success"));
           dispatch(addBid({ bid: res.result.bid, nickName: res.result.nickName, createAt: res.result.createAt }));
           dispatch(setCurrent(res.result.bid));
