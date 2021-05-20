@@ -13,6 +13,7 @@ import ScrollToTop from "shared/ScrollToTop";
 import Social from "shared/Social";
 import NotFound from "shared/NotFound";
 import Loading from "shared/Loading";
+import Notice from "shared/Notice";
 import { Header, Footer } from "components/";
 import { Home, Product, ProductUpload, Signup, Login, Agreement, Result, My, Chat, CategoryResult, MdList, DeadList } from "pages/";
 
@@ -35,6 +36,7 @@ const App = (props) => {
 
   return (
     <Wrap>
+      <Notice />
       <Header showHeader={header_display} />
       <Grid>
         <ConnectedRouter history={history}>
@@ -57,7 +59,7 @@ const App = (props) => {
               <Route path="/social/:id" exact component={Social} />
               <Route component={NotFound} />
             </Switch>
-          </ScrollToTop> 
+          </ScrollToTop>
         </ConnectedRouter>
       </Grid>
       <Footer />
