@@ -389,7 +389,7 @@ const Header = (props) => {
                         height="34px"
                         className="block pointer"
                         width="max-content"
-                        padding="0 14px 4px"
+                        padding="0 14px 1px"
                         is_flex
                         gap="9px"
                         __click={() => {
@@ -407,7 +407,7 @@ const Header = (props) => {
                       <Grid
                         className="pointer"
                         width="max-content"
-                        padding="0 0 4px 14px"
+                        padding="0 0 5px 14px"
                         is_flex
                         gap="9px"
                         __click={() => {
@@ -427,7 +427,7 @@ const Header = (props) => {
                         height="34px"
                         className="pointer"
                         width="max-content"
-                        padding="0 0 4px 14px"
+                        padding="0 0 1px 14px"
                         is_flex
                         gap="9px"
                         __click={() => {

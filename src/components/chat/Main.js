@@ -14,9 +14,9 @@ const Main = ({ targetName }) => {
 };
 
 const Wrap = styled.div`
-  //   border: 1px solid red;
-  width: 744px;
-  height: 538px;
+  // border: 1px solid red;
+  width: 680px;
+  height: 468px;
   border-radius: 16px;
 //   position: relative;
 //   ::-webkit-scrollbar {

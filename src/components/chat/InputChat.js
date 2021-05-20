@@ -218,12 +218,13 @@ const ModalBack = styled.div`
 `;
 
 const BtnBox = styled.div`
+  // border: 1px solid red;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 25.2px;
-  width: 744px;
-  margin-bottom: 22.6px;
+  width: 680px;
+  margin-bottom: 16px;
 
   @media only screen and (max-width: 767px) {
     // border: 1px solid green;
@@ -237,11 +238,11 @@ const BtnBox = styled.div`
 `;
 
 const Delivery = styled.button`
-  width: 172.8px;
-  height: 40px;
+  width: 158px;
+  height: 38px;
   color: #fff;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 500;
   background: #ae00ff;
   border: none;
   border-radius: 12px;
@@ -264,11 +265,11 @@ const Delivery = styled.button`
 `;
 
 const Exit = styled.button`
-  width: 172.8px;
-  height: 40px;
+  width: 158px;
+  height: 38px;
   color: rgba(0, 0, 0, 0.4);
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 500;
   background: #eaeaea;
   border: none;
   border-radius: 12px;
@@ -291,10 +292,12 @@ const Exit = styled.button`
 `;
 
 const InputBox = styled.div`
+  // border: 1px solid green;
+  padding: 0 20px;
   display: flex;
   gap: 12px;
   width: 680px;
-  margin-bottom: 19.4px;
+  margin-bottom: 17px;
 
   @media only screen and (max-width: 767px) {
     // border: 1px solid green;
@@ -308,20 +311,26 @@ const InputBox = styled.div`
 `;
 
 const Text = styled.textarea`
-  width: 595px;
-  height: 80px;
+  // border: 1px solid red;
+  width: 100%;
+  height: 70px;
   background: #fff;
   border-radius: 12px;
   border: 0.5px solid #c1c1c1;
-  font-size: 16px;
+  font-size: 14px;
   padding: 14px;
   white-space: normal;
   word-break: break-all;
   outline: none;
   resize: none;
 
+  ::placeholder {
+    font-size: 14px;
+    font-weight: 400;
+  }
+
   @media only screen and (max-width: 767px) {
-    border: 1px solid green;
+    // border: 1px solid green;
     width: 100%;
     height: 36px;
     background: #fff;
@@ -342,8 +351,8 @@ const Text = styled.textarea`
 `;
 
 const Btn = styled.button`
-  width: 40px;
-  height: 80px;
+  width: 74px;
+  height: 70px;
   color: #fff;
   font-size: 14px;
   font-weight: bold;

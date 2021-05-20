@@ -136,8 +136,8 @@ const EmptyPost = styled.div`
 
 const ChatBox = styled.div`
   //   border: 1px solid red;
-  height: 458px;
-  width: 744px;
+  height: 382px;
+  width: 680px;
   overflow: auto;
 
   @media only screen and (max-width: 767px) {
@@ -156,13 +156,13 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 744px;
-  height: 79.6px;
+  width: 680px;
+  height: 50px;
   color: #434343;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   background: #fff;
-  border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
 

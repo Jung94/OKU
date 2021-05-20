@@ -96,13 +96,38 @@ const Message = (props) => {
     );
 };
 
+const Box = styled.div`
+  display: flex;
+  gap: 15px;
+  min-width: 100%;
+  width: 100%;
+  min-height: 80px;
+  padding: 14px 20px 8px;
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid green;
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+    min-width: 100vw;
+    width: 100vw;
+    min-height: 50px;
+    padding: 10px 40px 10px 10px;
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+`;
+
 const BoxR = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 15px;
-  min-width: 724px;
-  min-height: 103px;
-  padding: 20px 32px 14px;
+  min-width: 100%;
+  width: 100%;
+  min-height: 80px;
+  padding: 14px 20px 8px;
   background: #fff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
@@ -120,9 +145,9 @@ const BoxR = styled.div`
   }
 `;
 
-const ProfileImgR = styled.div`
-  width: 62px;
-  height: 62px;
+const ProfileImg = styled.div`
+  width: 50px;
+  height: 50px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 30px;
 //   background-image: url("${(props) => props.img}");
@@ -144,142 +169,9 @@ const ProfileImgR = styled.div`
   }
 `;
 
-const TextBoxR = styled.div`
-//   border: 1px solid blue;
-  display: flex;
-  gap: 14px;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-  width: 498px;
-  min-height: 62px;
-  background: #fff;
-
-  @media only screen and (max-width: 767px) {
-    // border: 1px solid blue;
-    display: flex;
-    gap: 2px;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 231px;
-    min-width: 220px;
-    min-height: 30px;
-    background: #fff;
-  }
-`;
-
-const UpR = styled.div`
-//   border: 1px solid red;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  height: 23px;
-  background: #fff;
-  margin: 0;
-
-  @media only screen and (max-width: 767px) {
-    // border: 1px solid blue;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-end;
-    height: 23px;
-    background: #fff;
-    margin: 0;
-  }
-`;
-
-const NameR = styled.div`
-//   border: 1px solid green;
-  display: inline-block;
-  height: 19px;
-  font-size: 16px;
-  font-weight: bold;
-
-  @media only screen and (max-width: 767px) {
-    // border: 1px solid blue;
-    display: inline-block;
-    font-size: 12px;
-    font-weight: 500;
-    margin: 0 1px 0 0;
-  }
-`;
-
-const TimeR = styled.div`
-//   border: 1px solid green;
-  display: inline-block;
-  height: 17px;
-  color: rgba(0, 0, 0, 0.3);
-  font-size: 14px;
-  font-weight: 400;
-  text-align: left;
-  margin: 0 14px 0 0;
-
-  @media only screen and (max-width: 767px) {
-    // border: 1px solid green;
-    display: inline-block;
-    height: 16px;
-    color: rgba(0, 0, 0, 0.3);
-    font-size: 10px;
-    font-weight: 400;
-    text-align: left;
-    margin: 0 8px 0 0;
-  }
-`;
-
-const MsgR = styled.div`
-//   border: 1px solid red;
-  display: inline-block;
-  min-height: 30px;
-  background: #fff;
-  font-size: 16px;
-  line-height: 1.2;
-  word-break: break-all;
-  text-align: left;
-  white-space: pre-line;
-
-  @media only screen and (max-width: 767px) {
-    // border: 1px solid blue;
-    display: inline-block;
-    min-height: 30px;
-    background: #fff;
-    font-size: 12.4px;
-    line-height: 1.3;
-    white-space: normal;
-    text-align: left;
-    white-space: pre-line;
-
-  }
-`;
-
-
-
-const Box = styled.div`
-  display: flex;
-  gap: 15px;
-  min-width: 724px;
-  min-height: 100px;
-  padding: 20px 32px 14px;
-  background: #fff;
-  // border: 1px solid green;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
-  @media only screen and (max-width: 767px) {
-    // border: 1px solid green;
-    display: flex;
-    justify-content: flex-start;
-    gap: 8px;
-    min-width: 100vw;
-    width: 100vw;
-    min-height: 50px;
-    padding: 10px 40px 10px 10px;
-    background: #fff;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-`;
-
-const ProfileImg = styled.div`
-  width: 62px;
-  height: 62px;
+const ProfileImgR = styled.div`
+  width: 50px;
+  height: 50px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 30px;
 //   background-image: url("${(props) => props.img}");
@@ -302,13 +194,13 @@ const ProfileImg = styled.div`
 `;
 
 const TextBox = styled.div`
-//   border: 1px solid blue;
+  // border: 1px solid blue;
   display: flex;
   gap: 14px;
   flex-direction: column;
   justify-content: space-between;
-  width: 514px;
-  min-height: 62px;
+  width: 469px;
+  min-height: 56px;
   background: #fff;
 
   @media only screen and (max-width: 767px) {
@@ -324,12 +216,56 @@ const TextBox = styled.div`
   }
 `;
 
+const TextBoxR = styled.div`
+  // border: 1px solid blue;
+  display: flex;
+  gap: 14px;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 469px;
+  min-height: 56px;
+  background: #fff;
+
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid blue;
+    display: flex;
+    gap: 2px;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 231px;
+    min-width: 220px;
+    min-height: 30px;
+    background: #fff;
+  }
+`;
+
 const Up = styled.div`
-//   border: 1px solid red;
+  // border: 1px solid red;
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
-  height: 23px;
+  height: 21px;
+  background: #fff;
+  margin: 0;
+
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid blue;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 23px;
+    background: #fff;
+    margin: 0;
+  }
+`;
+
+const UpR = styled.div`
+//   border: 1px solid red;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 21px;
   background: #fff;
   margin: 0;
 
@@ -348,7 +284,7 @@ const Name = styled.div`
 //   border: 1px solid green;
   display: inline-block;
   height: 19px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
 
   @media only screen and (max-width: 767px) {
@@ -356,18 +292,35 @@ const Name = styled.div`
     display: inline-block;
     font-size: 12px;
     font-weight: 500;
+    margin: 0 1px 0 0;
+  }
+`;
+
+const NameR = styled.div`
+//   border: 1px solid green;
+  display: inline-block;
+  height: 19px;
+  font-size: 14px;
+  font-weight: bold;
+
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid blue;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0 1px 0 0;
   }
 `;
 
 const Time = styled.div`
 //   border: 1px solid green;
   display: inline-block;
-  height: 17px;
+  height: 16px;
   color: rgba(0, 0, 0, 0.3);
-  font-size: 14px;
+  font-size: 11px;
   font-weight: 400;
   text-align: left;
-  margin: 0 0 0 14px;
+  margin: 0 0 0 10px;
 
   @media only screen and (max-width: 767px) {
     // border: 1px solid green;
@@ -381,12 +334,34 @@ const Time = styled.div`
   }
 `;
 
-const Msg = styled.div`
-//   border: 1px solid red;
+const TimeR = styled.div`
+//   border: 1px solid green;
   display: inline-block;
-  min-height: 30px;
+  height: 13px;
+  color: rgba(0, 0, 0, 0.3);
+  font-size: 11px;
+  font-weight: 400;
+  text-align: left;
+  margin: 0 10px 0 0;
+
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid green;
+    display: inline-block;
+    height: 16px;
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 10px;
+    font-weight: 400;
+    text-align: left;
+    margin: 0 8px 0 0;
+  }
+`;
+
+const Msg = styled.div`
+  // border: 1px solid red;
+  display: inline-block;
+  min-height: 22px;
   background: #fff;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.2;
   white-space: normal;
   text-align: left;
@@ -402,6 +377,31 @@ const Msg = styled.div`
     white-space: normal;
     text-align: left;
     white-space: pre-line;
+  }
+`;
+
+const MsgR = styled.div`
+  // border: 1px solid red;
+  display: inline-block;
+  min-height: 20px;
+  background: #fff;
+  font-size: 14px;
+  line-height: 1.2;
+  word-break: break-all;
+  text-align: left;
+  white-space: pre-line;
+
+  @media only screen and (max-width: 767px) {
+    // border: 1px solid blue;
+    display: inline-block;
+    min-height: 30px;
+    background: #fff;
+    font-size: 12.4px;
+    line-height: 1.3;
+    white-space: normal;
+    text-align: left;
+    white-space: pre-line;
+
   }
 `;
 

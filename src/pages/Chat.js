@@ -155,7 +155,7 @@ const MainBottom = styled.div`
 
 const Wrap = styled.div`
   // border: 1px solid #000;
-  margin: 150px 0 0;
+  margin: 90px 0 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -174,19 +174,9 @@ const MainContent = styled.section`
   display: flex;
   gap: 2px;
   max-width: 1030px;
-  max-height: 730px;
+  max-height: 680px;
   box-sizing: border-box;
-  margin: 85.6px 0 85.6px;
-
-  @media only screen and (min-width: 1824px) {
-    // border: 1px solid red;
-    display: flex;
-    gap: 2px;
-    max-width: 1030px;
-    max-height: 730px;
-    box-sizing: border-box;
-    margin: 85.6px 0 85.6px;
-  }
+  margin: 80px 0 80px;
 
   @media only screen and (max-width: 767px) {
     // border: 1px solid red;
@@ -201,8 +191,8 @@ const MainContent = styled.section`
 `;
 
 const MainLeft = styled.section`
-  width: 285.4px;
-  height: 729.4px;
+  width: 250px;
+  height: 600px;
   display: block;
   box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
@@ -226,8 +216,8 @@ const MainRight = styled.section`
   display: flex;
   flex-direction: column;
   align-items: space-between;
-  width: 744px;
-  height: 729.4px;
+  width: 680px;
+  height: 600px;
   background: #fff;
   box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.2);
   border-radius: 12px;

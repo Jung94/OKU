@@ -192,19 +192,19 @@ const Empty = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 270px 0 0;
+  margin: 220px 0 0;
 
   & div {
-    font-size: 16px;
+    font-size: 14px;
   }
 `;
 
 const Wrap = styled.div`
-  width: 285.4px;
-  height: 729.4px;
+  width: 250x;
+  height: 600px;
   background: #fff;
   border-radius: 12px;
-  border-right: 2px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 const Header = styled.div`
@@ -212,21 +212,22 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 285.4px;
-  height: 79.6px;
+  width: 250px;
+  height: 50px;
   color: #434343;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
+  padding: 2px 0 0;
   background: #fff;
-  border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
 `;
 
 const Main = styled.div`
   // border: 1px solid blue;
-  width: 285.4px;
-  height: 649px;
+  width: 250px;
+  height: 550px;
   overflow: auto;
   color: #434343;
   font-size: 20px;
@@ -240,16 +241,16 @@ const Box = styled.div`
   display: flex;
   gap: 10px;
   // width: 285.4px;
-  min-width: 267px;
-  height: 69px;
-  padding: 14px 20px 12px;
+  min-width: 230px;
+  height: 60px;
+  padding: 12px 20px 14px;
   background: #fff;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
 const ProfileImg = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 34px;
+  height: 34px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 30px;
   //   background-image: url("${(props) => props.img}");
@@ -263,13 +264,14 @@ const TextBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  //   border: 1px solid red;
-  width: 190px;
-  height: 100%;
+  // border: 1px solid red;
+  padding: 0 0 3px;
+  width: 150px;
   background: #fff;
 `;
 
 const Up = styled.div`
+  // border: 1px solid red:
   display: flex;
   position: relative;
   justify-content: space-between;
@@ -284,7 +286,7 @@ const Name = styled.div`
   position: absolute;
   width: 110px;
   height: 21px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
