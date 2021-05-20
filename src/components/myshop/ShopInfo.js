@@ -10,12 +10,6 @@ import { actionCreators as shopActions } from "redux/modules/myshop";
 
 const ShopInfomation = () => {
     const dispatch = useDispatch();
-    const _user = useSelector((state) => state.mypage.user);
-    const my_like_list = useSelector((state) => state.like.my_like_list);
-    const ShopDesc = useSelector((state) => state.myshop.desc_shop);
-    const SellingProduct = useSelector((state) => state.myshop.Product_selling);
-    console.log(ShopDesc, SellingProduct, "eeeeeeee")
-    console.log(SellingProduct)
 
     useEffect(() => {
         dispatch(mypageActions.setProfileAPI());
@@ -23,6 +17,13 @@ const ShopInfomation = () => {
         dispatch(shopActions.getShopDescAPI());
         dispatch(shopActions.getMyProductAPI());
     }, []);
+
+    const _user = useSelector((state) => state.mypage.user);
+    const my_like_list = useSelector((state) => state.like.my_like_list);
+    const ShopDesc = useSelector((state) => state.myshop.desc_shop);
+    const SellingProduct = useSelector((state) => state.myshop.Product_selling);
+    console.log(ShopDesc, SellingProduct)
+    console.log(SellingProduct)
 
     
 
@@ -41,15 +42,12 @@ const ShopInfomation = () => {
                 <Detail>
                     <Item>
                         <span>
-                            판매중인 물건 <span style={{color :"#ae27ff"}}>
-                                {/* {SellingProduct} */}
-                            </span>개
                         </span>
                         <span>
                             찜 <span style={{color :"#ae27ff"}}>{my_like_list.length}</span>개
                         </span>
                     </Item>
-                    <ShopIntro type="text" disabled />
+                    <ShopIntro type="text" disabled placeholder={`${ShopDesc}`} />
 
                 </Detail>
             </ShopInfo> 
