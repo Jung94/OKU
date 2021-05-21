@@ -10,7 +10,7 @@ import { Timer } from "components/";
 import { history } from "../redux/configureStore";
 
 import { actionCreators as likeActions } from "redux/modules/like";
-import { priceComma } from "shared/common";
+import { input_priceComma } from "shared/common";
 
 import logo from "images/logo512.png";
 
@@ -48,8 +48,8 @@ const PostCard_m = (props) => {
           <Price>
             <Bid />
             <Sucbid>
-              {/* {priceComma(lowBid)} */}
-              {priceComma(lowBid)}&thinsp;원
+              {/* {input_priceComma(lowBid)} */}
+              {input_priceComma(lowBid)}&thinsp;원
             </Sucbid>
           </Price>
         </div>

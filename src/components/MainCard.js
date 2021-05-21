@@ -9,7 +9,7 @@ import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { useMediaQuery } from "react-responsive";
 
 import { Timer } from "components/";
-import { priceComma } from "shared/common";
+import { input_priceComma } from "shared/common";
 import { history } from "../redux/configureStore";
 
 import { Color } from "shared/DesignSys";
@@ -58,7 +58,7 @@ const MainCard = (props) => {
                     <span> 즉시 낙찰가&ensp;</span>
                   </div>
                   <div className="price">
-                    <span className="text">&thinsp;{priceComma(sucBid)}&thinsp;</span>원&thinsp;
+                    <span className="text">&thinsp;{input_priceComma(sucBid)}&thinsp;</span>원&thinsp;
                   </div>
                 </Sucbid>
               </Bottom>
@@ -84,7 +84,7 @@ const MainCard = (props) => {
                 <Timer timeProgress white {...props} />
                 {/* <Currentprice>{i.currentprice}</Currentprice> */}
                 <div className="price">
-                  <span className="text">&thinsp;{priceComma(sucBid)}&thinsp;</span>원&thinsp;
+                  <span className="text">&thinsp;{input_priceComma(sucBid)}&thinsp;</span>원&thinsp;
                 </div>
               </MobileTimerSucbid>
             </Desc>

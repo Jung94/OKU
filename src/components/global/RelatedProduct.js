@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { priceComma } from "shared/common";
+import { input_priceComma } from "shared/common";
 import { useDispatch, useSelector } from "react-redux";
 
 import { actionCreators as likeActions } from "redux/modules/like";
@@ -66,7 +66,7 @@ const RelatedProduct = (props) => {
             <br />
             {title ? title : ""}
             <br />
-            {lowBid ? `${priceComma(lowBid)}원` : ""}
+            {lowBid ? `${input_priceComma(lowBid)}원` : ""}
           </div>
         </Title>
         <RelatedImg like img={img}></RelatedImg>
@@ -78,7 +78,7 @@ const RelatedProduct = (props) => {
     <ImgWrap onClick={_onClick}>
       <TitlePrice>
         {title ? <div>{title}</div> : ""}
-        {lowBid ? <div>{priceComma(lowBid)}원</div> : ""}
+        {lowBid ? <div>{input_priceComma(lowBid)}원</div> : ""}
       </TitlePrice>
       <RelatedImg img={img}></RelatedImg>
     </ImgWrap>

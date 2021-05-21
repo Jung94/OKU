@@ -130,7 +130,6 @@ const socialLoginDB = (_id) => {
         setLocal("nickname", user);
         setLocal("uid", uid);
         // 헤더에 토큰 default
-        // axios.defaults.headers.common['token'] = `${jwtToken}`;
         dispatch(setUser(user, uid));
         // 뒤로가기 시 main이 보이게 끔 replace 사용(사용자 경험 개선)
         history.replace("/");
