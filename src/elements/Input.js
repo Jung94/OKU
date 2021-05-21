@@ -98,6 +98,7 @@ const Input = (props) => {
         onClick={() => {
           inputEl.current.focus();
         }}
+        style={{margin: "0 50px 0 0"}}
       >
         <input type="radio" ouput={output} center={center} ref={inputEl} placeholder={plcholder} name={name} value={value} onChange={_onChange} onFocus={_onFocus} onBlur={_onBlur}>
           {children}

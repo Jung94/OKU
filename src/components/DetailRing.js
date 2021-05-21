@@ -243,8 +243,8 @@ const Img = styled.div`
   background-position: center;
   transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
   align-items: center;
-  margin: 3px 0 0;
   cursor: pointer;
+  margin: 3px 9px 0 0;
 `;
 
 const Wrap = styled.div`
@@ -252,7 +252,6 @@ const Wrap = styled.div`
   justify-content: flex-start;
   .alarm {
     display: flex;
-    gap: 8px;
     margin-bottom: -0.5px;
     font-size: 18px;
     font-weight: 500;

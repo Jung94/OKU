@@ -328,14 +328,14 @@ const ProductUpload = React.memo((props) => {
 
   return (
     <UploadWrap>
-      <Grid is_flex column gap="35px" margin="0 0 20px 0">
+      <Grid is_flex column margin="0 0 20px 0">
         <Desktop>
-          <Grid>
+          <Grid margin="0 0 35px 0">
             <Text h2 bold>
               상품등록
             </Text>
           </Grid>
-          <Grid>
+          <Grid margin="0 0 35px 0">
             <Text h3 bold marginB="20px">
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
               제목
@@ -353,7 +353,7 @@ const ProductUpload = React.memo((props) => {
               ref={_title}
             ></Input>
           </Grid>
-          <Grid>
+          <Grid margin="0 0 35px 0">
             <Text h3 bold marginB="20px">
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
               카테고리
@@ -374,7 +374,7 @@ const ProductUpload = React.memo((props) => {
               )}
             </Grid>
           </Grid>
-          <Grid>
+          <Grid margin="0 0 35px 0">
             <Text h3 bold marginB="20px">
               희망 거래 장소
             </Text>
@@ -398,16 +398,17 @@ const ProductUpload = React.memo((props) => {
               />
             </Grid>
           </Grid>
-          <Grid>
+          <Grid margin="0 0 35px 0">
             <Text h3 bold marginB="20px">
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
               상품이미지&ensp;
               <span style={{ fontSize: "12px", fontWeight: "400", color: Color.Dark_4 }}>jpg, png, gif 파일만 가능합니다.</span>
             </Text>
-            <Grid is_flex gap="20px">
+            <Grid is_flex>
               <PreviewBtn2
                 for="fileInput"
                 src={preview1.length ? preview1 : IconCamera3}
+                style={{margin: "0 20px 0 0"}}
               >
                 {/* 업로드 하기 */}
                 <input style={{ display: "none" }} id="fileInput" type="file" accept="image/png, image/jpeg, image/gif" onChange={handleChange1} disabled={progress} ref={fileInput} />
@@ -415,6 +416,7 @@ const ProductUpload = React.memo((props) => {
               <PreviewBtn2
                 for="fileInput1"
                 src={preview2.length ? preview2 : IconCamera3}
+                style={{margin: "0 20px 0 0"}}
               >
                 {/* 업로드 하기 */}
                 <input style={{ display: "none" }} id="fileInput1" type="file" accept="image/png, image/jpeg, image/gif" onChange={handleChange2} disabled={progress} ref={fileInput1} />
@@ -432,7 +434,7 @@ const ProductUpload = React.memo((props) => {
             return <Upload key={idx} {...p} />;
           })} */}
           </Grid>
-          <Grid>
+          <Grid margin="0 0 35px 0">
             <Text h3 bold marginB="20px">
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
               상품 상태 등급
@@ -449,7 +451,7 @@ const ProductUpload = React.memo((props) => {
               <Input radio name="state" value="D급" desc="포장지가 없고 사용감이 있는 제품" />
             </form>
           </Grid>
-          <Grid>
+          <Grid margin="0 0 35px 0">
             <Text h3 bold marginB="20px">
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
               상품 상세 정보
@@ -468,7 +470,7 @@ const ProductUpload = React.memo((props) => {
               whiteSpace="pre-line"
             ></Input>
           </Grid>
-          <Grid>
+          <Grid margin="0 0 35px 0">
             <Text h3 bold marginB="20px">
               상품 연관 태그
             </Text>
@@ -483,8 +485,8 @@ const ProductUpload = React.memo((props) => {
 
           {/* 경매기간 / 상품 배송 정보 / 최소입찰가 / 즉시낙찰가 에서만 반응형 나눔*/}
 
-          <Grid dp_flex justify="space-between" gap="30px">
-            <Grid>
+          <Grid dp_flex justify="space-between" margin="0 0 35px 0">
+            <Grid margin="0 40px 0 0">
               <Text h3 bold marginB="20px">
                 <FontAwesomeIcon icon={faCircle} className="cirSvg" />
                 경매 기간
@@ -498,15 +500,15 @@ const ProductUpload = React.memo((props) => {
                 상품 배송 정보
               </Text>
 
-              <form onChange={handleDelivery} style={{ display: "inline-flex", justifyContent: "space-between", gap: "50px" }}>
+              <form onChange={handleDelivery} style={{ display: "inline-flex", justifyContent: "space-between" }}>
                 <Input radio name="delivery" value="무료 배송" desc="혹은 직거래일 경우" />
                 <Input radio name="delivery" value="배송비 별도" />
               </form>
             </Grid>
           </Grid>
 
-          <Grid dp_flex justify="space-between" gap="30px">
-            <Grid>
+          <Grid dp_flex justify="space-between">
+            <Grid margin="0 40px 0 0">
               <Text h3 bold marginB="20px">
                 <FontAwesomeIcon icon={faCircle} className="cirSvg" />
                 최소입찰가
@@ -720,16 +722,16 @@ const ProductUpload = React.memo((props) => {
           </Grid>
         </Mobile>
 
-        <Grid is_flex justify="center" textAlign="center" margin="10px auto -10px auto">
+        <Grid is_flex justify="center" textAlign="center" margin="45px auto -10px auto">
           <Input check checked={agree} _onClick={handleAgree} value="상품 등록시 약관에 동의해주세요." />
         </Grid>
 
         {agree ? (
-          <Button _onClick={addPost} width="100%" height="60px">
+          <Button _onClick={addPost} width="100%" height="60px" margin="35px 0 0 0">
             상품 등록하기
           </Button>
         ) : (
-          <Button disabled width="100%" height="60px">
+          <Button disabled width="100%" height="60px" margin="35px 0 0 0">
             상품 등록하기
           </Button>
         )}

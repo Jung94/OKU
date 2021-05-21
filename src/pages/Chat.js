@@ -142,9 +142,9 @@ const MainBtnM = styled.div`
 
 const MainTop = styled.div`
   // border: 1px solid red;
-  
   width: 100vw;
   height: 90px;
+  margin: 0 0 2px;
 `;
 
 const MainBottom = styled.div`
@@ -172,7 +172,6 @@ const Wrap = styled.div`
 const MainContent = styled.section`
   // border: 1px solid red;
   display: flex;
-  gap: 2px;
   max-width: 1030px;
   max-height: 680px;
   box-sizing: border-box;
@@ -182,7 +181,6 @@ const MainContent = styled.section`
     // border: 1px solid red;
     display: flex;
     flex-direction: column;
-    gap: 2px;
     max-width: 100vw;
     max-height: 100vh;
     box-sizing: border-box;
@@ -193,6 +191,7 @@ const MainContent = styled.section`
 const MainLeft = styled.section`
   width: 250px;
   height: 600px;
+  margin: 0 2px 0 0;
   display: block;
   box-shadow: 4px 4px 10px 2px rgba(0, 0, 0, 0.2);
   border-radius: 12px;

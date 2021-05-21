@@ -174,21 +174,21 @@ const Product = (props) => {
                   <Grid is_flex>
                     <Modal bid {...productOK} />
                   </Grid>
-                  <Grid is_flex gap="10px" margin="10px 10px 0 0">
+                  <Grid is_flex margin="10px 10px 0 0">
                     {is_login ? (
                       _is_like ? (
-                        <Button main _onClick={() => userLike(_id)}>
+                        <Button main _onClick={() => userLike(_id)} margin="0 10px 0 0">
                           <FontAwesomeIcon icon={fasHeart} />
                           &thinsp;찜
                         </Button>
                       ) : (
-                        <Button sub _onClick={() => userLike(_id)}>
+                        <Button sub _onClick={() => userLike(_id)} margin="0 10px 0 0">
                           <FontAwesomeIcon icon={farHeart} />
                           &thinsp;찜
                         </Button>
                       )
                     ) : (
-                      <Button sub disabled _onClick={() => userLike(_id)}>
+                      <Button sub disabled _onClick={() => userLike(_id)} margin="0 10px 0 0">
                         <FontAwesomeIcon icon={farHeart} />
                         &thinsp;찜
                       </Button>
@@ -206,15 +206,15 @@ const Product = (props) => {
                 <Text h3 color={Color.Primary} marginB="10px">
                   상품정보
                 </Text>
-                <Grid is_flex justify="space-around" padding="10px">
-                  <Grid flexShrink="1" margin="0 10px 0 0">
+                <Grid is_flex justify="space-around" padding="10px" bdr="1px solid red">
+                  <Grid margin="0 10px 0 0" width="200px" >
                     <Text h4 textAlign="left" marginB="5%">
                       카테고리
                       <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                     </Text>
                     <Input output center value={`${bigCategory} > ${smallCategory}`} />
                   </Grid>
-                  <Grid flexShrink="4" margin="0 10px 0 0">
+                  <Grid margin="0 10px 0 0" width="80px" >
                     <Text h4 textAlign="left" marginB="5%">
                       상품상태
                       <FontAwesomeIcon icon={fasQC} className="infoSvg" />
@@ -222,14 +222,14 @@ const Product = (props) => {
                     <Input output center value={state && state.split("급")[0]} adornment="급" />
                   </Grid>
                   {region && (
-                    <Grid flexShrink="1" margin="0 10px 0 0">
+                    <Grid margin="0 10px 0 0" width="250px" >
                       <Text h4 textAlign="left" marginB="5%">
                         거래 지역
                       </Text>
                       <Input output center value={region} />
                     </Grid>
                   )}
-                  <Grid flexShrink="2">
+                  <Grid width="120px" >
                     <Text h4 textAlign="left" marginB="5%">
                       배송 수단
                     </Text>

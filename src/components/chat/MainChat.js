@@ -91,7 +91,7 @@ const MainChat = ({ targetName }) => {
           </>
         ) : (
           <div>
-            <Header>{targetName}</Header>
+            <Header>{targetName ? targetName : "아무나 채팅"}</Header>
             <ChatBox>
               {msgList.length === 0 ? (
                 <EmptyPost>

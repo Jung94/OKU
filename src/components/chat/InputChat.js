@@ -222,7 +222,6 @@ const BtnBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 25.2px;
   width: 680px;
   margin-bottom: 16px;
 
@@ -231,7 +230,6 @@ const BtnBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 25.2px;
     width: 100vw;
     margin-bottom: 12px;
   }
@@ -247,6 +245,7 @@ const Delivery = styled.button`
   border: none;
   border-radius: 12px;
   cursor: pointer;
+  margin: 0 25px 0 0;
   box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
 
   @media only screen and (max-width: 767px) {
@@ -256,6 +255,7 @@ const Delivery = styled.button`
     color: #fff;
     font-size: 12px;
     font-weight: 500;
+    margin: 0 25.2px 0 0;
     background: #ae00ff;
     border: none;
     border-radius: 10px;
@@ -295,7 +295,6 @@ const InputBox = styled.div`
   // border: 1px solid green;
   padding: 0 20px;
   display: flex;
-  gap: 12px;
   width: 680px;
   margin-bottom: 17px;
 
@@ -303,7 +302,6 @@ const InputBox = styled.div`
     // border: 1px solid green;
     display: flex;
     justify-content: space-between;
-    gap: 7px;
     width: 100vw;
     padding: 0 10px;
     margin-bottom: 8px;
@@ -323,6 +321,7 @@ const Text = styled.textarea`
   word-break: break-all;
   outline: none;
   resize: none;
+  margin: 0 12px 0 0;
 
   ::placeholder {
     font-size: 14px;
@@ -334,9 +333,10 @@ const Text = styled.textarea`
     width: 100%;
     height: 36px;
     background: #fff;
-    border-radius: 12px;
+    border-radius: 10px;
     border: 0.5px solid #c1c1c1;
     font-size: 12px;
+    margin: 0 7px 0 0;
     padding: 10px 14px 0;
     white-space: normal;
     word-break: break-all;
@@ -370,7 +370,7 @@ const Btn = styled.button`
     font-weight: 500;
     background: #ae00ff;
     border: none;
-    border-radius: 12px;
+    border-radius: 10px;
     cursor: pointer;
     box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
   }

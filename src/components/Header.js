@@ -294,11 +294,11 @@ const Header = (props) => {
             </Grid>
 
             <Grid is_flex column height="100px" width="40%">
-              <Grid is_flex gap="4%" justify="flex-end" margin="10px 2px 36px 0" ref={hide}>
-                <Text subBody color={Color.Dark_4}>
+              <Grid is_flex justify="flex-end" margin="10px 2px 36px 0" ref={hide}>
+                <Text subBody color={Color.Dark_4} margin="0 4% 0 0">
                   about OKU
                 </Text>
-                <Text subBody color={Color.Dark_4}>
+                <Text subBody color={Color.Dark_4} margin="0 4% 0 0">
                   about Team
                 </Text>
 
@@ -330,10 +330,10 @@ const Header = (props) => {
                 {/* 로그인 후  */}
                 {is_login && (
                   <>
-                    <Text subBody color={Color.Dark_4} onClick={logout}>
+                    <Text subBody color={Color.Dark_4} onClick={logout} margin="0 4% 0 0">
                       로그아웃
                     </Text>
-                    <Text subBody color={Color.Dark_4} onClick={() => history.push("/MyShop")}>
+                    <Text subBody color={Color.Dark_4} onClick={() => history.push("/MyShop")} margin="0 4% 0 0">
                       내 상점
                     </Text>
                     <Text subBody color={Color.Dark_4} onClick={() => history.push("/my/shopping")}>
@@ -372,17 +372,17 @@ const Header = (props) => {
                   {!is_login && (
                     <>
                       <Grid
+                        height="37px"
                         className="block pointer"
                         width="max-content"
                         padding="0 14px 4px"
                         is_flex
-                        gap="9px"
                         __click={() => {
                           history.push("/login");
                         }}
                       >
                         <ImgChat src={IconChat} />
-                        <Text h4>채팅</Text>
+                        <Text h4 margin="0 0 0 9px">채팅</Text>
                       </Grid>
                     </>
                   )}
@@ -391,18 +391,17 @@ const Header = (props) => {
                     <>
                       <Grid
                         // bdr="1px solid red"
-                        height="34px"
+                        height="37px"
                         className="block pointer"
                         width="max-content"
                         padding="0 14px 1px"
                         is_flex
-                        gap="9px"
                         __click={() => {
                           history.push("/chat");
                         }}
                       >
                         <ImgChat src={IconChat} />
-                        <Text h4>채팅</Text>
+                        <Text h4 margin="0 0 0 9px">채팅</Text>
                       </Grid>
                     </>
                   )}
@@ -414,13 +413,12 @@ const Header = (props) => {
                         width="max-content"
                         padding="0 0 5px 14px"
                         is_flex
-                        gap="9px"
                         __click={() => {
                           history.push("/login");
                         }}
                       >
                         <ImgUpload src={IconUpload} />
-                        <Text h4>물건등록</Text>
+                        <Text h4 margin="0 0 0 9px">물건등록</Text>
                       </Grid>
                     </>
                   )}
@@ -434,13 +432,12 @@ const Header = (props) => {
                         width="max-content"
                         padding="0 0 1px 14px"
                         is_flex
-                        gap="9px"
                         __click={() => {
                           history.push("/ProductUpload");
                         }}
                       >
                         <ImgUpload src={IconUpload} />
-                        <Text h4>물건등록</Text>
+                        <Text h4 margin="0 0 0 9px">물건등록</Text>
                       </Grid>
                     </>
                   )}

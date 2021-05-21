@@ -239,7 +239,6 @@ const Main = styled.div`
 
 const Box = styled.div`
   display: flex;
-  gap: 10px;
   // width: 285.4px;
   min-width: 230px;
   height: 60px;
@@ -251,6 +250,7 @@ const Box = styled.div`
 const ProfileImg = styled.div`
   width: 34px;
   height: 34px;
+  margin: 0 10px 0 0;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 30px;
   //   background-image: url("${(props) => props.img}");
