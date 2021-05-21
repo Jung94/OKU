@@ -501,7 +501,7 @@ const ProductUpload = React.memo((props) => {
               </Text>
 
               <form onChange={handleDelivery} style={{ display: "inline-flex", justifyContent: "space-between" }}>
-                <Input radio name="delivery" value="무료 배송" desc="혹은 직거래일 경우" />
+                <Input radio name="delivery" value="무료 배송" desc="혹은 직거래일 경우" margin="0 50px 0 0" />
                 <Input radio name="delivery" value="배송비 별도" />
               </form>
             </Grid>
@@ -532,13 +532,13 @@ const ProductUpload = React.memo((props) => {
         <Tablet></Tablet>
 
         <Mobile>
-          <Grid>
-            <Text h2 bold marginB="-15px">
+          <Grid margin="0 0 24px">
+            <Text h2 bold >
               상품등록
             </Text>
           </Grid>
-          <Grid>
-            <Text h3 bold marginB="20px">
+          <Grid margin="0 0 24px">
+            <Text h3 bold margin="0 0 20px">
               제목
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             </Text>
@@ -555,32 +555,32 @@ const ProductUpload = React.memo((props) => {
               ref={_title}
             ></Input>
           </Grid>
-          <Grid>
+          <Grid margin="0 0 24px">
             <Text h3 bold marginB="20px">
               카테고리
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             </Text>
-            <Grid is_flex column align="flex-start" gap="10px">
-              <div style={{ width: "100%", margin: "0 20px 0 0" }}>
+            <Grid is_flex column align="flex-start" >
+              <div style={{ width: "100%", margin: "0 20px 10px 0" }}>
                 <Select onChange={handleCateBig} options={MainCT} value={MainCT.find((obj) => obj.value === cateBig)} placeholder="2D / 3D" />
               </div>
               {cateBig === "3D" && (
-                <div style={{ width: "100%", margin: "0" }}>
+                <div style={{ width: "100%", margin: "0 0 10px" }}>
                   <Select onChange={handleCateSmall} value={D2CT.find((obj) => obj.value === cateSmall)} placeholder="3D 상세 분류" options={D2CT} />
                 </div>
               )}
               {cateBig === "2D" && (
-                <div style={{ width: "100%", margin: "0" }}>
+                <div style={{ width: "100%", margin: "0 0 10px" }}>
                   <Select onChange={handleCateSmall} value={D3CT.find((obj) => obj.value === cateSmall)} placeholder="2D 상세 분류" options={D3CT} />
                 </div>
               )}
             </Grid>
           </Grid>
-          <Grid>
+          <Grid margin="0 0 24px">
             <Text h3 bold marginB="20px">
               희망 거래 장소
             </Text>
-            <Grid is_flex column gap="10px">
+            <Grid is_flex column>
               <Input
                 value={region}
                 _onChange={(e) => {
@@ -588,6 +588,7 @@ const ProductUpload = React.memo((props) => {
                 }}
                 plcholder="거래할 지역을 검색 또는 바로 입력해주세요."
                 width="100%"
+                margin= "0 0 10px"
               />
               <Button
                 width="100%"
@@ -598,9 +599,9 @@ const ProductUpload = React.memo((props) => {
               />
             </Grid>
           </Grid>
-          <Grid>
+          <Grid margin="0 0 24px">
             <Text h3 bold marginB="20px">
-              상품이미지&ensp;
+              상품이미지
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
               <span style={{ fontSize: "12px", fontWeight: "400", color: Color.Dark_4 }}>jpg, png, gif 파일만 가능합니다.</span>
             </Text>
@@ -632,7 +633,7 @@ const ProductUpload = React.memo((props) => {
             return <Upload key={idx} {...p} />;
           })} */}
           </Grid>
-          <Grid>
+          <Grid margin="0 0 24px">
             <Text h3 bold marginB="20px">
               상품 상태 등급
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
@@ -641,15 +642,15 @@ const ProductUpload = React.memo((props) => {
               onChange={(e) => {
                 setProductState(e.target.value);
               }}
-              style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%", marginLeft: "10px", gap: "10px" }}
+              style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%", marginLeft: "10px"}}
             >
-              <Input radio name="state" value="A급" desc="포장지 파손 없는 미개봉 제품" />
-              <Input radio name="state" value="B급" desc="개봉되었으나 미전시품" />
-              <Input radio name="state" value="C급" desc="개봉되었고 전시된 제품" />
-              <Input radio name="state" value="D급" desc="포장지가 없고 사용감이 있는 제품" />
+              <Input radio name="state" value="A급" desc="포장지 파손 없는 미개봉 제품" margin="0 0 10px" />
+              <Input radio name="state" value="B급" desc="개봉되었으나 미전시품" margin="0 0 10px" />
+              <Input radio name="state" value="C급" desc="개봉되었고 전시된 제품" margin="0 0 10px" />
+              <Input radio name="state" value="D급" desc="포장지가 없고 사용감이 있는 제품" margin="0 0 10px" />
             </form>
           </Grid>
-          <Grid>
+          <Grid margin="0 0 24px">
             <Text h3 bold marginB="20px">
               상품 상세 정보
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
@@ -669,7 +670,7 @@ const ProductUpload = React.memo((props) => {
               whiteSpace="pre-line"
             ></Input>
           </Grid>
-          <Grid>
+          <Grid margin="0 0 24px">
             <Text h3 bold marginB="20px">
               상품 연관 태그
             </Text>
@@ -681,7 +682,7 @@ const ProductUpload = React.memo((props) => {
               plcholder="#피규어#포스터#카드"
             />
           </Grid>
-          <Grid>
+          <Grid margin="0 0 24px">
             <Text h3 bold marginB="20px">
               경매 기간
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
@@ -689,18 +690,18 @@ const ProductUpload = React.memo((props) => {
             <Select onChange={handleDeadline} value={D4CT.find((obj) => obj.value === deadline)} placeholder="경매 기간" options={D4CT} />
           </Grid>
 
-          <Grid>
+          <Grid margin="0 0 24px">
             <Text h3 bold marginB="20px">
               상품 배송 정보
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             </Text>
 
-            <form onChange={handleDelivery} style={{ display: "inline-flex", justifyContent: "space-between", gap: "30px" }}>
-              <Input radio name="delivery" value="무료 배송" desc="혹은 직거래일 경우" />
+            <form onChange={handleDelivery} style={{ display: "inline-flex", justifyContent: "flex-start" }}>
+              <Input radio name="delivery" value="무료 배송" desc="혹은 직거래일 경우" margin="0 10px 0 0" />
               <Input radio name="delivery" value="배송비 별도" />
             </form>
           </Grid>
-          <Grid>
+          <Grid margin="0 0 24px">
             <Text h3 bold marginB="20px">
               최소입찰가
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />

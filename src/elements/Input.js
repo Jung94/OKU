@@ -98,7 +98,7 @@ const Input = (props) => {
         onClick={() => {
           inputEl.current.focus();
         }}
-        style={{margin: "0 50px 0 0"}}
+        // style={{margin: "0 50px 0 0"}}
       >
         <input type="radio" ouput={output} center={center} ref={inputEl} placeholder={plcholder} name={name} value={value} onChange={_onChange} onFocus={_onFocus} onBlur={_onBlur}>
           {children}
@@ -290,6 +290,7 @@ const RadioCheck = styled.label`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  margin: ${(props) => (props.margin ? props.margin : "")};
 
   display: flex;
   flex-wrap: wrap;

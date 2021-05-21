@@ -65,42 +65,46 @@ const PostCard = (props) => {
   };
 
   return (
-    <Wrap>
+    <>
       <Desktop>
-        <UpTime>
-          <Timer day {...props} />
-        </UpTime>
-        <div onClick={() => userLike(_id)}> {likeOrNot ? <Heart img={IconHeartOn} /> : <Heart img={IconHeartOff} />} </div>
-        {/* 👇이거 중요! */}
-        {img && img.length > 0 && <Image alt="item" img={img[imgl]} onClick={() => history.push(`/product/detail/${_id}`)} />}
-        <Desc>
-          <div style={{ width: "100%" }}>
-            <Title onClick={() => history.push(`/product/detail/${_id}`)}>{title}</Title>
-            {/* <Currentprice>{currentprice}</Currentprice> */}
-          </div>
-          <div style={{ textAlign: "right", alignItems: "flex-end", display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "8px" }}>
-            <Bid />
-            <Sucbid>
-              {input_priceComma(lowBid)}&thinsp;<span className="won">원</span>
-            </Sucbid>
-          </div>
-        </Desc>
+        <Wrap>
+          <UpTime>
+            <Timer day {...props} />
+          </UpTime>
+          <div onClick={() => userLike(_id)}> {likeOrNot ? <Heart img={IconHeartOn} /> : <Heart img={IconHeartOff} />} </div>
+          {/* 👇이거 중요! */}
+          {img && img.length > 0 && <Image alt="item" img={img[imgl]} onClick={() => history.push(`/product/detail/${_id}`)} />}
+          <Desc>
+            <div style={{ width: "100%" }}>
+              <Title onClick={() => history.push(`/product/detail/${_id}`)}>{title}</Title>
+              {/* <Currentprice>{currentprice}</Currentprice> */}
+            </div>
+            <div style={{ textAlign: "right", alignItems: "flex-end", display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "8px" }}>
+              <Bid />
+              <Sucbid>
+                {input_priceComma(lowBid)}&thinsp;<span className="won">원</span>
+              </Sucbid>
+            </div>
+          </Desc>
+        </Wrap>
       </Desktop>
 
       <Mobile>
-        <Image img={img} onClick={() => history.push(`/product/detail/${_id}`)} />
-        <Desc>
-          <div style={{ flexGrow: "1" }} onClick={() => history.push(`/product/detail/${_id}`)}>
-            <Title>{title}</Title>
-            <Price>
-              <Bid />
-              <Sucbid>{input_priceComma(lowBid)}&thinsp;원</Sucbid>
-            </Price>
-          </div>
-          <HeartWrap onClick={() => userLike(_id)}> {likeOrNot ? <Heart img={IconHeartOn} /> : <Heart img={IconHeartOff} />} </HeartWrap>
-        </Desc>
+        <Wrap>
+          <Image img={img} onClick={() => history.push(`/product/detail/${_id}`)} />
+          <Desc>
+            <div style={{ flexGrow: "1" }} onClick={() => history.push(`/product/detail/${_id}`)}>
+              <Title>{title}</Title>
+              <Price>
+                <Bid />
+                <Sucbid>{input_priceComma(lowBid)}&thinsp;원</Sucbid>
+              </Price>
+            </div>
+            <HeartWrap onClick={() => userLike(_id)}> {likeOrNot ? <Heart img={IconHeartOn} /> : <Heart img={IconHeartOff} />} </HeartWrap>
+          </Desc>
+        </Wrap>
       </Mobile>
-    </Wrap>
+    </>
   );
 };
 
@@ -121,6 +125,7 @@ const Wrap = styled.div`
   box-sizing: border-box;
   overflow: hidden;
   background-color: #f8f8f8;
+  margin: 0 33px 33px 0;
 
   :hover {
     transition: 0.2s;

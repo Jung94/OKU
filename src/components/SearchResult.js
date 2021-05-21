@@ -69,11 +69,14 @@ const SearchResult = (props) => {
 };
 
 const ProductList = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  row-gap: 33px;
+  colomn-gap: 33px;
+  // justify-content: flex-start;
+  // flex-wrap: wrap;
   height: 100%;
-  gap: 33px;
+  // gap: 33px;
   // border: 1px solid red;
 
   
