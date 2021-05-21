@@ -54,13 +54,13 @@ const Card = (props) => {
               방금 등록된 굿즈 <span style={{ color: "#AE27FF" }}> 어서오고~</span>
             </p>
             <p
-                onClick={() => {
-                  history.push("/alllist");
-                }}
-                style={{ color: "#c0c0c0", fontSize: "16px", cursor: "pointer" }}
-              >
-                전체보기
-              </p>
+              onClick={() => {
+                history.push("/alllist");
+              }}
+              style={{ color: "#c0c0c0", fontSize: "16px", cursor: "pointer" }}
+            >
+              전체보기
+            </p>
           </Head>
           <Cards>
             {_recent_product.map((j, index) => {
@@ -88,9 +88,13 @@ const Card = (props) => {
             })}
             {/* <PostCard_m/> */}
           </Cards>
-          <More onClick={() => {
-                  history.push("/alllist");
-                }}>전체보기</More>
+          <More
+            onClick={() => {
+              history.push("/alllist");
+            }}
+          >
+            전체보기
+          </More>
         </Wrap>
       </Mobile>
     </>

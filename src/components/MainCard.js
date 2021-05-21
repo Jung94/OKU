@@ -31,7 +31,7 @@ const Mobile = ({ children }) => {
 
 const MainCard = (props) => {
   const { img, title, deadLine, sucBid, _id } = props;
-  console.log(img);
+
   const imgl = Math.floor(Math.random() * img.length);
   return (
     <>
@@ -77,11 +77,13 @@ const MainCard = (props) => {
                 <Text h1>{title}</Text>
               </Title>
 
-              <MobileTimerSucbid className="text">
-                <Text h2>
-                  <Timer all {...props} white />
-                </Text>
-                <Timer timeProgress white {...props} />
+              <MobileTimerSucbid>
+                <div>
+                  <Text h2>
+                    <Timer all {...props} white />
+                  </Text>
+                  <Timer timeProgress white {...props} />
+                </div>
                 {/* <Currentprice>{i.currentprice}</Currentprice> */}
                 <div className="price">
                   <span className="text">&thinsp;{input_priceComma(sucBid)}&thinsp;</span>원&thinsp;
@@ -133,6 +135,7 @@ const Section = styled.div`
   }
   @media only screen and (max-width: 767px) {
     .img {
+      margin-left: -5.5vw;
       transition: all 500ms ease-in-out;
       box-shadow: 0 0 0px ${Color.Light_4};
       border: 0.5px solid ${Color.Light_4};
@@ -152,8 +155,6 @@ const Section = styled.div`
         box-shadow: 0 0 10px ${Color.Light_4};
         border: 0.5px solid ${Color.Light_4};
         transform: scale(1.01);
-      }
-      .text {
       }
       .price {
         border-radius: 16px;
@@ -298,25 +299,38 @@ const MobileTimerSucbid = styled.div`
 
   display: flex;
   flex-direction: column;
-  align-self: flex-end;
   max-width: 200px;
   font-weight: 700;
 
-  margin-top: 130px;
-  margin-left: 20px;
+  top: 230px;
+  right: 50px;
+
   position: absolute;
 
   color: #ffffff;
 
   text-shadow: 0 1.5px 10px rgba(0, 0, 0, 0.25);
   font-size: ${H2};
-
   .text {
     font-size: ${H1};
     display: inline-block;
   }
-  :hover {
-    /* color: ${Color.Primary}; */
+
+  .price {
+    margin-top: 5px;
+    border-radius: 12px;
+    background-color: ${Color.Primary}99;
+  }
+
+  :active {
+    .screen {
+      opacity: 0;
+    }
+    .img {
+      box-shadow: 0 0 10px ${Color.Light_4};
+      border: 0.5px solid ${Color.Light_4};
+      transform: scale(1.01);
+    }
   }
 `;
 

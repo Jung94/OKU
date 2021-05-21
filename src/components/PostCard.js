@@ -6,6 +6,7 @@ import { Grid, Input, Line, Button, Tag, Modal, Text, Profile } from "elements/"
 
 import { actionCreators as likeActions } from "redux/modules/like";
 import { input_priceComma } from "shared/common";
+import { useMediaQuery } from "react-responsive";
 
 import { Timer } from "components/";
 import { history } from "../redux/configureStore";
@@ -20,11 +21,28 @@ import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 
 import logo from "images/logo512.png";
 
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  return isDesktop ? children : null;
+};
+
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  return isTablet ? children : null;
+};
+
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 1023 });
+  return isMobile ? children : null;
+};
+
 const PostCard = (props) => {
   const dispatch = useDispatch();
   const is_login = localStorage.getItem("access_token");
 
   const { img, title, currentprice, lowBid, _onClick, _id, main, result } = props;
+  console.log(img);
+  const imgl = Math.floor(Math.random() * img.length);
 
   // 좋아요 확인용
   const like_list = useSelector((state) => state.like.like_list);
@@ -48,24 +66,40 @@ const PostCard = (props) => {
 
   return (
     <Wrap>
-      <UpTime>
-        <Timer day {...props} />
-      </UpTime>
-      <div onClick={() => userLike(_id)}> {likeOrNot ? <Heart img={IconHeartOn} /> : <Heart img={IconHeartOff} />} </div>
-      {/* 👇이거 중요! */}
-      {img && img.length > 0 && <Image alt="item" img={img} onClick={() => history.push(`/product/detail/${_id}`)} />}
-      <Desc>
-        <div style={{ width: "100%" }}>
-          <Title onClick={() => history.push(`/product/detail/${_id}`)}>{title}</Title>
-          {/* <Currentprice>{currentprice}</Currentprice> */}
-        </div>
-        <div style={{ textAlign: "right", alignItems: "flex-end", display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "8px" }}>
-          <Bid />
-          <Sucbid>
-            {input_priceComma(lowBid)}&thinsp;<span className="won">원</span>
-          </Sucbid>
-        </div>
-      </Desc>
+      <Desktop>
+        <UpTime>
+          <Timer day {...props} />
+        </UpTime>
+        <div onClick={() => userLike(_id)}> {likeOrNot ? <Heart img={IconHeartOn} /> : <Heart img={IconHeartOff} />} </div>
+        {/* 👇이거 중요! */}
+        {img && img.length > 0 && <Image alt="item" img={img[imgl]} onClick={() => history.push(`/product/detail/${_id}`)} />}
+        <Desc>
+          <div style={{ width: "100%" }}>
+            <Title onClick={() => history.push(`/product/detail/${_id}`)}>{title}</Title>
+            {/* <Currentprice>{currentprice}</Currentprice> */}
+          </div>
+          <div style={{ textAlign: "right", alignItems: "flex-end", display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "8px" }}>
+            <Bid />
+            <Sucbid>
+              {input_priceComma(lowBid)}&thinsp;<span className="won">원</span>
+            </Sucbid>
+          </div>
+        </Desc>
+      </Desktop>
+
+      <Mobile>
+        <Image img={img} onClick={() => history.push(`/product/detail/${_id}`)} />
+        <Desc>
+          <div style={{ flexGrow: "1" }} onClick={() => history.push(`/product/detail/${_id}`)}>
+            <Title>{title}</Title>
+            <Price>
+              <Bid />
+              <Sucbid>{input_priceComma(lowBid)}&thinsp;원</Sucbid>
+            </Price>
+          </div>
+          <HeartWrap onClick={() => userLike(_id)}> {likeOrNot ? <Heart img={IconHeartOn} /> : <Heart img={IconHeartOff} />} </HeartWrap>
+        </Desc>
+      </Mobile>
     </Wrap>
   );
 };
@@ -96,6 +130,16 @@ const Wrap = styled.div`
   &:not(hover) {
     transition: 0.2s;
   }
+
+  @media only screen and (max-width: 767px) {
+    width: 100%;
+    height: 173px;
+    display: flex;
+    box-sizing: content-box;
+    align-items: center;
+    padding: 15px;
+    justify-content: space-between;
+  }
 `;
 
 const Image = styled.div`
@@ -106,6 +150,15 @@ const Image = styled.div`
   width: 100%;
   height: 74%;
   cursor: pointer;
+  @media only screen and (max-width: 767px) {
+    background-image: ${(props) => `url(${props.img})`};
+    width: 140px;
+    height: 140px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 30px;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  }
 `;
 
 // 마감 시간
@@ -158,6 +211,40 @@ const Heart = styled.div`
     transition: 0.2s;
     transform: scale(1.1);
   }
+
+  @media only screen and (max-width: 767px) {
+    cursor: pointer;
+    z-index: 1;
+    width: 30px;
+    height: 30px;
+
+    transition: all 200ms ease-in;
+    background-color: transparent;
+    background: url(${(props) => props.img});
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    box-shadow: 1px 1px 3px 2px rgba(0, 0, 0, 0.1);
+    :active {
+      svg {
+        transform: rotate(15deg);
+      }
+    }
+    :active {
+      transition: 0.2s;
+      transform: scale(1.1);
+    }
+  }
+`;
+
+const HeartWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  z-index: 1;
 `;
 
 const Bid = styled.div`
@@ -167,6 +254,15 @@ const Bid = styled.div`
   background-image: url(${IconBid});
   background-size: cover;
   background-position: center;
+
+  @media only screen and (max-width: 767px) {
+    width: 18px;
+    height: 18px;
+    background-image: url(${IconBid});
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 `;
 
 const Desc = styled.div`
@@ -183,6 +279,17 @@ const Desc = styled.div`
   padding: 0 18px 0 17px;
   margin-top: 10px;
   // border: 1px solid green;
+
+  @media only screen and (max-width: 767px) {
+    height: 140px;
+
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    justify-content: space-between;
+  }
 `;
 
 const Title = styled.div`
@@ -195,6 +302,17 @@ const Title = styled.div`
   text-overflow: ellipsis;
   /* */
   cursor: pointer;
+
+  @media only screen and (max-width: 767px) {
+    width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #2e2e2e;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 200%;
+  }
 `;
 
 const Sucbid = styled.div`
@@ -208,6 +326,20 @@ const Sucbid = styled.div`
   .won {
     color: ${Color.Dark_1};
   }
+
+  @media only screen and (max-width: 767px) {
+    color: #2e2e2e;
+    font-weight: bold;
+    font-size: 15px;
+  }
+`;
+
+const Price = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
 `;
 
 export default PostCard;

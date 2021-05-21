@@ -142,10 +142,6 @@ const Title = styled.div`
   font-weight: bold;
   font-size: 18px;
   line-height: 200%;
-
-  &: hover {
-    text-decoration: underline;
-  }
 `;
 
 const Price = styled.div`
