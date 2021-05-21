@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Grid, Input, Line, Button, Tag, Modal, Text, Profile } from "elements/";
 
 import { actionCreators as likeActions } from "redux/modules/like";
-import { priceComma } from "shared/common";
+import { input_priceComma } from "shared/common";
 
 import { Timer } from "components/";
 import { history } from "../redux/configureStore";
@@ -62,7 +62,7 @@ const PostCard = (props) => {
         <div style={{ textAlign: "right", alignItems: "flex-end", display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "8px" }}>
           <Bid />
           <Sucbid>
-            {priceComma(lowBid)}&thinsp;<span className="won">원</span>
+            {input_priceComma(lowBid)}&thinsp;<span className="won">원</span>
           </Sucbid>
         </div>
       </Desc>

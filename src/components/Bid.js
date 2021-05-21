@@ -8,7 +8,7 @@ import { Timer } from "components/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle as fasQC } from "@fortawesome/free-solid-svg-icons";
 
-import { priceComma, input_priceComma } from "shared/common";
+import { input_priceComma } from "shared/common";
 import { actionCreators as bidActions } from "redux/modules/bid";
 import { actionCreators as productActions } from "redux/modules/product";
 
@@ -94,7 +94,7 @@ const Bid = (props) => {
             <BidNow>
               <div>현재 입찰가</div>
               <div>
-                {priceComma(_current)}
+                {input_priceComma(_current)}
                 <span>&ensp;원</span>
               </div>
             </BidNow>
@@ -102,7 +102,7 @@ const Bid = (props) => {
             <BidNow>
               <div>최소 입찰가</div>
               <div>
-                {priceComma(productOK.lowBid)}
+                {productOK.lowBid}
                 <span>&ensp;원</span>
               </div>
             </BidNow>
@@ -143,7 +143,7 @@ const Bid = (props) => {
               즉시 낙찰가에 낙찰이 진행됩니다!
             </Text>
             <Text price>
-              {priceComma(sucBid)}
+              {input_priceComma (sucBid)}
               <Text won>&ensp;원</Text>
             </Text>
             {/* {sellerunique === u_id ? (
@@ -155,7 +155,7 @@ const Bid = (props) => {
               </>
             ) : (
               <> */}
-            <InfoUl></InfoUl>
+            {sellerunique === u_id && <InfoUl></InfoUl>}
             <Button _onClick={addSuccessbid} width="75%" margin="10px auto 9% auto">
               즉시 낙찰하기
             </Button>

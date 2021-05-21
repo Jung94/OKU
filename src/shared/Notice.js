@@ -10,7 +10,7 @@ import haepari_wh_head from "images/oku_char_white_head.png";
 const Notice = (props) => {
   return (
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSd3XKQHTFQ0nb6OH_3OqIOZaVNuJockbvp-12-uKxuVaezS9Q/viewform" target="_blank">
-      <Block img={haepari_wh}></Block>;
+      <Block img={haepari_wh}></Block>
     </a>
   );
 };

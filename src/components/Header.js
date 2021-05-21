@@ -107,6 +107,7 @@ const Header = (props) => {
         border: "none",
         // 망할놈의 박스섀도우 보더마냥 해놓았다...
         boxShadow: "none",
+        cursor: "pointer",
       }),
       // 컨트롤 안에 값 자체
       singleValue: (provided, state) => ({
@@ -122,7 +123,7 @@ const Header = (props) => {
       // 이건 무시
       input: (provided, state) => ({
         ...provided,
-        color: Color.Primary,
+        color: "transparent",
       }),
 
       indicatorSeparator: (provided, state) => ({
@@ -170,11 +171,10 @@ const Header = (props) => {
       // 메뉴 드롭 다운 내 값1, 값2 ...
       option: (provided, state) => ({
         ...provided,
-
+        cursor: "pointer",
         fontSize: "14px",
         color: state.isFocused ? Color.Primary : Color.Dark_4,
         backgroundColor: state.isSelected ? "transparent" : state.isFocused ? "transparent" : "transparent",
-
         // border: state.isSelected ? `5px solid blue` : state.isFocused ? `5px solid green` : `0.5px solid red`,
       }),
       multiValueRemove: (provided, state) => ({
@@ -184,7 +184,6 @@ const Header = (props) => {
       menuPortal: (provided, state) => ({
         ...provided,
         border: "none",
-
         // border: state.isSelected ? `5px solid blue` : state.isFocused ? `5px solid green` : `0.5px solid red`,
         // backgroundColor: state.isSelected ? "transparent" : state.isFocused ? "transparent" : "transparent",
       }),
@@ -260,23 +259,23 @@ const Header = (props) => {
               <div style={{ width: "70px", fontSize: "14px", margin: "1px 0 0" }}>카테고리</div>
               <ListBtn />
               <Mainselectbox>
-                <Select placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
+                <Select onfocus="javascrpt:blur();" placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
               </Mainselectbox>
               {mainct === "" && (
                 <SubSelectbox>
-                  <Select placeholder="중분류" onClick={handleSubCategory} styles={customStyles} />
+                  <Select onfocus="javascrpt:blur();" placeholder="중분류" onClick={handleSubCategory} styles={customStyles} />
                 </SubSelectbox>
               )}
               {/* 2D일 때 */}
               {mainct === "3D" && (
                 <SubSelectbox>
-                  <Select placeholder="중분류" onChange={handleSubCategory} options={D2CT} styles={customStyles} />
+                  <Select onfocus="javascrpt:blur();" placeholder="중분류" onChange={handleSubCategory} options={D2CT} styles={customStyles} />
                 </SubSelectbox>
               )}
               {/* 3D일 때 */}
               {mainct === "2D" && (
                 <SubSelectbox>
-                  <Select placeholder="중분류" onChange={handleSubCategory} options={D3CT} styles={customStyles} />
+                  <Select onfocus="javascrpt:blur();" placeholder="중분류" onChange={handleSubCategory} options={D3CT} styles={customStyles} />
                 </SubSelectbox>
               )}
             </Grid>
@@ -881,6 +880,7 @@ const Mainselectbox = styled.div`
   width: 100px;
   margin: 0 10px 0 10px;
   align-items: center;
+  cursor:default;
 
   @media only screen and (max-width: 767px) {
     width: 120px;
@@ -892,6 +892,7 @@ const Mainselectbox = styled.div`
 const SubSelectbox = styled.div`
   width: 160px;
   align-items: center;
+  cursor:default;
 
   @media only screen and (max-width: 767px) {
     width: 200px;

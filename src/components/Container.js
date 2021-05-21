@@ -218,25 +218,23 @@ const Container = (props) => {
 
       <Mobile>
         <Main>
-          <div>
-            <Slide>
-              <Slider {...settings}>
-                {_popular_product.map((i, idx) => {
-                  let real = input_priceComma(`${i.lowBid}`);
-                  return (
-                    <MainCard
-                      lowBid={real}
-                      key={idx}
-                      {...i}
-                      _onClick={() => {
-                        history.push(`product/detail/${i._id}`);
-                      }}
-                    />
-                  );
-                })}
-              </Slider>
-            </Slide>
-          </div>
+          <Slide>
+            <Slider {...settings}>
+              {_popular_product.map((i, idx) => {
+                let real = input_priceComma(`${i.lowBid}`);
+                return (
+                  <MainCard
+                    lowBid={real}
+                    key={idx}
+                    {...i}
+                    _onClick={() => {
+                      history.push(`product/detail/${i._id}`);
+                    }}
+                  />
+                );
+              })}
+            </Slider>
+          </Slide>
         </Main>
       </Mobile>
     </>
@@ -280,8 +278,11 @@ const RightArrow_ = styled.div`
 `;
 
 const Main = styled.div`
+  justify-content: center;
   text-align: center;
-  margin: 180px 0;
+  margin: 180px auto;
+  max-width: 1920px;
+
   .slick-dots {
     /* margin: 10px 0; */
   }
@@ -300,9 +301,12 @@ const Main = styled.div`
     transform: scale(0.75);
   }
   @media only screen and (max-width: 767px) {
-    width: 100%;
+    max-width: 1030px;
+    width: 90%;
+    align-items: center;
+    justify-content: center;
     margin: 100px 0 45px 0;
-    .slick-dots {
+    margin .slick-dots {
       margin: 30px 0;
     }
   }

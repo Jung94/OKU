@@ -26,7 +26,7 @@ const App = (props) => {
 
   useEffect(() => {
     if (is_login) {
-      dispatch(userActions.isLogin());
+      // dispatch(userActions.isLogin());
     }
   }, []);
 
@@ -45,8 +45,8 @@ const App = (props) => {
               <Route path="/" exact component={Home} />
               <Route path="/login" exact component={Login} />
               <Route path="/signup" exact component={Signup} />
-              <Route path="/agreement" exact component={Agreement} />
-              <Route path="/product" exact component={Product} />
+              {/* <Route path="/agreement" exact component={Agreement} /> */}
+              {/* <Route path="/product" exact component={Product} /> */}
               <Route path="/product/detail/:id" exact component={Product} />
               <Route path="/productupload" exact component={ProductUpload} />
               <Route path="/result" exact component={Result} />
@@ -73,6 +73,7 @@ const Grid = styled.div`
   margin: 0 auto;
   max-width: 100%;
   position: relative;
+
   /* border: 1px solid red; */
 
   @media only screen and (max-width: 767px) {

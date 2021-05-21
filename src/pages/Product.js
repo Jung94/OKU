@@ -17,7 +17,7 @@ import { actionCreators as loadingActions } from "redux/modules/loading";
 import { actionCreators as likeActions } from "redux/modules/like";
 import RelatedProduct from "components/global/RelatedProduct";
 import { actionCreators as bidActions } from "redux/modules/bid";
-import { priceComma } from "shared/common";
+import { input_priceComma } from "shared/common";
 import Loading from "shared/Loading";
 
 import moment from "moment";
@@ -121,13 +121,13 @@ const Product = (props) => {
           <ProductWrap ref={startpoint}>
             {/* <div onMouseOver={helpPop}></div> */}
             {/* 💎 1단 : 상품사진 & 입찰표 */}
-            <Grid end_flex margin="0 0 20px 0" height="600px" gap="20px">
+            <Grid end_flex margin="0 0 30px 0" height="600px" >
               {/* 상품사진 */}
               <SliderWrap>
                 <Slider imgList={img} />
               </SliderWrap>
               {/* 입찰표 */}
-              <Grid width="40%">
+              <Grid width="40%" margin="0 0 0 20px">
                 {/* 타이머 */}
                 <Grid textAlign="center" justify="space-between" margin="0 0 30px 0">
                   <Text h1>
@@ -145,7 +145,7 @@ const Product = (props) => {
                     현재 입찰 가격
                   </Text>
                   <Text price textAlign="right">
-                    {_current ? priceComma(_current) : lowBid && priceComma(lowBid)}
+                    {_current ? input_priceComma(_current) : lowBid && input_priceComma(lowBid)}
                     <Text won>원</Text>
                   </Text>
                   <Line bottom margin="5px 0" />
@@ -158,14 +158,14 @@ const Product = (props) => {
                     최소 낙찰/입찰가
                     <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                   </Text>
-                  <Input output num value={lowBid && priceComma(lowBid)} adornment="원" />
+                  <Input output num value={lowBid && input_priceComma(lowBid)} adornment="원" />
                   <Grid height="10px" />
 
                   <Text h4 lineHeight="220%">
                     즉시 낙찰가
                     <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                   </Text>
-                  <Input output num value={sucBid && priceComma(sucBid)} adornment="원" />
+                  <Input output num value={sucBid && input_priceComma(sucBid)} adornment="원" />
                   <Grid height="40px">
                     <Text subBody textAlign="right" color={Color.Dark_4} lineHeight="220%">
                       * 이 가격을 제안하면 즉시 구매 가능합니다.
@@ -174,7 +174,7 @@ const Product = (props) => {
                   <Grid is_flex>
                     <Modal bid {...productOK} />
                   </Grid>
-                  <Grid is_flex gap="10px" margin="10px 0 0 0">
+                  <Grid is_flex gap="10px" margin="10px 10px 0 0">
                     {is_login ? (
                       _is_like ? (
                         <Button main _onClick={() => userLike(_id)}>
@@ -200,9 +200,9 @@ const Product = (props) => {
             </Grid>
 
             {/* 💎 2단 : 상품정보 & 실시간 입찰 정보 */}
-            <Grid dp_flex margin="0 0 20px 0" gap="20px">
+            <Grid dp_flex margin="0 0 30px 0" >
               {/* 💎 상품정보 */}
-              <Grid width="73%">
+              <Grid width="73%" margin="0 20px 0 0" >
                 <Text h3 color={Color.Primary} marginB="10px">
                   상품정보
                 </Text>
@@ -259,7 +259,7 @@ const Product = (props) => {
                           {b.nickName}
                         </Text>
                         <Text h4 textAlign="right" flexGrow="6" margin="0 2% 0 0">
-                          {priceComma(b.bid)}&thinsp;원
+                          {input_priceComma(b.bid)}&thinsp;원
                         </Text>
                         <Text subBody width="34px" textAlign="right" color={Color.Dark_4} flexGrow="1">
                           {moment(b.createAt).fromNow()}
@@ -282,7 +282,7 @@ const Product = (props) => {
                 <Text h3 color={Color.Primary} marginB="10px">
                   관련 상품
                 </Text>
-                <Grid is_flex gap="1%">
+                <Grid is_flex maring="0 20px 0 0" bdr="1px solid blue">
                   {_related_list.map((r, idx) => {
                     // console.log(r);
                     return (
@@ -378,7 +378,7 @@ const Product = (props) => {
                 현재 입찰 가격
               </Text>
               <Text price textAlign="right">
-                {_current ? priceComma(_current) : lowBid && priceComma(lowBid)}
+                {_current ? input_priceComma(_current) : lowBid && input_priceComma(lowBid)}
                 <Text won>원</Text>
               </Text>
               <Line bottom margin="5px 0" />
@@ -391,14 +391,14 @@ const Product = (props) => {
                 최소 낙찰/입찰가
                 <FontAwesomeIcon icon={fasQC} className="infoSvg" />
               </Text>
-              <Input output num value={lowBid && priceComma(lowBid)} adornment="원" />
+              <Input output num value={lowBid && input_priceComma(lowBid)} adornment="원" />
               <Grid height="10px"></Grid>
 
               <Text h4 lineHeight="220%">
                 즉시 낙찰가
                 <FontAwesomeIcon icon={fasQC} className="infoSvg" />
               </Text>
-              <Input output num value={sucBid && priceComma(sucBid)} adornment="원" />
+              <Input output num value={sucBid && input_priceComma(sucBid)} adornment="원" />
               <Grid height="50px">
                 <Text subBody textAlign="right" color={Color.Dark_4} lineHeight="220%">
                   * 이 가격을 제안하면 즉시 구매 가능합니다.
@@ -491,7 +491,7 @@ const Product = (props) => {
                         {b.nickName}
                       </Text>
                       <Text h4 textAlign="right" flexGrow="6" margin="0 2% 0 0">
-                        {priceComma(b.bid)}&thinsp;원
+                        {input_priceComma(b.bid)}&thinsp;원
                       </Text>
                       <Text subBody textAlign="right" color={Color.Dark_4} flexGrow="1">
                         {moment(b.createAt).fromNow()}
@@ -739,11 +739,11 @@ const BidLabel = styled.div`
 
 // 상품설명
 const Desc = styled.div`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 7;
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
+  /* -webkit-line-clamp: 7; */
   -webkit-box-orient: vertical;
-  display: -webkit-box;
+  /* display: -webkit-box; */
   white-space: pre-line;
 
   @media only screen and (max-width: 767px) {
