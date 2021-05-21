@@ -318,7 +318,7 @@ const MobileTimerSucbid = styled.div`
   }
 
   .price {
-    margin-top: 5px;
+    margin-top: 10px;
     border-radius: 12px;
     background-color: ${Color.Primary}99;
   }

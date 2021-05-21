@@ -23,3 +23,17 @@ export const nicknameCheck = (nickname) => {
 export const input_priceComma = (price) => {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",");
 };
+
+// https://blog.naver.com/crazyb/220743863861
+export const comma = (str) => { 
+    str = String(str); 
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,'); 
+};
+
+// https://blog.naver.com/crazyb/220743863861
+export const uncomma = (str) => { 
+    str = String(str); 
+    return str.replace(/[^\d]+/g, ''); 
+};
+
+

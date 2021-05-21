@@ -9,7 +9,7 @@ import Select from "react-select";
 import { actionCreators as uploadActions } from "redux/modules/upload";
 import { actionCreators as headerActions } from "redux/modules/header";
 
-import { input_priceComma } from "shared/common";
+import { input_priceComma, comma, uncomma } from "shared/common";
 // import { Upload } from "components/";
 import Upload from "shared/Upload";
 
@@ -175,12 +175,12 @@ const ProductUpload = React.memo((props) => {
   };
 
   const handleLowbid = (e) => {
-    let real = input_priceComma(e.target.value);
+    let real = comma(uncomma(e.target.value));
     setLowbidFake(real);
   };
 
   const handleSucbid = (e) => {
-    let real2 = input_priceComma(e.target.value);
+    let real2 = comma(uncomma(e.target.value));
     setSucbidFake(real2);
   };
 
