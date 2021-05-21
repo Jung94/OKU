@@ -121,7 +121,7 @@ const Product = (props) => {
           <ProductWrap ref={startpoint}>
             {/* <div onMouseOver={helpPop}></div> */}
             {/* 💎 1단 : 상품사진 & 입찰표 */}
-            <Grid end_flex margin="0 0 30px 0" height="600px" >
+            <Grid end_flex margin="0 0 30px 0" height="600px">
               {/* 상품사진 */}
               <SliderWrap>
                 <Slider imgList={img} />
@@ -200,21 +200,21 @@ const Product = (props) => {
             </Grid>
 
             {/* 💎 2단 : 상품정보 & 실시간 입찰 정보 */}
-            <Grid dp_flex margin="0 0 30px 0" >
+            <Grid dp_flex margin="0 0 30px 0">
               {/* 💎 상품정보 */}
-              <Grid width="73%" margin="0 20px 0 0" >
+              <Grid width="73%" margin="0 20px 0 0">
                 <Text h3 color={Color.Primary} marginB="10px">
                   상품정보
                 </Text>
-                <Grid is_flex justify="space-around" padding="10px" bdr="1px solid red">
-                  <Grid margin="0 10px 0 0" width="200px" >
+                <Grid is_flex justify="space-around" padding="10px">
+                  <Grid margin="0 10px 0 0" width="200px">
                     <Text h4 textAlign="left" marginB="5%">
                       카테고리
                       <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                     </Text>
                     <Input output center value={`${bigCategory} > ${smallCategory}`} />
                   </Grid>
-                  <Grid margin="0 10px 0 0" width="80px" >
+                  <Grid margin="0 10px 0 0" width="80px">
                     <Text h4 textAlign="left" marginB="5%">
                       상품상태
                       <FontAwesomeIcon icon={fasQC} className="infoSvg" />
@@ -222,14 +222,14 @@ const Product = (props) => {
                     <Input output center value={state && state.split("급")[0]} adornment="급" />
                   </Grid>
                   {region && (
-                    <Grid margin="0 10px 0 0" width="250px" >
+                    <Grid margin="0 10px 0 0" width="250px">
                       <Text h4 textAlign="left" marginB="5%">
                         거래 지역
                       </Text>
                       <Input output center value={region} />
                     </Grid>
                   )}
-                  <Grid width="120px" >
+                  <Grid width="120px">
                     <Text h4 textAlign="left" marginB="5%">
                       배송 수단
                     </Text>
@@ -282,7 +282,7 @@ const Product = (props) => {
                 <Text h3 color={Color.Primary} marginB="10px">
                   관련 상품
                 </Text>
-                <Grid is_flex maring="0 20px 0 0" bdr="1px solid blue">
+                <Grid is_flex maring="0 20px 0 0">
                   {_related_list.map((r, idx) => {
                     // console.log(r);
                     return (
