@@ -155,7 +155,7 @@ const Bid = (props) => {
               </>
             ) : (
               <> */}
-            <InfoUl></InfoUl>
+            {sellerunique === u_id && <InfoUl></InfoUl>}
             <Button _onClick={addSuccessbid} width="75%" margin="10px auto 9% auto">
               즉시 낙찰하기
             </Button>

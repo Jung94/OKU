@@ -55,7 +55,7 @@ const MainCard = (props) => {
                 <Sucbid>
                   <div>
                     <FontAwesomeIcon icon={faCircle} />
-                    <span> 최소 입찰가&ensp;</span>
+                    <span> 즉시 낙찰가&ensp;</span>
                   </div>
                   <div className="price">
                     <span className="text">&thinsp;{priceComma(sucBid)}&thinsp;</span>원&thinsp;

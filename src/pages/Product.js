@@ -739,11 +739,11 @@ const BidLabel = styled.div`
 
 // 상품설명
 const Desc = styled.div`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 7;
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
+  /* -webkit-line-clamp: 7; */
   -webkit-box-orient: vertical;
-  display: -webkit-box;
+  /* display: -webkit-box; */
   white-space: pre-line;
 
   @media only screen and (max-width: 767px) {
