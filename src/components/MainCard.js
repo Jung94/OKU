@@ -134,8 +134,10 @@ const Section = styled.div`
     }
   }
   @media only screen and (max-width: 767px) {
+    margin-left: -15px;
+
     .img {
-      margin-left: -4.5vw;
+      margin: 0 auto;
       transition: all 500ms ease-in-out;
       box-shadow: 0 0 0px ${Color.Light_4};
       border: 0.5px solid ${Color.Light_4};
@@ -154,7 +156,6 @@ const Section = styled.div`
       .img {
         box-shadow: 0 0 10px ${Color.Light_4};
         border: 0.5px solid ${Color.Light_4};
-        transform: scale(1.01);
       }
       .price {
         border-radius: 16px;
@@ -304,7 +305,15 @@ const MobileTimerSucbid = styled.div`
   font-weight: 700;
 
   top: 230px;
-  right: 50px;
+  @media only screen and (max-width: 767px) {
+    right: 40vw;
+  }
+  @media only screen and (max-width: 420px) {
+    right: 20vw;
+  }
+  @media only screen and (max-width: 320px) {
+    right: 18vw;
+  }
 
   position: absolute;
 
