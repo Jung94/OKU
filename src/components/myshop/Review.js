@@ -5,8 +5,25 @@ import { Text } from "elements/";
 import { Color } from "shared/DesignSys";
 import DetailRing from 'components/DetailRing';
 
+import { useMediaQuery } from "react-responsive";
 
 import { useDispatch, useSelector } from "react-redux";
+
+
+const Desktop = ({ children }) => {
+    const isDesktop = useMediaQuery({ minWidth: 1024 });
+    return isDesktop ? children : null;
+};
+
+const Tablet = ({ children }) => {
+    const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+    return isTablet ? children : null;
+};
+
+const Mobile = ({ children }) => {
+    const isMobile = useMediaQuery({ maxWidth: 767 });
+    return isMobile ? children : null;
+};
 
 const Review = () => {
     // const dispatch = useDispatch();
@@ -18,6 +35,8 @@ const Review = () => {
     //   const ShopDesc = useSelector((state) => state.post.desc_shop);
 
     return (
+        <>
+        <Desktop>
         <Wrap>
             <ReviewInfo>
                 <Head>
@@ -42,6 +61,37 @@ const Review = () => {
                 </Detail>
             </ReviewInfo>
         </Wrap>
+        </Desktop>
+
+        <Mobile>
+            <Wrap>
+                <ReviewInfo>
+                    <Head>
+                    <Text h3 textAlign="left">
+                        내 상점 후기
+                    </Text>
+                    </Head>
+                    <Detail>
+                        <InnerBox>
+                            {/* <Nickname>
+                                최용현
+                            </Nickname>
+                            <Content>
+                                친절하네요
+                            </Content> */}
+                        <Blank>
+                            <Text subBody color={Color.Dark_4}>
+                                🎀 서비스 준비 중입니다! 🎀
+                            </Text>
+                            
+                        </Blank>
+                        </InnerBox>
+                    </Detail>
+                </ReviewInfo>
+            </Wrap> 
+        </Mobile>
+
+        </>
 
 
     );
@@ -57,10 +107,12 @@ const Wrap = styled.div`
     text-align: center;
     align-items: center;
     justify-content: space-between;
-    co
 
-    @media only screen and (max-width: 767px) {
+@media only screen and (max-width: 767px) {
+        margin: 200px auto -40px;
     }
+
+
 `;
 
 const ReviewInfo = styled.div`
@@ -73,6 +125,7 @@ const Head = styled.div`
 justify-content: space-between;
 display :flex;
 align-items: flex-end;
+
 `;
 
 const Detail = styled.div`
@@ -84,6 +137,9 @@ max-height : 500px;
 border-radius: 16px;
 box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
 padding : 20px 63px ;
+@media only screen and (max-width: 767px) {
+    padding : 10px 10px;
+}
 `;
 
 const InnerBox = styled.div`

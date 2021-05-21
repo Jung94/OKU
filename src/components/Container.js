@@ -153,6 +153,7 @@ const Container = (props) => {
 
   const { title, img, deadLine, currentprice } = props;
 
+
   const settings = {
     dotsClass: "slick-dots slick-thumb",
     dots: true,
