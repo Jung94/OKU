@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from "styled-components";
 
-import { Input, Line, Button, Tag, Modal, Text, Profile } from "elements/"
+import { Text } from "elements/";
+import { Color } from "shared/DesignSys";
 import DetailRing from 'components/DetailRing';
 
 
@@ -26,12 +27,17 @@ const Review = () => {
                 </Head>
                 <Detail>
                     <InnerBox>
-                        <Nickname>
+                        {/* <Nickname>
                             최용현
                         </Nickname>
                         <Content>
                             친절하네요
-                        </Content>
+                        </Content> */}
+                    <Blank>
+                        <Text subBody color={Color.Dark_4}>
+                            🎀 서비스 준비 중입니다! 🎀
+                        </Text>
+                    </Blank>
                     </InnerBox>
                 </Detail>
             </ReviewInfo>
@@ -100,6 +106,12 @@ font-size : 16px;
 `;
 const Content = styled.div`
 font-size : 14px;
+`;
+
+const Blank = styled.div`
+display: flex;
+flex-direction: column;
+margin : 15px auto;
 `;
 
 

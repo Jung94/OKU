@@ -5,10 +5,13 @@ import { Input, Line, Button, Tag, Modal, Text, Profile } from "elements/"
 import { actionCreators as shopActions } from "redux/modules/myshop";
 import { useDispatch, useSelector } from "react-redux";
 
-const Selling = () => {
+import { history } from "redux/configureStore";
+
+import icon_Upload_1 from "images/icon_Upload_1.svg";
+
+const Selling = (props) => {
     const dispatch = useDispatch();
     const SellingProduct = useSelector((state) => state.myshop.Product_selling);
-    
     useEffect(() => {
         dispatch(shopActions.getMyProductAPI());
     }, []);
@@ -25,10 +28,17 @@ const Selling = () => {
                 </Head>
                 <Detail>
                         <List>
-                            <MyImage/>
-                            <MyImage/>
-                            <MyImage/>
-                            <MyImage/>
+                        {SellingProduct && SellingProduct.length > 0 ?
+                        <MyImage onClick={() => history.push(`/product/detail/${SellingProduct[0]._id}`)} src={SellingProduct[0].img[0]} /> 
+                        : 
+                        <>
+                        </>
+                            
+                        }
+                        <UpLoad onClick={() => {history.push("/ProductUpload")}}>
+                            <img style={{ width : "50px", height : "50px", marginTop : "68px"}} src={icon_Upload_1} />
+                            <p style={{fontSize : "17px", color : "#818181", fontWeight :"bold", marginTop : "10px"}}>물건등록</p>
+                        </UpLoad>
                         </List>
                 </Detail>
             </SellInfo>
@@ -36,9 +46,6 @@ const Selling = () => {
     );
 };
 
-const H2 = "20px";
-const Body = "14px";
-const Sub = "12px";
 
 const Wrap = styled.div`
     max-width: 1030px;
@@ -90,12 +97,21 @@ column-gap: 16px;
 row-gap : 21px;
 
 `;
-const MyImage = styled.div`
+const MyImage = styled.img`
 width : 218px;
 height : 218px;
 background : #dadada;
 border-radius: 16px;
 box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
 `;
+
+const UpLoad = styled.div`
+width : 218px;
+height : 218px;
+background : #dadada;
+border-radius: 16px;
+box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
+`;
+
 
 export default Selling;
