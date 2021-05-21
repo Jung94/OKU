@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import PostCard from "components/PostCard";
 import { history } from "../redux/configureStore";
-import PostCard_m from "./PostCard_m";
+import PostCardMobile from "./PostCardMobile";
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
@@ -59,7 +59,7 @@ const Post = (props) => {
               ) : (
                 _recommend_product &&
                 _recommend_product.map((l, idx) => {
-                  return <PostCard key={idx} {...l} />;
+                  return <PostCard key={idx} {...l} img={l.img[0]} />;
                 })
               )}
             </Cards>
@@ -84,7 +84,7 @@ const Post = (props) => {
               ) : (
                 _recommend_product &&
                 _recommend_product.map((l, idx) => {
-                  return <PostCard_m key={idx} {...l} />;
+                  return <PostCardMobile key={idx} {...l} img={l.img[0]} />;
                 })
               )}
             </Cards>

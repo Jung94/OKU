@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
 
 import PostCard from "components/PostCard";
+import PostCardMobile from "./PostCardMobile";
 import { actionCreators as likeActions } from "redux/modules/like";
 
 import { actionCreators as postActions } from "redux/modules/post";
@@ -16,7 +17,6 @@ import { Grid, Input, Line, Button, Tag, Modal, Text, Profile } from "elements/"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle as fasQC, faHeart as fasHeart, faPen as fasPen } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
-import PostCard_m from "./PostCard_m";
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
@@ -84,9 +84,9 @@ const Card = (props) => {
           </Head>
           <Cards>
             {_recent_product.map((j, index) => {
-              return <PostCard_m key={index} {...j} img={j.img[0]} />;
+              return <PostCardMobile key={index} {...j} img={j.img[0]} />;
             })}
-            {/* <PostCard_m/> */}
+            {/* <PostCardMobile/> */}
           </Cards>
           <More
             onClick={() => {

@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { history } from "../redux/configureStore";
 import PostCard from "components/PostCard";
-import PostCard_m from "./PostCard_m";
+import PostCardMobile from "./PostCardMobile";
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
@@ -61,7 +61,7 @@ const DeadlineP = (props) => {
                 <div style={{ color: "#c0c0c0 ", fontSize: "20px" }}>마감임박 상품이 없습니다</div>
               ) : (
                 _deadline_product.map((k, index) => {
-                  return <PostCard key={index} {...k} />;
+                  return <PostCard key={index} {...k} img={k.img[0]} />;
                 })
               )}
             </Cards>
@@ -82,7 +82,7 @@ const DeadlineP = (props) => {
                 <div style={{ color: "#c0c0c0 ", fontSize: "20px" }}>마감임박 상품이 없습니다</div>
               ) : (
                 _deadline_product.map((k, index) => {
-                  return <PostCard_m key={index} {...k} />;
+                  return <PostCardMobile key={index} {...k} img={k.img[0]} />;
                 })
               )}
             </Cards>

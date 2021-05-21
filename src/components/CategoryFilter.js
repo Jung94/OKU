@@ -1,8 +1,8 @@
-import React, { useEffect }  from 'react';
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import PostCard from 'components/PostCard'
-import PostCard_m from "components/PostCard_m";
+import PostCard from "components/PostCard";
+import PostCardMobile from "components/PostCardMobile";
 import { history } from "redux/configureStore";
 import { useMediaQuery } from "react-responsive";
 import { useSelector, useDispatch } from "react-redux";
@@ -31,7 +31,7 @@ const CategoryFilter = () => {
       <Desktop>
         <CategoryList>
           {sub_list.map((p, idx) => {
-            return <PostCard key={idx} {...p}/>;
+            return <PostCard key={idx} {...p} />;
           })}
         </CategoryList>
       </Desktop>
@@ -41,12 +41,12 @@ const CategoryFilter = () => {
       <Mobile>
         <CategoryList>
           {sub_list.map((p, idx) => {
-            return <PostCard_m key={idx} {...p}/>;
+            return <PostCardMobile key={idx} {...p} />;
           })}
         </CategoryList>
       </Mobile>
     </>
-  )
+  );
 };
 
 const CategoryList = styled.div`
@@ -57,8 +57,7 @@ const CategoryList = styled.div`
   gap: 33px;
   // border: 1px solid red;
 
-  
-  @media only screen and (max-width : 767px) {
+  @media only screen and (max-width: 767px) {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
@@ -67,7 +66,7 @@ const CategoryList = styled.div`
     // border: 1px solid red;
   }
 
-  @media only screen and (min-width : 1824px) {
+  @media only screen and (min-width: 1824px) {
     height: 80%;
     gap: 65px;
   }

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 
 import PostCard from "components/PostCard";
-import PostCard_m from "components/PostCard_m";
+import PostCardMobile from "components/PostCardMobile";
 import { input_priceComma } from "shared/common";
 import { useMediaQuery } from "react-responsive";
 import { useSelector, useDispatch } from "react-redux";
@@ -43,10 +43,16 @@ const SearchResult = (props) => {
         <ProductList>
           {search_list.map((p, idx) => {
             let real = input_priceComma(`${p.lowBid}`);
-            return <PostCard key={idx} {...p} title={p.title} img={p.img[0]}
-              // lowBid={real} 
-              // _onClick={() => {history.push(`/product/detail/${p._id}`);}}
-            />;
+            return (
+              <PostCard
+                key={idx}
+                {...p}
+                title={p.title}
+                img={p.img[0]}
+                // lowBid={real}
+                // _onClick={() => {history.push(`/product/detail/${p._id}`);}}
+              />
+            );
           })}
         </ProductList>
       </Desktop>
@@ -57,10 +63,16 @@ const SearchResult = (props) => {
         <ProductList>
           {search_list.map((p, idx) => {
             let real = input_priceComma(`${p.lowBid}`);
-            return <PostCard_m key={idx} {...p} title={p.title} img={p.img[0]}
-              // lowBid={real} 
-              // _onClick={() => {history.push(`/product/detail/${p._id}`);}}
-            />;
+            return (
+              <PostCardMobile
+                key={idx}
+                {...p}
+                title={p.title}
+                img={p.img[0]}
+                // lowBid={real}
+                // _onClick={() => {history.push(`/product/detail/${p._id}`);}}
+              />
+            );
           })}
         </ProductList>
       </Mobile>
@@ -71,27 +83,15 @@ const SearchResult = (props) => {
 const ProductList = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  row-gap: 33px;
-  colomn-gap: 33px;
-  // justify-content: flex-start;
-  // flex-wrap: wrap;
-  height: 100%;
-  // gap: 33px;
+  grid-column-gap: 38px;
+  grid-row-gap: 50px;
   // border: 1px solid red;
 
-  
-  @media only screen and (max-width : 767px) {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    height: 100%;
-    gap: 24px;
+  @media only screen and (max-width: 767px) {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-row-gap: 20px;
     // border: 1px solid red;
-  }
-
-  @media only screen and (min-width : 1824px) {
-    height: 80%;
-    gap: 65px;
   }
 `;
 

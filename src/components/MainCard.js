@@ -46,10 +46,10 @@ const MainCard = (props) => {
 
               <Bottom className="text">
                 <TimerWrap>
-                  <Text h2>
+                  <Timer timeProgress white {...props} />
+                  <Text h1>
                     <Timer all {...props} white />
                   </Text>
-                  <Timer timeProgress white {...props} />
                 </TimerWrap>
                 {/* <Currentprice>{i.currentprice}</Currentprice> */}
                 <Sucbid>
@@ -135,7 +135,7 @@ const Section = styled.div`
   }
   @media only screen and (max-width: 767px) {
     .img {
-      margin-left: -5.5vw;
+      margin-left: -4.5vw;
       transition: all 500ms ease-in-out;
       box-shadow: 0 0 0px ${Color.Light_4};
       border: 0.5px solid ${Color.Light_4};
@@ -256,7 +256,8 @@ const TimerWrap = styled.div`
   flex-direction: column;
   align-self: flex-end;
   text-align: left;
-  max-width: 200px;
+  max-width: 250px;
+  margin-bottom: 5px;
 
   text-shadow: 0 1.5px 10px rgba(0, 0, 0, 0.25);
 `;
