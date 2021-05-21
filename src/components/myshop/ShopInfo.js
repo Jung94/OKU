@@ -136,7 +136,7 @@ if(!ModiShowing) {
                             >{my_like_list.length}</span>개
                         </span>
                     </Item>
-                    <ShopIntro type="text" placeholder={`현재 상점소개 : ${ShopDesc.marketdesc}`} />
+                    <ShopIntro type="text" placeholder={`현재 상점소개 : ${ShopDesc.marketdesc && ShopDesc.marketdesc}`} />
 
                 </Detail>
             </ShopInfo> 
