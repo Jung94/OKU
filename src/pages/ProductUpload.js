@@ -21,6 +21,10 @@ import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { Color } from "shared/DesignSys";
 import { MainCT, D2CT, D3CT, D4CT } from "shared/Category";
 
+import IconCamera from "images/icon_Camera.svg";
+import IconCamera2 from "images/icon_Camera_2.svg";
+import IconCamera3 from "images/icon_Camera_3.svg";
+
 import DaumPostcode from "react-daum-postcode";
 
 const Desktop = ({ children }) => {
@@ -402,21 +406,21 @@ const ProductUpload = React.memo((props) => {
             <Grid is_flex gap="20px">
               <PreviewBtn2
                 for="fileInput"
-                src={preview1.length ? preview1 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
+                src={preview1.length ? preview1 : IconCamera3}
               >
                 {/* 업로드 하기 */}
                 <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange1} disabled={progress} ref={fileInput} />
               </PreviewBtn2>
               <PreviewBtn2
                 for="fileInput1"
-                src={preview2.length ? preview2 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
+                src={preview2.length ? preview2 : IconCamera3}
               >
                 {/* 업로드 하기 */}
                 <input style={{ display: "none" }} id="fileInput1" type="file" onChange={handleChange2} disabled={progress} ref={fileInput1} />
               </PreviewBtn2>
               <PreviewBtn2
                 for="fileInput2"
-                src={preview3.length ? preview3 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
+                src={preview3.length ? preview3 : IconCamera3}
               >
                 {/* 업로드 하기 */}
                 <input style={{ display: "none" }} id="fileInput2" type="file" onChange={handleChange3} disabled={progress} ref={fileInput2} />
@@ -599,21 +603,21 @@ const ProductUpload = React.memo((props) => {
             <Grid is_flex justify="space-between">
               <PreviewBtn2
                 for="fileInput"
-                src={preview1.length ? preview1 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
+                src={preview1.length ? preview1 : IconCamera3}
               >
                 {/* 업로드 하기 */}
                 <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange1} disabled={progress} ref={fileInput} />
               </PreviewBtn2>
               <PreviewBtn2
                 for="fileInput1"
-                src={preview2.length ? preview2 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
+                src={preview2.length ? preview2 : IconCamera3}
               >
                 {/* 업로드 하기 */}
                 <input style={{ display: "none" }} id="fileInput1" type="file" onChange={handleChange2} disabled={progress} ref={fileInput1} />
               </PreviewBtn2>
               <PreviewBtn2
                 for="fileInput2"
-                src={preview3.length ? preview3 : "https://png.pngtree.com/png-vector/20190115/ourmid/pngtree-camera-icon--line-style-vector-illustration-png-image_314753.jpg"}
+                src={preview3.length ? preview3 : IconCamera3}
               >
                 {/* 업로드 하기 */}
                 <input style={{ display: "none" }} id="fileInput2" type="file" onChange={handleChange3} disabled={progress} ref={fileInput2} />
@@ -835,17 +839,16 @@ const PreviewBtn = styled.label`
 
 const PreviewBtn2 = styled.label`
   display: flex;
-  width: 180px;
-  height: 180px;
+  width: 140px;
+  height: 140px;
   border-radius: 12px;
-  // background-color: ${Color.Light_3};
   border: 1px solid ${Color.Light_4};
   align-items: center;
   justify-content: center;
   color: ${Color.Dark_4};
-  background-image: url("${(props) => props.src}");
-  background-size: cover;
-  background-position: center;
+  background: url("${(props) => props.src}") no-repeat;
+  background-size: 36px;
+  background-position: center center;
 
   @media only screen and (max-width: 767px) {
     width: 30vw;
@@ -853,6 +856,7 @@ const PreviewBtn2 = styled.label`
     /* margin: 120px auto auto auto; */
     flex-direction: column;
     text-align: left;
+    background-size: 34px;
   }
 `;
 

@@ -6,6 +6,7 @@ import FLogo from "images/FooterLogo.png";
 import IconPlus from "images/icon_Plus.svg";
 import IconChat from "images/icon_Chat.svg";
 import IconMenu from "images/icon_Menu.svg";
+import IconExit from "images/icon_Exit.svg";
 import { Color } from "shared/DesignSys";
 import { Link } from "react-router-dom";
 import { history } from "redux/configureStore";
@@ -14,7 +15,6 @@ import { actionCreators as userActions } from "redux/modules/user";
 
 import { faEllipsisH, faCog, faHome, faCommentDots, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import IconExit from "images/icon_Exit.svg";
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
