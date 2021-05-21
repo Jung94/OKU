@@ -382,7 +382,9 @@ const Header = (props) => {
                         }}
                       >
                         <ImgChat src={IconChat} />
-                        <Text h4 margin="0 0 0 9px">채팅</Text>
+                        <Text h4 margin="0 0 0 9px">
+                          채팅
+                        </Text>
                       </Grid>
                     </>
                   )}
@@ -401,7 +403,9 @@ const Header = (props) => {
                         }}
                       >
                         <ImgChat src={IconChat} />
-                        <Text h4 margin="0 0 0 9px">채팅</Text>
+                        <Text h4 margin="0 0 0 9px">
+                          채팅
+                        </Text>
                       </Grid>
                     </>
                   )}
@@ -418,7 +422,9 @@ const Header = (props) => {
                         }}
                       >
                         <ImgUpload src={IconUpload} />
-                        <Text h4 margin="0 0 0 9px">물건등록</Text>
+                        <Text h4 margin="0 0 0 9px">
+                          물건등록
+                        </Text>
                       </Grid>
                     </>
                   )}
@@ -437,7 +443,9 @@ const Header = (props) => {
                         }}
                       >
                         <ImgUpload src={IconUpload} />
-                        <Text h4 margin="0 0 0 9px">물건등록</Text>
+                        <Text h4 margin="0 0 0 9px">
+                          물건등록
+                        </Text>
                       </Grid>
                     </>
                   )}
@@ -817,7 +825,7 @@ const Fix = styled.div`
     font-weight: 500;
     transition: margin 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
     img {
-      transition: all 1400ms cubic-bezier(0.215, 0.61, 0.355, 1);
+      transition: all 800ms cubic-bezier(0.215, 0.61, 0.355, 1);
       align-items: center;
       vertical-align: center;
       margin: auto;
@@ -839,7 +847,7 @@ const Fix = styled.div`
     font-weight: 500;
     transition: margin 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
     img {
-      transition: all 1400ms cubic-bezier(0.215, 0.61, 0.355, 1);
+      transition: all 800ms cubic-bezier(0.215, 0.61, 0.355, 1);
       align-items: center;
       vertical-align: center;
       margin: auto;
@@ -863,7 +871,7 @@ const Fix = styled.div`
     box-shadow: 0 3px 8px 1px rgba(111, 111, 111, 0.16);
 
     img {
-      transition: all 1400ms cubic-bezier(0.215, 0.61, 0.355, 1);
+      transition: all 800ms cubic-bezier(0.215, 0.61, 0.355, 1);
       align-items: center;
       cursor: pointer;
       object-position: center;
@@ -877,7 +885,7 @@ const Mainselectbox = styled.div`
   width: 100px;
   margin: 0 10px 0 10px;
   align-items: center;
-  cursor:default;
+  cursor: default;
 
   @media only screen and (max-width: 767px) {
     width: 120px;
@@ -889,7 +897,7 @@ const Mainselectbox = styled.div`
 const SubSelectbox = styled.div`
   width: 160px;
   align-items: center;
-  cursor:default;
+  cursor: default;
 
   @media only screen and (max-width: 767px) {
     width: 200px;

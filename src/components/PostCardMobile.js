@@ -14,7 +14,7 @@ import { input_priceComma } from "shared/common";
 
 import logo from "images/logo512.png";
 
-const PostCard_m = (props) => {
+const PostCardMobile = (props) => {
   const dispatch = useDispatch();
   const is_login = localStorage.getItem("access_token");
   const { img, title, currentprice, lowBid, _onClick, _id, main, result } = props;
@@ -59,7 +59,7 @@ const PostCard_m = (props) => {
   );
 };
 
-PostCard_m.defaultPorps = {
+PostCardMobile.defaultPorps = {
   title: "타이틀",
   currentprice: 1000,
   lowBid: 1000,
@@ -167,4 +167,4 @@ const Sucbid = styled.div`
   font-size: 15px;
 `;
 
-export default PostCard_m;
+export default PostCardMobile;

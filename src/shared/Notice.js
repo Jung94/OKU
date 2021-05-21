@@ -25,8 +25,8 @@ const Block = styled.div`
   border-radius: 50%;
   width: 150px;
   height: 150px;
-  bottom: 40px;
-  right: 60px;
+  bottom: 30px;
+  right: 50px;
   transition: transform 350ms;
   :hover {
     transform: translateY(-10px);
