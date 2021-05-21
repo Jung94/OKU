@@ -8,6 +8,8 @@ import axios from "axios";
 // 내상점
 // 내상점소개
 const SET_SHOPDESC = "SET_MARKETDESC"
+// 소개수정
+const EDIT_SHOPDESC = "EDIT_SHOPDESC"
 // 판매중인 물건
 const SET_MYPRODUCT = "SET_MYPRODUCT"
 
@@ -17,12 +19,14 @@ const SET_MYPRODUCT = "SET_MYPRODUCT"
 // actionCreator
 const setShopDesc = createAction(SET_SHOPDESC, ( shop_desc ) => ({ shop_desc }));
 const setMyProducts = createAction(SET_MYPRODUCT, ( selling_Product ) => ({ selling_Product }));
+const editShopDesc = createAction(EDIT_SHOPDESC, ( edit_desc ) => ({ edit_desc }));
 
 
 
 // initialState
 const initialState = {
     desc_shop : [],
+    shop_desc : "",
     myproduct : [], 
 }
 
@@ -50,22 +54,22 @@ const getShopDescAPI = () => {
         };
     };
 
-// 
+// 상점소개수정
 const editShopDescAPI = (shop_desc) => {
     return function (dispatch, getState, { history }) {
         const access_token = localStorage.getItem("access_token");
-        const formData = new FormData();
-        formData.append("shopDesc", shop_desc);
+
         fetch(`${API}/user/marketdesc`, {
             method: "PUT",
             headers: {
             access_token: `${access_token}`,
+            "Content-Type": "application/json",
             },
-            body: formData,
+            body: JSON.stringify({"content" : shop_desc}),
         })
             .then((res) => res.json())
             .then((res) => {
-                dispatch(setShopDesc(res));
+                dispatch(editShopDesc(shop_desc));
         })
             .catch((error) => {
             console.log("editShopDescAPI에 문제가 있습니다.", error);
@@ -105,6 +109,12 @@ export default handleActions(
             produce(state, (draft) => {
           // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
             draft.desc_shop = action.payload.shop_desc;
+            draft.shop_desc = action.payload.shop_desc.marketdesc;
+        }),
+        [EDIT_SHOPDESC]: (state, action) =>
+        produce(state, (draft) => {
+      // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
+        draft.shop_desc = action.payload.edit_desc;
         }),
         [SET_MYPRODUCT]: (state, action) =>
         produce(state, (draft) => {

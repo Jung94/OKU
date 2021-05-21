@@ -7,6 +7,7 @@ import { history } from "redux/configureStore";
 
 import { useMediaQuery } from "react-responsive";
 
+import { actionCreators as myshopActions } from "redux/modules/myshop";
 import { actionCreators as mypageActions } from "redux/modules/mypage";
 import { actionCreators as likeActions } from "redux/modules/like";
 import { actionCreators as shopActions } from "redux/modules/myshop";
@@ -31,6 +32,7 @@ const ShopInfomation = () => {
     const _user = useSelector((state) => state.mypage.user);
     const my_like_list = useSelector((state) => state.like.my_like_list);
     const ShopDesc = useSelector((state) => state.myshop.desc_shop);
+    const EditDesc = useSelector((state) => state.myshop.shop_desc);
     const SellingProduct = useSelector((state) => state.myshop.Product_selling);
     useEffect(() => {
         dispatch(mypageActions.setProfileAPI());
@@ -40,8 +42,14 @@ const ShopInfomation = () => {
     }, []);
 
     const [ModiShowing, setModiShowing] = useState(false);
+    const [Modified, setModified] = useState("");
 
-    const Modified = () => setModiShowing(!ModiShowing);
+    const Modifiy = () => setModiShowing(!ModiShowing);
+    const CompleteModi = () => {
+        setModiShowing(!ModiShowing);
+        dispatch(myshopActions.editShopDescAPI(Modified));
+    }
+
 if(!ModiShowing) {
     return (
         <>
@@ -53,7 +61,7 @@ if(!ModiShowing) {
                     <span style={{color :"#ae27ff"}}>{_user.nickname}</span> 님의 상점
                 </Text>
                 
-                <Modify onClick={Modified}>
+                <Modify onClick={Modifiy}>
                     수정하기
                 </Modify>
                 </Head>
@@ -70,7 +78,7 @@ if(!ModiShowing) {
                             >{my_like_list.length}</span>개
                         </span>
                     </Item>
-                    <ShopIntro type="text" disabled placeholder={`${ShopDesc.marketdesc}`} />
+                    <ShopIntro type="text" disabled placeholder={`${EditDesc && EditDesc}`} />
 
                 </Detail>
             </ShopInfo> 
@@ -85,7 +93,7 @@ if(!ModiShowing) {
                     <span style={{color :"#ae27ff"}}>{_user.nickname}</span> 님의 상점
                 </Text>
                 
-                <Modify onClick={Modified}>
+                <Modify onClick={Modifiy} >
                     수정하기
                 </Modify>
                 </Head>
@@ -102,7 +110,7 @@ if(!ModiShowing) {
                             >{my_like_list.length}</span>개
                         </span>
                     </Item>
-                    <ShopIntro type="text" disabled placeholder={`${ShopDesc.marketdesc}`} />
+                    <ShopIntro type="text" disabled placeholder={`${EditDesc && EditDesc}`} />
 
                 </Detail>
             </ShopInfo> 
@@ -119,7 +127,7 @@ if(!ModiShowing) {
                     <span style={{color :"#ae27ff"}}>{_user.nickname}</span> 님의 상점
                 </Text>
                 
-                <Modify onClick={Modified}>
+                <Modify onClick={CompleteModi}>
                     수정완료
                 </Modify>
                 </Head>
@@ -136,7 +144,7 @@ if(!ModiShowing) {
                             >{my_like_list.length}</span>개
                         </span>
                     </Item>
-                    <ShopIntro type="text" placeholder={`현재 상점소개 : ${ShopDesc.marketdesc && ShopDesc.marketdesc}`} />
+                    <ShopIntro type="text" placeholder={`현재 상점소개 : ${EditDesc && EditDesc}`} onChange={(e) => {setModified(e.target.value)}} />
 
                 </Detail>
             </ShopInfo> 
