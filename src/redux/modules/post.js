@@ -209,11 +209,11 @@ const getProductSubCategotAPI = (mainKeyword, subKeyword) => {
 };
 
 // 알림
-const _API = `${API}/bid/alert`;
+const Alert_API = `${API}/bid/alert`;
 const getAlertAPI = () => {
   return function (dispatch, getState, { history }) {
     const access_token = localStorage.getItem("access_token");
-    fetch(_API, {
+    fetch(Alert_API, {
       method: "GET",
       headers: {
         access_token: access_token,

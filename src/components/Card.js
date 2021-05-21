@@ -88,7 +88,9 @@ const Card = (props) => {
             })}
             {/* <PostCard_m/> */}
           </Cards>
-          <More>더보기</More>
+          <More onClick={() => {
+                  history.push("/alllist");
+                }}>전체보기</More>
         </Wrap>
       </Mobile>
     </>

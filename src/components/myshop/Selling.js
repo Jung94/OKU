@@ -8,10 +8,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { history } from "redux/configureStore";
 
 import icon_Upload_1 from "images/icon_Upload_1.svg";
+import SellingImg from 'components/SellingImg'
 
 const Selling = (props) => {
     const dispatch = useDispatch();
     const SellingProduct = useSelector((state) => state.myshop.Product_selling);
+    console.log(SellingProduct)
     useEffect(() => {
         dispatch(shopActions.getMyProductAPI());
     }, []);
@@ -28,12 +30,15 @@ const Selling = (props) => {
                 </Head>
                 <Detail>
                         <List>
-                        {SellingProduct && SellingProduct.length > 0 ?
-                        <MyImage onClick={() => history.push(`/product/detail/${SellingProduct[0]._id}`)} src={SellingProduct[0].img[0]} /> 
-                        : 
+                        {SellingProduct?.length === 0 ?
                         <>
                         </>
-                            
+                        // <SellingImg onClick={() => history.push(`/product/detail/${SellingProduct[0]._id}`)} src={SellingProduct[0].img[0]} /> 
+                        : 
+                        SellingProduct && SellingProduct.map((l, idx) => {
+
+                                return (<SellingImg  key={idx} {...l} />
+                            )})
                         }
                         <UpLoad onClick={() => {history.push("/ProductUpload")}}>
                             <img style={{ width : "50px", height : "50px", marginTop : "68px"}} src={icon_Upload_1} />
