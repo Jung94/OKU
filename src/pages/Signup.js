@@ -547,8 +547,8 @@ const SignupBox = styled.div`
   border: 1px solid ${Color.Light_3};
   border-radius: 12px;
   width: 100%;
-  height: 50px;
-  max-height: 50px;
+  height: 45px;
+  max-height: 45px;
   margin: 0.25rem 0;
   padding: 10px;
   box-sizing: border-box;
@@ -624,11 +624,6 @@ const IconEyeSpan = styled.span`
   font-size: 14px;
   cursor: pointer;
   color: rgba(0, 0, 0, 0.4);
-`;
-
-const Agree = styled.div`
-  text-align: center;
-  margin: 0 auto;
 `;
 
 // const Modal = styled.div`
