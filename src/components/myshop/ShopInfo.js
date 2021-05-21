@@ -23,7 +23,10 @@ const ShopInfomation = () => {
         dispatch(shopActions.getMyProductAPI());
     }, []);
 
-    
+    const [ModiShowing, setModiShowing] = useState(false);
+
+    const Modified = () => setModiShowing(!ModiShowing);
+if(!ModiShowing) {
     return (
         <Wrap>
             <ShopInfo>
@@ -32,7 +35,7 @@ const ShopInfomation = () => {
                     <span style={{color :"#ae27ff"}}>{_user.nickname}</span> 님의 상점
                 </Text>
                 
-                <Modify>
+                <Modify onClick={Modified}>
                     수정하기
                 </Modify>
                 </Head>
@@ -53,8 +56,41 @@ const ShopInfomation = () => {
 
                 </Detail>
             </ShopInfo> 
-        </Wrap>
+        </Wrap>       
     );
+} else {
+    return(
+        <Wrap>
+            <ShopInfo>
+                <Head>
+                <Text h1 textAlign="left">
+                    <span style={{color :"#ae27ff"}}>{_user.nickname}</span> 님의 상점
+                </Text>
+                
+                <Modify onClick={Modified}>
+                    수정완료
+                </Modify>
+                </Head>
+                <Detail>
+                    <Item>
+                        <span>
+                            판매중 물건 <span style={{color :"#ae27ff"}}>
+                                {/* {SellingProduct.length > 0 ? SellingProduct.length : 0} */}
+                                {SellingProduct && SellingProduct.length > 0 ? SellingProduct.length : 0}
+                            </span>개
+                        </span>
+                        <span>
+                            찜한 물건 <span style={{color :"#ae27ff", cursor: "pointer"}} onClick={() => history.push("/my/shopping")}
+                            >{my_like_list.length}</span>개
+                        </span>
+                    </Item>
+                    <ShopIntro type="text" placeholder={`현재 상점소개 : ${ShopDesc.marketdesc}`} />
+
+                </Detail>
+            </ShopInfo> 
+        </Wrap>       
+    )
+}
 };
 
 const H2 = "20px";

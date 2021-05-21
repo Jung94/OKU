@@ -24,9 +24,9 @@ const Selling = (props) => {
                     <Text h1 textAlign="left">
                         판매상품
                     </Text>
-                    <More>
+                    {/* <More>
                         더보기
-                    </More>
+                    </More> */}
                 </Head>
                 <Detail>
                         <List>
@@ -36,8 +36,7 @@ const Selling = (props) => {
                         // <SellingImg onClick={() => history.push(`/product/detail/${SellingProduct[0]._id}`)} src={SellingProduct[0].img[0]} /> 
                         : 
                         SellingProduct && SellingProduct.map((l, idx) => {
-
-                                return (<SellingImg  key={idx} {...l} />
+                                return (<SellingImg {...l} key={idx} img={l.img[0]}/>
                             )})
                         }
                         <UpLoad onClick={() => {history.push("/ProductUpload")}}>

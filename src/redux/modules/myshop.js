@@ -13,6 +13,7 @@ const SET_MYPRODUCT = "SET_MYPRODUCT"
 
 
 
+
 // actionCreator
 const setShopDesc = createAction(SET_SHOPDESC, ( shop_desc ) => ({ shop_desc }));
 const setMyProducts = createAction(SET_MYPRODUCT, ( selling_Product ) => ({ selling_Product }));
@@ -49,6 +50,28 @@ const getShopDescAPI = () => {
         };
     };
 
+// 
+const editShopDescAPI = (shop_desc) => {
+    return function (dispatch, getState, { history }) {
+        const access_token = localStorage.getItem("access_token");
+        const formData = new FormData();
+        formData.append("shopDesc", shop_desc);
+        fetch(`${API}/user/marketdesc`, {
+            method: "PUT",
+            headers: {
+            access_token: `${access_token}`,
+            },
+            body: formData,
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                dispatch(setShopDesc(res));
+        })
+            .catch((error) => {
+            console.log("editShopDescAPI에 문제가 있습니다.", error);
+            })  
+        };
+    };
 
 
 // 실시간 등록상품
@@ -97,7 +120,8 @@ export default handleActions(
   // 리듀서 적기 디스패치, 유즈스테이트 하기
 const actionCreators = {
     getShopDescAPI,
-    getMyProductAPI
+    getMyProductAPI,
+    editShopDescAPI
 };
 
 export { actionCreators };

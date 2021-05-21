@@ -13,9 +13,11 @@ const SellingImg = (props) => {
 };
 
 const MyImage = styled.div`
+background-image: ${(props) => `url(${props.img})`};
+background-position: center;
+background-size: cover;
 width : 218px;
 height : 218px;
-background : #dadada;
 border-radius: 16px;
 box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
 `;
