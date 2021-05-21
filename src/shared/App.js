@@ -15,7 +15,7 @@ import NotFound from "shared/NotFound";
 import Loading from "shared/Loading";
 import Notice from "shared/Notice";
 import { Header, Footer } from "components/";
-import { Home, Product, ProductUpload, Signup, Login, Agreement, Result, My, Chat, CategoryResult, MdList, DeadList, MyShop } from "pages/";
+import { Home, Product, ProductUpload, Signup, Login, Agreement, Result, My, Chat, CategoryResult, MdList, DeadList, MyShop, AllList } from "pages/";
 
 const App = (props) => {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ const App = (props) => {
 
   useEffect(() => {
     if (is_login) {
-      dispatch(userActions.isLogin());
+      // dispatch(userActions.isLogin());
     }
   }, []);
 
@@ -45,8 +45,8 @@ const App = (props) => {
               <Route path="/" exact component={Home} />
               <Route path="/login" exact component={Login} />
               <Route path="/signup" exact component={Signup} />
-              <Route path="/agreement" exact component={Agreement} />
-              <Route path="/product" exact component={Product} />
+              {/* <Route path="/agreement" exact component={Agreement} /> */}
+              {/* <Route path="/product" exact component={Product} /> */}
               <Route path="/product/detail/:id" exact component={Product} />
               <Route path="/productupload" exact component={ProductUpload} />
               <Route path="/result" exact component={Result} />
@@ -55,6 +55,7 @@ const App = (props) => {
               <Route path="/DeadlineList" exact component={DeadList} />
               <Route path="/chat" exact component={Chat} />
               <Route path="/chat/:otherId/:myId/:otherName" exact component={Chat} />
+              <Route path="/alllist" component={AllList} />
               <Route path="/myshop" component={MyShop} />
               <Route path="/my" component={My} />
               <Route path="/social/:id" exact component={Social} />
@@ -72,6 +73,7 @@ const Grid = styled.div`
   margin: 0 auto;
   max-width: 100%;
   position: relative;
+
   /* border: 1px solid red; */
 
   @media only screen and (max-width: 767px) {

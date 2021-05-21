@@ -401,7 +401,8 @@ const ProductUpload = React.memo((props) => {
           <Grid>
             <Text h3 bold marginB="20px">
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
-              상품이미지
+              상품이미지&ensp;
+              <span style={{ fontSize: "12px", fontWeight: "400", color: Color.Dark_4 }}>jpg, png, gif 파일만 가능합니다.</span>
             </Text>
             <Grid is_flex gap="20px">
               <PreviewBtn2
@@ -409,21 +410,21 @@ const ProductUpload = React.memo((props) => {
                 src={preview1.length ? preview1 : IconCamera3}
               >
                 {/* 업로드 하기 */}
-                <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange1} disabled={progress} ref={fileInput} />
+                <input style={{ display: "none" }} id="fileInput" type="file" accept="image/png, image/jpeg, image/gif" onChange={handleChange1} disabled={progress} ref={fileInput} />
               </PreviewBtn2>
               <PreviewBtn2
                 for="fileInput1"
                 src={preview2.length ? preview2 : IconCamera3}
               >
                 {/* 업로드 하기 */}
-                <input style={{ display: "none" }} id="fileInput1" type="file" onChange={handleChange2} disabled={progress} ref={fileInput1} />
+                <input style={{ display: "none" }} id="fileInput1" type="file" accept="image/png, image/jpeg, image/gif" onChange={handleChange2} disabled={progress} ref={fileInput1} />
               </PreviewBtn2>
               <PreviewBtn2
                 for="fileInput2"
                 src={preview3.length ? preview3 : IconCamera3}
               >
                 {/* 업로드 하기 */}
-                <input style={{ display: "none" }} id="fileInput2" type="file" onChange={handleChange3} disabled={progress} ref={fileInput2} />
+                <input style={{ display: "none" }} id="fileInput2" type="file" accept="image/png, image/jpeg, image/gif" onChange={handleChange3} disabled={progress} ref={fileInput2} />
               </PreviewBtn2>
             </Grid>
             {/* {preview &&
@@ -597,8 +598,9 @@ const ProductUpload = React.memo((props) => {
           </Grid>
           <Grid>
             <Text h3 bold marginB="20px">
-              상품이미지
+              상품이미지&ensp;
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
+              <span style={{ fontSize: "12px", fontWeight: "400", color: Color.Dark_4 }}>jpg, png, gif 파일만 가능합니다.</span>
             </Text>
             <Grid is_flex justify="space-between">
               <PreviewBtn2
@@ -606,21 +608,21 @@ const ProductUpload = React.memo((props) => {
                 src={preview1.length ? preview1 : IconCamera3}
               >
                 {/* 업로드 하기 */}
-                <input style={{ display: "none" }} id="fileInput" type="file" onChange={handleChange1} disabled={progress} ref={fileInput} />
+                <input style={{ display: "none" }} id="fileInput" type="file" accept="image/png, image/jpeg, image/gif" onChange={handleChange1} disabled={progress} ref={fileInput} />
               </PreviewBtn2>
               <PreviewBtn2
                 for="fileInput1"
                 src={preview2.length ? preview2 : IconCamera3}
               >
                 {/* 업로드 하기 */}
-                <input style={{ display: "none" }} id="fileInput1" type="file" onChange={handleChange2} disabled={progress} ref={fileInput1} />
+                <input style={{ display: "none" }} id="fileInput1" type="file" accept="image/png, image/jpeg, image/gif" onChange={handleChange2} disabled={progress} ref={fileInput1} />
               </PreviewBtn2>
               <PreviewBtn2
                 for="fileInput2"
                 src={preview3.length ? preview3 : IconCamera3}
               >
                 {/* 업로드 하기 */}
-                <input style={{ display: "none" }} id="fileInput2" type="file" onChange={handleChange3} disabled={progress} ref={fileInput2} />
+                <input style={{ display: "none" }} id="fileInput2" type="file" accept="image/png, image/jpeg, image/gif" onChange={handleChange3} disabled={progress} ref={fileInput2} />
               </PreviewBtn2>
             </Grid>
             {/* {preview &&

@@ -18,4 +18,6 @@ import MyShop from './MyShop'
 import DeadList from './DeadList'
 import MdList from './MdList'
 
-export { Home, Product, ProductUpload, Signup, Login, Agreement, Result, Chat, CategoryResult, My, MdList,DeadList,MyShop };
+import AllList from './AllList'
+
+export { Home, Product, ProductUpload, Signup, Login, Agreement, Result, Chat, CategoryResult, My, MdList, DeadList, MyShop, AllList };

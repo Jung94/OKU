@@ -13,6 +13,9 @@ const SET_RECENT_PAGE = "SET_RECENT_PAGE"; //infinity scroll page
 const SET_DEADLINE = "SET_DEADLINE";
 const SET_RECOMMEND = "SET_RECOMMEND";
 
+// 모든상품
+const SET_ALL = "SET_ALL";
+
 // 메인 카테고리
 const SET_MAINCATEGORY = "SET_MAINCATEGORY";
 const SET_MAINKEYWORD = "SET_MAINKEYWORD";
@@ -28,9 +31,10 @@ const SET_ALERT = "SET_ALERT";
 // 메인 상품 리스트
 const setPopularProducts = createAction(SET_POPULAR, (popular) => ({ popular }));
 const setRecentProducts = createAction(SET_RECENT, (recent) => ({ recent }));
-// const setRecentPage = createAction(SET_RECENT_PAGE, (page) => ({ page }));
 const setDeadlineProducts = createAction(SET_DEADLINE, (deadline) => ({ deadline }));
 const setRecommendProducts = createAction(SET_RECOMMEND, (recommend) => ({ recommend }));
+
+const setAllProducts = createAction(SET_ALL, ( all ) => ({ all }))
 
 // 메인카테고리
 const setProductMainCategory = createAction(SET_MAINCATEGORY, (mainCategory) => ({ mainCategory }));
@@ -50,6 +54,7 @@ const initialState = {
   setRecentPage: 0,
   deadline_product: [],
   recommned_product: [],
+  all_product : [],
 
   main_category: [],
   sub_category: [],
@@ -110,6 +115,21 @@ const getRecentProductsAPI = () => {
 //       .catch((e) => console.error(e));
 //   };
 // };
+
+// 모든 아이템
+const AllProducts_API = `${API}/product/all`;
+
+const getAllProductAPI = () => {
+  return function (dispatch, getState, { history }) {
+    axios
+      .get(AllProducts_API)
+      .then((resp) => {
+          dispatch(setAllProducts(resp.data.result));
+      })
+      .catch((e) => console.log(e))
+  };
+}
+
 
 // 마감임박상품
 const DeadlineProduct_API = `${API}/product/deadline`;
@@ -242,6 +262,11 @@ export default handleActions(
         // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
         draft.recent_product = action.payload.recent;
       }),
+    [SET_ALL]: (state, action) =>
+      produce(state, (draft) => {
+        // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
+        draft.all_product = action.payload.all;
+      }),
     [SET_RECENT_PAGE]: (state, action) =>
       produce(state, (draft) => {
         draft.recent_page = action.payload.page;
@@ -295,8 +320,7 @@ export default handleActions(
 const actionCreators = {
   getPopularProductsAPI,
   getRecentProductsAPI,
-
-  // getRecentPage,
+  getAllProductAPI,
   getDeadlineProductAPI,
   getRecommendProductAPI,
 

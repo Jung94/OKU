@@ -33,6 +33,7 @@ const signupAPI = (email, pw, pwCheck, nickName, phone) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify({
         email: email,

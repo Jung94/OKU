@@ -41,8 +41,7 @@ const getShopDescAPI = () => {
             })
             .then((res) => res.json())
             .then((res) => {
-                dispatch(setShopDesc(res));
-                console.log(res)
+                dispatch(setShopDesc(res.marketdesc));
             })
             .catch((error) => {
                 console.log("내 상점 소개", error);

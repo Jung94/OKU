@@ -20,13 +20,17 @@ const Home = (props) => {
   }, []);
 
   return (
-    <div style={{ width: "100%" }}>
+    <Wrap>
       <Container />
       <Post />
       <DeadlineP />
       <Card />
-    </div>
+    </Wrap>
   );
 };
+
+const Wrap = styled.div`
+  width: 100%;
+`;
 
 export default Home;
