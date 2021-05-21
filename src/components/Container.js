@@ -153,6 +153,7 @@ const Container = (props) => {
 
   const { title, img, deadLine, currentprice } = props;
 
+
   const settings = {
     dotsClass: "slick-dots slick-thumb",
     dots: true,
@@ -302,12 +303,21 @@ const Main = styled.div`
   }
   @media only screen and (max-width: 767px) {
     max-width: 1030px;
-    width: 90%;
-    align-items: center;
-    justify-content: center;
-    margin: 100px 0 45px 0;
-    margin .slick-dots {
-      margin: 30px 0;
+    width: 85%;
+    justify-content: space-between;
+    margin: 120px auto 60px auto;
+    .slick-dots {
+    }
+    .slick-center {
+      transition: all 1000ms ease-in-out;
+      -webkit-transform: scale(1) !important;
+      -moz-transform: scale(1) !important;
+      transform: scale(1) !important;
+    }
+    .slick-slide {
+      -webkit-transform: scale(0.85);
+      -moz-transform: scale(0.85);
+      transform: scale(0.85);
     }
   }
 `;
@@ -316,8 +326,7 @@ const Box = styled.div``;
 
 const Slide = styled.div`
   @media only screen and (max-width: 767px) {
-    height: 300px;
-    align-items: center;
+    height: 320px;
   }
 `;
 

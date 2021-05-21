@@ -24,12 +24,17 @@ const MyShop = () => {
 
 const Wrap = styled.div`
 margin : 0px 0px 132px 0px;
+
+
+
 `;
 
 const Backgound = styled.div`
 width : 100%;
 height : 280px;
-background : #eee;
+background-image: ${(props) => `url(${props.img})`};
+background-position: center;
+background-size: cover;
 `;
 
 

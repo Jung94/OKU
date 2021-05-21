@@ -20,9 +20,9 @@ const AllList = () => {
                     모든 상품
                 </span>
                 <Grid>
-                {!allproduct ?
+                {allproduct?.length === 0 ?
                 <div style={{margin:"100px auto", color :"#c0c0c0 ", fontSize:"20px"}}>
-                현재 MD 추천상품이 없습니다
+                상품이 없습니다
                 </div>  : 
                 allproduct && allproduct.map((l, idx) => {
                     return (<PostCard  key={idx} {...l} />
