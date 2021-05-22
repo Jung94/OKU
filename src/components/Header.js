@@ -91,7 +91,7 @@ const Header = (props) => {
   };
 
   const aboutus = (e) => {
-    window.open("https://www.notion.so/9096d7c7a57a4402a701b1e3ffde3764")
+    window.open("https://www.notion.so/90bbb2e5d07941a3a46370e5333c7556")
   };
 
   const customStyles = useMemo(
