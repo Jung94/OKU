@@ -72,7 +72,6 @@ const setBidAPI = (_id, lowBid) => {
 
 const addBidAPI = (bidPrice, createAt) => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     let id = getState().product.productId;
     const access_token = localStorage.getItem("access_token");
     if (!access_token) {
@@ -115,15 +114,12 @@ const addBidAPI = (bidPrice, createAt) => {
       .catch((err) => {
         console.log("addBidAPI에 문제가 있습니다.", err);
       })
-      .finally(() => {
-        dispatch(loadingActions.loading(false));
-      });
+      .finally(() => {});
   };
 };
 
 const addSucbidAPI = (sucBid, sellerunique, createAt) => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     let id = getState().product.productId;
     let nickname = localStorage.getItem("nickname");
     const access_token = localStorage.getItem("access_token");
@@ -144,9 +140,67 @@ const addSucbidAPI = (sucBid, sellerunique, createAt) => {
       .catch((err) => {
         console.log("addBidAPI에 문제가 있습니다.", err);
       })
-      .finally(() => {
-        dispatch(loadingActions.loading(false));
-      });
+      .finally(() => {});
+  };
+};
+
+const addNEWSucbidAPI = (id) => {
+  return function (dispatch, getState, { history }) {
+    let nickname = localStorage.getItem("nickname");
+    const access_token = localStorage.getItem("access_token");
+    fetch(`${API}/bid/newsucbid/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        access_token: `${access_token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {})
+      .catch((err) => {
+        console.log("addNEWSucbidAPI에 문제가 있습니다.", err);
+      })
+      .finally(() => {});
+  };
+};
+
+const getPublicUserAPI = (buyerId) => {
+  return function (dispatch, getState, { history }) {
+    const access_token = localStorage.getItem("access_token");
+    fetch(`${API}/bid/buyercheck/${buyerId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        access_token: `${access_token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {})
+      .catch((err) => {
+        console.log("getPublicUserAPI에 문제가 있습니다.", err);
+      })
+      .finally(() => {});
+  };
+};
+
+// alert 과정에서 진행
+const confirmSuccessAPI = (alertId, successBoolean) => {
+  return function (dispatch, getState, { history }) {
+    const access_token = localStorage.getItem("access_token");
+    fetch(`${API}/bid/sellerconfirm/${alertId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        access_token: `${access_token}`,
+      },
+      body: JSON.stringify({ decision: successBoolean }),
+    })
+      .then((res) => res.json())
+      .then((res) => {})
+      .catch((err) => {
+        console.log("getPublicUserAPI에 문제가 있습니다.", err);
+      })
+      .finally(() => {});
   };
 };
 
@@ -188,6 +242,10 @@ const actionCreators = {
   addBidAPI,
   addSucbidAPI,
   warningBid,
+  // 즉시 낙찰 +a 과정 - 물건 즉시 사라짐 방지
+  addNEWSucbidAPI,
+  getPublicUserAPI,
+  confirmSuccessAPI,
 };
 
 export { actionCreators };

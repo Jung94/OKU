@@ -45,7 +45,6 @@ const initialState = {
 
 const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, productState, deadline, lowbid, sucbid, delivery, productDesc, tags) => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     dispatch(uploadProgress(true));
     let access_token = localStorage.getItem("access_token");
     if (!access_token) {
@@ -104,9 +103,7 @@ const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, p
       .catch((error) => {
         console.log("addPostAPI에 문제가 있습니다.", error);
       })
-      .finally(() => {
-        dispatch(loadingActions.loading(false));
-      });
+      .finally(() => {});
   };
 };
 

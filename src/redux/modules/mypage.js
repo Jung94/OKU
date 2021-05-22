@@ -26,7 +26,6 @@ const initialState = {
 
 const setProfileAPI = () => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     const access_token = localStorage.getItem("access_token");
     fetch(`${API}/user/mypronick`, {
       method: "GET",
@@ -46,15 +45,12 @@ const setProfileAPI = () => {
       .catch((error) => {
         console.log("setProfileAPI에 문제가 있습니다.", error);
       })
-      .finally(() => {
-        dispatch(loadingActions.loading(false));
-      });
+      .finally(() => {});
   };
 };
 
 const editProfileAPI = (nickname, profile) => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     const access_token = localStorage.getItem("access_token");
     const formData = new FormData();
     formData.append("nick", nickname);
@@ -93,16 +89,12 @@ const editProfileAPI = (nickname, profile) => {
       .catch((error) => {
         console.log("editProfileAPI에 문제가 있습니다.", error);
       })
-      .finally(() => {
-        dispatch(loadingActions.loading(false));
-      });
+      .finally(() => {});
   };
 };
 
 const setInfoAPI = () => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
-
     const access_token = localStorage.getItem("access_token");
     fetch(`${API}/user/myinfo`, {
       method: "GET",
@@ -121,16 +113,12 @@ const setInfoAPI = () => {
       .catch((error) => {
         console.log("setInfoAPI에 문제가 있습니다.", error);
       })
-      .finally(() => {
-        dispatch(loadingActions.loading(false));
-      });
+      .finally(() => {});
   };
 };
 
 const setMystoreAPI = () => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
-
     const access_token = localStorage.getItem("access_token");
     fetch(`${API}/user/myproduct`, {
       method: "GET",
@@ -159,9 +147,7 @@ const setMystoreAPI = () => {
       .catch((error) => {
         console.log("setInfoAPI에 문제가 있습니다.", error);
       })
-      .finally(() => {
-        dispatch(loadingActions.loading(false));
-      });
+      .finally(() => {});
   };
 };
 
