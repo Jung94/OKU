@@ -42,6 +42,7 @@ const Mobile = ({ children }) => {
   return isMobile ? children : null;
 };
 
+
 const Header = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
@@ -87,6 +88,10 @@ const Header = (props) => {
     setSubct(e.value);
     dispatch(categoryActions.getProductSubCategotAPI(mainct, e.value));
     history.push("/category");
+  };
+
+  const aboutus = (e) => {
+    window.open("https://www.notion.so/9096d7c7a57a4402a701b1e3ffde3764")
   };
 
   const customStyles = useMemo(
@@ -295,10 +300,10 @@ const Header = (props) => {
 
             <Grid is_flex column height="100px" width="40%">
               <Grid is_flex justify="flex-end" margin="10px 2px 36px 0" ref={hide}>
-                <Text subBody color={Color.Dark_4} margin="0 4% 0 0">
+                <Text subBody color={Color.Dark_4} margin="0 4% 0 0" >
                   about OKU
                 </Text>
-                <Text subBody color={Color.Dark_4} margin="0 4% 0 0">
+                <Text subBody color={Color.Dark_4} margin="0 4% 0 0" onClick={aboutus}>
                   about Team
                 </Text>
 
@@ -516,7 +521,7 @@ const Header = (props) => {
                 <Text  subBody color={Color.Dark_4} >
                   about OKU
                 </Text>
-                <Text subBody color={Color.Dark_4}>
+                <Text subBody color={Color.Dark_4} onClick={aboutus}>
                   about Team
                 </Text>
 
