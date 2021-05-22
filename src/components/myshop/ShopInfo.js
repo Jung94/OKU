@@ -41,128 +41,128 @@ const ShopInfomation = () => {
     dispatch(shopActions.getMyProductAPI());
   }, []);
 
-  const [ModiShowing, setModiShowing] = useState(false);
-  const [Modified, setModified] = useState("");
+const [ModiShowing, setModiShowing] = useState(false);
+const [Modified, setModified] = useState("");
 
-  const Modifiy = () => setModiShowing(!ModiShowing);
-  const CompleteModi = () => {
+const Modifiy = () => setModiShowing(!ModiShowing);
+const CompleteModi = () => {
     setModiShowing(!ModiShowing);
     dispatch(myshopActions.editShopDescAPI(Modified));
-  };
+};
 
-  if (!ModiShowing) {
+    if (!ModiShowing) {
     return (
-      <>
+    <>
         <Desktop>
-          <Wrap>
+            <Wrap>
             <ShopInfo>
-              <Head>
+                <Head>
                 <Text h1 textAlign="left">
-                  <span style={{ color: "#ae27ff" }}>{_user.nickname}</span> 님의 상점
+                    <span style={{ color: "#ae27ff" }}>{_user.nickname}</span> 님의 상점
                 </Text>
 
                 <Modify onClick={Modifiy}>수정하기</Modify>
-              </Head>
-              <Detail>
+                </Head>
+                <Detail>
                 <Item>
-                  <span>
+                    <span>
                     판매중 물건{" "}
                     <span style={{ color: "#ae27ff" }}>
-                      {/* {SellingProduct.length > 0 ? SellingProduct.length : 0} */}
-                      {SellingProduct && SellingProduct.length > 0 ? SellingProduct.length : 0}
+                        {/* {SellingProduct.length > 0 ? SellingProduct.length : 0} */}
+                        {SellingProduct && SellingProduct.length > 0 ? SellingProduct.length : 0}
                     </span>
                     개
-                  </span>
-                  <span>
+                    </span>
+                    <span>
                     찜한 물건{" "}
                     <span style={{ color: "#ae27ff", cursor: "pointer" }} onClick={() => history.push("/my/shopping")}>
-                      {my_like_list.length}
+                        {my_like_list.length}
                     </span>
                     개
-                  </span>
+                    </span>
                 </Item>
                 <ShopIntro type="text" disabled placeholder={`${EditDesc && EditDesc}`} />
-              </Detail>
+                </Detail>
             </ShopInfo>
-          </Wrap>
+            </Wrap>
         </Desktop>
 
         <Mobile>
-          <Wrap>
+            <Wrap>
             <ShopInfo>
-              <Head>
+                <Head>
                 <Text h1 textAlign="left">
-                  <span style={{ color: "#ae27ff" }}>{_user.nickname}</span> 님의 상점
+                    <span style={{ color: "#ae27ff" }}>{_user.nickname}</span> 님의 상점
                 </Text>
 
                 <Modify onClick={Modifiy}>수정하기</Modify>
-              </Head>
-              <Detail>
+                </Head>
+                <Detail>
                 <Item>
-                  <span>
+                    <span>
                     판매중 물건{" "}
                     <span style={{ color: "#ae27ff" }}>
-                      {/* {SellingProduct.length > 0 ? SellingProduct.length : 0} */}
-                      {SellingProduct && SellingProduct.length > 0 ? SellingProduct.length : 0}
+                        {/* {SellingProduct.length > 0 ? SellingProduct.length : 0} */}
+                        {SellingProduct && SellingProduct.length > 0 ? SellingProduct.length : 0}
                     </span>
                     개
-                  </span>
-                  <span>
+                    </span>
+                    <span>
                     찜한 물건{" "}
                     <span style={{ color: "#ae27ff", cursor: "pointer" }} onClick={() => history.push("/my/shopping")}>
-                      {my_like_list.length}
+                        {my_like_list.length}
                     </span>
                     개
-                  </span>
+                    </span>
                 </Item>
                 <ShopIntro type="text" disabled placeholder={`${EditDesc && EditDesc}`} />
-              </Detail>
+                </Detail>
             </ShopInfo>
-          </Wrap>
+            </Wrap>
         </Mobile>
-      </>
+        </>
     );
-  } else {
+    } else {
     return (
-      <Wrap>
+        <Wrap>
         <ShopInfo>
-          <Head>
+            <Head>
             <Text h1 textAlign="left">
-              <span style={{ color: "#ae27ff" }}>{_user.nickname}</span> 님의 상점
+                <span style={{ color: "#ae27ff" }}>{_user.nickname}</span> 님의 상점
             </Text>
 
             <Modify onClick={CompleteModi}>수정완료</Modify>
-          </Head>
-          <Detail>
+            </Head>
+            <Detail>
             <Item>
-              <span>
+                <span>
                 판매중 물건{" "}
                 <span style={{ color: "#ae27ff" }}>
-                  {/* {SellingProduct.length > 0 ? SellingProduct.length : 0} */}
-                  {SellingProduct && SellingProduct.length > 0 ? SellingProduct.length : 0}
+                    {/* {SellingProduct.length > 0 ? SellingProduct.length : 0} */}
+                    {SellingProduct && SellingProduct.length > 0 ? SellingProduct.length : 0}
                 </span>
                 개
-              </span>
-              <span>
+                </span>
+                <span>
                 찜한 물건{" "}
                 <span style={{ color: "#ae27ff", cursor: "pointer" }} onClick={() => history.push("/my/shopping")}>
-                  {my_like_list.length}
+                    {my_like_list.length}
                 </span>
                 개
-              </span>
+                </span>
             </Item>
             <ShopIntro
-              type="text"
-              placeholder={`현재 상점소개 : ${EditDesc && EditDesc}`}
-              onChange={(e) => {
+                type="text"
+                placeholder={`현재 상점소개 : ${EditDesc && EditDesc}`}
+                onChange={(e) => {
                 setModified(e.target.value);
-              }}
+                }}
             />
-          </Detail>
+            </Detail>
         </ShopInfo>
-      </Wrap>
+        </Wrap>
     );
-  }
+    }
 };
 
 const H2 = "20px";

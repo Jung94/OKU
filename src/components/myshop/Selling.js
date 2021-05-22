@@ -30,7 +30,6 @@ const Mobile = ({ children }) => {
 const Selling = (props) => {
     const dispatch = useDispatch();
     const SellingProduct = useSelector((state) => state.myshop.Product_selling);
-    console.log(SellingProduct)
     useEffect(() => {
         dispatch(shopActions.getMyProductAPI());
     }, []);
@@ -149,7 +148,8 @@ box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
 padding : 43px 55px;
 @media only screen and (max-width: 767px) {
     min-height : 209px;
-    padding : 20px 20px ;
+    padding : 29px 20px ;
+    align-items : center;
 }
 `;
 

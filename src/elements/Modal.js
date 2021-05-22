@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle as fasClose, faEllipsisV as fasModi } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "elements/";
 import { Bid, Edit } from "components/";
 
+import { Grid, Input, Line, Button, Text, Profile } from "elements/";
+
+import { Color } from "shared/DesignSys";
+
 const Modal = (props) => {
-  const { top, bottom, margin, color, text, bid, immediateBid, sucBid, onSale, setting } = props;
+  const { top, bottom, margin, color, text, bid, immediateBid, successAlarm, sucBid, onSale, setting } = props;
   const styles = { top: top, bottom: bottom, margin: margin, color: color, text: text };
   const [modal, setModal] = useState(false);
 
@@ -81,6 +84,43 @@ const Modal = (props) => {
             <Screen onClick={closeModal}></Screen>
             <ModalBox>
               <Edit open={modal} close={closeModal}></Edit>
+            </ModalBox>
+          </ModalWrap>
+        ) : (
+          <></>
+        )}
+      </Wrap>
+    );
+  }
+
+  if (successAlarm) {
+    return (
+      <Wrap>
+        <AlertButton onClick={openModal}>대화 시도하기</AlertButton>
+        {modal ? (
+          <ModalWrap modal>
+            <Screen onClick={closeModal}></Screen>
+            <ModalBox>
+              <BidConfirm open={modal} close={closeModal}>
+                <Profile img></Profile>
+                <Text h1 marginT="1%" textAlign="center" color={Color.Primary}>
+                  ~~님께서 낙찰을 시도했습니다!
+                </Text>
+                <Text h2 marginB="3%" textAlign="center">
+                  거래를 수락하시겠습니까?
+                </Text>
+                <Text size="13px" marginB="6%" textAlign="center" color={Color.Primary}>
+                  * 블랙 유저처럼 보인다면 아니오를 눌러주세요!
+                </Text>
+                <Buttons>
+                  <Button _onClick={() => {}} width="100%" margin="0 0.5rem 0 0">
+                    수락
+                  </Button>
+                  <Button sub _onClick={() => {}} width="100%" margin="0 0 0 0.5rem">
+                    아니오
+                  </Button>
+                </Buttons>
+              </BidConfirm>
             </ModalBox>
           </ModalWrap>
         ) : (
@@ -173,6 +213,45 @@ const ModalBox = styled.div`
     width: 90%;
     max-width: 600px;
   }
+`;
+
+const AlertButton = styled.div`
+  width: 100%;
+  height: 25px;
+  border-radius: 7px;
+  color: #ffffff;
+  background: ${Color.Primary};
+
+  margin-top: 0.5rem;
+
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 200ms ease-in-out;
+  :hover {
+    background: ${Color.Tag};
+    box-shadow: 0 0 0 3px ${Color.Primary}44;
+  }
+`;
+
+const BidConfirm = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 9%;
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  align-items: center;
+  width: 75%;
+  margin: 0 auto 9% auto;
 `;
 
 export default Modal;

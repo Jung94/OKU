@@ -15,6 +15,7 @@ import bid from "redux/modules/bid";
 import header from "redux/modules/header";
 import loading from "redux/modules/loading";
 import myshop from "redux/modules/myshop";
+import alert from "redux/modules/alert";
 
 export const history = createBrowserHistory();
 
@@ -31,7 +32,8 @@ const rootReducer = combineReducers({
   header: header,
   loading: loading,
   router: connectRouter(history),
-  myshop : myshop
+  myshop: myshop,
+  alert: alert,
 });
 
 const middlewares = [thunk.withExtraArgument({ history: history })];

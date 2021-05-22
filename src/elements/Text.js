@@ -91,10 +91,17 @@ const Text = (props) => {
   if (won) {
     return <SpanBox {...styles}>{children}</SpanBox>;
   }
+
+  return (
+    <TextBox size={size} onClick={onClick} {...styles}>
+      {children}
+    </TextBox>
+  );
 };
 
 // body 기준 default임
-Text.defaultprops = {
+// defaultProps P대문자!!!
+Text.defaultProps = {
   color: "black",
   size: "14px",
   weight: "400",

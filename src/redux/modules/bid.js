@@ -144,40 +144,28 @@ const addSucbidAPI = (sucBid, sellerunique, createAt) => {
   };
 };
 
-const addNEWSucbidAPI = (id) => {
+const addNEWSucbidAPI = (sucBid, sellerunique, createAt) => {
   return function (dispatch, getState, { history }) {
+    let id = getState().product.productId;
     let nickname = localStorage.getItem("nickname");
     const access_token = localStorage.getItem("access_token");
+    const draft = { bid: sucBid, nickName: nickname, createAt: createAt };
     fetch(`${API}/bid/newsucbid/${id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         access_token: `${access_token}`,
       },
+      body: JSON.stringify({ sellerunique: sellerunique, sucbid: sucBid }),
     })
       .then((res) => res.json())
-      .then((res) => {})
+      .then((res) => {
+        dispatch(addBid(draft));
+        window.location.reload();
+        console.log("addNEWSucbidAPI실행됨.");
+      })
       .catch((err) => {
         console.log("addNEWSucbidAPI에 문제가 있습니다.", err);
-      })
-      .finally(() => {});
-  };
-};
-
-const getPublicUserAPI = (buyerId) => {
-  return function (dispatch, getState, { history }) {
-    const access_token = localStorage.getItem("access_token");
-    fetch(`${API}/bid/buyercheck/${buyerId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        access_token: `${access_token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {})
-      .catch((err) => {
-        console.log("getPublicUserAPI에 문제가 있습니다.", err);
       })
       .finally(() => {});
   };
@@ -240,11 +228,10 @@ const actionCreators = {
   // API뿐만 아니라 dispatch할라면 짝으로 같이 넣어줘야함.
   addBid,
   addBidAPI,
-  addSucbidAPI,
+  addSucbidAPI, //쓰지않음
   warningBid,
   // 즉시 낙찰 +a 과정 - 물건 즉시 사라짐 방지
   addNEWSucbidAPI,
-  getPublicUserAPI,
   confirmSuccessAPI,
 };
 

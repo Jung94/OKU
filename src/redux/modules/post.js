@@ -24,9 +24,6 @@ const CLEAR_CATEGORY = "CLEAR_CATEGORY";
 const SET_SUBCATEGORY = "SET_SUBCATEGORY";
 const SET_SUBKEYWORD = "SET_SUBKEYWORD";
 
-// 알림
-const SET_ALERT = "SET_ALERT";
-
 // actionCreator
 // 메인 상품 리스트
 const setPopularProducts = createAction(SET_POPULAR, (popular) => ({ popular }));
@@ -34,7 +31,7 @@ const setRecentProducts = createAction(SET_RECENT, (recent) => ({ recent }));
 const setDeadlineProducts = createAction(SET_DEADLINE, (deadline) => ({ deadline }));
 const setRecommendProducts = createAction(SET_RECOMMEND, (recommend) => ({ recommend }));
 
-const setAllProducts = createAction(SET_ALL, ( all ) => ({ all }))
+const setAllProducts = createAction(SET_ALL, (all) => ({ all }));
 
 // 메인카테고리
 const setProductMainCategory = createAction(SET_MAINCATEGORY, (mainCategory) => ({ mainCategory }));
@@ -42,9 +39,6 @@ const setMainKeyword = createAction(SET_MAINKEYWORD, (mainKeyword) => ({ mainKey
 const setProductSubCategory = createAction(SET_SUBCATEGORY, (subCategory) => ({ subCategory }));
 const setSubKeyword = createAction(SET_SUBKEYWORD, (subKeyword) => ({ subKeyword }));
 const clearCategory = createAction(CLEAR_CATEGORY, () => ({}));
-
-// 알림
-const setAlert = createAction(SET_ALERT, (alert) => ({ alert }));
 
 //initialState
 const initialState = {
@@ -54,14 +48,12 @@ const initialState = {
   setRecentPage: 0,
   deadline_product: [],
   recommned_product: [],
-  all_product : [],
+  all_product: [],
 
   main_category: [],
   sub_category: [],
   mainKeyword: "",
   subKeyword: "",
-
-  all_alert: [],
 };
 
 // axios
@@ -124,12 +116,11 @@ const getAllProductAPI = () => {
     axios
       .get(AllProducts_API)
       .then((resp) => {
-          dispatch(setAllProducts(resp.data.result));
+        dispatch(setAllProducts(resp.data.result));
       })
-      .catch((e) => console.log(e))
+      .catch((e) => console.log(e));
   };
-}
-
+};
 
 // 마감임박상품
 const DeadlineProduct_API = `${API}/product/deadline`;
@@ -208,35 +199,6 @@ const getProductSubCategotAPI = (mainKeyword, subKeyword) => {
   };
 };
 
-// 알림
-const Alert_API = `${API}/bid/alert`;
-const getAlertAPI = () => {
-  return function (dispatch, getState, { history }) {
-    const access_token = localStorage.getItem("access_token");
-    fetch(Alert_API, {
-      method: "GET",
-      headers: {
-        access_token: access_token,
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.msg === "not_login") {
-        } else {
-          // dispatch(setAlert(res.alreadyCheck));
-          // dispatch(setAlert(res.notCheck));
-          dispatch(setAlert(res));
-          // }
-        }
-      })
-      .catch((error) => {
-        console.log("알림 문제", error);
-      });
-  };
-};
-
 // const Alert_API = "http://3.35.137.38/bid/alert";
 // const getAlertAPI = () => {
 //   return function (dispatch, getState, { history }) {
@@ -306,11 +268,6 @@ export default handleActions(
         // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
         draft.subKeyword = action.payload.subKeyword;
       }),
-    [SET_ALERT]: (state, action) =>
-      produce(state, (draft) => {
-        // 액션페이로드 data(인자명을 데이타로 정해줌)를 가져온다
-        draft.all_alert = action.payload.alert;
-      }),
   },
 
   initialState
@@ -327,7 +284,6 @@ const actionCreators = {
   clearCategory,
   getProductMainCategotAPI,
   getProductSubCategotAPI,
-  getAlertAPI,
 };
 
 export { actionCreators };

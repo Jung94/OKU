@@ -63,7 +63,7 @@ const setProductAllAPI = (_id) => {
           dispatch(setRelatedAPI(_id, res.result.smallCategory, res.result.tag));
           dispatch(mypageActions.setProfileAPI());
         } else {
-          console.log("해당 데이터가 준비되지 않았습니다.");
+          console.log("response is not ok.");
         }
       })
       .catch((error) => {

@@ -185,6 +185,27 @@ const saveIdLocalstorage = (id) => {
   };
 };
 
+// 퍼블릭 유저 정보 얻기
+// 프로필 이미지 & 유저아이디
+const getPublicUserAPI = (buyerId) => {
+  return function (dispatch, getState, { history }) {
+    const access_token = localStorage.getItem("access_token");
+    fetch(`${API}/bid/buyercheck/${buyerId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        access_token: `${access_token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {})
+      .catch((err) => {
+        console.log("getPublicUserAPI에 문제가 있습니다.", err);
+      })
+      .finally(() => {});
+  };
+};
+
 export default handleActions(
   {
     [LOG_IN]: (state, action) =>
@@ -239,6 +260,8 @@ const actionCreators = {
   saveIdLocalstorage,
   // loginByKakao,
   socialLoginDB,
+
+  getPublicUserAPI,
 };
 
 export { actionCreators };

@@ -5,7 +5,7 @@ import { useMediaQuery } from "react-responsive";
 import { Badge } from "@material-ui/core";
 
 import { history } from "../redux/configureStore";
-import { actionCreators as postActions } from "redux/modules/post";
+import { actionCreators as alertActions } from "redux/modules/alert";
 import { useDispatch, useSelector } from "react-redux";
 import { Timer } from "components/";
 import { Grid, Input, Button, Tag, Modal, Text } from "elements/";
@@ -16,6 +16,8 @@ import { faBell } from "@fortawesome/free-regular-svg-icons";
 import List from "images/list.png";
 import IconRingOff from "images/icon_RingOff.svg";
 import RingContents from "components/RingContents";
+
+import { Color } from "shared/DesignSys";
 
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
@@ -39,10 +41,10 @@ const DetailRing = (props) => {
   // 렌더될 때 ~ 한다
   useEffect(() => {
     // useEffect 랑 친한 얘
-    dispatch(postActions.getAlertAPI());
+    dispatch(alertActions.getAlertAPI());
   }, [is_login]);
 
-  const alert = useSelector((state) => state.post.all_alert);
+  const alert = useSelector((state) => state.alert.all_alert);
 
   const [is_read, setIsRead] = React.useState(true);
 
@@ -53,6 +55,7 @@ const DetailRing = (props) => {
   const [Ringshowing, setRingShowing] = useState(false);
 
   const RingDetailShowing = () => setRingShowing(!Ringshowing);
+
   if (Ringshowing && is_login) {
     return (
       // 로그인이 되어있을 때
@@ -272,14 +275,34 @@ const RingDetail = styled.div`
   height: 330px;
   z-index: 10;
   position: absolute;
-  width: 300px;
+  min-width: 300px;
+  width: 15%;
   box-sizing: border-box;
   background-color: #ffffff;
   border-radius: 0 0 15px 15px;
   box-shadow: 0 1.5px 5px 0 rgba(129, 129, 129, 0.16);
   margin: 30px 0;
   cursor: default;
+
+  /* overflow-x scrollbar css */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  // scrollbar
+  ::-webkit-scrollbar-thumb {
+    background: ${Color.Secondary_1};
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  // scrollbar 배경 (트랙)
+  ::-webkit-scrollbar-track {
+    background-color: ${Color.Light_1};
+    border-radius: 10px;
+    /* box-shadow: inset 0px 0px 6px #ff000080; */
+  }
 `;
+
 const Overlay = styled.div`
   box-sizing: border-box;
   position: absolute;
@@ -291,7 +314,7 @@ const Overlay = styled.div`
   cursor: Default;
 `;
 const Contents = styled.div`
-  margin: 26px 0 103.6px 0;
+  margin: 5px;
 `;
 
 const ContentsX = styled.div`
