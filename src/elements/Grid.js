@@ -41,6 +41,7 @@ const Grid = (props) => {
     wordBreak,
     display,
     grids,
+    rowGap,
 
     gap,
 
@@ -83,6 +84,7 @@ const Grid = (props) => {
     display: display,
     gap: gap,
     grids: grids,
+    rowGap: rowGap,
 
     className: className,
   };
@@ -139,6 +141,7 @@ Grid.defaultProps = {
   wordBreak: false,
   display: false,
   grids: false,
+  rowGap: false,
 };
 
 const GridBox = styled.div`
@@ -178,6 +181,7 @@ const GridBox = styled.div`
 
   ${(props) => (props.column ? `flex-direction: column;` : `flex-direction: row;`)}
   flex-flow: ${(props) => (props.wrap ? props.wrap : "")};
+  row-gap: ${(props) => (props.rowGap ? props.rowGap : "")};
 
   grid-template-columns: ${(props) => (props.grids ? props.grids : "")};
 

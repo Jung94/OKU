@@ -206,7 +206,7 @@ const Product = (props) => {
                 <Text h3 color={Color.Primary} >
                   상품정보
                 </Text>
-                <Grid display= "grid" align="center" grids="3fr 1fr 3fr 1.3fr" padding="10px">
+                <Grid display= "grid" align="center" grids="3fr 1fr 3fr 1.3fr" padding="10px 20px 10px 10px">
                   <Grid margin="0 10px 0 0" width="">
                     <Text h4 textAlign="left" marginB="10px">
                       카테고리
