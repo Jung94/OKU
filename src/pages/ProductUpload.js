@@ -23,7 +23,6 @@ import { MainCT, D2CT, D3CT, D4CT } from "shared/Category";
 
 import IconCamera from "images/icon_Camera.svg";
 import IconCamera2 from "images/icon_Camera_2.svg";
-import IconCamera3 from "images/icon_Camera_3.svg";
 
 import DaumPostcode from "react-daum-postcode";
 
@@ -405,15 +404,15 @@ const ProductUpload = React.memo((props) => {
               <span style={{ fontSize: "12px", fontWeight: "400", color: Color.Dark_4 }}>jpg, png, gif 파일만 가능합니다.</span>
             </Text>
             <Grid is_flex>
-              <PreviewBtn2 for="fileInput" src={preview1.length ? preview1 : IconCamera3} style={{ margin: "0 20px 0 0" }}>
+              <PreviewBtn2 for="fileInput" src={preview1.length ? preview1 : IconCamera2} style={{ margin: "0 20px 0 0" }}>
                 {/* 업로드 하기 */}
                 <input style={{ display: "none" }} id="fileInput" type="file" accept="image/png, image/jpeg, image/gif" onChange={handleChange1} disabled={progress} ref={fileInput} />
               </PreviewBtn2>
-              <PreviewBtn2 for="fileInput1" src={preview2.length ? preview2 : IconCamera3} style={{ margin: "0 20px 0 0" }}>
+              <PreviewBtn2 for="fileInput1" src={preview2.length ? preview2 : IconCamera2} style={{ margin: "0 20px 0 0" }}>
                 {/* 업로드 하기 */}
                 <input style={{ display: "none" }} id="fileInput1" type="file" accept="image/png, image/jpeg, image/gif" onChange={handleChange2} disabled={progress} ref={fileInput1} />
               </PreviewBtn2>
-              <PreviewBtn2 for="fileInput2" src={preview3.length ? preview3 : IconCamera3}>
+              <PreviewBtn2 for="fileInput2" src={preview3.length ? preview3 : IconCamera2}>
                 {/* 업로드 하기 */}
                 <input style={{ display: "none" }} id="fileInput2" type="file" accept="image/png, image/jpeg, image/gif" onChange={handleChange3} disabled={progress} ref={fileInput2} />
               </PreviewBtn2>
@@ -595,15 +594,15 @@ const ProductUpload = React.memo((props) => {
               <span style={{ fontSize: "12px", fontWeight: "400", color: Color.Dark_4 }}>jpg, png, gif 파일만 가능합니다.</span>
             </Text>
             <Grid is_flex justify="space-between">
-              <PreviewBtn2 for="fileInput" src={preview1.length ? preview1 : IconCamera3}>
+              <PreviewBtn2 for="fileInput" src={preview1.length ? preview1 : IconCamera2}>
                 {/* 업로드 하기 */}
                 <input style={{ display: "none" }} id="fileInput" type="file" accept="image/png, image/jpeg, image/gif" onChange={handleChange1} disabled={progress} ref={fileInput} />
               </PreviewBtn2>
-              <PreviewBtn2 for="fileInput1" src={preview2.length ? preview2 : IconCamera3}>
+              <PreviewBtn2 for="fileInput1" src={preview2.length ? preview2 : IconCamera2}>
                 {/* 업로드 하기 */}
                 <input style={{ display: "none" }} id="fileInput1" type="file" accept="image/png, image/jpeg, image/gif" onChange={handleChange2} disabled={progress} ref={fileInput1} />
               </PreviewBtn2>
-              <PreviewBtn2 for="fileInput2" src={preview3.length ? preview3 : IconCamera3}>
+              <PreviewBtn2 for="fileInput2" src={preview3.length ? preview3 : IconCamera2}>
                 {/* 업로드 하기 */}
                 <input style={{ display: "none" }} id="fileInput2" type="file" accept="image/png, image/jpeg, image/gif" onChange={handleChange3} disabled={progress} ref={fileInput2} />
               </PreviewBtn2>
@@ -737,7 +736,7 @@ ProductUpload.defaultProps = {
 const UploadWrap = styled.div`
   max-width: 1030px;
   margin: 0 auto;
-  margin-top: 160px;
+  margin-top: 200px;
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -832,7 +831,7 @@ const PreviewBtn2 = styled.label`
   justify-content: center;
   color: ${Color.Dark_4};
   background: url("${(props) => props.src}") no-repeat;
-  background-size: 36px;
+  background-size: cover;
   background-position: center center;
 
   @media only screen and (max-width: 767px) {

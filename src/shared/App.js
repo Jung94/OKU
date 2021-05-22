@@ -54,7 +54,7 @@ const App = (props) => {
               <Route path="/MDList" exact component={MdList} />
               <Route path="/DeadlineList" exact component={DeadList} />
               <Route path="/chat" exact component={Chat} />
-              <Route path="/chat/:otherId/:myId/:otherName" exact component={Chat} />
+              <Route path="/chat/:productId/:otherId/:myId/:otherName/:title" exact component={Chat} />
               <Route path="/alllist" component={AllList} />
               <Route path="/myshop" component={MyShop} />
               <Route path="/my" component={My} />

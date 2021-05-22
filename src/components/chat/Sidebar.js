@@ -71,7 +71,7 @@ const Sidebar = ({ room }) => {
                       key={idx + 'msg'}
                       onClick={() => {
                         // 채팅 페이지 이동
-                        history.push(`/chat/${val.sellerunique === uid ? val.soldById : val.sellerunique}/${uid}/${val.sellerunique === uid ? val.soldBy : val.nickname}`);
+                        history.push(`/chat/${val._id}/${val.sellerunique === uid ? val.soldById : val.sellerunique}/${uid}/${val.sellerunique === uid ? val.soldBy : val.nickname}/${val.title}`);
                         // dispatch(chatActions.badgeOff(val.sellerunique === uid ? val.soldById : val.sellerunique));
                       }}
                     >
@@ -84,6 +84,7 @@ const Sidebar = ({ room }) => {
                             <Name>{val.sellerunique === uid ? val.soldBy : val.nickname}</Name>
                             {/* <Time>오후 09:11</Time> */}
                           </Up>
+                          <ProductTitle>상품명 : {val.title}</ProductTitle>
                           {/* <Msg>{update}</Msg> */}
                         </TextBox>
                       </>
@@ -115,7 +116,7 @@ const Sidebar = ({ room }) => {
                     key={idx + 'msg'}
                     onClick={() => {
                       // 채팅 페이지 이동
-                      history.push(`/chat/${val.sellerunique === uid ? val.soldById : val.sellerunique}/${uid}/${val.sellerunique === uid ? val.soldBy : val.nickname}`);
+                      history.push(`/chat/${val._id}/${val.sellerunique === uid ? val.soldById : val.sellerunique}/${uid}/${val.sellerunique === uid ? val.soldBy : val.nickname}/${val.title}`);
                       // dispatch(chatActions.badgeOff(val.sellerunique === uid ? val.soldById : val.sellerunique));
                     }}
                   >
@@ -261,38 +262,50 @@ const ProfileImg = styled.div`
 `;
 
 const TextBox = styled.div`
+  // border: 1px solid red;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  // border: 1px solid red;
-  padding: 0 0 3px;
-  width: 150px;
+  // justify-content: space-between;
+  padding: 0 0 10px;
+  width: 170px;
+  height: 44px;
   background: #fff;
 `;
 
 const Up = styled.div`
-  // border: 1px solid red:
+  // border: 1px solid blue:
   display: flex;
   position: relative;
   justify-content: space-between;
   max-width: 190px;
   height: 23px;
   background: #fff;
-  margin: 8px 0 0;
+  margin: 0 0 3px;
 `;
 
 const Name = styled.div`
-  //   border: 1px solid green;
+  // border: 1px solid green;
   position: absolute;
-  width: 110px;
-  height: 21px;
-  font-size: 14px;
+  width: 150px;
+  height: 16px;
+  font-size: 12px;
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   bottom: 0;
   left: 0;
+`;
+
+const ProductTitle = styled.div`
+  // border: 1px solid pink;
+  width: 110px;
+  height: 20px;
+  font-size: 12px;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const Time = styled.div`

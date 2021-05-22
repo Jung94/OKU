@@ -45,7 +45,9 @@ const Chat = (props) => {
   //   // 방
   const room = makeRoom[0] + "-" + makeRoom[1];
   //   // 대화 상대 이름
-  const targetName = props.match.params.otherName;
+  const targetName = props.match.params.otherName; 
+
+  const productName = props.match.params.title;
   // 내 이름
   const username = useSelector((state) => state.user.user);
   // 방 생성 정보
@@ -93,7 +95,7 @@ const Chat = (props) => {
             <MainRight>
               {chatActions.socket ? (
                 <>
-                  <Main targetName={targetName} room={room} />
+                  <Main targetName={targetName} productName={productName} room={room} />
                   <MainBtn>
                     <InputChat room={room} />
                   </MainBtn>
@@ -115,7 +117,7 @@ const Chat = (props) => {
               <Sider room={room} />
             </MainTop>
             <MainBottom>
-              <Main targetName={targetName} room={room} />
+              <Main targetName={targetName} productName={productName} room={room} />
               <MainBtnM>
                 <InputChat room={room} />
               </MainBtnM>
@@ -175,7 +177,7 @@ const MainContent = styled.section`
   max-width: 1030px;
   max-height: 680px;
   box-sizing: border-box;
-  margin: 80px 0 80px;
+  margin: 80px 0 40px;
 
   @media only screen and (max-width: 767px) {
     // border: 1px solid red;

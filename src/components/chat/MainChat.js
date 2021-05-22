@@ -20,7 +20,7 @@ const Mobile = ({ children }) => {
   return isMobile ? children : null;
 };
 
-const MainChat = ({ targetName }) => {
+const MainChat = ({ targetName, productName }) => {
   const dispatch = useDispatch();
   const msgList = useSelector((state) => state.chat.chat_list);
   const loading = useSelector((state) => state.chat.is_loading);
@@ -91,7 +91,7 @@ const MainChat = ({ targetName }) => {
           </>
         ) : (
           <div>
-            <Header>{targetName ? targetName : "아무나 채팅"}</Header>
+            <Header>{targetName ? targetName +" / "+ productName: "아무나 채팅"}</Header>
             <ChatBox>
               {msgList.length === 0 ? (
                 <EmptyPost>
@@ -119,7 +119,7 @@ const MainChat = ({ targetName }) => {
 
 const EmptyPost = styled.div`
   position: absolute;
-  top: 50%;
+  top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: default;
@@ -129,8 +129,25 @@ const EmptyPost = styled.div`
   align-items: center;
 
   & div {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
+  }
+
+  @media only screen and (max-width: 767px) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: default;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & div {
+      font-size: 16px;
+      font-weight: 500;
+    }
   }
 `;
 

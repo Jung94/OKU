@@ -218,7 +218,7 @@ const Login = (props) => {
 const Wrap = styled.div`
   max-width: 100%;
   width: 350px;
-
+  margin: 40px auto 0;
   margin-left: auto;
   margin-right: auto;
   box-sizing: border-box;

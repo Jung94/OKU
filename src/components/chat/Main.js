@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import MainChat from "./MainChat";
 
-const Main = ({ targetName }) => {
+const Main = ({ targetName, productName }) => {
   // 채팅 리스트 상위 컴포넌트
   return (
     <>
       <Wrap>
-        <MainChat targetName={targetName} />
+        <MainChat targetName={targetName} productName={productName} />
       </Wrap>
     </>
   );

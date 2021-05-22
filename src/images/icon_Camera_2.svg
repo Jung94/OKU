@@ -1,14 +1,1 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 24.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="레이어_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
-	 y="0px" viewBox="0 0 25 25" style="enable-background:new 0 0 25 25;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:none;stroke:#EAEAEA;stroke-width:2;stroke-miterlimit:10;}
-	.st1{fill:#EAEAEA;}
-</style>
-<circle class="st0" cx="12.5" cy="14" r="4.9"/>
-<path class="st1" d="M22.6,6.3v10.9l-4.8,4.5H2.4V6.3H22.6 M24.6,4.3H0.4v19.4h18.1l6-5.6L24.6,4.3L24.6,4.3z"/>
-<polyline class="st0" points="15.9,4.9 15.9,1.8 21.5,1.8 21.5,4.9 "/>
-<path class="st1" d="M12.5,12.6c-0.8,0-1.4,0.6-1.4,1.4c0,0.8,0.6,1.4,1.4,1.4c0.8,0,1.4-0.6,1.4-1.4c0,0,0,0,0,0
-	C13.9,13.2,13.3,12.6,12.5,12.6C12.5,12.6,12.5,12.6,12.5,12.6L12.5,12.6z"/>
-</svg>
+<svg id="레이어_1" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180"><defs><style>.cls-1{fill:#f2f2f2;}.cls-2{fill:#818181;}.cls-3{fill:none;stroke:#818181;stroke-miterlimit:10;stroke-width:2px;}</style></defs><rect class="cls-1" width="180" height="180" rx="16"/><path class="cls-2" d="M90,86.6a5.35,5.35,0,1,1-5.34,5.34A5.35,5.35,0,0,1,90,86.6m0-2a7.35,7.35,0,1,0,7.34,7.34A7.34,7.34,0,0,0,90,84.6Z"/><path class="cls-2" d="M106,79.45V97.13l-7.77,7.22H74V79.45h32m2-2H72v28.9H99L108,98V77.45Z"/><polyline class="cls-3" points="95.06 78.38 95.06 73.65 103.46 73.65 103.46 78.38"/><path class="cls-2" d="M90,91.88a.07.07,0,0,1,.07.06.07.07,0,0,1-.14,0,.07.07,0,0,1,.07-.06m0-2a2.07,2.07,0,1,0,2.07,2.06A2.07,2.07,0,0,0,90,89.88Z"/></svg>

@@ -41,10 +41,10 @@ const Footer = (props) => {
 
   const slide = () => {
     const btn = slider.current.style.left;
-    if (btn === "-100%") {
-      slider.current.style.left = "0%";
-    } else {
+    if (btn === "0%") {
       slider.current.style.left = "-100%";
+    } else {
+      slider.current.style.left = "0%";
     }
   };
   const slideClose = () => {
@@ -69,7 +69,7 @@ const Footer = (props) => {
   };
   return (
     <>
-      <Desktop>
+      {/* <Desktop>
         <FooterWrap display={display}>
           <FooterContent>
             <Image>
@@ -78,7 +78,7 @@ const Footer = (props) => {
             0부터 9까지 뭐든 It's OK! OKU
           </FooterContent>
         </FooterWrap>
-      </Desktop>
+      </Desktop> */}
 
       <Tablet>Tablet</Tablet>
 
@@ -344,6 +344,7 @@ const FooterWrap = styled.footer`
     left: 0;
     right: 0;
     height: 95px;
+    bottom: 0;
     z-index: -1;
     background: #dadada;
     position: absolute;
@@ -377,7 +378,6 @@ const FooterWrap = styled.footer`
     max-width: 100vw;
     height: 56px;
     overflow: scroll;
-    // overflow-x: hidden;
     position: fixed;
     z-index: 1005;
     background: #fff;
