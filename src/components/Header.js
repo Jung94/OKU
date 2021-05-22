@@ -227,9 +227,9 @@ const Header = (props) => {
     } else if (window.scrollY > 150) {
       navbox.current.style.position = "fixed";
       navbox.current.style.zIndex = "999";
-      navbox.current.style.height = "96px";
+      navbox.current.style.height = "80px";
       navbox.current.style.boxShadow = `0 4px 15px 0 ${Color.Secondary_2}77`;
-      up.current.style.marginTop = "-38px";
+      up.current.style.marginTop = "-42px";
 
       hide.current.style.alignItems = "center";
       hide.current.style.opacity = "0";

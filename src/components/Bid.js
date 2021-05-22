@@ -73,7 +73,7 @@ const Bid = (props) => {
   };
 
   const addSuccessbid = () => {
-    dispatch(bidActions.addSucbidAPI(sucBid, sellerunique, Date.now()));
+    dispatch(bidActions.addNEWSucbidAPI(sucBid, sellerunique, Date.now()));
   };
 
   if (bid) {
@@ -143,7 +143,7 @@ const Bid = (props) => {
               즉시 낙찰가에 낙찰이 진행됩니다!
             </Text>
             <Text price>
-              {input_priceComma (sucBid)}
+              {input_priceComma(sucBid)}
               <Text won>&ensp;원</Text>
             </Text>
             {/* {sellerunique === u_id ? (
