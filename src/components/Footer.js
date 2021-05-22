@@ -267,7 +267,6 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   gap: 34px;
-
   & > svg {
     font-size: 25px;
     color: rgba(0, 0, 0, 0.4);

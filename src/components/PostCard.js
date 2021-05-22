@@ -61,7 +61,7 @@ const PostCard = (props) => {
           <Title onClick={() => history.push(`/product/detail/${_id}`)}>{title}</Title>
           {/* <Currentprice>{currentprice}</Currentprice> */}
         </div>
-        <div style={{ textAlign: "right", alignItems: "flex-end", display: "flex", justifyContent: "flex-end", alignItems: "center", gap: "8px" }}>
+        <div style={{ textAlign: "right", alignItems: "flex-end", display: "flex", justifyContent: "flex-end", alignItems: "center" }}>
           <Bid />
           <Sucbid>
             {input_priceComma(lowBid)}&thinsp;<span className="won">원</span>
@@ -114,8 +114,7 @@ const Image = styled.div`
 const UpTime = styled.div`
   user-select: none;
   z-index: 10;
-  display: flex;
-  width: max-content;
+  display: flex-block;
   position: absolute;
   background-color: #ffffff88;
   border-radius: 14px;
@@ -202,6 +201,7 @@ const Title = styled.div`
 const Sucbid = styled.div`
   line-height: 100%;
   color: ${Color.Primary};
+  margin: 0 0 0 8px;
   .text {
     font-weight: 500;
     letter-spacing: -1px;

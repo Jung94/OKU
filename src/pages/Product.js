@@ -121,7 +121,7 @@ const Product = (props) => {
           <ProductWrap ref={startpoint}>
             {/* <div onMouseOver={helpPop}></div> */}
             {/* 💎 1단 : 상품사진 & 입찰표 */}
-            <Grid end_flex margin="0 0 30px 0" height="600px" >
+            <Grid end_flex margin="0 0 30px 0" height="600px">
               {/* 상품사진 */}
               <SliderWrap>
                 <Slider imgList={img} />
@@ -200,37 +200,37 @@ const Product = (props) => {
             </Grid>
 
             {/* 💎 2단 : 상품정보 & 실시간 입찰 정보 */}
-            <Grid dp_flex margin="0 0 30px 0" >
+            <Grid dp_flex margin="0 0 30px 0">
               {/* 💎 상품정보 */}
-              <Grid width="73%" margin="0 20px 0 0" >
-                <Text h3 color={Color.Primary} marginB="10px">
+              <Grid width="750px" margin="0 10px 0 0">
+                <Text h3 color={Color.Primary} >
                   상품정보
                 </Text>
-                <Grid is_flex justify="space-around" padding="10px" bdr="1px solid red">
-                  <Grid margin="0 10px 0 0" width="200px" >
-                    <Text h4 textAlign="left" marginB="5%">
+                <Grid display= "grid" align="center" grids="3fr 1fr 3fr 1.3fr" padding="10px">
+                  <Grid margin="0 10px 0 0" width="">
+                    <Text h4 textAlign="left" marginB="10px">
                       카테고리
                       <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                     </Text>
                     <Input output center value={`${bigCategory} > ${smallCategory}`} />
                   </Grid>
-                  <Grid margin="0 10px 0 0" width="80px" >
-                    <Text h4 textAlign="left" marginB="5%">
+                  <Grid margin="0 10px 0 0" width="">
+                    <Text h4 textAlign="left" marginB="10px">
                       상품상태
                       <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                     </Text>
                     <Input output center value={state && state.split("급")[0]} adornment="급" />
                   </Grid>
                   {region && (
-                    <Grid margin="0 10px 0 0" width="250px" >
-                      <Text h4 textAlign="left" marginB="5%">
+                    <Grid margin="0 10px 0 0" width="">
+                      <Text h4 textAlign="left" marginB="10px">
                         거래 지역
                       </Text>
                       <Input output center value={region} />
                     </Grid>
                   )}
-                  <Grid width="120px" >
-                    <Text h4 textAlign="left" marginB="5%">
+                  <Grid width="">
+                    <Text h4 textAlign="left" marginB="10px">
                       배송 수단
                     </Text>
                     <Input output center value={deliveryPrice === true ? "배송비 별도" : "무료 배송"} />
@@ -245,7 +245,7 @@ const Product = (props) => {
               </Grid>
 
               {/* 💎 실시간 입찰 정보 */}
-              <Grid width="27%">
+              <Grid width="270px">
                 <Text h3 color={Color.Primary} marginB="10px">
                   실시간 입찰 정보
                   <FontAwesomeIcon icon={fasQC} className="infoSvg" />
@@ -277,12 +277,12 @@ const Product = (props) => {
             </Grid>
 
             {/* 💎 3단 : 관련상품 & 판매자 정보 */}
-            <Grid dp_flex margin="0 0 20px 0">
-              <Grid width="73%" margin="0 10px 0 0">
+            <Grid dp_flex margin="0 0 30px 0">
+              <Grid width="750px" margin="0 10px 0 0" padding="0 10px 0 0">
                 <Text h3 color={Color.Primary} marginB="10px">
                   관련 상품
                 </Text>
-                <Grid is_flex maring="0 20px 0 0" bdr="1px solid blue">
+                <Grid display="grid" align="center" grids="1fr 1fr 1fr 1fr" >
                   {_related_list.map((r, idx) => {
                     // console.log(r);
                     return (
@@ -300,7 +300,7 @@ const Product = (props) => {
                 </Grid>
               </Grid>
 
-              <Grid width="27%" margin="0 0 0 0px">
+              <Grid width="270px" >
                 <Text h3 color={Color.Primary} marginB="10px">
                   판매자 정보
                 </Text>

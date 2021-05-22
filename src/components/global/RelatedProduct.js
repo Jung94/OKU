@@ -93,8 +93,9 @@ RelatedProduct.defaultProps = {
 const ImgWrap = styled.div`
   // z-index: 99;
   position: relative;
-  ${(props) => (props.width ? `width: ${props.width};` : "width:12rem; flex-grow: 1;")};
+  // ${(props) => (props.width ? `width: ${props.width};` : "width:12rem; flex-grow: 1;")};
   height: ${(props) => (props.height ? props.height : "10rem")};
+  width: ${(props) => (props.width ? props.width : "10rem")};
 
   flex-wrap: wrap;
   border-radius: 12px;

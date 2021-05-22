@@ -67,6 +67,8 @@ PostCardMobile.defaultPorps = {
 };
 
 const Wrap = styled.div`
+  // border: 1px solid red;
+  position: relative;
   width: 100%;
   height: 173px;
   background: #f8f8f8;
@@ -74,7 +76,7 @@ const Wrap = styled.div`
   display: flex;
   align-items: center;
   padding: 15px;
-  justify-content: space-between;
+  justify-content: flex-start;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
 `;
 
@@ -85,6 +87,7 @@ const Image = styled.div`
   background-position: center;
   background-size: cover;
   border-radius: 30px;
+  margin: 0 20px 0 0;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
 `;
 
@@ -115,7 +118,7 @@ const Heart = styled.div`
 const Desc = styled.div`
   height: 140px;
 
-  width: 50%;
+  // width: 50%;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -124,9 +127,9 @@ const Desc = styled.div`
 `;
 
 const HeartWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
   width: 35px;
   height: 35px;
   border-radius: 50%;
@@ -148,7 +151,6 @@ const Price = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 10px;
   width: 100%;
 `;
 
@@ -165,6 +167,7 @@ const Sucbid = styled.div`
   color: #2e2e2e;
   font-weight: bold;
   font-size: 15px;
+  margin: 0 0 0 10px;
 `;
 
 export default PostCardMobile;

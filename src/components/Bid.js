@@ -8,7 +8,7 @@ import { Timer } from "components/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle as fasQC } from "@fortawesome/free-solid-svg-icons";
 
-import { input_priceComma } from "shared/common";
+import { input_priceComma, comma, uncomma } from "shared/common";
 import { actionCreators as bidActions } from "redux/modules/bid";
 import { actionCreators as productActions } from "redux/modules/product";
 
@@ -94,7 +94,7 @@ const Bid = (props) => {
             <BidNow>
               <div>현재 입찰가</div>
               <div>
-                {input_priceComma(_current)}
+                {comma(uncomma(_current))}
                 <span>&ensp;원</span>
               </div>
             </BidNow>
@@ -108,7 +108,7 @@ const Bid = (props) => {
             </BidNow>
           )}
 
-          <Input value={input_priceComma(bidPrice)} _onChange={onChangeBid} num width="75%" margin="10px auto 0" adornment="원" plcholder="입찰가를 입력해주세요!" />
+          <Input value={comma(uncomma(bidPrice))} _onChange={onChangeBid} num width="75%" margin="10px auto 0" adornment="원" plcholder="입찰가를 입력해주세요!" />
 
           {sellerunique === u_id ? (
             <>

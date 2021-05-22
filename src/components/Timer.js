@@ -48,8 +48,10 @@ const Timer = (props) => {
       <>
         {onSale && deadline - timeNow > 86400000 ? (
           <TimerWrap {...colors}>D-{day_duration}</TimerWrap>
-        ) : onSale && deadline - timeNow <= 86400000 && deadline - timeNow > 0 ? (
-          <TimerEnd {...colors}>오늘 마감</TimerEnd>
+        ) : onSale && deadline - timeNow <= 86400000 && deadline - timeNow > 900000 ? (
+          <TimerEndHighlight>오늘 마감</TimerEndHighlight>
+        ) : onSale && deadline - timeNow <= 900000 && deadline - timeNow > 0 ? (
+          <TimerEndHighlight>마감 임박</TimerEndHighlight>
         ) : (
           <TimerEnd {...colors}>경매 종료</TimerEnd>
         )}
@@ -63,7 +65,7 @@ const Timer = (props) => {
         {onSale && deadline - timeNow > 86400000 ? (
           <TimerWrap {...colors}>D-{hms_duration}</TimerWrap>
         ) : onSale && deadline - timeNow <= 86400000 && deadline - timeNow > 0 ? (
-          <TimerEnd {...colors}>오늘 마감</TimerEnd>
+          <TimerEndHighlight {...colors}>오늘 마감</TimerEndHighlight>
         ) : (
           <TimerEnd {...colors}>경매 종료</TimerEnd>
         )}
@@ -135,6 +137,15 @@ const TimerEnd = styled.div`
   height: 100%;
   font-weight: 700;
   color: ${(props) => (props.purple ? Color.Primary : props.white ? "#ffffff" : false)};
+  letter-spacing: -0.25px;
+  word-spacing: -1px;
+`;
+
+const TimerEndHighlight = styled.div`
+  width: 100%;
+  height: 100%;
+  font-weight: 700;
+  color: ${Color.Primary};
   letter-spacing: -0.25px;
   word-spacing: -1px;
 `;
