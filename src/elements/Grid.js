@@ -40,6 +40,7 @@ const Grid = (props) => {
     flexShrink,
     wordBreak,
     display,
+    grids,
 
     gap,
 
@@ -81,6 +82,7 @@ const Grid = (props) => {
     wordBreak: wordBreak,
     display: display,
     gap: gap,
+    grids: grids,
 
     className: className,
   };
@@ -136,6 +138,7 @@ Grid.defaultProps = {
   overflow: null,
   wordBreak: false,
   display: false,
+  grids: false,
 };
 
 const GridBox = styled.div`
@@ -175,6 +178,8 @@ const GridBox = styled.div`
 
   ${(props) => (props.column ? `flex-direction: column;` : `flex-direction: row;`)}
   flex-flow: ${(props) => (props.wrap ? props.wrap : "")};
+
+  grid-template-columns: ${(props) => (props.grids ? props.grids : "")};
 
   text-align: ${(props) => props.textAlign};
 
