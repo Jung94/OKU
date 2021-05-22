@@ -79,33 +79,35 @@ const AllList = () => {
 const Wrap = styled.div`
   margin: 160px auto 20px auto;
 
-  display: flex;
-  flex-direction: column;
-
-  flex-wrap: wrap;
-  height: 100%;
-  gap: 33px;
-
+  max-width: 1030px;
+  width: 100%;
   @media only screen and (max-width: 767px) {
     margin: 130px auto 20px auto;
   }
 `;
 
-const Grid = styled.div`
-  justify-content: flex-start;
-  display: flex;
-  justify-content: center;
-  max-width: 1030px;
-  height: 100%;
-  gap: 10px;
-
-  @media only screen and (max-width: 767px) {
-    flex-direction: column;
-  }
+const SectionTitle = styled.div`
+  margin: 20px auto;
+  text-align: center;
 `;
 
-const SectionTitle = styled.div`
-  margin: 0 auto;
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 30px;
+  grid-row-gap: 66px;
+  // margin-bottom: 150px;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media only screen and (max-width: 767px) {
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+    grid-row-gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
 `;
 
 export default AllList;

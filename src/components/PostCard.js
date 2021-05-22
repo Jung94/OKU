@@ -55,7 +55,7 @@ const PostCard = (props) => {
       </UpTime>
       <div onClick={() => userLike(_id)}> {likeOrNot ? <Heart img={IconHeartOn} /> : <Heart img={IconHeartOff} />} </div>
       {/* 👇이거 중요! */}
-      {img && img.length > 0 && <Image alt="item" img={img[imgl]} onClick={() => history.push(`/product/detail/${_id}`)} />}
+      {img && img.length > 0 && <Image alt="item" img={img} onClick={() => history.push(`/product/detail/${_id}`)} />}
       <Desc>
         <div style={{ width: "100%" }}>
           <Title onClick={() => history.push(`/product/detail/${_id}`)}>{title}</Title>

@@ -23,9 +23,9 @@ const ResultContainer = styled.div`
   max-width: 1030px;
   height: 100%;
   gap: 10px;
-  margin: 170px auto 100px;
+  margin: 160px auto 20px auto;
 
-  @media only screen and (max-width : 767px) {
+  @media only screen and (max-width: 767px) {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -36,7 +36,7 @@ const ResultContainer = styled.div`
     margin: 100px auto 100px;
   }
 
-  @media only screen and (min-width : 1824px) {
+  @media only screen and (min-width: 1824px) {
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -48,15 +48,15 @@ const ResultContainer = styled.div`
 `;
 
 const ResultText = styled.div`
+  margin: 20px auto;
   text-align: center;
-  margin: 3rem 0;
 
   & span {
     font-size: 1.25rem;
     font-weight: 700;
   }
 
-  @media only screen and (max-width : 767px) {
+  @media only screen and (max-width: 767px) {
     text-align: center;
     margin: 3rem 0 1.4rem;
 
