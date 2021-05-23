@@ -86,83 +86,77 @@ const Footer = (props) => {
         <FooterWrap display={display}>
           {!is_login && (
             <>
+              <FontAwesomeIcon
+                style={{fontSize: "22px", color: "rgba(0, 0, 0, 0.4)"}}
+                icon={faHome}
+                onClick={() => {
+                  slideClose();
+                  history.push("/");
+                }}
+              />
+              <FontAwesomeIcon
+                style={{fontSize: "22px", color: "rgba(0, 0, 0, 0.4)"}}
+                icon={faCommentDots}
+                onClick={() => {
+                  alert("로그인이 필요한 서비스입니다!");
+                  history.push("/login");
+                  slideClose();
+                }}
+              />
               <Plus
                 src={IconPlus}
                 onClick={() => {
                   alert("로그인이 필요한 서비스입니다!");
                   history.push("/login");
+                  slideClose();
                 }}
               />
-              <FourWrap>
-                <Left>
-                  {/* <Home src={IconPlus} /> */}
-                  <FontAwesomeIcon
-                    icon={faHome}
-                    onClick={() => {
-                      history.push("/");
-                    }}
-                  />
-                  <FontAwesomeIcon
-                    icon={faCommentDots}
-                    onClick={() => {
-                      alert("로그인이 필요한 서비스입니다!");
-                      history.push("/login");
-                    }}
-                  />
-                  {/* <Chat src={IconChat} /> */}
-                </Left>
-                <Right>
-                  {/* <Mypage src={IconPlus} /> */}
-                  <FontAwesomeIcon
-                    icon={faCog}
-                    onClick={() => {
-                      alert("로그인이 필요한 서비스입니다!");
-                      history.push("/login");
-                    }}
-                  />
-                  <FontAwesomeIcon icon={faEllipsisH} onClick={slide} />
-                  {/* <Menu src={IconMenu} /> */}
-                </Right>
-              </FourWrap>
+              <FontAwesomeIcon
+                style={{fontSize: "22px", color: "rgba(0, 0, 0, 0.4)"}}
+                icon={faCog}
+                onClick={() => {
+                  alert("로그인이 필요한 서비스입니다!");
+                  history.push("/login");
+                  slideClose();
+                }}
+              />
+              <FontAwesomeIcon icon={faEllipsisH} onClick={slide} style={{fontSize: "22px", color: "rgba(0, 0, 0, 0.4)"}} />
             </>
           )}
           {is_login && (
             <>
+              <FontAwesomeIcon
+                style={{fontSize: "22px", color: "rgba(0, 0, 0, 0.4)"}}
+                icon={faHome}
+                onClick={() => {
+                  slideClose();
+                  history.push("/");
+                }}
+              />
+              <FontAwesomeIcon
+                style={{fontSize: "22px", color: "rgba(0, 0, 0, 0.4)"}}
+                icon={faCommentDots}
+                onClick={() => {
+                  history.push("/chat");
+                  slideClose();
+                }}
+              />
               <Plus
                 src={IconPlus}
                 onClick={() => {
                   history.push("/productupload");
+                  slideClose();
                 }}
               />
-              <FourWrap>
-                <Left>
-                  {/* <Home src={IconPlus} /> */}
-                  <FontAwesomeIcon
-                    icon={faHome}
-                    onClick={() => {
-                      history.push("/");
-                    }}
-                  />
-                  <FontAwesomeIcon
-                    icon={faCommentDots}
-                    onClick={() => {
-                      history.push("/chat");
-                    }}
-                  />
-                  {/* <Chat src={IconChat} /> */}
-                </Left>
-                <Right>
-                  {/* <Mypage src={IconPlus} /> */}
-                  <FontAwesomeIcon
-                    icon={faCog}
-                    onClick={() => {
-                      history.push("/my");
-                    }}
-                  />
-                  <FontAwesomeIcon icon={faEllipsisH} onClick={slide} />
-                  {/* <Menu src={IconMenu} /> */}
-                </Right>
-              </FourWrap>
+              <FontAwesomeIcon
+                style={{fontSize: "22px", color: "rgba(0, 0, 0, 0.4)"}}
+                icon={faCog}
+                onClick={() => {
+                  history.push("/my");
+                  slideClose();
+                }}
+              />
+              <FontAwesomeIcon icon={faEllipsisH} onClick={slide} style={{fontSize: "22px", color: "rgba(0, 0, 0, 0.4)"}} />
             </>
           )}
         </FooterWrap>
@@ -250,29 +244,6 @@ const Exit = styled.div`
   // transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
 `;
 
-const Left = styled.div`
-  // border: 1px solid red;
-  display: flex;
-  align-items: center;
-  gap: 34px;
-
-  & > svg {
-    font-size: 25px;
-    color: rgba(0, 0, 0, 0.4);
-  }
-`;
-
-const Right = styled.div`
-  // border: 1px solid red;
-  display: flex;
-  align-items: center;
-  gap: 34px;
-  & > svg {
-    font-size: 25px;
-    color: rgba(0, 0, 0, 0.4);
-  }
-`;
-
 const Home = styled.div`
   width: 34px;
   height: 34px;
@@ -314,27 +285,28 @@ const Menu = styled.div`
 `;
 
 const Plus = styled.img`
+  // width: 34px;
+  // height: 34px;
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // border-radius: 50px;
+  // transform: translate(-50%, -50%);
+  // background-color: transparent;
+  // background: url(${(props) => props.src});
+  // background-size: cover;
+  // background-position: center;
+  // transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  // background-color: ${Color.Light_4};
+
   width: 34px;
   height: 34px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
   border-radius: 50px;
-  transform: translate(-50%, -50%);
-  background-color: transparent;
   background: url(${(props) => props.src});
   background-size: cover;
   background-position: center;
   transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
   background-color: ${Color.Light_4};
-`;
-
-const FourWrap = styled.div`
-  width: 100%;
-  // border: 1px solid red;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 `;
 
 const FooterWrap = styled.footer`
@@ -373,23 +345,42 @@ const FooterWrap = styled.footer`
     box-sizing: border-box;
   }
 
+  // @media only screen and (max-width: 767px) {
+  //   // width: 100%;
+  //   max-width: 100vw;
+  //   height: 56px;
+  //   overflow: scroll;
+  //   position: fixed;
+  //   z-index: 1005;
+  //   background: #fff;
+  //   left: 0;
+  //   right: 0;
+  //   bottom: 0;
+  //   ${(props) => (props.display === false ? "display : none;" : "display : flex;")}
+  //   // display : flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   justify-content: center;
+  //   padding: 0 40px;
+  //   box-sizing: border-box;
+  //   border-top: 1px solid rgba(0, 0, 0, 0.08);
+  //   box-shadow: 0 4px 10px 1px rgba(111, 111, 111, 0.2);
+  // }
   @media only screen and (max-width: 767px) {
     // width: 100%;
-    max-width: 100vw;
-    height: 56px;
-    overflow: scroll;
+    min-width: 100vw;
+    height: 52px;
     position: fixed;
     z-index: 1005;
     background: #fff;
     left: 0;
     right: 0;
     bottom: 0;
-    ${(props) => (props.display === false ? "display : none;" : "display : flex;")}
-    // display : flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0 40px;
+    ${(props) => (props.display === false ? "display : none;" : "display : grid;")}
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    place-items: center;
+    padding: 0;
+    margin: 0;
     box-sizing: border-box;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: 0 4px 10px 1px rgba(111, 111, 111, 0.2);
