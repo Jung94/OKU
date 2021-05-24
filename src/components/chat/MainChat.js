@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as chatActions } from "redux/modules/chat";
 import Message from "./Message";
 
+import { Color } from "shared/DesignSys";
+
 const Desktop = ({ children }) => {
   const isDesktop = useMediaQuery({ minWidth: 1024 });
   return isDesktop ? children : null;
@@ -85,19 +87,17 @@ const MainChat = ({ targetName, productName }) => {
       <Mobile>
         {loading ? (
           <>
-            <div style={{padding: "40% 0 0",fontSize: "14px", fontWeight: "500", width: "220px", margin: "0 auto", textAlign: "center"}}>
+            <div style={{ padding: "40% 0 0", fontSize: "14px", fontWeight: "500", width: "220px", margin: "0 auto", textAlign: "center" }}>
               경매 성공 시 구매자 또는 경매자와의 채팅이 가능하다구요!
             </div>
           </>
         ) : (
           <div>
-            <Header>{targetName ? targetName +" / "+ productName: "아무나 채팅"}</Header>
+            <Header>{targetName ? targetName + " / " + productName : "아무나 채팅"}</Header>
             <ChatBox>
               {msgList.length === 0 ? (
                 <EmptyPost>
-                  <div style={{fontSize: "14px", fontWeight: "500", width: "200px", margin: "0 auto", textAlign: "center"}}>
-                    경매 성공 시 구매자 또는 경매자와의 채팅이 가능하다구요!
-                  </div>
+                  <div style={{ fontSize: "14px", fontWeight: "500", width: "200px", margin: "0 auto", textAlign: "center" }}>경매 성공 시 구매자 또는 경매자와의 채팅이 가능하다구요!</div>
                 </EmptyPost>
               ) : null}
               {msgList.map((val, idx) => {
@@ -112,7 +112,6 @@ const MainChat = ({ targetName, productName }) => {
           </div>
         )}
       </Mobile>
-      
     </>
   );
 };
@@ -157,6 +156,24 @@ const ChatBox = styled.div`
   width: 680px;
   overflow: auto;
 
+  /* overflow-x scrollbar css */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  // scrollbar
+  ::-webkit-scrollbar-thumb {
+    background: ${Color.Secondary_1};
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  // scrollbar 배경 (트랙)
+  ::-webkit-scrollbar-track {
+    background-color: ${Color.Light_1};
+    border-radius: 10px;
+    /* box-shadow: inset 0px 0px 6px #ff000080; */
+  }
+
   @media only screen and (max-width: 767px) {
     // border: 1px solid red;
     min-height: 290px;
@@ -165,7 +182,6 @@ const ChatBox = styled.div`
     width: 100vw;
     overflow: auto;
   }
-
 `;
 
 const Header = styled.div`

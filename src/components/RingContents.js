@@ -14,7 +14,7 @@ import "moment/locale/ko";
 
 const RingContents = (props) => {
   moment.locale("ko");
-  const { alertType, productTitle, productId, creatAt, _id } = props;
+  const { alertType, productTitle, productId, creatAt, _id, buyerId } = props;
   return (
     <Box>
       <Desc>
@@ -75,7 +75,7 @@ const RingContents = (props) => {
             </AlertCotents>
           </>
         )}
-        {alertType === "판매성공" && (
+        {alertType === "판매성공" && buyerId && (
           <>
             <AlertTitle onClick={() => history.push(`/product/detail/${productId}`)}>
               <TitleLeft>📢&thinsp;{alertType}</TitleLeft>
@@ -84,7 +84,7 @@ const RingContents = (props) => {
             <AlertCotents onClick={() => history.push(`/product/detail/${productId}`)}>
               <NameSpan>{productTitle}</NameSpan>이(가) 낙찰에 성공하였습니다.
             </AlertCotents>
-            <Modal successAlarm />
+            <Modal successAlarm alertId={_id} buyerId={buyerId} />
           </>
         )}
       </Desc>

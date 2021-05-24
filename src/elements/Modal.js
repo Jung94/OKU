@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle as fasClose, faEllipsisV as fasModi } from "@fortawesome/free-solid-svg-icons";
-import { Bid, Edit } from "components/";
+import { Bid, Edit, BidConfirm } from "components/";
 
 import { Grid, Input, Line, Button, Text, Profile } from "elements/";
 
@@ -101,26 +101,7 @@ const Modal = (props) => {
           <ModalWrap modal>
             <Screen onClick={closeModal}></Screen>
             <ModalBox>
-              <BidConfirm open={modal} close={closeModal}>
-                <Profile img></Profile>
-                <Text h1 marginT="1%" textAlign="center" color={Color.Primary}>
-                  ~~님께서 낙찰을 시도했습니다!
-                </Text>
-                <Text h2 marginB="3%" textAlign="center">
-                  거래를 수락하시겠습니까?
-                </Text>
-                <Text size="13px" marginB="6%" textAlign="center" color={Color.Primary}>
-                  * 블랙 유저처럼 보인다면 아니오를 눌러주세요!
-                </Text>
-                <Buttons>
-                  <Button _onClick={() => {}} width="100%" margin="0 0.5rem 0 0">
-                    수락
-                  </Button>
-                  <Button sub _onClick={() => {}} width="100%" margin="0 0 0 0.5rem">
-                    아니오
-                  </Button>
-                </Buttons>
-              </BidConfirm>
+              <BidConfirm open={modal} close={closeModal} buyerId={props?.buyerId} alertId={props?.alertId}></BidConfirm>
             </ModalBox>
           </ModalWrap>
         ) : (
@@ -237,21 +218,6 @@ const AlertButton = styled.div`
     background: ${Color.Tag};
     box-shadow: 0 0 0 3px ${Color.Primary}44;
   }
-`;
-
-const BidConfirm = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  margin-top: 9%;
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  align-items: center;
-  width: 75%;
-  margin: 0 auto 9% auto;
 `;
 
 export default Modal;

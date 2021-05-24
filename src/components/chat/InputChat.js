@@ -6,6 +6,8 @@ import { actionCreators as chatActions } from "redux/modules/chat";
 
 import DaumPostcode from "react-daum-postcode";
 
+import { Color } from "shared/DesignSys";
+
 import moment from "moment";
 import "moment/locale/ko";
 
@@ -174,7 +176,6 @@ const ChatInput = ({ room }) => {
           </Modal>
         )}
       </Mobile>
-      
     </>
   );
 };
@@ -237,23 +238,26 @@ const BtnBox = styled.div`
 
 const Delivery = styled.button`
   width: 158px;
-  height: 38px;
+  height: 40px;
   color: #fff;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 700;
   background: #ae00ff;
   border: none;
   border-radius: 12px;
   cursor: pointer;
   margin: 0 25px 0 0;
-  box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
-
+  &:hover {
+    background-color: ${(props) => props.contrast};
+    color: ${(props) => props.color};
+    box-shadow: 0 0 0 3px ${Color.Primary}33;
+  }
   @media only screen and (max-width: 767px) {
     // border: 1px solid green;
     width: 120px;
     height: 30px;
     color: #fff;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     margin: 0 25.2px 0 0;
     background: #ae00ff;
@@ -266,22 +270,26 @@ const Delivery = styled.button`
 
 const Exit = styled.button`
   width: 158px;
-  height: 38px;
+  height: 40px;
   color: rgba(0, 0, 0, 0.4);
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 700;
   background: #eaeaea;
   border: none;
   border-radius: 12px;
   // cursor: pointer;
-  box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
+  /* &:hover {
+    background-color: ${(props) => props.contrast};
+    color: ${(props) => props.color};
+    box-shadow: 0 0 0 3px ${Color.Light_4}33;
+  } */
 
   @media only screen and (max-width: 767px) {
     // border: 1px solid green;
     width: 120px;
     height: 30px;
     color: rgba(0, 0, 0, 0.4);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     background: #eaeaea;
     border: none;
@@ -360,7 +368,11 @@ const Btn = styled.button`
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
+  &:hover {
+    background-color: ${(props) => props.contrast};
+    color: ${(props) => props.color};
+    box-shadow: 0 0 0 3px ${Color.Primary}33;
+  }
 
   @media only screen and (max-width: 767px) {
     width: 57px;

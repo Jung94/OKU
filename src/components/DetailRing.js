@@ -68,9 +68,7 @@ const DetailRing = (props) => {
                 <Img src={IconRingOff} />
                 {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
               </Badge>
-              <Text h4 margin="4px 0 0">
-                알림
-              </Text>
+              <Text h4>알림</Text>
             </div>
             <RingDetail>
               {alert.alreadyCheck && alert.alreadyCheck.length > 0 ? (
@@ -131,9 +129,7 @@ const DetailRing = (props) => {
                   <Img src={IconRingOff} />
                   {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
                 </Badge>
-                <Text h4 margin="4px 0 0">
-                  알림
-                </Text>
+                <Text h4>알림</Text>
               </div>
             ) : (
               <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
@@ -141,9 +137,7 @@ const DetailRing = (props) => {
                   <Img src={IconRingOff} />
                   {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
                 </Badge>
-                <Text h4 margin="4px 0 0">
-                  알림
-                </Text>
+                <Text h4>알림</Text>
               </div>
             )}
           </Wrap>
@@ -183,9 +177,7 @@ const DetailRing = (props) => {
             <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
               <Img src={IconRingOff} />
               {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-              <Text h4 margin="4px 0 0">
-                알림
-              </Text>
+              <Text h4>알림</Text>
             </div>
           </Wrap>
         </Desktop>
@@ -300,6 +292,10 @@ const RingDetail = styled.div`
     background-color: ${Color.Light_1};
     border-radius: 10px;
     /* box-shadow: inset 0px 0px 6px #ff000080; */
+  }
+
+  @media only screen and (max-width: 767px) {
+    right: 10px;
   }
 `;
 
