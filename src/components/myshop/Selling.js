@@ -107,7 +107,6 @@ const Selling = (props) => {
 const Wrap = styled.div`
     max-width: 1030px;
     margin: 129px auto 100px;
-    min-height: 100%;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
