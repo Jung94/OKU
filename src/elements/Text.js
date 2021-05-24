@@ -16,6 +16,7 @@ const Text = (props) => {
     weight: weight,
     width: width,
     border: border,
+    
   };
 
   // h1, h2, h3, SubHeading(h4) 디자인 시스템에 맞춘 폰트

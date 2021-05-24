@@ -330,7 +330,7 @@ const ProductUpload = React.memo((props) => {
       <Grid is_flex column margin="0 0 20px 0">
         <Desktop>
           <Grid margin="0 0 35px 0">
-            <Text h2 bold>
+            <Text h2 bold color={Color.Primary}>
               상품등록
             </Text>
           </Grid>

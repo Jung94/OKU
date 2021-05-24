@@ -300,7 +300,7 @@ const Header = (props) => {
 
             <Grid is_flex column height="100px" width="40%">
               <Grid is_flex justify="flex-end" margin="10px 2px 36px 0" ref={hide}>
-                <Text subBody color={Color.Dark_4} margin="1.5px 4% 0 0">
+                <Text subBody color={Color.Dark_4} margin="1.4px 4% 0 0">
                   about OKU
                 </Text>
                 <Text subBody color={Color.Dark_4} margin="0 4% 0 0" onClick={aboutus}>

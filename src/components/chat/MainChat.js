@@ -64,7 +64,7 @@ const MainChat = ({ targetName, productName }) => {
             <ChatBox>
               {msgList.length === 0 ? (
                 <EmptyPost>
-                  <div>경매 성공 시 구매자 또는 경매자와의 채팅이 가능하다구요!</div>
+                  <div>경매 성공 시 구매자 또는 판매자와의 채팅이 가능하다구요!</div>
                 </EmptyPost>
               ) : null}
               {msgList.map((val, idx) => {
@@ -86,7 +86,7 @@ const MainChat = ({ targetName, productName }) => {
         {loading ? (
           <>
             <div style={{padding: "40% 0 0",fontSize: "14px", fontWeight: "500", width: "220px", margin: "0 auto", textAlign: "center"}}>
-              경매 성공 시 구매자 또는 경매자와의 채팅이 가능하다구요!
+              경매 성공 시 구매자 또는 판매자와의 채팅이 가능하다구요!
             </div>
           </>
         ) : (
@@ -96,7 +96,7 @@ const MainChat = ({ targetName, productName }) => {
               {msgList.length === 0 ? (
                 <EmptyPost>
                   <div style={{fontSize: "14px", fontWeight: "500", width: "200px", margin: "0 auto", textAlign: "center"}}>
-                    경매 성공 시 구매자 또는 경매자와의 채팅이 가능하다구요!
+                    경매 성공 시 구매자 또는 판매자와의 채팅이 가능하다구요!
                   </div>
                 </EmptyPost>
               ) : null}
