@@ -50,12 +50,13 @@ const CategoryFilter = () => {
 };
 
 const CategoryList = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  height: 100%;
-  gap: 33px;
-  // border: 1px solid red;
+display: grid;
+grid-template-columns: 1fr 1fr 1fr 1fr;
+grid-column-gap: 38px;
+grid-row-gap: 50px;
+width : 100%;
+// border: 1px solid red;
+
 
   @media only screen and (max-width: 767px) {
     display: flex;
@@ -66,10 +67,6 @@ const CategoryList = styled.div`
     // border: 1px solid red;
   }
 
-  @media only screen and (min-width: 1824px) {
-    height: 80%;
-    gap: 65px;
-  }
 `;
 
 export default CategoryFilter;
