@@ -72,6 +72,7 @@ const Product = (props) => {
     tag,
     img,
     soldBy,
+    soldById,
     // _id,
   } = useSelector((state) => state.product.product_detail);
   // console.log(productOK);
@@ -134,7 +135,15 @@ const Product = (props) => {
                 {/* 타이머 */}
                 <Grid textAlign="center" justify="space-between" margin="0 0 30px 0">
                   <Text h1 textAlign="center" marginB="10px">
-                    {onSale ? <Timer all {...productOK} purple /> : <Timer all {...productOK} soldout />}
+                    {soldBy === "거래대기중" ? (
+                      <Text h1 color={Color.Primary}>
+                        거래 대기 중
+                      </Text>
+                    ) : onSale ? (
+                      <Timer all {...productOK} purple />
+                    ) : (
+                      <Timer all {...productOK} soldout />
+                    )}
                   </Text>
                   <Timer timeProgress {...productOK} />
                 </Grid>
@@ -196,7 +205,7 @@ const Product = (props) => {
                         &thinsp;찜
                       </Button>
                     )}
-                    <Modal immediateBid {...productOK} />
+                    <Modal immediateBid {...productOK} soldBy soldById />
                   </Grid>
                 </BidLabel>
               </Grid>
@@ -363,13 +372,16 @@ const Product = (props) => {
             {/* 💎 타이머 */}
             <Grid textAlign="center" justify="space-between" padding="0 30px">
               <Text h1 marginB="5px">
-                <Timer all {...productOK} purple />
+                {onSale ? <Timer all {...productOK} purple /> : <Timer all {...productOK} soldout />}
               </Text>
               <Timer timeProgress {...productOK} />
             </Grid>
 
             {/* 💎 슬라이더 */}
+
             <SliderWrap>
+              {onSale === false ? <Fin>경매 종료</Fin> : ""}
+
               <Slider noRadius imgList={img} />
             </SliderWrap>
 
@@ -429,7 +441,7 @@ const Product = (props) => {
                     &thinsp;찜
                   </Button>
                 )}
-                <Modal immediateBid {...productOK} />
+                <Modal immediateBid {...productOK} soldBy soldById />
               </Grid>
             </BidLabel>
 
@@ -792,6 +804,10 @@ const Fin = styled.div`
   justify-content: center;
   font-size: 2rem;
   font-weight: 700;
+  @media only screen and (max-width: 767px) {
+    height: 100vw;
+    border-radius: 0;
+  }
 `;
 
 export default Product;

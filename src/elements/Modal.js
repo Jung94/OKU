@@ -9,11 +9,11 @@ import { Grid, Input, Line, Button, Text, Profile } from "elements/";
 import { Color } from "shared/DesignSys";
 
 const Modal = (props) => {
-  const { top, bottom, margin, color, text, bid, immediateBid, successAlarm, sucBid, onSale, setting } = props;
+  const { top, bottom, margin, color, text, bid, immediateBid, successAlarm, sucBid, onSale, soldBy, soldById, setting } = props;
   const styles = { top: top, bottom: bottom, margin: margin, color: color, text: text };
   const [modal, setModal] = useState(false);
 
-  // console.log(props);
+  // console.log(soldBy);
 
   const openModal = () => {
     setModal(true);
@@ -54,7 +54,7 @@ const Modal = (props) => {
       <>
         {onSale ? (
           <Button {...styles} _onClick={openModal} noflex width="270px">
-            즉시 낙찰
+            {soldById && soldById === null ? "즉시 낙찰 (거래 대기중)" : "즉시 낙찰"}
           </Button>
         ) : (
           <Button {...styles} disabled noflex width="270px">
