@@ -118,7 +118,7 @@ const Steam = () => {
     <Wrap>
       <Desktop>
         <Head>
-          <Text h1 textAlign="left">
+          <Text h2 weight="500" textAlign="left">
             찜 목록
           </Text>
         </Head>

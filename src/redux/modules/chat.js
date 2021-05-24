@@ -31,6 +31,29 @@ const initialState = {
 const socket = socketIOClient(`${API}/chat`);
 const globalSocket = socketIOClient(`${API}/`);
 
+// 거래 종료 - 유저 목록에서 삭제
+const endOfChat = (productId, otherId, myId) => {
+  return function (dispatch, { history }) {
+    let access_token = localStorage.getItem("access_token");
+    console.log(productId, otherId, myId);
+    axios({
+      method: "delete",
+      url: `${API}/chat/exit/${productId}/${otherId}/${myId}`,
+      headers: {
+        access_token: `${access_token}`,
+      },
+    })
+      .then((res) => {
+        console.log(res.data.result);
+        // dispatch(endOfDeal());
+        // history.replace("/chat");
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+};
+
 // 유저 목록 조회
 const middlewareUsers = () => {
   return function (dispatch) {
@@ -156,6 +179,7 @@ const actionCreators = {
   globalAddChatList,
   badgeOff,
   middlewareUsers,
+  endOfChat,
   socket,
   globalSocket,
 };

@@ -330,7 +330,9 @@ const ProductUpload = React.memo((props) => {
       <Grid is_flex column margin="0 0 20px 0">
         <Desktop>
           <Grid margin="0 0 35px 0">
-            <Text h2>상품등록</Text>
+            <Text h2 bold color={Color.Primary}>
+              상품등록
+            </Text>
           </Grid>
           <Grid margin="0 0 35px 0">
             <Text h4 marginB="20px">
@@ -518,8 +520,10 @@ const ProductUpload = React.memo((props) => {
         <Tablet></Tablet>
 
         <Mobile>
-          <Grid margin="0 0 24px">
-            <Text h2>상품등록</Text>
+          <Grid margin="20px 0 24px">
+            <Text h2 bold color={Color.Primary}>
+              상품등록
+            </Text>
           </Grid>
           <Grid margin="0 0 24px">
             <Text h3 margin="0 0 20px">
@@ -570,7 +574,7 @@ const ProductUpload = React.memo((props) => {
                 _onChange={(e) => {
                   setRegion(e.target.value);
                 }}
-                plcholder="거래할 지역을 검색 또는 바로 입력해주세요."
+                plcholder="거래할 지역을 검색 또는 직접 입력해주세요."
                 width="100%"
                 margin="0 0 10px"
               />
@@ -833,10 +837,9 @@ const PreviewBtn2 = styled.label`
   @media only screen and (max-width: 767px) {
     width: 30vw;
     height: 30vw;
-    /* margin: 120px auto auto auto; */
-    flex-direction: column;
-    text-align: left;
-    background-size: 34px;
+    background: url("${(props) => props.src}") no-repeat;
+    background-size: cover;
+    background-position: center center;
   }
 `;
 

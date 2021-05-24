@@ -66,7 +66,7 @@ const MainChat = ({ targetName, productName }) => {
             <ChatBox>
               {msgList.length === 0 ? (
                 <EmptyPost>
-                  <div>경매 성공 시 구매자 또는 경매자와의 채팅이 가능하다구요!</div>
+                  <div>경매 성공 시 구매자 또는 판매자와의 채팅이 가능하다구요!</div>
                 </EmptyPost>
               ) : null}
               {msgList.map((val, idx) => {
