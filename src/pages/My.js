@@ -64,8 +64,8 @@ const My = (props) => {
           <Profile size="150px" img={_user.profile} nomargin />
           <Modal setting {..._user} />
         </Modi>
-        <Text h1 weight="600" textAlign="center" marginT="2%">
-          {_user.nickname} 님 <br /> 오늘도 <span style={{ color: "#AE00FF" }}>즐거운 덕질하세요!</span>
+        <Text h1 weight="600" textAlign="center" marginT="2%" marginB="2%">
+          <div style={{marginBottom: "20px"}}>{_user.nickname} 님</div> <div> 오늘도 <span style={{ color: "#AE00FF" }}>즐거운 덕질하세요!</span></div>
         </Text>
       </Desktop>
 
@@ -74,8 +74,8 @@ const My = (props) => {
           <Profile size="110px" img={_user.profile} nomargin />
           <Modal setting {..._user} />
         </Modi>
-        <Text h2 weight="600" textAlign="center" marginT="2%">
-          {_user.nickname} 님 <br /> 오늘도 <span style={{ color: "#AE00FF" }}>즐거운 덕질하세요!</span>
+        <Text h2 weight="600" textAlign="center" marginT="4%" marginB="4%">
+          <div style={{marginBottom: "14px"}}>{_user.nickname} 님</div> <div> 오늘도 <span style={{ color: "#AE00FF" }}>즐거운 덕질하세요!</span></div>
         </Text>
       </Mobile>
       <Myinfo />

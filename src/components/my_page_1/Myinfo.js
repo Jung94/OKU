@@ -47,7 +47,7 @@ const Myinfo = () => {
     return (
       <Wrap>
         <Head>
-          <Text h1 textAlign="left">
+          <Text h2 weight="500" textAlign="left">
             회원정보
           </Text>
           {/* <Modify onClick={ModifyShowing}>수정하기</Modify> */}

@@ -16,17 +16,27 @@ const ADD_BID = "ADD_BID";
 const SET_CURRENT = "SET_CURRENT";
 const WARNING_BID = "WARNING_BID";
 
+const SET_MSG = "SET_MSG";
+// 유저 조회
+const GET_PUBLIC_USER = "GET_PUBLIC_USER";
+
 //actionCreators
 const setBid = createAction(SET_BID, (bid_list) => ({ bid_list }));
 const addBid = createAction(ADD_BID, (new_bid) => ({ new_bid }));
 const warningBid = createAction(WARNING_BID, (warning_bid) => ({ warning_bid }));
 const setCurrent = createAction(SET_CURRENT, (current) => ({ current }));
 
+const setMsg = createAction(SET_MSG, (msg) => ({ msg }));
+// 유저 조회
+const getPublicUser = createAction(GET_PUBLIC_USER, (user) => ({ user }));
+
 const initialState = {
   bid_list: [],
   new_bid: {},
   current: 0,
   bid_before: "",
+  buyer: {},
+  successMsg: "",
 };
 
 const setBidAPI = (_id, lowBid) => {
@@ -135,7 +145,7 @@ const addSucbidAPI = (sucBid, sellerunique, createAt) => {
       .then((res) => res.json())
       .then((res) => {
         dispatch(addBid(draft));
-        window.location.reload();
+        // window.location.reload();
       })
       .catch((err) => {
         console.log("addBidAPI에 문제가 있습니다.", err);
@@ -161,7 +171,7 @@ const addNEWSucbidAPI = (sucBid, sellerunique, createAt) => {
       .then((res) => res.json())
       .then((res) => {
         dispatch(addBid(draft));
-        window.location.reload();
+        // window.location.reload();
         console.log("addNEWSucbidAPI실행됨.");
       })
       .catch((err) => {
@@ -184,7 +194,42 @@ const confirmSuccessAPI = (alertId, successBoolean) => {
       body: JSON.stringify({ decision: successBoolean }),
     })
       .then((res) => res.json())
-      .then((res) => {})
+      .then((res) => {
+        console.log(res.msg);
+        if (res.okay) {
+          dispatch(setMsg(res.msg));
+        } else {
+          console.log("response is not ok.");
+        }
+      })
+      .catch((err) => {
+        console.log("getPublicUserAPI에 문제가 있습니다.", err);
+      })
+      .finally(() => {});
+  };
+};
+
+// 퍼블릭 유저 정보 얻기
+// 프로필 이미지 & 유저아이디
+const getPublicUserAPI = (buyerId) => {
+  return function (dispatch, getState, { history }) {
+    const access_token = localStorage.getItem("access_token");
+    fetch(`${API}/bid/buyercheck/${buyerId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        access_token: `${access_token}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        // console.log(res);
+        if (res.okay) {
+          dispatch(getPublicUser(res.user));
+        } else {
+          console.log("response is not okay.");
+        }
+      })
       .catch((err) => {
         console.log("getPublicUserAPI에 문제가 있습니다.", err);
       })
@@ -219,6 +264,14 @@ export default handleActions(
       produce(state, (draft) => {
         draft.bid_before = action.payload.warning_bid;
       }),
+    [SET_MSG]: (state, action) =>
+      produce(state, (draft) => {
+        draft.successMsg = action.payload.msg;
+      }),
+    [GET_PUBLIC_USER]: (state, action) =>
+      produce(state, (draft) => {
+        draft.buyer = action.payload.user;
+      }),
   },
   initialState
 );
@@ -233,6 +286,8 @@ const actionCreators = {
   // 즉시 낙찰 +a 과정 - 물건 즉시 사라짐 방지
   addNEWSucbidAPI,
   confirmSuccessAPI,
+
+  getPublicUserAPI,
 };
 
 export { actionCreators };

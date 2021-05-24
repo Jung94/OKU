@@ -42,11 +42,17 @@ const Chat = (props) => {
   const is_login = localStorage.getItem("access_token") ? true : false;
 
   const makeRoom = [props.match.params.otherId, props.match.params.myId].sort();
-  //   // 방
+  // 방
   const room = makeRoom[0] + "-" + makeRoom[1];
-  //   // 대화 상대 이름
-  const targetName = props.match.params.otherName; 
+  // 대화 상대 이름
+  const targetName = props.match.params.otherName;
+  // 상품 id
+  const productId = props.match.params.productId;
 
+  const otherId = props.match.params.otherId;
+
+  const myId = props.match.params.myId;
+  // 상품 제목
   const productName = props.match.params.title;
   // 내 이름
   const username = useSelector((state) => state.user.user);
@@ -97,7 +103,7 @@ const Chat = (props) => {
                 <>
                   <Main targetName={targetName} productName={productName} room={room} />
                   <MainBtn>
-                    <InputChat room={room} />
+                    <InputChat room={room} productId={productId} otherId={otherId} myId={myId} />
                   </MainBtn>
                 </>
               ) : (
@@ -119,7 +125,7 @@ const Chat = (props) => {
             <MainBottom>
               <Main targetName={targetName} productName={productName} room={room} />
               <MainBtnM>
-                <InputChat room={room} />
+                <InputChat room={room} productId={productId} />
               </MainBtnM>
             </MainBottom>
           </MainContent>

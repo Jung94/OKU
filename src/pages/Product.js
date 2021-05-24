@@ -71,6 +71,7 @@ const Product = (props) => {
     state,
     tag,
     img,
+    soldBy,
     // _id,
   } = useSelector((state) => state.product.product_detail);
   // console.log(productOK);
@@ -124,14 +125,16 @@ const Product = (props) => {
             <Grid end_flex margin="0 0 30px 0" height="600px">
               {/* 상품사진 */}
               <SliderWrap>
-                <Slider imgList={img} />
+                {onSale === false ? <Fin>경매 종료</Fin> : ""}
+
+                <Slider imgList={img} onSale />
               </SliderWrap>
               {/* 입찰표 */}
               <Grid width="40%" margin="0 0 0 20px">
                 {/* 타이머 */}
                 <Grid textAlign="center" justify="space-between" margin="0 0 30px 0">
-                  <Text h1>
-                    <Timer all {...productOK} purple />
+                  <Text h1 textAlign="center" marginB="10px">
+                    {onSale ? <Timer all {...productOK} purple /> : <Timer all {...productOK} soldout />}
                   </Text>
                   <Timer timeProgress {...productOK} />
                 </Grid>
@@ -203,10 +206,10 @@ const Product = (props) => {
             <Grid dp_flex margin="0 0 30px 0">
               {/* 💎 상품정보 */}
               <Grid width="750px" margin="0 10px 0 0">
-                <Text h3 color={Color.Primary} >
+                <Text h3 bold color={Color.Primary}>
                   상품정보
                 </Text>
-                <Grid display= "grid" align="center" grids="3fr 1fr 3fr 1.3fr" padding="10px 20px 10px 10px">
+                <Grid display="grid" align="center" grids="3fr 1fr 3fr 1.3fr" padding="10px 20px 10px 10px">
                   <Grid margin="0 10px 0 0" width="">
                     <Text h4 textAlign="left" marginB="10px">
                       카테고리
@@ -282,7 +285,7 @@ const Product = (props) => {
                 <Text h3 color={Color.Primary} marginB="10px">
                   관련 상품
                 </Text>
-                <Grid display="grid" align="center" grids="1fr 1fr 1fr 1fr" >
+                <Grid display="grid" align="center" grids="1fr 1fr 1fr 1fr">
                   {_related_list.map((r, idx) => {
                     // console.log(r);
                     return (
@@ -300,7 +303,7 @@ const Product = (props) => {
                 </Grid>
               </Grid>
 
-              <Grid width="270px" >
+              <Grid width="270px">
                 <Text h3 color={Color.Primary} marginB="10px">
                   판매자 정보
                 </Text>
@@ -371,7 +374,7 @@ const Product = (props) => {
             </SliderWrap>
 
             <BidLabel>
-              <Text h1 bold marginB="1rem">
+              <Text h1 marginB="1rem">
                 {title}
               </Text>
               <Text h4 textAlign="right" marginB="2px">
@@ -684,10 +687,10 @@ const LiveBid = styled.div`
     text-overflow: ellipsis;
   }
   div:nth-child(3) {
-    width: 23%;
-    white-space: nowrap;
+    width: 30%;
+    /* white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis; */
   }
 
   @media only screen and (max-width: 767px) {
@@ -703,6 +706,7 @@ const LiveBid = styled.div`
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
@@ -772,6 +776,22 @@ const Blank = styled.div`
   @media only screen and (max-width: 767px) {
     padding-top: 10px;
   }
+`;
+
+const Fin = styled.div`
+  background-color: #00000066;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  max-width: 606px;
+  height: 600px;
+  border-radius: 32px;
+  color: #ffffff;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
 `;
 
 export default Product;

@@ -41,13 +41,15 @@ const MainCard = (props) => {
             {/* <img src={i.img[0]} /> */}
             <Desc>
               <Title className="title">
-                <Text h0> {title} </Text>
+                <Text h0 color="white">
+                  {title}
+                </Text>
               </Title>
 
               <Bottom className="text">
                 <TimerWrap>
                   <Timer timeProgress white {...props} />
-                  <Text h1>
+                  <Text h1 marginT="10px">
                     <Timer all {...props} white />
                   </Text>
                 </TimerWrap>
@@ -74,7 +76,9 @@ const MainCard = (props) => {
             {/* <img src={i.img[0]} /> */}
             <Desc>
               <Title className="title">
-                <Text h1>{title}</Text>
+                <Text h1 weight="700" color="white">
+                  {title}
+                </Text>
               </Title>
 
               <MobileTimerSucbid>

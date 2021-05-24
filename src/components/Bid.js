@@ -74,6 +74,7 @@ const Bid = (props) => {
 
   const addSuccessbid = () => {
     dispatch(bidActions.addNEWSucbidAPI(sucBid, sellerunique, Date.now()));
+    close();
   };
 
   if (bid) {
@@ -112,7 +113,7 @@ const Bid = (props) => {
 
           {sellerunique === u_id ? (
             <>
-              <InfoUl>본인의 상품을 스스로 입찰할 수 없습니다.</InfoUl>
+              <InfoUl>* 스스로 입찰할 수 없습니다.</InfoUl>
               <Button disabled width="75%" margin="10px auto 9% auto">
                 입찰하기
               </Button>
@@ -139,28 +140,27 @@ const Bid = (props) => {
               즉시 낙찰
               {/* <FontAwesomeIcon icon={fasQC} /> */}
             </Text>
-            <Text h4 marginT="10px" marginB="30px">
+            <Text h4 marginT="10px" marginB="20px">
               즉시 낙찰가에 낙찰이 진행됩니다!
             </Text>
-            <Text price>
+            <Text price marginB="20px">
               {input_priceComma(sucBid)}
               <Text won>&ensp;원</Text>
             </Text>
-            {/* {sellerunique === u_id ? (
+            {sellerunique === u_id ? (
               <>
-                <InfoUl>본인의 상품을 스스로 입찰할 수 없습니다.</InfoUl>
+                <InfoUl>* 스스로 낙찰할 수 없습니다.</InfoUl>
                 <Button disabled width="75%" margin="10px auto 9% auto">
                   즉시 낙찰하기
                 </Button>
               </>
             ) : (
-              <> */}
-            {sellerunique === u_id && <InfoUl></InfoUl>}
-            <Button _onClick={addSuccessbid} width="75%" margin="10px auto 9% auto">
-              즉시 낙찰하기
-            </Button>
-            {/* </>
-            )} */}
+              <>
+                <Button _onClick={addSuccessbid} width="75%" margin="20px auto 9% auto">
+                  즉시 낙찰하기
+                </Button>
+              </>
+            )}
           </BidBox>
         ) : (
           <></>

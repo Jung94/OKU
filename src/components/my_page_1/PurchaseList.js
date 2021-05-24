@@ -8,7 +8,7 @@ const PurchaseList = () => {
   return (
     <Wrap>
       <Head>
-        <Text h1 textAlign="left">
+        <Text h2 weight="500" textAlign="left">
           구매 목록
         </Text>
       </Head>

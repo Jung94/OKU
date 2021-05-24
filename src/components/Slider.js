@@ -6,7 +6,7 @@ import { faCaretRight as fasCRight, faCaretLeft as fasCLeft } from "@fortawesome
 import { Color } from "shared/DesignSys";
 
 const Slider = (props) => {
-  const { imgList, flexGrow, noRadius } = props;
+  const { imgList, flexGrow, noRadius, onSale } = props;
   const [sliderFigure, setSliding] = useState(0);
 
   // image 배열 시도

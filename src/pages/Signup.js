@@ -343,6 +343,7 @@ const Signup = (props) => {
           </Text>
         </Grid>
       </Mobile>
+
       <Wrap>
         <Box>
           <Text h4 marginB="0.25rem">
