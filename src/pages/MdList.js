@@ -94,7 +94,7 @@ const SectionTitle = styled.div`
 const CardWrap = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-column-gap: 30px;
+  grid-column-gap: 38px;
   grid-row-gap: 66px;
   // margin-bottom: 150px;
   width: 100%;
