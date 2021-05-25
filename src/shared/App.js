@@ -27,6 +27,8 @@ const App = (props) => {
   useEffect(() => {
     if (is_login) {
       dispatch(userActions.isLogin());
+    } else {
+      dispatch(userActions.isLogout());
     }
   }, []);
 

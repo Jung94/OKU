@@ -13,7 +13,7 @@ const Modal = (props) => {
   const styles = { top: top, bottom: bottom, margin: margin, color: color, text: text };
   const [modal, setModal] = useState(false);
 
-  // console.log(soldBy);
+  // console.log(onSale, soldBy);
 
   const openModal = () => {
     setModal(true);
@@ -26,12 +26,20 @@ const Modal = (props) => {
   if (bid) {
     return (
       <>
-        {onSale ? (
+        {onSale === false ? (
+          <Button {...styles} disabled>
+            입찰표 작성
+          </Button>
+        ) : onSale === true && soldBy === null ? (
           <Button {...styles} _onClick={openModal}>
             입찰표 작성
           </Button>
+        ) : onSale === true && soldBy === "거래대기중" ? (
+          <Button {...styles} disabled _onClick={openModal}>
+            입찰표 작성
+          </Button>
         ) : (
-          <Button {...styles} disabled>
+          <Button {...styles} _onClick={openModal}>
             입찰표 작성
           </Button>
         )}
@@ -52,12 +60,20 @@ const Modal = (props) => {
   if (immediateBid) {
     return (
       <>
-        {onSale ? (
+        {onSale === false ? (
+          <Button {...styles} disabled noflex width="270px">
+            즉시 낙찰
+          </Button>
+        ) : onSale === true && soldBy === null ? (
           <Button {...styles} _onClick={openModal} noflex width="270px">
-            {soldById && soldById === null ? "즉시 낙찰 (거래 대기중)" : "즉시 낙찰"}
+            즉시 낙찰
+          </Button>
+        ) : onSale === true && soldBy === "거래대기중" ? (
+          <Button {...styles} disabled _onClick={openModal} noflex width="270px">
+            즉시 낙찰
           </Button>
         ) : (
-          <Button {...styles} disabled noflex width="270px">
+          <Button {...styles} _onClick={openModal} noflex width="270px">
             즉시 낙찰
           </Button>
         )}

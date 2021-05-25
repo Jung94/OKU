@@ -7,5 +7,6 @@ import Line from "./Line";
 import Tag from "./Tag";
 import Modal from "./Modal";
 import Profile from "./Profile";
+import Tooltip from "./Tooltip";
 
-export { Button, Grid, Image, Input, Text, Line, Tag, Modal, Profile };
+export { Button, Grid, Image, Input, Text, Line, Tag, Modal, Profile, Tooltip };

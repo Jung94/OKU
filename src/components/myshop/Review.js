@@ -102,24 +102,20 @@ const Wrap = styled.div`
   text-align: center;
   align-items: center;
   justify-content: space-between;
-
   @media only screen and (max-width: 767px) {
     margin: 200px auto -40px;
   }
 `;
-
 const ReviewInfo = styled.div`
   justify-content: space-between;
   width: 100%;
 
 `;
-
 const Head = styled.div`
   justify-content: space-between;
   display: flex;
   align-items: flex-end;
 `;
-
 const Detail = styled.div`
   width: 100%;
   margin-top: 19px;
@@ -132,7 +128,6 @@ const Detail = styled.div`
     padding: 10px 10px;
   }
 `;
-
 const InnerBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -153,7 +148,6 @@ const Nickname = styled.div`
 const Content = styled.div`
   font-size: 14px;
 `;
-
 const Blank = styled.div`
   display: flex;
   flex-direction: column;
