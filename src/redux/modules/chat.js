@@ -13,6 +13,7 @@ const LOADING = "LOADING";
 const BADGE = "BADGE";
 const RECEIVEBADGE = "RECEIVEBADGE";
 const USERS = "USERS";
+const END_DEAL = "END_DEAL";
 
 // 액션 생성함수
 const getMsg = createAction(GET_MSG, (msg) => ({ msg }));
@@ -20,6 +21,7 @@ const setMsg = createAction(SET_MSG, (msg) => ({ msg }));
 const badgeOff = createAction(BADGE, (uid) => ({ uid }));
 const receiveBadge = createAction(RECEIVEBADGE, (uid) => ({ uid }));
 const user_list = createAction(USERS, (user_list) => ({ user_list }));
+const endOfDeal = createAction(END_DEAL, (_id) => ({ _id }));
 
 // initialState
 const initialState = {
@@ -45,8 +47,10 @@ const endOfChat = (productId, otherId, myId) => {
     })
       .then((res) => {
         console.log(res.data.result);
-        // dispatch(endOfDeal());
-        // history.replace("/chat");
+        if (res.data.result) {
+          dispatch(endOfDeal(productId));
+          history.replace("/chat");
+        }
       })
       .catch((e) => {
         console.log(e);
@@ -67,6 +71,7 @@ const middlewareUsers = () => {
       },
     })
       .then((res) => {
+        console.log(res);
         if (res.data.targets !== false) {
           const users = res.data.targets.map((val) => {
             // 알림 배지 여부를 위해 처리
@@ -169,6 +174,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.user_list = action.payload.user_list;
       }),
+    [END_DEAL]: (state, action) => produce(state, (draft) => {
+      let idx = draft.user_list.findIndex((p)=>p.id === action.payload._id)
+      draft.user_list.splice(idx, 1);
+    }),
   },
   initialState
 );

@@ -125,7 +125,7 @@ const Chat = (props) => {
             <MainBottom>
               <Main targetName={targetName} productName={productName} room={room} />
               <MainBtnM>
-                <InputChat room={room} productId={productId} />
+                <InputChat room={room} productId={productId} otherId={otherId} myId={myId} />
               </MainBtnM>
             </MainBottom>
           </MainContent>

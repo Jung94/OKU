@@ -94,7 +94,7 @@ const ImgWrap = styled.div`
   // z-index: 99;
   position: relative;
   // ${(props) => (props.width ? `width: ${props.width};` : "width:12rem; flex-grow: 1;")};
-  height: ${(props) => (props.height ? props.height : "10rem")};
+  height: ${(props) => (props.height ? props.height : "9.8rem")};
   width: ${(props) => (props.width ? props.width : "11rem")};
 
   flex-wrap: wrap;

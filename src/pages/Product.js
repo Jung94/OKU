@@ -202,11 +202,11 @@ const Product = (props) => {
             {/* 💎 2단 : 상품정보 & 실시간 입찰 정보 */}
             <Grid dp_flex margin="0 0 30px 0">
               {/* 💎 상품정보 */}
-              <Grid width="750px" margin="0 10px 0 0">
+              <Grid width="716px" margin="0 50px 0 0">
                 <Text h3 color={Color.Primary} >
                   상품정보
                 </Text>
-                <Grid display= "grid" align="center" grids="3fr 1fr 3fr 1.3fr" padding="10px 20px 10px 10px">
+                <Grid display= "grid" align="center" grids="2.8fr 1.1fr 2.8fr 1.3fr" padding="10px 10px 10px 10px" >
                   <Grid margin="0 10px 0 0" width="">
                     <Text h4 textAlign="left" marginB="10px">
                       카테고리

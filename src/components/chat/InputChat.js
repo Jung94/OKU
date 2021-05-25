@@ -29,9 +29,6 @@ const ChatInput = ({ room, productId, otherId, myId }) => {
   const [msg, setMsg] = useState("");
   const [region, setRegion] = useState("");
   const [isPostOpen, setIsPostOpen] = useState(false); // 주소창 열고 닫기
-  // const userImg = useSelector((state) => state.user.user?.profile_img);
-  // const username = useSelector((state) => state.user.user);
-  // const uid = useSelector((state) => state.user.uid);
   const username = localStorage.getItem("nickname");
   const uid = localStorage.getItem("uid");
 
@@ -93,9 +90,7 @@ const ChatInput = ({ room, productId, otherId, myId }) => {
   };
 
   const exitRoom = () => {
-    chatActions.globalSocket.emit("room", {
-      room: Info.room,
-    });
+    dispatch(chatActions.endOfChat(productId, otherId, myId));
   }
 
   return (
@@ -113,8 +108,7 @@ const ChatInput = ({ room, productId, otherId, myId }) => {
             </Delivery>
             <Exit
               onClick={() => {
-                window.confirm("거래 종료 시 거래 중인 상대방과의 채팅방도 삭제됩니다. 정말로 종료하시겠습니까?");
-                // dispatch(chatActions.endOfChat(productId, otherId, myId));
+                alert("거래를 종료합니다!");
                 exitRoom();
               }}
             >
@@ -166,8 +160,8 @@ const ChatInput = ({ room, productId, otherId, myId }) => {
             </Delivery>
             <Exit
               onClick={() => {
-                window.confirm("거래 종료 시 거래 중인 상대방과의 채팅방도 삭제됩니다. 정말로 종료하시겠습니까?");
-                dispatch(chatActions.endOfChat(productId));
+                alert("거래를 종료합니다!");
+                exitRoom();
               }}
             >
               거래 종료하기
