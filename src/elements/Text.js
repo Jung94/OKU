@@ -4,7 +4,36 @@ import styled from "styled-components";
 import { Color } from "shared/DesignSys";
 
 const Text = (props) => {
-  const { children, onClick, color, size, bold, flexGrow, margin, marginB, marginT, textAlign, lineHeight, weight, h0, h1, h2, h3, h4, body, subBody, price, won, width, border } = props;
+  const {
+    children,
+    onClick,
+    color,
+    size,
+    bold,
+    flexGrow,
+    margin,
+    marginB,
+    marginT,
+    textAlign,
+    center,
+    full,
+    lineHeight,
+    weight,
+    h0,
+    h1,
+    h2,
+    h3,
+    h4,
+    body,
+    subBody,
+    price,
+    won,
+    span,
+    width,
+    border,
+    pointer,
+  } = props;
+
   const styles = {
     color: color,
     flexGrow: flexGrow,
@@ -16,14 +45,21 @@ const Text = (props) => {
     weight: weight,
     width: width,
     border: border,
-    
+    pointer: pointer,
+  };
+
+  const preSetting = {
+    bold: bold,
+    center: center,
+    full: full,
+    // pointer: pointer,
   };
 
   // h1, h2, h3, SubHeading(h4) 디자인 시스템에 맞춘 폰트
   // h1 : 메인배너
   if (h0) {
     return (
-      <TextBox size="40px" bold onClick={onClick} {...styles}>
+      <TextBox size="40px" onClick={onClick} {...styles} bold>
         {children}
       </TextBox>
     );
@@ -31,7 +67,7 @@ const Text = (props) => {
   // h2 : 카테고리 제목 / 상세페이지 상품명
   if (h1) {
     return (
-      <TextBox size="30px" bold onClick={onClick} {...styles}>
+      <TextBox size="30px" onClick={onClick} {...styles} bold>
         {children}
       </TextBox>
     );
@@ -39,7 +75,7 @@ const Text = (props) => {
   // h3 : 상세페이지 카테고리 제목
   if (h2) {
     return (
-      <TextBox size="20px" bold onClick={onClick} {...styles}>
+      <TextBox size="20px" onClick={onClick} {...styles} bold>
         {children}
       </TextBox>
     );
@@ -48,7 +84,7 @@ const Text = (props) => {
   //
   if (h3) {
     return (
-      <TextBox size="18px" bold onClick={onClick} {...styles}>
+      <TextBox size="18px" onClick={onClick} {...styles} bold>
         {children}
       </TextBox>
     );
@@ -57,7 +93,7 @@ const Text = (props) => {
   // sub h4: 가격명
   if (h4) {
     return (
-      <TextBox size="14px" onClick={onClick} {...styles}>
+      <TextBox size="14px" onClick={onClick} {...styles} {...preSetting}>
         {children}
       </TextBox>
     );
@@ -74,7 +110,7 @@ const Text = (props) => {
   // 조회수, 카테고리 설명
   if (subBody) {
     return (
-      <TextBox size="12px" onClick={onClick} {...styles}>
+      <TextBox size="12px" onClick={onClick} {...styles} {...preSetting}>
         {children}
       </TextBox>
     );
@@ -89,12 +125,16 @@ const Text = (props) => {
     );
   }
   // 원
-  if (won) {
-    return <SpanBox {...styles}>{children}</SpanBox>;
+  if (won || span) {
+    return (
+      <SpanBox onClick={onClick} {...styles}>
+        {children}
+      </SpanBox>
+    );
   }
 
   return (
-    <TextBox size={size} onClick={onClick} {...styles}>
+    <TextBox size={size} onClick={onClick} {...styles} {...preSetting}>
       {children}
     </TextBox>
   );
@@ -112,35 +152,36 @@ Text.defaultProps = {
   marginT: false,
   width: false,
   border: false,
-  textAlign: "left",
-  lineHeight: "100%",
   children: "",
-  onClick: () => {},
+  onClick: null,
+  pointer: false,
 };
 
 const TextBox = styled.div`
   ${(props) => (props.full ? "display: flex; flex-direction: row; width: 100%;" : "")}
   flex-grow:${(props) => (props.flexGrow ? props.flexGrow : "")};
 
+  align-items: center;
+
   height: fit-content;
   width: ${(props) => props.width};
   border: ${(props) => props.border};
-  margin: ${(props) => (props.margin ? props.margin : "")};
-  margin-bottom: ${(props) => (props.marginB ? props.marginB : "")};
-  margin-top: ${(props) => (props.marginT ? props.marginT : "")};
+  margin: ${(props) => props.margin};
+  margin-bottom: ${(props) => props.marginB};
+  margin-top: ${(props) => props.marginT};
 
-  color: ${(props) => (props.color ? props.color : "")};
+  color: ${(props) => props.color};
 
-  font-size: ${(props) => (props.size ? props.size : "")};
-  font-weight: ${(props) => (props.bold ? "700" : props.light ? "300" : "")};
-  font-weight: ${(props) => (props.weight ? props.weight : "")};
+  font-size: ${(props) => props.size};
+  font-weight: ${(props) => (props.bold ? "700" : "400")};
+
   line-height: ${(props) => (props.lineHeight ? props.lineHeight : "")};
-  ${(props) => (props.textAlign ? `text-align:${props.textAlign};` : "")}
+  ${(props) => (props.textAlign ? `text-align: ${props.textAlign};` : "")}
 
-  word-spacing:-1.5px;
+  word-spacing : -1.5px;
   letter-spacing: 0.25px;
 
-  ${(props) => (props.onClick ? "cursor:pointer;" : "")}
+  cursor: ${(props) => (props.onClick ? "pointer" : "")};
 `;
 
 const SpanBox = styled.span`

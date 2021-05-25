@@ -78,6 +78,8 @@ const Wrap = styled.div`
   padding: 15px;
   justify-content: flex-start;
   box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  // 이거이거
+  margin-bottom: 20px;
 `;
 
 const Image = styled.div`

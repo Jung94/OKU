@@ -13,8 +13,8 @@ import { de } from "date-fns/locale";
 const Timer = (props) => {
   // day : '~일'
   // hms : '시:분:초'
-  const { day, hms, all, timeProgress, deadLine, createAt, onSale, purple, white } = props;
-  const colors = { purple: purple, white: white };
+  const { day, hms, all, timeProgress, deadLine, createAt, onSale, purple, white, soldout } = props;
+  const colors = { purple: purple, white: white, soldout: soldout };
   // console.log("🕒", onSale);
 
   // Date.now() 내장함수
@@ -100,7 +100,10 @@ const Timer = (props) => {
               <ProgressBar color="white" bar={100 - bar} roundLight={5} />
             </Bar>
           ) : (
-            <></>
+            <Bar>
+              <ProgressBar color={Color.Primary} bar={25} roundPrimary={5} />
+              <ProgressBar color="white" bar={75} roundLight={5} />
+            </Bar>
           )}
         </>
       );
@@ -113,7 +116,10 @@ const Timer = (props) => {
               <ProgressBar color={Color.Light_3} bar={100 - bar} roundLight={5} />
             </Bar>
           ) : (
-            <></>
+            <Bar>
+              <ProgressBar color={Color.Dark_4} bar={25} roundPrimary={5} />
+              <ProgressBar color={Color.Light_3} bar={75} roundLight={5} />
+            </Bar>
           )}
         </>
       );
@@ -127,7 +133,7 @@ const TimerWrap = styled.div`
   width: 100%;
   height: 100%;
   font-weight: 700;
-  color: ${(props) => (props.purple ? Color.Primary : props.white ? "#ffffff" : false)};
+  color: ${(props) => (props.purple ? Color.Primary : props.white ? "#ffffff" : props.soldout ? Color.Dark_3 : false)};
   letter-spacing: 1px;
   word-spacing: 15px;
 `;
@@ -136,7 +142,7 @@ const TimerEnd = styled.div`
   width: 100%;
   height: 100%;
   font-weight: 700;
-  color: ${(props) => (props.purple ? Color.Primary : props.white ? "#ffffff" : false)};
+  color: ${(props) => (props.purple ? Color.Primary : props.white ? "#ffffff" : props.soldout ? Color.Dark_3 : false)};
   letter-spacing: -0.25px;
   word-spacing: -1px;
 `;
@@ -157,10 +163,10 @@ const ProgressBar = styled.div`
   display:flex;
   text-align: center;
   flex-direction: row;
-  height: 3px;
+  height: 4px;
   background-color: ${(props) => (props.color ? `${props.color};` : "")};
   font-weight: 700;
-  color: ${(props) => (props.purple ? Color.Primary : props.white ? "#ffffff" : false)};
+  color: ${(props) => (props.purple ? Color.Primary : props.white ? "#ffffff" : props.soldout ? Color.Dark_3 : false)};
   letter-spacing: 2px;
   ${(props) => (props.roundPrimary ? `border-top-left-radius:${props.roundPrimary}rem;border-bottom-left-radius:${props.roundPrimary}rem;` : "")}
   ${(props) => (props.roundLight ? `border-top-right-radius:${props.roundLight}rem;border-bottom-right-radius:${props.roundLight}rem;` : "")}

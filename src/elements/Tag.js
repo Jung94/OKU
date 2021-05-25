@@ -23,7 +23,7 @@ const TagBlock = styled.div`
   margin: 0.5%;
   border-radius: 7px;
   user-select: none;
-  cursor: pointer;
+  /* cursor: pointer; */
 `;
 
 export default Tag;

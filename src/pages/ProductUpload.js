@@ -335,7 +335,7 @@ const ProductUpload = React.memo((props) => {
             </Text>
           </Grid>
           <Grid margin="0 0 35px 0">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
               제목
             </Text>
@@ -353,7 +353,7 @@ const ProductUpload = React.memo((props) => {
             ></Input>
           </Grid>
           <Grid margin="0 0 35px 0">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
               카테고리
             </Text>
@@ -374,7 +374,7 @@ const ProductUpload = React.memo((props) => {
             </Grid>
           </Grid>
           <Grid margin="0 0 35px 0">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               희망 거래 장소
             </Text>
             <Grid is_flex>
@@ -398,7 +398,7 @@ const ProductUpload = React.memo((props) => {
             </Grid>
           </Grid>
           <Grid margin="0 0 35px 0">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
               상품이미지&ensp;
               <span style={{ fontSize: "12px", fontWeight: "400", color: Color.Dark_4 }}>jpg, png, gif 파일만 가능합니다.</span>
@@ -423,7 +423,7 @@ const ProductUpload = React.memo((props) => {
           })} */}
           </Grid>
           <Grid margin="0 0 35px 0">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
               상품 상태 등급
             </Text>
@@ -440,7 +440,7 @@ const ProductUpload = React.memo((props) => {
             </form>
           </Grid>
           <Grid margin="0 0 35px 0">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
               상품 상세 정보
             </Text>
@@ -459,7 +459,7 @@ const ProductUpload = React.memo((props) => {
             ></Input>
           </Grid>
           <Grid margin="0 0 35px 0">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               상품 연관 태그
             </Text>
             <Input
@@ -475,7 +475,7 @@ const ProductUpload = React.memo((props) => {
 
           <Grid dp_flex justify="space-between" margin="0 0 35px 0">
             <Grid margin="0 40px 0 0">
-              <Text h3 bold marginB="20px">
+              <Text h3 marginB="20px">
                 <FontAwesomeIcon icon={faCircle} className="cirSvg" />
                 경매 기간
               </Text>
@@ -483,7 +483,7 @@ const ProductUpload = React.memo((props) => {
             </Grid>
 
             <Grid>
-              <Text h3 bold marginB="20px">
+              <Text h3 marginB="20px">
                 <FontAwesomeIcon icon={faCircle} className="cirSvg" />
                 상품 배송 정보
               </Text>
@@ -497,7 +497,7 @@ const ProductUpload = React.memo((props) => {
 
           <Grid dp_flex justify="space-between">
             <Grid margin="0 40px 0 0">
-              <Text h3 bold marginB="20px">
+              <Text h3 marginB="20px">
                 <FontAwesomeIcon icon={faCircle} className="cirSvg" />
                 최소입찰가
               </Text>
@@ -506,7 +506,7 @@ const ProductUpload = React.memo((props) => {
             </Grid>
 
             <Grid>
-              <Text h3 bold marginB="20px">
+              <Text h3 marginB="20px">
                 <FontAwesomeIcon icon={faCircle} className="cirSvg" />
                 즉시 낙찰가&ensp;
                 <span style={{ fontSize: "12px", fontWeight: "400", color: Color.Dark_4 }}>5천 만원 이하의 금액만 가능합니다.</span>
@@ -526,7 +526,7 @@ const ProductUpload = React.memo((props) => {
             </Text>
           </Grid>
           <Grid margin="0 0 24px">
-            <Text h3 bold margin="0 0 20px">
+            <Text h3 margin="0 0 20px">
               제목
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             </Text>
@@ -544,11 +544,11 @@ const ProductUpload = React.memo((props) => {
             ></Input>
           </Grid>
           <Grid margin="0 0 24px">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               카테고리
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             </Text>
-            <Grid is_flex column align="flex-start" >
+            <Grid is_flex column align="flex-start">
               <div style={{ width: "100%", margin: "0 20px 10px 0" }}>
                 <Select onChange={handleCateBig} options={MainCT} value={MainCT.find((obj) => obj.value === cateBig)} placeholder="2D / 3D" />
               </div>
@@ -565,7 +565,7 @@ const ProductUpload = React.memo((props) => {
             </Grid>
           </Grid>
           <Grid margin="0 0 24px">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               희망 거래 장소
             </Text>
             <Grid is_flex column>
@@ -576,7 +576,7 @@ const ProductUpload = React.memo((props) => {
                 }}
                 plcholder="거래할 지역을 검색 또는 직접 입력해주세요."
                 width="100%"
-                margin= "0 0 10px"
+                margin="0 0 10px"
               />
               <Button
                 width="100%"
@@ -588,7 +588,7 @@ const ProductUpload = React.memo((props) => {
             </Grid>
           </Grid>
           <Grid margin="0 0 24px">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               상품이미지
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
               <span style={{ fontSize: "12px", fontWeight: "400", color: Color.Dark_4 }}>jpg, png, gif 파일만 가능합니다.</span>
@@ -613,7 +613,7 @@ const ProductUpload = React.memo((props) => {
           })} */}
           </Grid>
           <Grid margin="0 0 24px">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               상품 상태 등급
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             </Text>
@@ -621,7 +621,7 @@ const ProductUpload = React.memo((props) => {
               onChange={(e) => {
                 setProductState(e.target.value);
               }}
-              style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%", marginLeft: "10px"}}
+              style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%", marginLeft: "10px" }}
             >
               <Input radio name="state" value="A급" desc="포장지 파손 없는 미개봉 제품" margin="0 0 10px" />
               <Input radio name="state" value="B급" desc="개봉되었으나 미전시품" margin="0 0 10px" />
@@ -630,7 +630,7 @@ const ProductUpload = React.memo((props) => {
             </form>
           </Grid>
           <Grid margin="0 0 24px">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               상품 상세 정보
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             </Text>
@@ -650,7 +650,7 @@ const ProductUpload = React.memo((props) => {
             ></Input>
           </Grid>
           <Grid margin="0 0 24px">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               상품 연관 태그
             </Text>
             <Input
@@ -662,7 +662,7 @@ const ProductUpload = React.memo((props) => {
             />
           </Grid>
           <Grid margin="0 0 24px">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               경매 기간
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             </Text>
@@ -670,7 +670,7 @@ const ProductUpload = React.memo((props) => {
           </Grid>
 
           <Grid margin="0 0 24px">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               상품 배송 정보
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             </Text>
@@ -681,7 +681,7 @@ const ProductUpload = React.memo((props) => {
             </form>
           </Grid>
           <Grid margin="0 0 24px">
-            <Text h3 bold marginB="20px">
+            <Text h3 marginB="20px">
               최소입찰가
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             </Text>
@@ -690,7 +690,7 @@ const ProductUpload = React.memo((props) => {
           </Grid>
 
           <Grid>
-            <Text h3 bold marginB="5px">
+            <Text h3 marginB="5px">
               즉시 낙찰가
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             </Text>

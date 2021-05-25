@@ -79,10 +79,11 @@ const Steam = () => {
     infinite: true, // 마지막 장 다음에 첫번째가 나오게 할 것인지
     speed: 500, // 넘어가는 속도는 몇으로 할 것인지
     lazyLoad: true,
-    slidesToShow: 1, // 이거때문에 두줄씩 밑에도 나오는거임
+    slidesToShow: 4, // 이거때문에 두줄씩 밑에도 나오는거임
     slidesToScroll: 1,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
+    rows: 1,
     responsive: [
       {
         breakpoint: 1024,

@@ -301,6 +301,10 @@ const RingDetail = styled.div`
     border-radius: 10px;
     /* box-shadow: inset 0px 0px 6px #ff000080; */
   }
+
+  @media only screen and (max-width: 767px) {
+    right: 10px;
+  }
 `;
 
 const Overlay = styled.div`
