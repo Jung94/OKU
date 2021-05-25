@@ -6,6 +6,8 @@ import { actionCreators as chatActions } from "redux/modules/chat";
 
 import DaumPostcode from "react-daum-postcode";
 
+import { Color } from "shared/DesignSys";
+
 import moment from "moment";
 import "moment/locale/ko";
 
@@ -91,13 +93,12 @@ const ChatInput = ({ room, productId, otherId, myId }) => {
 
   const exitRoom = () => {
     dispatch(chatActions.endOfChat(productId, otherId, myId));
-  }
+  };
 
   return (
     <>
       <Desktop>
-
-        {productId && 
+        {productId && (
           <BtnBox>
             <Delivery
               onClick={() => {
@@ -115,8 +116,8 @@ const ChatInput = ({ room, productId, otherId, myId }) => {
               거래 종료하기
             </Exit>
           </BtnBox>
-        }
-      
+        )}
+
         <InputBox>
           <Text
             type="text"
@@ -148,8 +149,7 @@ const ChatInput = ({ room, productId, otherId, myId }) => {
       <Tablet>Tablet</Tablet>
 
       <Mobile>
-
-        {productId && 
+        {productId && (
           <BtnBox>
             <Delivery
               onClick={() => {
@@ -167,8 +167,8 @@ const ChatInput = ({ room, productId, otherId, myId }) => {
               거래 종료하기
             </Exit>
           </BtnBox>
-        }
-        
+        )}
+
         <InputBox>
           <Text
             type="text"
@@ -196,7 +196,6 @@ const ChatInput = ({ room, productId, otherId, myId }) => {
           </Modal>
         )}
       </Mobile>
-      
     </>
   );
 };
@@ -268,7 +267,10 @@ const Delivery = styled.button`
   border-radius: 12px;
   cursor: pointer;
   margin: 0 25px 0 0;
-  box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  :hover {
+    box-shadow: 0 0 0 3px ${Color.Primary}33;
+  }
 
   @media only screen and (max-width: 767px) {
     // border: 1px solid green;
@@ -282,7 +284,6 @@ const Delivery = styled.button`
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.3);
   }
 `;
 
@@ -296,7 +297,11 @@ const Exit = styled.button`
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  :hover {
+    box-shadow: 0 0 0 3px ${Color.Primary}33;
+  }
 
   @media only screen and (max-width: 767px) {
     // border: 1px solid green;
@@ -309,7 +314,6 @@ const Exit = styled.button`
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -382,8 +386,11 @@ const Btn = styled.button`
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
+  :hover {
+    box-shadow: 0 0 0 3px ${Color.Primary}33;
+  }
   @media only screen and (max-width: 767px) {
     width: 57px;
     height: 36px;
@@ -394,7 +401,6 @@ const Btn = styled.button`
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
   }
 `;
 
