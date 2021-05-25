@@ -9,7 +9,11 @@ import { Grid, Input, Line, Button, Text, Profile } from "elements/";
 import { Color } from "shared/DesignSys";
 
 const Tooltip = (props) => {
-  const { children } = props;
+  const { children, marginB, marginT } = props;
+  const styles = {
+    marginB: marginB,
+    marginT: marginT,
+  };
   const [tooltip, setTooltip] = useState(false);
 
   // console.log(onSale, soldBy);
@@ -24,16 +28,30 @@ const Tooltip = (props) => {
 
   return (
     <>
-      <Wrap onMouseOver={openTooltip} onMouseOut={closeTooltip}>
+      <Wrap {...styles} onMouseOver={openTooltip} onMouseOut={closeTooltip}>
         <FontAwesomeIcon icon={fasQC} className="infoSvg" />
-        {tooltip ? <TooltipWrap className="infoBox">{children}zxczxczxcxzc</TooltipWrap> : ""}
+        {tooltip ? (
+          <TooltipWrap className="infoBox">
+            <Text subBody>{children}</Text>
+          </TooltipWrap>
+        ) : (
+          ""
+        )}
       </Wrap>
     </>
   );
 };
 
+Tooltip.defaultProps = {
+  marginB: "0px",
+  marginT: "0px",
+};
+
 const Wrap = styled.div`
   /* background-color: green; */
+  display: inline-block;
+  margin-bottom: ${(props) => props.marginB};
+  margin-top: ${(props) => props.marginB};
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -43,6 +61,9 @@ const Wrap = styled.div`
     font-size: 16px;
     cursor: default;
     z-index: 99;
+    :hover {
+      color: ${Color.Secondary_1};
+    }
   }
 `;
 
@@ -59,8 +80,10 @@ const TooltipWrap = styled.div`
   z-index: 999;
 
   margin-top: 5px;
-  width: 160px;
-  height: 50px;
+  width: 180px;
+
+  text-align: left;
+  padding: 10px;
 `;
 
 export default Tooltip;

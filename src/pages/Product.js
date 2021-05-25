@@ -152,10 +152,11 @@ const Product = (props) => {
                 </Grid>
                 {/* 입찰표 */}
                 <BidLabel>
-                  <Tooltip>asdasd</Tooltip>
                   <Text h4 textAlign="right" marginB="2px">
                     현재 입찰 가격
+                    <Tooltip marginB="-5px">현재 다른 사람들이 어디까지 가격을 불렀는지 확인할 수 있어요!</Tooltip>
                   </Text>
+
                   <Text price textAlign="right">
                     {_current ? input_priceComma(_current) : lowBid && input_priceComma(lowBid)}
                     <Text won>원</Text>
@@ -213,10 +214,10 @@ const Product = (props) => {
             <Grid dp_flex margin="0 0 30px 0">
               {/* 💎 상품정보 */}
               <Grid width="716px" margin="0 50px 0 0">
-                <Text h3 color={Color.Primary} >
+                <Text h3 color={Color.Primary}>
                   상품정보
                 </Text>
-                <Grid display= "grid" align="center" grids="2.8fr 1.1fr 2.8fr 1.3fr" padding="10px 10px 10px 10px" >
+                <Grid display="grid" align="center" grids="2.8fr 1.1fr 2.8fr 1.3fr" padding="10px 10px 10px 10px">
                   <Grid margin="0 10px 0 0" width="">
                     <Text h4 textAlign="left" marginB="10px">
                       카테고리
