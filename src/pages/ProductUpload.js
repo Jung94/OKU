@@ -45,7 +45,6 @@ const Mobile = ({ children }) => {
 const ProductUpload = React.memo((props) => {
   const { history } = props;
   const dispatch = useDispatch();
-  const deal_place = useRef();
 
   const is_login = localStorage.getItem("access_token");
 
@@ -130,6 +129,7 @@ const ProductUpload = React.memo((props) => {
   const postalAddressInfo = useRef();
   const addressInfo = useRef();
   const detailAddressInfo = useRef();
+  
 
   const _title = createRef();
   const _cateBig = useRef();
@@ -184,6 +184,10 @@ const ProductUpload = React.memo((props) => {
     let real2 = comma(uncomma(e.target.value));
     setSucbidFake(real2);
   };
+
+  const dealPlace = useRef();
+  console.log(dealPlace);
+  const [view, setView] = useState("");
 
   const handleDelivery = (e) => {
     if (e.target.value === "택배거래") {
@@ -474,8 +478,8 @@ const ProductUpload = React.memo((props) => {
             </Grid>
           </Grid>
 
-          <Grid margin="0 0 35px 0" ref={deal_place}>
-            <Text h3 marginB="20px">
+          <Grid margin="0 0 35px 0" _ref={dealPlace} >
+            <Text h3 marginB="20px" >
               희망 거래 장소
             </Text>
             <Grid is_flex>
