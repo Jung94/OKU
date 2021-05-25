@@ -31,9 +31,6 @@ const ChatInput = ({ room, productId, otherId, myId }) => {
   const [msg, setMsg] = useState("");
   const [region, setRegion] = useState("");
   const [isPostOpen, setIsPostOpen] = useState(false); // 주소창 열고 닫기
-  // const userImg = useSelector((state) => state.user.user?.profile_img);
-  // const username = useSelector((state) => state.user.user);
-  // const uid = useSelector((state) => state.user.uid);
   const username = localStorage.getItem("nickname");
   const uid = localStorage.getItem("uid");
 
@@ -95,9 +92,7 @@ const ChatInput = ({ room, productId, otherId, myId }) => {
   };
 
   const exitRoom = () => {
-    chatActions.globalSocket.emit("room", {
-      room: Info.room,
-    });
+    dispatch(chatActions.endOfChat(productId, otherId, myId));
   };
 
   return (
@@ -114,8 +109,7 @@ const ChatInput = ({ room, productId, otherId, myId }) => {
             </Delivery>
             <Exit
               onClick={() => {
-                window.confirm("거래 종료 시 거래 중인 상대방과의 채팅방도 삭제됩니다. 정말로 종료하시겠습니까?");
-                // dispatch(chatActions.endOfChat(productId, otherId, myId));
+                alert("거래를 종료합니다!");
                 exitRoom();
               }}
             >
@@ -166,8 +160,8 @@ const ChatInput = ({ room, productId, otherId, myId }) => {
             </Delivery>
             <Exit
               onClick={() => {
-                window.confirm("거래 종료 시 거래 중인 상대방과의 채팅방도 삭제됩니다. 정말로 종료하시겠습니까?");
-                dispatch(chatActions.endOfChat(productId));
+                alert("거래를 종료합니다!");
+                exitRoom();
               }}
             >
               거래 종료하기
@@ -264,64 +258,62 @@ const BtnBox = styled.div`
 
 const Delivery = styled.button`
   width: 158px;
-  height: 40px;
+  height: 38px;
   color: #fff;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
   background: #ae00ff;
   border: none;
   border-radius: 12px;
   cursor: pointer;
   margin: 0 25px 0 0;
-  &:hover {
-    background-color: ${(props) => props.contrast};
-    color: ${(props) => props.color};
+  transition: box-shadow 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  :hover {
     box-shadow: 0 0 0 3px ${Color.Primary}33;
   }
+
   @media only screen and (max-width: 767px) {
     // border: 1px solid green;
     width: 120px;
     height: 30px;
     color: #fff;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     margin: 0 25.2px 0 0;
     background: #ae00ff;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.3);
   }
 `;
 
 const Exit = styled.button`
   width: 158px;
-  height: 40px;
-  color: rgba(0, 0, 0, 0.4);
+  height: 38px;
+  color: #fff;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
   background: #ae00ff;
   border: none;
   border-radius: 12px;
-  // cursor: pointer;
-  /* &:hover {
-    background-color: ${(props) => props.contrast};
-    color: ${(props) => props.color};
-    box-shadow: 0 0 0 3px ${Color.Light_4}33;
-  } */
+  cursor: pointer;
+  transition: box-shadow 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  :hover {
+    box-shadow: 0 0 0 3px ${Color.Primary}33;
+  }
 
   @media only screen and (max-width: 767px) {
     // border: 1px solid green;
     width: 120px;
     height: 30px;
-    color: rgba(0, 0, 0, 0.4);
-    font-size: 14px;
+    color: #fff;
+    font-size: 12px;
     font-weight: 500;
     background: #ae00ff;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
   }
 `;
 
@@ -394,12 +386,11 @@ const Btn = styled.button`
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  &:hover {
-    background-color: ${(props) => props.contrast};
-    color: ${(props) => props.color};
+  transition: box-shadow 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  :hover {
     box-shadow: 0 0 0 3px ${Color.Primary}33;
   }
-
   @media only screen and (max-width: 767px) {
     width: 57px;
     height: 36px;
@@ -410,7 +401,6 @@ const Btn = styled.button`
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
   }
 `;
 

@@ -43,7 +43,7 @@ const Sidebar = ({ room }) => {
       // 언마운트 시 socket off
       chatActions.globalSocket.off();
     };
-  }, [dispatch, room]);
+  }, [dispatch, room, users]);
 
   return (
     <>

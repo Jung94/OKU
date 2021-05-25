@@ -9,11 +9,11 @@ import { Grid, Input, Line, Button, Text, Profile } from "elements/";
 import { Color } from "shared/DesignSys";
 
 const Modal = (props) => {
-  const { top, bottom, margin, color, text, bid, immediateBid, successAlarm, sucBid, onSale, setting } = props;
+  const { top, bottom, margin, color, text, bid, immediateBid, successAlarm, sucBid, onSale, soldBy, soldById, setting } = props;
   const styles = { top: top, bottom: bottom, margin: margin, color: color, text: text };
   const [modal, setModal] = useState(false);
 
-  // console.log(props);
+  // console.log(onSale, soldBy);
 
   const openModal = () => {
     setModal(true);
@@ -26,12 +26,20 @@ const Modal = (props) => {
   if (bid) {
     return (
       <>
-        {onSale ? (
+        {onSale === false ? (
+          <Button {...styles} disabled>
+            입찰표 작성
+          </Button>
+        ) : onSale === true && soldBy === null ? (
           <Button {...styles} _onClick={openModal}>
             입찰표 작성
           </Button>
+        ) : onSale === true && soldBy === "거래대기중" ? (
+          <Button {...styles} disabled _onClick={openModal}>
+            입찰표 작성
+          </Button>
         ) : (
-          <Button {...styles} disabled>
+          <Button {...styles} _onClick={openModal}>
             입찰표 작성
           </Button>
         )}
@@ -52,12 +60,20 @@ const Modal = (props) => {
   if (immediateBid) {
     return (
       <>
-        {onSale ? (
+        {onSale === false ? (
+          <Button {...styles} disabled noflex width="270px">
+            즉시 낙찰
+          </Button>
+        ) : onSale === true && soldBy === null ? (
           <Button {...styles} _onClick={openModal} noflex width="270px">
             즉시 낙찰
           </Button>
+        ) : onSale === true && soldBy === "거래대기중" ? (
+          <Button {...styles} disabled _onClick={openModal} noflex width="270px">
+            즉시 낙찰
+          </Button>
         ) : (
-          <Button {...styles} disabled noflex width="270px">
+          <Button {...styles} _onClick={openModal} noflex width="270px">
             즉시 낙찰
           </Button>
         )}

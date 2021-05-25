@@ -46,7 +46,8 @@ function PrevArrow(props) {
         zIndex: "99",
         left: "30%",
         color: Color.Dark_4,
-        fontSize: "5rem",
+        width: "2rem",
+        height: "2rem",
         content: `url(${leftIcon})`,
       }}
       onClick={onClick}
@@ -66,7 +67,8 @@ function NextArrow(props) {
         zIndex: "99",
         right: "30%",
         color: Color.Dark_4,
-        fontSize: "5rem",
+        width: "2rem",
+        height: "2rem",
         content: `url(${rightIcon})`,
       }}
       onClick={onClick}
@@ -152,7 +154,6 @@ const Container = (props) => {
   const _popular_product = useSelector((state) => state.post.popular_product);
 
   const { title, img, deadLine, currentprice } = props;
-
 
   const settings = {
     dotsClass: "slick-dots slick-thumb",

@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faBars, faThermometerQuarter as uploadIcon } from "@fortawesome/free-solid-svg-icons";
 import { faCommentDots as chatIcon } from "@fortawesome/free-regular-svg-icons";
 
-import { Grid, Input, Line, Button, Tag, Modal, Text } from "elements/";
+import { Grid, Input, Line, Button, Tag, Modal, Text, Tooltip } from "elements/";
 import Select from "react-select";
 import ListBtn from "components/ListBtn";
 import ListHover from "components/ListHover";

@@ -313,10 +313,10 @@ const MobileTimerSucbid = styled.div`
     right: 40vw;
   }
   @media only screen and (max-width: 420px) {
-    right: 20vw;
+    left: 43vw;
   }
   @media only screen and (max-width: 320px) {
-    right: 18vw;
+    left: 43vw;
   }
 
   position: absolute;

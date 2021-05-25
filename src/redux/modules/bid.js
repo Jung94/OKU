@@ -195,7 +195,7 @@ const confirmSuccessAPI = (alertId, successBoolean) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.msg);
+        // console.log(res.msg);
         if (res.okay) {
           dispatch(setMsg(res.msg));
         } else {
@@ -267,6 +267,7 @@ export default handleActions(
     [SET_MSG]: (state, action) =>
       produce(state, (draft) => {
         draft.successMsg = action.payload.msg;
+        console.log(draft.successMsg);
       }),
     [GET_PUBLIC_USER]: (state, action) =>
       produce(state, (draft) => {

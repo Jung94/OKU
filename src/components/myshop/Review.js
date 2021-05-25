@@ -94,7 +94,7 @@ const Review = () => {
 
 const Wrap = styled.div`
   max-width: 1030px;
-  margin: 93px auto 100px;
+  margin: 150px auto 100px;
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -102,30 +102,25 @@ const Wrap = styled.div`
   text-align: center;
   align-items: center;
   justify-content: space-between;
-
   @media only screen and (max-width: 767px) {
     margin: 200px auto -40px;
   }
 `;
-
 const ReviewInfo = styled.div`
   justify-content: space-between;
   width: 100%;
-  height: 250px;
-`;
 
+`;
 const Head = styled.div`
   justify-content: space-between;
   display: flex;
   align-items: flex-end;
 `;
-
 const Detail = styled.div`
   width: 100%;
   margin-top: 19px;
   background: #f8f8f8;
   min-height: 172px;
-  max-height: 500px;
   border-radius: 16px;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
   padding: 20px 63px;
@@ -133,7 +128,6 @@ const Detail = styled.div`
     padding: 10px 10px;
   }
 `;
-
 const InnerBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -143,7 +137,6 @@ const InnerBox = styled.div`
   margin-top: 19px;
   background: #ffffff;
   min-height: 89px;
-  max-height: 380px;
   border-radius: 16px;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
   padding: 10px 19px;
@@ -155,7 +148,6 @@ const Nickname = styled.div`
 const Content = styled.div`
   font-size: 14px;
 `;
-
 const Blank = styled.div`
   display: flex;
   flex-direction: column;
