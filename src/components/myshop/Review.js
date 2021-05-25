@@ -94,7 +94,7 @@ const Review = () => {
 
 const Wrap = styled.div`
   max-width: 1030px;
-  margin: 250px auto 100px;
+  margin: 150px auto 100px;
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -111,7 +111,7 @@ const Wrap = styled.div`
 const ReviewInfo = styled.div`
   justify-content: space-between;
   width: 100%;
-  height: 250px;
+
 `;
 
 const Head = styled.div`
@@ -125,7 +125,6 @@ const Detail = styled.div`
   margin-top: 19px;
   background: #f8f8f8;
   min-height: 172px;
-  max-height: 500px;
   border-radius: 16px;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
   padding: 20px 63px;
@@ -143,7 +142,6 @@ const InnerBox = styled.div`
   margin-top: 19px;
   background: #ffffff;
   min-height: 89px;
-  max-height: 380px;
   border-radius: 16px;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
   padding: 10px 19px;

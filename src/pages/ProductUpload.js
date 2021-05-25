@@ -335,7 +335,7 @@ const ProductUpload = React.memo((props) => {
             </Text>
           </Grid>
           <Grid margin="0 0 35px 0">
-            <Text h4 marginB="20px">
+            <Text h3 marginB="20px">
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
               제목
             </Text>

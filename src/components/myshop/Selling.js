@@ -17,11 +17,6 @@ const Desktop = ({ children }) => {
   return isDesktop ? children : null;
 };
 
-const Tablet = ({ children }) => {
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
-  return isTablet ? children : null;
-};
-
 const Mobile = ({ children }) => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
   return isMobile ? children : null;
@@ -128,7 +123,6 @@ const Wrap = styled.div`
 const SellInfo = styled.div`
   justify-content: space-between;
   width: 100%;
-  height: 250px;
 `;
 
 const Head = styled.div`
@@ -146,7 +140,6 @@ const Detail = styled.div`
   width: 100%;
   margin-top: 19px;
   background: #f8f8f8;
-  min-height: 301px;
   border-radius: 16px;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
   padding: 43px 55px;
