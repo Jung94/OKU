@@ -45,6 +45,8 @@ const Mobile = ({ children }) => {
 const ProductUpload = React.memo((props) => {
   const { history } = props;
   const dispatch = useDispatch();
+  const deal_place = useRef();
+
   const is_login = localStorage.getItem("access_token");
 
   useEffect(() => {
@@ -184,7 +186,7 @@ const ProductUpload = React.memo((props) => {
   };
 
   const handleDelivery = (e) => {
-    if (e.target.value === "배송비 별도") {
+    if (e.target.value === "택배거래") {
       setDelivery(true);
     } else {
       setDelivery(false);
@@ -373,30 +375,7 @@ const ProductUpload = React.memo((props) => {
               )}
             </Grid>
           </Grid>
-          <Grid margin="0 0 35px 0">
-            <Text h3 marginB="20px">
-              희망 거래 장소
-            </Text>
-            <Grid is_flex>
-              <Input
-                value={region}
-                _onChange={(e) => {
-                  setRegion(e.target.value);
-                }}
-                plcholder="거래를 진행할 지역을 검색하세요. 혹은 바로 입력하실 수 있습니다."
-                width="70%"
-                margin="0 10px 0 0"
-                left
-              />
-
-              <Button
-                text="주소 검색"
-                _onClick={() => {
-                  setIsPostOpen(true);
-                }}
-              />
-            </Grid>
-          </Grid>
+          
           <Grid margin="0 0 35px 0">
             <Text h3 marginB="20px">
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
@@ -485,13 +464,38 @@ const ProductUpload = React.memo((props) => {
             <Grid>
               <Text h3 marginB="20px">
                 <FontAwesomeIcon icon={faCircle} className="cirSvg" />
-                상품 배송 정보
+                희망 거래 방식
               </Text>
 
               <form onChange={handleDelivery} style={{ display: "inline-flex", justifyContent: "space-between" }}>
-                <Input radio name="delivery" value="무료 배송" desc="혹은 직거래일 경우" margin="0 50px 0 0" />
-                <Input radio name="delivery" value="배송비 별도" />
+                <Input radio name="delivery" value="직거래" margin="0 50px 0 0" />
+                <Input radio name="delivery" value="택배거래" />
               </form>
+            </Grid>
+          </Grid>
+
+          <Grid margin="0 0 35px 0" ref={deal_place}>
+            <Text h3 marginB="20px">
+              희망 거래 장소
+            </Text>
+            <Grid is_flex>
+              <Input
+                value={region}
+                _onChange={(e) => {
+                  setRegion(e.target.value);
+                }}
+                plcholder="거래를 진행할 지역을 검색하세요. 혹은 바로 입력하실 수 있습니다."
+                width="70%"
+                margin="0 10px 0 0"
+                left
+              />
+
+              <Button
+                text="주소 검색"
+                _onClick={() => {
+                  setIsPostOpen(true);
+                }}
+              />
             </Grid>
           </Grid>
 
@@ -543,7 +547,7 @@ const ProductUpload = React.memo((props) => {
               ref={_title}
             ></Input>
           </Grid>
-          <Grid margin="0 0 24px">
+          <Grid margin="0 0 20px">
             <Text h3 marginB="20px">
               카테고리
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
@@ -564,29 +568,7 @@ const ProductUpload = React.memo((props) => {
               )}
             </Grid>
           </Grid>
-          <Grid margin="0 0 24px">
-            <Text h3 marginB="20px">
-              희망 거래 장소
-            </Text>
-            <Grid is_flex column>
-              <Input
-                value={region}
-                _onChange={(e) => {
-                  setRegion(e.target.value);
-                }}
-                plcholder="거래할 지역을 검색 또는 직접 입력해주세요."
-                width="100%"
-                margin="0 0 10px"
-              />
-              <Button
-                width="100%"
-                text="주소 검색"
-                _onClick={() => {
-                  setIsPostOpen(true);
-                }}
-              />
-            </Grid>
-          </Grid>
+          
           <Grid margin="0 0 24px">
             <Text h3 marginB="20px">
               상품이미지
@@ -612,7 +594,7 @@ const ProductUpload = React.memo((props) => {
             return <Upload key={idx} {...p} />;
           })} */}
           </Grid>
-          <Grid margin="0 0 24px">
+          <Grid margin="0 0 12px">
             <Text h3 marginB="20px">
               상품 상태 등급
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
@@ -629,7 +611,7 @@ const ProductUpload = React.memo((props) => {
               <Input radio name="state" value="D급" desc="포장지가 없고 사용감이 있는 제품" margin="0 0 10px" />
             </form>
           </Grid>
-          <Grid margin="0 0 24px">
+          <Grid margin="0 0 30px">
             <Text h3 marginB="20px">
               상품 상세 정보
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
@@ -669,16 +651,40 @@ const ProductUpload = React.memo((props) => {
             <Select onChange={handleDeadline} value={D4CT.find((obj) => obj.value === deadline)} placeholder="경매 기간" options={D4CT} />
           </Grid>
 
-          <Grid margin="0 0 24px">
+          <Grid margin="0 0 30px">
             <Text h3 marginB="20px">
-              상품 배송 정보
+              희망 거래 방식
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
             </Text>
 
             <form onChange={handleDelivery} style={{ display: "inline-flex", justifyContent: "flex-start" }}>
-              <Input radio name="delivery" value="무료 배송" desc="혹은 직거래일 경우" margin="0 10px 0 0" />
-              <Input radio name="delivery" value="배송비 별도" />
+              <Input radio name="delivery" value="직거래" margin="0 10px 0 0" />
+              <Input radio name="delivery" value="택배거래" />
             </form>
+          </Grid>
+          
+          <Grid margin="0 0 24px">
+            <Text h3 marginB="20px">
+              희망 거래 장소
+            </Text>
+            <Grid is_flex column>
+              <Input
+                value={region}
+                _onChange={(e) => {
+                  setRegion(e.target.value);
+                }}
+                plcholder="거래할 지역을 검색 또는 직접 입력해주세요."
+                width="100%"
+                margin="0 0 10px"
+              />
+              <Button
+                width="100%"
+                text="주소 검색"
+                _onClick={() => {
+                  setIsPostOpen(true);
+                }}
+              />
+            </Grid>
           </Grid>
           <Grid margin="0 0 24px">
             <Text h3 marginB="20px">

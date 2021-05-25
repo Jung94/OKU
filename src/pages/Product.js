@@ -239,9 +239,9 @@ const Product = (props) => {
                   )}
                   <Grid width="">
                     <Text h4 textAlign="left" marginB="10px">
-                      배송 수단
+                      거래 방식
                     </Text>
-                    <Input output center value={deliveryPrice === true ? "배송비 별도" : "무료 배송"} />
+                    <Input output center value={deliveryPrice === true ? "택배거래" : "직거래"} />
                   </Grid>
                 </Grid>
                 <Line bottom margin="10px 0" />
@@ -469,9 +469,9 @@ const Product = (props) => {
                 )}
                 <Grid width="50%">
                   <Text h4 textAlign="left" marginB="0.5rem">
-                    배송비
+                    거래 방식
                   </Text>
-                  <Input output center value={deliveryPrice === true ? "별도" : "무료"} />
+                  <Input output center value={deliveryPrice === true ? "택배거래" : "직거래"} />
                 </Grid>
               </Grid>
               <Line bottom margin="10px 0" color={Color.Light_2} />
