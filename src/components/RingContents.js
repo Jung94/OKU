@@ -87,6 +87,17 @@ const RingContents = (props) => {
             <Modal successAlarm alertId={_id} buyerId={buyerId} />
           </>
         )}
+        {alertType === "거래완료" && buyerId && (
+          <>
+            <AlertTitle onClick={() => history.push(`/product/detail/${productId}`)}>
+              <TitleLeft>📢&thinsp;{alertType}</TitleLeft>
+              <TitleRight>{moment(creatAt).fromNow()}</TitleRight>
+            </AlertTitle>
+            <AlertCotents onClick={() => history.push(`/product/detail/${productId}`)}>
+              <NameSpan>{productTitle}</NameSpan>이(가) 거래 완료하였습니다.
+            </AlertCotents>
+          </>
+        )}
       </Desc>
       <Line />
     </Box>

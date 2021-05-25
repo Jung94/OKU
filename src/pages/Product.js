@@ -154,7 +154,9 @@ const Product = (props) => {
                 <BidLabel>
                   <Text h4 textAlign="right" marginB="2px">
                     현재 입찰 가격
-                    <Tooltip marginB="-5px">현재 다른 사람들이 어디까지 가격을 불렀는지 확인할 수 있어요!</Tooltip>
+                    <Tooltip _solid vAlgin="-3px">
+                      현재 다른 사람들이 어디까지 가격을 불렀는지 확인할 수 있어요!
+                    </Tooltip>
                   </Text>
 
                   <Text price textAlign="right">
@@ -169,12 +171,18 @@ const Product = (props) => {
                   </Grid>
                   <Text h4 lineHeight="220%">
                     최소 낙찰/입찰가
+                    <Tooltip _solid vAlgin="-3px">
+                      판매자는 이 가격부터 이 물건을 팔고 싶어해요!
+                    </Tooltip>
                   </Text>
                   <Input output num value={lowBid && input_priceComma(lowBid)} adornment="원" />
                   <Grid height="10px" />
 
                   <Text h4 lineHeight="220%">
                     즉시 낙찰가
+                    <Tooltip _solid vAlgin="-3px">
+                      이 물건을 당장 갖고싶나요?&thinsp;입찰을 기다리지말고 바로 구매해보세요!
+                    </Tooltip>
                   </Text>
                   <Input output num value={sucBid && input_priceComma(sucBid)} adornment="원" />
                   <Grid height="40px">
