@@ -6,7 +6,7 @@ import { Color } from "shared/DesignSys";
 
 const Button = (props) => {
   // disabled : 비활성화 모드
-  const { main, sub, _onClick, text, children, width, height, margin, disabled, needLogin, noflex, size } = props;
+  const { main, sub, waiting, _onClick, text, children, width, height, margin, disabled, needLogin, noflex, size } = props;
   const styles = { onClick: _onClick, text: text, width: width, height: height, margin: margin, noflex: noflex, size: size };
 
   if (disabled) {
@@ -35,6 +35,10 @@ const Button = (props) => {
         <Btn color={Color.Primary} contrast="white" {...styles}>
           {text ? text : children}
         </Btn>
+      ) : waiting ? (
+        <BtnGradient color={Color.Primary} contrast="white" {...styles}>
+          {text ? text : children}
+        </BtnGradient>
       ) : (
         <Btn color={Color.Primary} contrast="white" {...styles}>
           {text ? text : children}
@@ -108,6 +112,68 @@ const Btn = styled.button`
       background-color: ${(props) => props.contrast};
       color: ${(props) => props.color};
       border: 1px solid ${Color.Primary};
+      box-shadow: 0 0 0 3px ${Color.Primary}33;
+      svg {
+        color: ${(props) => props.color};
+      }
+    }
+  }
+`;
+
+const BtnGradient = styled.button`
+  user-select: none;
+  outline: none;
+
+  /* background: -moz-linear-gradient(-45deg, ${Color.Primary} 0%, ${Color.Secondary_1} 100%); FF3.6-15 */
+  /* background: -webkit-linear-gradient(-45deg, ${Color.Primary} 0%, ${Color.Secondary_1} 100%); Chrome10-25,Safari5.1-6 */
+  /* background: linear-gradient(135deg, ${Color.Primary} 0%, ${Color.Secondary_1} 100%); W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background-color: ${Color.Primary}99;
+  border-radius: 12px;
+
+  border: 0;
+  color: ${(props) => props.contrast};
+  font-size: ${(props) => (props.size ? props.size : "17px")};
+  font-weight: 700;
+
+  ${(props) => (props.noflex ? "" : "flex-grow: 1;")};
+
+  height: ${(props) => props.height};
+  width: ${(props) => props.width};
+  box-sizing: border-box;
+
+  margin: ${(props) => props.margin};
+
+  cursor: pointer;
+  transition: color 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275), border 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  &:hover {
+    background-color: ${(props) => props.contrast};
+    box-shadow: 0 0 0 3px ${Color.Primary}33;
+    svg {
+      color: ${(props) => props.color};
+    }
+  }
+
+  &:active {
+    box-shadow: 0 0 0 3px ${Color.Primary}33;
+  }
+  svg {
+    color: ${(props) => props.contrast};
+  }
+
+  @media only screen and (max-width: 767px) {
+    &:hover {
+      background-color: ${(props) => props.color};
+      color: ${(props) => props.contrast};
+      box-shadow: 0 0 0 3px ${Color.Primary}00;
+      svg {
+        color: ${(props) => props.color};
+      }
+    }
+
+    &:active {
+      background-color: ${(props) => props.contrast};
+      color: ${(props) => props.color};
       box-shadow: 0 0 0 3px ${Color.Primary}33;
       svg {
         color: ${(props) => props.color};

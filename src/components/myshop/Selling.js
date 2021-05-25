@@ -104,20 +104,18 @@ const Selling = (props) => {
     </>
   );
 };
-
 const Wrap = styled.div`
-    max-width: 1030px;
-    margin: 129px auto 100px;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    text-align: center;
-    align-items: center;
-    justify-content: space-between;
-
-    @media only screen and (max-width: 767px) {
-        margin: 129px auto -150px;
-    }
+  max-width: 1030px;
+  margin: 129px auto 100px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  @media only screen and (max-width: 767px) {
+    margin: 129px auto -150px;
+  }
 `;
 
 const SellInfo = styled.div`
@@ -130,6 +128,7 @@ const Head = styled.div`
   display: flex;
   align-items: flex-end;
 `;
+
 const More = styled.div`
   justify-content: space-between;
   display: flex;
@@ -149,7 +148,6 @@ const Detail = styled.div`
     align-items: center;
   }
 `;
-
 const List = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -168,7 +166,6 @@ const MyImage = styled.img`
   border-radius: 16px;
   box-shadow: 0 3px 3px 0 rgba(0, 0, 0, 0.16);
 `;
-
 const UpLoad = styled.div`
   width: 218px;
   height: 218px;

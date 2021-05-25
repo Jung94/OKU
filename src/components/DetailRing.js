@@ -65,7 +65,7 @@ const DetailRing = (props) => {
             <div className="alarm" onClick={notiCheck}>
               <Overlay onClick={RingDetailShowing} />
               <Badge invisible={is_read} color="secondary" variant="dot">
-                <Img src={IconRingOff} />
+                <Img src={IconRingOff} onClick={RingDetailShowing} />
                 {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
               </Badge>
               <Text h4 margin="6px 0 0">
@@ -96,7 +96,7 @@ const DetailRing = (props) => {
             <div className="alarm" onClick={notiCheck}>
               <Overlay onClick={RingDetailShowing} />
               <Badge invisible={is_read} color="secondary" variant="dot">
-                <Img src={IconRingOff} />
+                {/* <Img src={IconRingOff}/> */}
                 {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
               </Badge>
             </div>

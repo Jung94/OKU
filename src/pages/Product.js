@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import styled from "styled-components";
-import { Grid, Input, Line, Button, Tag, Modal, Text, Profile } from "elements/";
+import { Grid, Input, Line, Button, Tag, Modal, Text, Profile, Tooltip } from "elements/";
 import { Slider, Timer, QnA } from "components/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle as fasQC, faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
@@ -121,7 +121,6 @@ const Product = (props) => {
       <>
         <Desktop>
           <ProductWrap ref={startpoint}>
-            {/* <div onMouseOver={helpPop}></div> */}
             {/* 💎 1단 : 상품사진 & 입찰표 */}
             <Grid end_flex margin="0 0 30px 0" height="600px">
               {/* 상품사진 */}
@@ -153,6 +152,7 @@ const Product = (props) => {
                 </Grid>
                 {/* 입찰표 */}
                 <BidLabel>
+                  <Tooltip>asdasd</Tooltip>
                   <Text h4 textAlign="right" marginB="2px">
                     현재 입찰 가격
                   </Text>
@@ -168,14 +168,12 @@ const Product = (props) => {
                   </Grid>
                   <Text h4 lineHeight="220%">
                     최소 낙찰/입찰가
-                    <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                   </Text>
                   <Input output num value={lowBid && input_priceComma(lowBid)} adornment="원" />
                   <Grid height="10px" />
 
                   <Text h4 lineHeight="220%">
                     즉시 낙찰가
-                    <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                   </Text>
                   <Input output num value={sucBid && input_priceComma(sucBid)} adornment="원" />
                   <Grid height="40px">
@@ -205,7 +203,7 @@ const Product = (props) => {
                         &thinsp;찜
                       </Button>
                     )}
-                    <Modal immediateBid {...productOK} soldBy soldById />
+                    <Modal immediateBid {...productOK} />
                   </Grid>
                 </BidLabel>
               </Grid>
@@ -222,14 +220,12 @@ const Product = (props) => {
                   <Grid margin="0 10px 0 0" width="">
                     <Text h4 textAlign="left" marginB="10px">
                       카테고리
-                      <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                     </Text>
                     <Input output center value={`${bigCategory} > ${smallCategory}`} />
                   </Grid>
                   <Grid margin="0 10px 0 0" width="">
                     <Text h4 textAlign="left" marginB="10px">
                       상품상태
-                      <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                     </Text>
                     <Input output center value={state && state.split("급")[0]} adornment="급" />
                   </Grid>
@@ -260,7 +256,6 @@ const Product = (props) => {
               <Grid width="270px">
                 <Text h3 color={Color.Primary} marginB="10px">
                   실시간 입찰 정보
-                  <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                 </Text>
 
                 {_bid_list && _bid_list.length > 0 ? (
@@ -404,14 +399,12 @@ const Product = (props) => {
               </Grid>
               <Text h4 lineHeight="220%">
                 최소 낙찰/입찰가
-                <FontAwesomeIcon icon={fasQC} className="infoSvg" />
               </Text>
               <Input output num value={lowBid && input_priceComma(lowBid)} adornment="원" />
               <Grid height="10px"></Grid>
 
               <Text h4 lineHeight="220%">
                 즉시 낙찰가
-                <FontAwesomeIcon icon={fasQC} className="infoSvg" />
               </Text>
               <Input output num value={sucBid && input_priceComma(sucBid)} adornment="원" />
               <Grid height="50px">
@@ -454,14 +447,12 @@ const Product = (props) => {
                 <Grid margin="0 0.5rem 0 0">
                   <Text h4 textAlign="left" marginB="0.5rem">
                     카테고리
-                    <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                   </Text>
                   <Input output center value={`${bigCategory} > ${smallCategory}`} />
                 </Grid>
                 <Grid width="50%">
                   <Text h4 textAlign="left" marginB="0.5rem">
                     상품상태
-                    <FontAwesomeIcon icon={fasQC} className="infoSvg" />
                   </Text>
                   <Input output center value={state && state.split("급")[0]} adornment="급" />
                 </Grid>
@@ -494,7 +485,6 @@ const Product = (props) => {
             <Grid>
               <Text h3 color={Color.Primary} marginB="10px">
                 실시간 입찰 정보
-                <FontAwesomeIcon icon={fasQC} className="infoSvg" />
               </Text>
 
               {/* 실시간 입찰 정보 */}
@@ -618,17 +608,6 @@ const ProductWrap = styled.div`
 
   margin-bottom: 100px;
 
-  .infoSvg {
-    color: whitesmoke;
-    margin: auto 5px;
-    font-size: 13px;
-    transition: color 100ms ease-in-out, transform 100ms ease-in-out;
-    :hover {
-      color: #dedede;
-      transform: scale(1.2) rotate(20deg);
-    }
-  }
-
   @media only screen and (max-width: 767px) {
     max-width: 1030px;
     margin: 0 auto;
@@ -641,17 +620,6 @@ const ProductWrap = styled.div`
     gap: 50px;
 
     margin-bottom: 100px;
-
-    .infoSvg {
-      color: whitesmoke;
-      margin: auto 5px;
-      font-size: 13px;
-      transition: color 100ms ease-in-out, transform 100ms ease-in-out;
-      :hover {
-        color: #dedede;
-        transform: scale(1.2) rotate(20deg);
-      }
-    }
   }
 `;
 
