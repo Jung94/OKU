@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import { actionCreators as chatActions } from "redux/modules/chat";
 
 import DaumPostcode from "react-daum-postcode";
+
+import { Color } from "shared/DesignSys";
 
 import moment from "moment";
 import "moment/locale/ko";
@@ -24,7 +26,8 @@ const Mobile = ({ children }) => {
   return isMobile ? children : null;
 };
 
-const ChatInput = ({ room }) => {
+const ChatInput = ({ room, productId, otherId, myId }) => {
+  const dispatch = useDispatch();
   const [msg, setMsg] = useState("");
   const [region, setRegion] = useState("");
   const [isPostOpen, setIsPostOpen] = useState(false); // 주소창 열고 닫기
@@ -54,6 +57,7 @@ const ChatInput = ({ room }) => {
 
   // 채팅 전송 시 방 정보, 유저 이름, 유저 프로필, 메세지 전송
   const Info = {
+    product: productId,
     room: room,
     username: username,
     profile_img: "https://img.icons8.com/cotton/2x/gender-neutral-user--v2.png", // userImg
@@ -71,38 +75,54 @@ const ChatInput = ({ room }) => {
     // console.log(time);
     // 채팅 전송
     chatActions.socket.emit("send", {
+      product: Info.product,
       room: Info.room,
       username: Info.username,
-      // profile_img: Info.profile_img,
       time: time,
       msg: Info.msg,
+      // profile_img: Info.profile_img,
     });
     // 알람 전송
     chatActions.globalSocket.emit("globalSend", {
       room: Info.room,
       username: Info.username,
       uid: Info.uid,
-      profile_img: Info.profile_img,
       msg: Info.msg,
+      // profile_img: Info.profile_img,
     });
     // setMsg("\n");
     setMsg("");
   };
 
+  const exitRoom = () => {
+    chatActions.globalSocket.emit("room", {
+      room: Info.room,
+    });
+  };
+
   return (
     <>
       <Desktop>
-        <BtnBox>
-          <Delivery
-            text="주소 검색"
-            onClick={() => {
-              setIsPostOpen(true);
-            }}
-          >
-            배송 정보 보내기
-          </Delivery>
-          <Exit>거래 종료하기</Exit>
-        </BtnBox>
+        {productId && (
+          <BtnBox>
+            <Delivery
+              onClick={() => {
+                setIsPostOpen(true);
+              }}
+            >
+              배송 정보 보내기
+            </Delivery>
+            <Exit
+              onClick={() => {
+                window.confirm("거래 종료 시 거래 중인 상대방과의 채팅방도 삭제됩니다. 정말로 종료하시겠습니까?");
+                // dispatch(chatActions.endOfChat(productId, otherId, myId));
+                exitRoom();
+              }}
+            >
+              거래 종료하기
+            </Exit>
+          </BtnBox>
+        )}
 
         <InputBox>
           <Text
@@ -135,17 +155,25 @@ const ChatInput = ({ room }) => {
       <Tablet>Tablet</Tablet>
 
       <Mobile>
-        <BtnBox>
-          <Delivery
-            text="주소 검색"
-            onClick={() => {
-              setIsPostOpen(true);
-            }}
-          >
-            배송 정보 보내기
-          </Delivery>
-          <Exit>거래 종료하기</Exit>
-        </BtnBox>
+        {productId && (
+          <BtnBox>
+            <Delivery
+              onClick={() => {
+                setIsPostOpen(true);
+              }}
+            >
+              배송 정보 보내기
+            </Delivery>
+            <Exit
+              onClick={() => {
+                window.confirm("거래 종료 시 거래 중인 상대방과의 채팅방도 삭제됩니다. 정말로 종료하시겠습니까?");
+                dispatch(chatActions.endOfChat(productId));
+              }}
+            >
+              거래 종료하기
+            </Exit>
+          </BtnBox>
+        )}
 
         <InputBox>
           <Text
@@ -174,7 +202,6 @@ const ChatInput = ({ room }) => {
           </Modal>
         )}
       </Mobile>
-      
     </>
   );
 };
@@ -237,23 +264,26 @@ const BtnBox = styled.div`
 
 const Delivery = styled.button`
   width: 158px;
-  height: 38px;
+  height: 40px;
   color: #fff;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 700;
   background: #ae00ff;
   border: none;
   border-radius: 12px;
   cursor: pointer;
   margin: 0 25px 0 0;
-  box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
-
+  &:hover {
+    background-color: ${(props) => props.contrast};
+    color: ${(props) => props.color};
+    box-shadow: 0 0 0 3px ${Color.Primary}33;
+  }
   @media only screen and (max-width: 767px) {
     // border: 1px solid green;
     width: 120px;
     height: 30px;
     color: #fff;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     margin: 0 25.2px 0 0;
     background: #ae00ff;
@@ -266,27 +296,31 @@ const Delivery = styled.button`
 
 const Exit = styled.button`
   width: 158px;
-  height: 38px;
+  height: 40px;
   color: rgba(0, 0, 0, 0.4);
   font-size: 14px;
-  font-weight: 500;
-  background: #eaeaea;
+  font-weight: 700;
+  background: #ae00ff;
   border: none;
   border-radius: 12px;
   // cursor: pointer;
-  box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.2);
+  /* &:hover {
+    background-color: ${(props) => props.contrast};
+    color: ${(props) => props.color};
+    box-shadow: 0 0 0 3px ${Color.Light_4}33;
+  } */
 
   @media only screen and (max-width: 767px) {
     // border: 1px solid green;
     width: 120px;
     height: 30px;
     color: rgba(0, 0, 0, 0.4);
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
-    background: #eaeaea;
+    background: #ae00ff;
     border: none;
     border-radius: 10px;
-    // cursor: pointer;
+    cursor: pointer;
     box-shadow: 1px 1px 4px 1px rgba(0, 0, 0, 0.2);
   }
 `;
@@ -360,7 +394,11 @@ const Btn = styled.button`
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  box-shadow: 1px 1px 6px 1px rgba(0, 0, 0, 0.2);
+  &:hover {
+    background-color: ${(props) => props.contrast};
+    color: ${(props) => props.color};
+    box-shadow: 0 0 0 3px ${Color.Primary}33;
+  }
 
   @media only screen and (max-width: 767px) {
     width: 57px;

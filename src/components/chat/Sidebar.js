@@ -65,7 +65,6 @@ const Sidebar = ({ room }) => {
             {users.length ? (
               <>
                 {users.map((val, idx) => {
-                  console.log(val);
                   return (
                     <Box 
                       key={idx + 'msg'}
@@ -110,7 +109,6 @@ const Sidebar = ({ room }) => {
           {users.length ? (
             <>
               {users.map((val, idx) => {
-                console.log(val);
                 return (
                   <UserBox 
                     key={idx + 'msg'}
