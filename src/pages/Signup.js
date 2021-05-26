@@ -294,14 +294,19 @@ const Signup = (props) => {
     history.push("/my/shopping");
   }
 
+  // 
+  const aboutus = (e) => {
+    window.open("https://www.notion.so/90bbb2e5d07941a3a46370e5333c7556");
+  };
+
   return (
     <>
       <Desktop>
         <Grid is_flex justify="flex-end" width="100%" max_width="1320px">
-          <Text subBody color={Color.Dark_4} margin="1rem">
+          {/* <Text subBody color={Color.Dark_4} margin="1rem">
             about OKU
-          </Text>
-          <Text subBody color={Color.Dark_4}>
+          </Text> */}
+          <Text subBody color={Color.Dark_4} onClick={aboutus}>
             about Team
           </Text>
         </Grid>

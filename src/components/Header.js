@@ -299,9 +299,9 @@ const Header = (props) => {
 
             <Grid is_flex column height="100px" width="40%">
               <Grid is_flex justify="flex-end" margin="10px 2px 36px 0" ref={hide}>
-                <Text subBody color={Color.Dark_4} margin="1.4px 4% 0 0">
+                {/* <Text subBody color={Color.Dark_4} margin="1.4px 4% 0 0">
                   about OKU
-                </Text>
+                </Text> */}
                 <Text subBody color={Color.Dark_4} margin="0 4% 0 0" onClick={aboutus}>
                   about Team
                 </Text>
@@ -517,9 +517,9 @@ const Header = (props) => {
 
             <Grid is_flex column height="100px" width="40%">
               <Grid is_flex gap="4%" justify="flex-end" margin="10px 2px 36px 0">
-                <Text subBody color={Color.Dark_4}>
+                {/* <Text subBody color={Color.Dark_4}>
                   about OKU
-                </Text>
+                </Text> */}
                 <Text subBody color={Color.Dark_4} onClick={aboutus}>
                   about Team
                 </Text>
@@ -782,6 +782,7 @@ const HeaderWrap = styled.header`
   }
 
   @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    overflow : scroll;
     max-width: 100%;
     width: 100%;
     position: fixed;
@@ -840,6 +841,7 @@ const Fix = styled.div`
   }
 
   @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    min-width : 1023px;
     max-width: 80vw;
     width: 100%;
     display: flex;
