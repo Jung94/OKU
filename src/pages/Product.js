@@ -13,7 +13,6 @@ import { useMediaQuery } from "react-responsive";
 
 import { actionCreators as headerActions } from "redux/modules/header";
 import { actionCreators as productActions } from "redux/modules/product";
-import { actionCreators as loadingActions } from "redux/modules/loading";
 import { actionCreators as likeActions } from "redux/modules/like";
 import RelatedProduct from "components/global/RelatedProduct";
 import { actionCreators as bidActions } from "redux/modules/bid";
@@ -235,6 +234,27 @@ const Product = (props) => {
                   <Grid margin="0 10px 0 0" width="">
                     <Text h4 textAlign="left" marginB="10px">
                       상품상태
+                      <Tooltip _solid vAlgin="-3px">
+                        <Text span bold color={Color.Primary}>
+                          A&thinsp;
+                        </Text>
+                        포장지 파손 없는 미개봉 제품
+                        <br />
+                        <Text span bold color={Color.Primary}>
+                          B&thinsp;
+                        </Text>
+                        개봉되었으나 미전시품
+                        <br />
+                        <Text span bold color={Color.Primary}>
+                          C&thinsp;
+                        </Text>
+                        개봉되었고 전시된 제품
+                        <br />
+                        <Text span bold color={Color.Primary}>
+                          D&thinsp;
+                        </Text>
+                        포장지가 없고 사용감 있음
+                      </Tooltip>
                     </Text>
                     <Input output center value={state && state.split("급")[0]} adornment="급" />
                   </Grid>
@@ -395,6 +415,9 @@ const Product = (props) => {
               </Text>
               <Text h4 textAlign="right" marginB="2px">
                 현재 입찰 가격
+                <Tooltip _solid rtl vAlgin="-3px">
+                  현재 다른 사람들이 어디까지 가격을 불렀는지 확인할 수 있어요!
+                </Tooltip>
               </Text>
               <Text price textAlign="right">
                 {_current ? input_priceComma(_current) : lowBid && input_priceComma(lowBid)}
@@ -408,12 +431,20 @@ const Product = (props) => {
               </Grid>
               <Text h4 lineHeight="220%">
                 최소 낙찰/입찰가
+                <Tooltip _solid vAlgin="-3px">
+                  판매자는 이 가격부터 이 물건을 팔고 싶어해요!
+                </Tooltip>
               </Text>
               <Input output num value={lowBid && input_priceComma(lowBid)} adornment="원" />
               <Grid height="10px"></Grid>
 
               <Text h4 lineHeight="220%">
                 즉시 낙찰가
+                <Tooltip _solid width="fit-content" vAlgin="-3px">
+                  이 물건을 당장 갖고싶나요?
+                  <br />
+                  입찰을 기다리지말고 바로 구매해보세요!
+                </Tooltip>
               </Text>
               <Input output num value={sucBid && input_priceComma(sucBid)} adornment="원" />
               <Grid height="50px">
@@ -462,6 +493,27 @@ const Product = (props) => {
                 <Grid width="50%">
                   <Text h4 textAlign="left" marginB="0.5rem">
                     상품상태
+                    <Tooltip _solid rtl vAlgin="-3px">
+                      <Text span bold color={Color.Primary}>
+                        A&thinsp;
+                      </Text>
+                      포장지 파손 없는 미개봉 제품
+                      <br />
+                      <Text span bold color={Color.Primary}>
+                        B&thinsp;
+                      </Text>
+                      개봉되었으나 미전시품
+                      <br />
+                      <Text span bold color={Color.Primary}>
+                        C&thinsp;
+                      </Text>
+                      개봉되었고 전시된 제품
+                      <br />
+                      <Text span bold color={Color.Primary}>
+                        D&thinsp;
+                      </Text>
+                      포장지가 없고 사용감 있음
+                    </Tooltip>
                   </Text>
                   <Input output center value={state && state.split("급")[0]} adornment="급" />
                 </Grid>

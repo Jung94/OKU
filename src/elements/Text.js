@@ -125,9 +125,17 @@ const Text = (props) => {
     );
   }
   // 원
-  if (won || span) {
+  if (won) {
     return (
-      <SpanBox onClick={onClick} {...styles}>
+      <WonBox size={size} onClick={onClick} {...styles}>
+        {children}
+      </WonBox>
+    );
+  }
+  // 원
+  if (span) {
+    return (
+      <SpanBox size={size} onClick={onClick} {...styles} {...preSetting}>
         {children}
       </SpanBox>
     );
@@ -184,9 +192,15 @@ const TextBox = styled.div`
   cursor: ${(props) => (props.onClick ? "pointer" : "")};
 `;
 
-const SpanBox = styled.span`
+const WonBox = styled.span`
   font-size: 18px;
   margin-left: 5px;
+`;
+
+const SpanBox = styled.span`
+  font-size: ${(props) => (props.size ? props.size : "12px")};
+  color: ${(props) => props.color};
+  font-weight: ${(props) => (props.bold ? "700" : "400")};
 `;
 
 export default Text;

@@ -260,7 +260,16 @@ const Header = (props) => {
             <Grid is_flex width="40%" alignItems="center">
               {/* 카테고리 리스트 방식 */}
               {/* <ListHover/> */}
-              <div style={{ width: "70px", fontSize: "14px", margin: "1px 0 0" }}>카테고리</div>
+              <div style={{ width: "100px", fontSize: "14px", margin: "1px 0 0", marginTop: "-2.5px" }}>
+                카테고리
+                <Tooltip _solid width="fit-content" size="9px" vAlgin="8px">
+                  내가 좋아하는 게 실존인물인가요?
+                  <br />
+                  3D 항목에서 물건을 찾아보세요!
+                  <br />
+                  가상 인물인가요? 2D를 찾아보는게 좋겠네요!
+                </Tooltip>
+              </div>
               <ListBtn />
               <Mainselectbox>
                 <Select onfocus="javascrpt:blur();" placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />

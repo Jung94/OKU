@@ -171,8 +171,6 @@ const addNEWSucbidAPI = (sucBid, sellerunique, createAt) => {
       .then((res) => res.json())
       .then((res) => {
         dispatch(addBid(draft));
-        // window.location.reload();
-        console.log("addNEWSucbidAPI실행됨.");
       })
       .catch((err) => {
         console.log("addNEWSucbidAPI에 문제가 있습니다.", err);
@@ -288,6 +286,7 @@ const actionCreators = {
   addNEWSucbidAPI,
   confirmSuccessAPI,
 
+  setMsg,
   getPublicUserAPI,
 };
 

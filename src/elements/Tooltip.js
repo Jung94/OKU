@@ -11,12 +11,14 @@ import { Grid, Input, Line, Button, Text, Profile } from "elements/";
 import { Color } from "shared/DesignSys";
 
 const Tooltip = (props) => {
-  const { children, marginB, marginT, vAlgin, size, _solid, _void, right, left } = props;
+  const { children, width, marginB, marginT, vAlgin, size, _solid, _void, rtl } = props;
   const styles = {
+    width: width,
     size: size,
     marginB: marginB,
     marginT: marginT,
     vAlgin: vAlgin,
+    rtl: rtl,
   };
   const [tooltip, setTooltip] = useState(false);
 
@@ -36,7 +38,7 @@ const Tooltip = (props) => {
         <Wrap {...styles} onMouseOver={openTooltip} onMouseOut={closeTooltip}>
           <FontAwesomeIcon icon={fasQC} className="infoSvg" />
           {tooltip ? (
-            <TooltipWrap className="infoBox">
+            <TooltipWrap {...styles} className="infoBox">
               <Text subBody color={Color.Dark_1} lineHeight="150%">
                 {children}
               </Text>
@@ -55,7 +57,7 @@ const Tooltip = (props) => {
         <Wrap {...styles} onMouseOver={openTooltip} onMouseOut={closeTooltip}>
           <FontAwesomeIcon icon={farQC} className="infoSvg" />
           {tooltip ? (
-            <TooltipWrap className="infoBox">
+            <TooltipWrap {...styles} className="infoBox">
               <Text subBody color={Color.Dark_1} lineHeight="150%">
                 {children}
               </Text>
@@ -70,6 +72,7 @@ const Tooltip = (props) => {
 };
 
 Tooltip.defaultProps = {
+  width: "180px",
   marginB: "0px",
   marginT: "0px",
   vAlgin: "0px",
@@ -78,15 +81,21 @@ Tooltip.defaultProps = {
 
 const Wrap = styled.div`
   /* background-color: green; */
-  display: inline-block;
+  display: inline-flex;
   margin-left: 3px;
   margin-right: 3px;
-  margin-bottom: ${(props) => props.marginB};
   margin-top: ${(props) => props.marginT};
   vertical-align: ${(props) => props.vAlgin};
+
   width: 18px;
   height: 18px;
   border-radius: 50%;
+  /* box-direction: rtl; */
+  ${(props) => (props.rtl ? "flex-direction: row-reverse;" : "")}
+  /* direction: rtl; */
+  /* -webkit-transform: rotate(-180deg);
+  transform: rotate(-180deg); */
+
   .infoSvg {
     color: ${Color.Light_3};
     margin: 2px;
@@ -106,17 +115,18 @@ const TooltipWrap = styled.div`
   justify-content: space-evenly;
   background-color: white;
   border: 0.5px solid ${Color.Light_2};
-  border-top-left-radius: 2px;
-  border-top-right-radius: 12px;
-  border-bottom-left-radius: 12px;
-  border-bottom-right-radius: 12px;
+
+  ${(props) =>
+    props.rtl
+      ? "border-top-left-radius: 12px; border-top-right-radius: 2px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;"
+      : "border-top-left-radius: 2px; border-top-right-radius: 12px; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; margin-left: 20px;"}
+
   box-shadow: 0 2px 5px ${Color.Light_4}66;
   position: absolute;
   z-index: 999;
 
-  margin-left: 3px;
-  margin-top: 0px;
-  width: 180px;
+  margin-top: 20px;
+  width: ${(props) => (props.width ? props.width : "width: 180px;")};
 
   text-align: left;
   padding: 10px;
