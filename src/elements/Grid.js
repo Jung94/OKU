@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useRef, forwardRef } from "react";
 import styled from "styled-components";
 
 const Grid = (props) => {
   const {
     children,
-    _ref,
+
 
     width,
     max_width,
@@ -96,7 +96,6 @@ const Grid = (props) => {
         onClick={() => {
           __click();
         }}
-        ref={_ref}
         {...styles}
       >
         {children}

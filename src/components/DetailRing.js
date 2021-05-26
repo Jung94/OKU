@@ -68,7 +68,7 @@ const DetailRing = (props) => {
                 <Img src={IconRingOff} onClick={RingDetailShowing} />
                 {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
               </Badge>
-              <Text h4 margin="2px 0 0">
+              <Text h4 margin="4px 0 0 8px">
                 알림
               </Text>
             </div>
@@ -131,7 +131,7 @@ const DetailRing = (props) => {
                   <Img src={IconRingOff} />
                   {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
                 </Badge>
-                <Text h4 margin="2px 0 0">
+                <Text h4 margin="4px 0 0 8px">
                   알림
                 </Text>
               </div>
@@ -141,7 +141,7 @@ const DetailRing = (props) => {
                   <Img src={IconRingOff} />
                   {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
                 </Badge>
-                <Text h4 margin="2px 0 0">
+                <Text h4 margin="4px 0 0 8px">
                   알림
                 </Text>
               </div>
@@ -183,7 +183,7 @@ const DetailRing = (props) => {
             <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
               <Img src={IconRingOff} />
               {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-              <Text h4 margin="2px 0 0">
+              <Text h4 margin="4px 0 0 8px">
                 알림
               </Text>
             </div>
@@ -255,7 +255,7 @@ const Img = styled.div`
   transition: all 200ms cubic-bezier(0.215, 0.61, 0.355, 1);
   align-items: center;
   cursor: pointer;
-  margin: 1.5px 9px 0 0;
+  margin: 1.5px 2px 0 0;
 `;
 
 const Wrap = styled.div`

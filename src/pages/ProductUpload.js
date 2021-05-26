@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, createRef, useState } from "react";
+import React, { useEffect, useRef, createRef, useState, forwardRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import styled from "styled-components";
@@ -154,6 +154,7 @@ const ProductUpload = React.memo((props) => {
   const [sucbidFake, setSucbidFake] = useState("");
   const sucbid = parseInt(sucbidFake.replace(/,/g, ""));
   const [delivery, setDelivery] = useState("");
+  const [directDealing, setDirectDealing] = useState(false);
   const [productDesc, setProductDesc] = useState("");
   const [tags, setTags] = useState([]);
   const [cate, setCate] = useState(D2CT);
@@ -185,15 +186,13 @@ const ProductUpload = React.memo((props) => {
     setSucbidFake(real2);
   };
 
-  const dealPlace = useRef();
-  console.log(dealPlace);
-  const [view, setView] = useState("");
-
   const handleDelivery = (e) => {
     if (e.target.value === "택배거래") {
       setDelivery(true);
+      setDirectDealing(false);
     } else {
       setDelivery(false);
+      setDirectDealing(true);
     }
   };
 
@@ -478,30 +477,32 @@ const ProductUpload = React.memo((props) => {
             </Grid>
           </Grid>
 
-          <Grid margin="0 0 35px 0" _ref={dealPlace} >
-            <Text h3 marginB="20px" >
-              희망 거래 장소
-            </Text>
-            <Grid is_flex>
-              <Input
-                value={region}
-                _onChange={(e) => {
-                  setRegion(e.target.value);
-                }}
-                plcholder="거래를 진행할 지역을 검색하세요. 혹은 바로 입력하실 수 있습니다."
-                width="70%"
-                margin="0 10px 0 0"
-                left
-              />
+          {directDealing && 
+            <Grid margin="0 0 35px 0" >
+              <Text h3 marginB="20px" >
+                희망 거래 장소
+              </Text>
+              <Grid is_flex>
+                <Input
+                  value={region}
+                  _onChange={(e) => {
+                    setRegion(e.target.value);
+                  }}
+                  plcholder="거래를 진행할 지역을 검색하세요. 혹은 바로 입력하실 수 있습니다."
+                  width="70%"
+                  margin="0 10px 0 0"
+                  left
+                />
 
-              <Button
-                text="주소 검색"
-                _onClick={() => {
-                  setIsPostOpen(true);
-                }}
-              />
+                <Button
+                  text="주소 검색"
+                  _onClick={() => {
+                    setIsPostOpen(true);
+                  }}
+                />
+              </Grid>
             </Grid>
-          </Grid>
+          }
 
           <Grid dp_flex justify="space-between">
             <Grid margin="0 40px 0 0">
