@@ -36,7 +36,6 @@ const getProductSearch = (keyword) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.result);
         // if(!data.last) {
         //     dispatch(setSearchPage(page + 1));
         // } else {

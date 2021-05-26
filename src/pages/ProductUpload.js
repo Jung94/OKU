@@ -668,29 +668,32 @@ const ProductUpload = React.memo((props) => {
             </form>
           </Grid>
           
-          <Grid margin="0 0 24px">
-            <Text h3 marginB="20px">
-              희망 거래 장소
-            </Text>
-            <Grid is_flex column>
-              <Input
-                value={region}
-                _onChange={(e) => {
-                  setRegion(e.target.value);
-                }}
-                plcholder="거래할 지역을 검색 또는 직접 입력해주세요."
-                width="100%"
-                margin="0 0 10px"
-              />
-              <Button
-                width="100%"
-                text="주소 검색"
-                _onClick={() => {
-                  setIsPostOpen(true);
-                }}
-              />
+          {directDealing && 
+            <Grid margin="0 0 24px">
+              <Text h3 marginB="20px">
+                희망 거래 장소
+              </Text>
+              <Grid is_flex column>
+                <Input
+                  value={region}
+                  _onChange={(e) => {
+                    setRegion(e.target.value);
+                  }}
+                  plcholder="거래할 지역을 검색 또는 직접 입력해주세요."
+                  width="100%"
+                  margin="0 0 10px"
+                />
+                <Button
+                  width="100%"
+                  text="주소 검색"
+                  _onClick={() => {
+                    setIsPostOpen(true);
+                  }}
+                />
+              </Grid>
             </Grid>
-          </Grid>
+          }
+          
           <Grid margin="0 0 24px">
             <Text h3 marginB="20px">
               최소입찰가

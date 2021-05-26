@@ -71,6 +71,7 @@ const Header = (props) => {
   const SearchProduct = () => {
     dispatch(productActions.getProductSearch(keyword));
     history.push("/result");
+    setKeyword(null);
   };
 
   const handleMainCategory = (e) => {
