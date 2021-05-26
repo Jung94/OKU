@@ -45,6 +45,7 @@ const Mobile = ({ children }) => {
 const Header = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
+  const nickname = localStorage.getItem("nickname");
   const { showHeader } = props;
   const [keyword, setKeyword] = useState("");
   const [mainct, setMainct] = useState("");
@@ -260,7 +261,16 @@ const Header = (props) => {
             <Grid is_flex width="40%" alignItems="center">
               {/* 카테고리 리스트 방식 */}
               {/* <ListHover/> */}
-              <div style={{ width: "70px", fontSize: "14px", margin: "1px 0 0" }}>카테고리</div>
+              <div style={{ width: "100px", fontSize: "14px", margin: "1px 0 0", marginTop: "-2.5px" }}>
+                카테고리
+                <Tooltip _solid width="fit-content" size="9px" vAlgin="8px">
+                  내가 좋아하는 게 실존인물인가요?
+                  <br />
+                  3D 항목에서 물건을 찾아보세요!
+                  <br />
+                  가상 인물인가요? 2D를 찾아보는게 좋겠네요!
+                </Tooltip>
+              </div>
               <ListBtn />
               <Mainselectbox>
                 <Select onfocus="javascrpt:blur();" placeholder="대분류" onChange={handleMainCategory} value={MainCT.find((obj) => obj.value === MainCT)} options={MainCT} styles={customStyles} />
@@ -299,9 +309,9 @@ const Header = (props) => {
 
             <Grid is_flex column height="100px" width="40%">
               <Grid is_flex justify="flex-end" margin="10px 2px 36px 0" ref={hide}>
-                <Text subBody color={Color.Dark_4} margin="1.4px 4% 0 0">
+                {/* <Text subBody color={Color.Dark_4} margin="1.4px 4% 0 0">
                   about OKU
-                </Text>
+                </Text> */}
                 <Text subBody color={Color.Dark_4} margin="0 4% 0 0" onClick={aboutus}>
                   about Team
                 </Text>
@@ -340,7 +350,7 @@ const Header = (props) => {
                     <Text subBody color={Color.Dark_4} onClick={() => history.push("/MyShop")} margin="0 4% 0 0">
                       내 상점
                     </Text>
-                    <Text subBody color={Color.Dark_4} onClick={() => history.push("/my/shopping")}>
+                    <Text subBody color={Color.Dark_4} onMouseEnter={() => console.log(nickname)} onClick={() => history.push("/my/shopping")}>
                       마이페이지
                     </Text>
                   </>
@@ -517,9 +527,9 @@ const Header = (props) => {
 
             <Grid is_flex column height="100px" width="40%">
               <Grid is_flex gap="4%" justify="flex-end" margin="10px 2px 36px 0">
-                <Text subBody color={Color.Dark_4}>
+                {/* <Text subBody color={Color.Dark_4}>
                   about OKU
-                </Text>
+                </Text> */}
                 <Text subBody color={Color.Dark_4} onClick={aboutus}>
                   about Team
                 </Text>
@@ -782,6 +792,7 @@ const HeaderWrap = styled.header`
   }
 
   @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    overflow: scroll;
     max-width: 100%;
     width: 100%;
     position: fixed;
@@ -840,6 +851,7 @@ const Fix = styled.div`
   }
 
   @media only screen and (min-width: 768px) and (max-width: 1023px) {
+    min-width: 1023px;
     max-width: 80vw;
     width: 100%;
     display: flex;

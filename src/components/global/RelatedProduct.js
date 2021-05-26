@@ -191,8 +191,9 @@ const RelatedImg = styled.div`
   background: url(${(props) => props.img}) no-repeat;
   background-size: cover;
   background-position: center;
+  width : 150px;
+  height : 150px;
   flex-grow: 1;
-  height: 100%;
   flex-direction: row;
   flex-wrap: wrap;
   border-radius: 12px;

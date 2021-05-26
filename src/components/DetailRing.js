@@ -75,10 +75,10 @@ const DetailRing = (props) => {
             <RingDetail>
               {alert.alreadyCheck && alert.alreadyCheck.length > 0 ? (
                 <Contents>
-                  {alert.alreadyCheck.map((i, idx) => {
+                  {alert.notCheck.map((i, idx) => {
                     return <RingContents key={idx} {...i} />;
                   })}
-                  {alert.notCheck.map((i, idx) => {
+                  {alert.alreadyCheck.map((i, idx) => {
                     return <RingContents key={idx} {...i} />;
                   })}
                 </Contents>
@@ -103,10 +103,10 @@ const DetailRing = (props) => {
             <RingDetail>
               {alert.alreadyCheck && alert.alreadyCheck.length > 0 ? (
                 <Contents>
-                  {alert.alreadyCheck.map((i, idx) => {
-                    return <RingContents key={idx} {...i} />;
-                  })}
                   {alert.notCheck.map((i, idx) => {
+                    return <RingContents notCheck key={idx} {...i} />;
+                  })}
+                  {alert.alreadyCheck.map((i, idx) => {
                     return <RingContents key={idx} {...i} />;
                   })}
                 </Contents>

@@ -14,10 +14,10 @@ import "moment/locale/ko";
 
 const RingContents = (props) => {
   moment.locale("ko");
-  const { alertType, productTitle, productId, creatAt, _id, buyerId } = props;
+  const { alertType, productTitle, productId, creatAt, _id, buyerId, notCheck } = props; 
   return (
-    <Box>
-      <Desc>
+    <Box >
+      <Desc notCheck={notCheck}>
         {alertType === "판매실패" && (
           <>
             <AlertTitle onClick={() => history.push(`/product/detail/${productId}`)}>
@@ -113,6 +113,7 @@ const Box = styled.div`
   transition: all 50ms ease-in;
   margin-top: 1px;
   margin-bottom: 1px;
+
   :hover {
     background-color: ${Color.Secondary_2}44;
   }
@@ -120,6 +121,7 @@ const Box = styled.div`
 
 const Desc = styled.div`
   padding: 10px 10px 15px 10px;
+  ${(props)=>props.notCheck ? `background : ${Color.Secondary_2}88;` : ""}
 `;
 
 const AlertTitle = styled.div`

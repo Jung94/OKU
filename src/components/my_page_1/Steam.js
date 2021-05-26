@@ -33,77 +33,76 @@ const Mobile = ({ children }) => {
   return isMobile ? children : null;
 };
 
-function PrevArrow(props) {
-  const { className, style, onClick, lowBid } = props;
-  return (
-    <LeftArrow
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        zIndex: "999",
-        left: "1%",
-        color: Color.Dark_4,
-        fontSize: "7rem",
-        content: `url(${leftIcon})`,
-      }}
-      onClick={onClick}
-    />
-  );
-}
+// function PrevArrow(props) {
+//   const { className, style, onClick, lowBid } = props;
+//   return (
+//     <LeftArrow
+//       className={className}
+//       style={{
+//         ...style,
+//         display: "block",
+//         zIndex: "999",
+//         left: "1%",
+//         color: Color.Dark_4,
+//         fontSize: "7rem",
+//         content: `url(${leftIcon})`,
+//       }}
+//       onClick={onClick}
+//     />
+//   );
+// }
 
-// 오른쪽
-function NextArrow(props) {
-  const { className, style, onClick } = props;
-  return (
-    <RightArrow
-      className={className}
-      style={{
-        ...style,
-        display: "block",
-        zIndex: "999",
-        right: "1%",
-        color: Color.Dark_4,
-        fontSize: "5rem",
-        content: `url(${rightIcon})`,
-      }}
-      onClick={onClick}
-    />
-  );
-}
+// // 오른쪽
+// function NextArrow(props) {
+//   const { className, style, onClick } = props;
+//   return (
+//     <RightArrow
+//       className={className}
+//       style={{
+//         ...style,
+//         display: "block",
+//         zIndex: "999",
+//         right: "1%",
+//         color: Color.Dark_4,
+//         fontSize: "5rem",
+//         content: `url(${rightIcon})`,
+//       }}
+//       onClick={onClick}
+//     />
+//   );
+// }
 
 const Steam = () => {
   const dispatch = useDispatch();
-
-  const settings = {
-    infinite: true, // 마지막 장 다음에 첫번째가 나오게 할 것인지
-    speed: 500, // 넘어가는 속도는 몇으로 할 것인지
-    lazyLoad: true,
-    slidesToShow: 4, // 이거때문에 두줄씩 밑에도 나오는거임
-    slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
-    rows: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-    ],
-  };
+  // const settings = {
+  //   infinite: true, // 마지막 장 다음에 첫번째가 나오게 할 것인지
+  //   speed: 500, // 넘어가는 속도는 몇으로 할 것인지
+  //   lazyLoad: true,
+  //   slidesToShow: 4, // 이거때문에 두줄씩 밑에도 나오는거임
+  //   slidesToScroll: 1,
+  //   nextArrow: <NextArrow />,
+  //   prevArrow: <PrevArrow />,
+  //   rows: 1,
+  //   responsive: [
+  //     {
+  //       breakpoint: 1024,
+  //       settings: {
+  //         slidesToShow: 3,
+  //         slidesToScroll: 3,
+  //         infinite: true,
+  //         dots: true,
+  //       },
+  //     },
+  //     {
+  //       breakpoint: 768,
+  //       settings: {
+  //         slidesToShow: 2,
+  //         slidesToScroll: 2,
+  //         initialSlide: 2,
+  //       },
+  //     },
+  //   ],
+  // };
   useEffect(() => {
     if (access_token) {
       dispatch(mypageActions.setProfileAPI());
@@ -127,7 +126,7 @@ const Steam = () => {
           {my_like_list && my_like_list.length > 0 ? (
             <>
               <List>
-                <Slider {...settings}>
+                {/* <Slider {...settings}> */}
                   {my_like_list.map((r, idx) => (
                     <RelatedProduct
                       key={idx}
@@ -138,7 +137,7 @@ const Steam = () => {
                       }}
                     />
                   ))}
-                </Slider>
+                {/* </Slider> */}
               </List>
             </>
           ) : (
@@ -210,6 +209,7 @@ const Head = styled.div`
 `;
 
 const Box = styled.div`
+  overflow-y : hidden;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
@@ -226,9 +226,29 @@ const Box = styled.div`
   @media only screen and (max-width: 767px) {
     justify-content: space-between;
   }
+  
+  /* overflow-x scrollbar css */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+  // scrollbar
+  ::-webkit-scrollbar-thumb {
+    background: ${Color.Secondary_1};
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+  }
+  // scrollbar 배경 (트랙)
+  ::-webkit-scrollbar-track {
+    background-color: ${Color.Light_1};
+    border-radius: 10px;
+    /* box-shadow: inset 0px 0px 6px #ff000080; */
+  }
+
 `;
 
 const List = styled.div`
+  display : flex;
   justify-content: space-between;
   width: 100%;
 
@@ -237,12 +257,12 @@ const List = styled.div`
     text-align: center;
   }
 `;
-const LeftArrow = styled.div`
-  position: absolute;
-`;
+// const LeftArrow = styled.div`
+//   position: absolute;
+// `;
 
-const RightArrow = styled.div`
-  position: absolute;
-`;
+// const RightArrow = styled.div`
+//   position: absolute;
+// `;
 
 export default Steam;

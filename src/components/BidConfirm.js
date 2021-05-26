@@ -6,6 +6,8 @@ import { Grid, Input, Line, Button, Text, Profile } from "elements/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle as fasQC } from "@fortawesome/free-solid-svg-icons";
 
+import { history } from "../redux/configureStore";
+
 import { actionCreators as bidActions } from "redux/modules/bid";
 import { Color } from "shared/DesignSys";
 
@@ -14,21 +16,27 @@ const BidConfirm = (props) => {
   const { open, close, buyerId, alertId } = props;
 
   const buyer = useSelector((state) => state.bid.buyer);
+
   const successMsg = useSelector((state) => state.bid.successMsg);
-  console.log(successMsg);
+
+  const [confirm, setConfirm] = useState(false);
 
   useEffect(() => {
     dispatch(bidActions.getPublicUserAPI(buyerId));
-  }, []);
+    dispatch(bidActions.confirmSuccessAPI(alertId));
+  }, [successMsg]);
 
-  const makeItBid = (successBoolean) => {
-    dispatch(bidActions.confirmSuccessAPI(alertId, successBoolean));
-    if (successMsg === "상품이 판매 완료 됐습니다.") {
-      console.log(successMsg, "성공");
+  const makeItBid = () => {
+    dispatch(bidActions.confirmSuccessAPI(alertId, confirm));
+    console.log(successMsg);
+
+    if (successMsg === "거래가 취소되었습니다.") {
+      console.log(successMsg, "취소");
       close();
     } else {
       console.log(successMsg);
       close();
+      history.push("/chat");
     }
   };
 
@@ -52,10 +60,25 @@ const BidConfirm = (props) => {
             블랙 유저처럼 보인다면 아니오를 눌러주세요!
           </Text>
           <Buttons>
-            <Button sub _onClick={() => makeItBid(false)} width="50%" margin="0 2.5px 0 0">
+            <Button
+              sub
+              _onClick={() => {
+                setConfirm(false);
+                makeItBid();
+              }}
+              width="50%"
+              margin="0 2.5px 0 0"
+            >
               안할래요
             </Button>
-            <Button _onClick={() => makeItBid(true)} width="100%" margin="0 0 0 2.5px">
+            <Button
+              _onClick={() => {
+                setConfirm(true);
+                makeItBid();
+              }}
+              width="100%"
+              margin="0 0 0 2.5px"
+            >
               낙찰 응하기
             </Button>
           </Buttons>
