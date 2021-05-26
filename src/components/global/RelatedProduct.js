@@ -94,8 +94,8 @@ const ImgWrap = styled.div`
   // z-index: 99;
   position: relative;
   // ${(props) => (props.width ? `width: ${props.width};` : "width:12rem; flex-grow: 1;")};
-  height: ${(props) => (props.height ? props.height : "9.8rem")};
-  width: ${(props) => (props.width ? props.width : "11rem")};
+  height: ${(props) => (props.height ? props.height : "10.1rem")};
+  width: ${(props) => (props.width ? props.width : "11.3rem")};
 
   flex-wrap: wrap;
   border-radius: 12px;
@@ -105,6 +105,30 @@ const ImgWrap = styled.div`
   :hover {
     transition: 0.2s;
     transform: scale(1.05);
+  }
+
+  &:not(hover) {
+    transition: 0.2s;
+  }
+`;
+
+const RelatedImg = styled.div`
+  display: flex;
+  background: url(${(props) => props.img}) no-repeat;
+  background-size: cover;
+  background-position: center;
+  width : 11.2rem;
+  height : 10.1rem;
+  flex-grow: 1;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-radius: 12px;
+  border: 0.5px solid ${Color.Light_3};
+  align-items: center;
+
+  :hover {
+    transition: 0.2s;
+    ${(props) => (props.like ? "" : "opacity: 0;")}
   }
 
   &:not(hover) {
@@ -183,30 +207,6 @@ const Title = styled.span`
   :hover {
     opacity: 1;
     background-color: rgba(0, 0, 0, 0.6);
-  }
-`;
-
-const RelatedImg = styled.div`
-  display: flex;
-  background: url(${(props) => props.img}) no-repeat;
-  background-size: cover;
-  background-position: center;
-  width : 150px;
-  height : 150px;
-  flex-grow: 1;
-  flex-direction: row;
-  flex-wrap: wrap;
-  border-radius: 12px;
-  border: 0.5px solid ${Color.Light_3};
-  align-items: center;
-
-  :hover {
-    transition: 0.2s;
-    ${(props) => (props.like ? "" : "opacity: 0;")}
-  }
-
-  &:not(hover) {
-    transition: 0.2s;
   }
 `;
 
