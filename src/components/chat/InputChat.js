@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { actionCreators as chatActions } from "redux/modules/chat";
 
@@ -27,6 +28,7 @@ const Mobile = ({ children }) => {
 };
 
 const ChatInput = ({ room, productId, otherId, myId }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const [msg, setMsg] = useState("");
   const [region, setRegion] = useState("");
@@ -93,6 +95,7 @@ const ChatInput = ({ room, productId, otherId, myId }) => {
 
   const exitRoom = () => {
     dispatch(chatActions.endOfChat(productId, otherId, myId));
+    history.push("/chat");
   };
 
   return (
