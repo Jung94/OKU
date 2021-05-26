@@ -24,7 +24,7 @@ const Stamp = (props) => {
   return (
     <>
       <BidBox>
-        <Text h1 marginT="10%">
+        <Text h1 marginT="10%" marginB="10%">
           {children}에 성공하였습니다!
         </Text>
       </BidBox>
@@ -69,7 +69,7 @@ const Bid = (props) => {
     } else if (trueBid > sucBid) {
       setMessageBid("즉시 낙찰가보다 낮아야 해욧!");
     } else if (trueBid === sucBid) {
-      addSuccessbid();
+      addSucBid();
     } else if (_current > lowBid) {
       if (trueBid < _current || trueBid < lowBid) {
         setMessageBid("현재 입찰가보다 높아야 해욧!");
@@ -82,17 +82,16 @@ const Bid = (props) => {
     // return succeessModal();
   };
 
-  const addSuccessbid = () => {
-    addNEWSucbidAPI();
+  const addSucBid = () => {
+    dispatch(addNEWSucbidAPI());
   };
 
   const addNEWSucbidAPI = () => {
     return function (dispatch, getState, { history }) {
-      let id = getState().product.productId;
       let nickname = localStorage.getItem("nickname");
       const access_token = localStorage.getItem("access_token");
       const draft = { bid: sucBid, nickName: nickname, createAt: Date.now() };
-      fetch(`${API}/bid/newsucbid/${id}`, {
+      fetch(`${API}/bid/newsucbid/${_id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -106,6 +105,7 @@ const Bid = (props) => {
           if (res.okay) {
             setStamp(true);
             dispatch(bidActions.addBid(draft));
+            history.go(0);
           } else {
             console.log("response is not ok.");
           }
@@ -221,7 +221,7 @@ const Bid = (props) => {
             ) : (
               <>
                 {/* <Modal stamp sucBid={sucBid} sellerunique={sellerunique} timeNow={Date.now()}></Modal> */}
-                <Button _onClick={addSuccessbid} width="75%" margin="20px auto 9% auto">
+                <Button _onClick={addSucBid} width="75%" margin="20px auto 9% auto">
                   즉시 낙찰하기
                 </Button>
               </>
@@ -230,7 +230,7 @@ const Bid = (props) => {
         ) : (
           <BidBox {...props}>
             <Stamp>낙찰</Stamp>
-            <Button
+            {/* <Button
               _onClick={() => {
                 setStamp(false);
                 close();
@@ -240,7 +240,7 @@ const Bid = (props) => {
               margin="20px auto 9% auto"
             >
               확인
-            </Button>
+            </Button> */}
           </BidBox>
         )}
       </>

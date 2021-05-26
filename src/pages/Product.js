@@ -97,7 +97,7 @@ const Product = (props) => {
     dispatch(headerActions.setHeader(true));
     dispatch(productActions.setProductAllAPI(_id));
     dispatch(bidActions.setBidAPI(_id, lowBid));
-  }, [_id, new_qna]);
+  }, [_id, new_qna, productOK.soldBy]);
 
   const startpoint = useRef();
 
