@@ -1,19 +1,25 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimesCircle as fasClose, faEllipsisV as fasModi } from "@fortawesome/free-solid-svg-icons";
 import { Bid, Edit, BidConfirm } from "components/";
+
+import { actionCreators as bidActions } from "redux/modules/bid";
 
 import { Grid, Input, Line, Button, Text, Profile } from "elements/";
 
 import { Color } from "shared/DesignSys";
 
 const Modal = (props) => {
-  const { top, bottom, margin, color, text, bid, immediateBid, successAlarm, sucBid, onSale, soldBy, soldById, setting } = props;
+  const dispatch = useDispatch();
+
+  const { top, bottom, margin, color, text, bid, immediateBid, successAlarm, sucBid, onSale, soldBy, soldById, setting, stamp, sellerunique, timeNow } = props;
   const styles = { top: top, bottom: bottom, margin: margin, color: color, text: text };
   const [modal, setModal] = useState(false);
 
-  // console.log(onSale, soldBy);
+  // console.log(props);
 
   const openModal = () => {
     setModal(true);
@@ -21,6 +27,14 @@ const Modal = (props) => {
 
   const closeModal = () => {
     setModal(false);
+  };
+
+  const addSuccessbid = () => {
+    dispatch(bidActions.addNEWSucbidAPI(sucBid, sellerunique, timeNow));
+    setModal(true);
+    console.log("실행");
+
+    // close();
   };
 
   if (bid) {
@@ -118,6 +132,26 @@ const Modal = (props) => {
             <Screen onClick={closeModal}></Screen>
             <ModalBox>
               <BidConfirm open={modal} close={closeModal} buyerId={props?.buyerId} alertId={props?.alertId}></BidConfirm>
+            </ModalBox>
+          </ModalWrap>
+        ) : (
+          <></>
+        )}
+      </Wrap>
+    );
+  }
+
+  if (stamp) {
+    return (
+      <Wrap>
+        <Button _onClick={addSuccessbid} width="300px" margin="20px auto 9% auto">
+          즉시 낙찰하기
+        </Button>
+        {modal ? (
+          <ModalWrap modal>
+            <Screen onClick={closeModal}></Screen>
+            <ModalBox>
+              <Text h2>입찰/낙찰에 성공하였습니다!</Text>
             </ModalBox>
           </ModalWrap>
         ) : (

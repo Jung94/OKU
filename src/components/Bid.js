@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useInterval } from "react-use";
 
 import styled from "styled-components";
-import { Grid, Input, Line, Button, Text } from "elements/";
+import { Grid, Input, Line, Button, Text, Modal } from "elements/";
 import { Timer } from "components/";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle as fasQC } from "@fortawesome/free-solid-svg-icons";
+
+import { history } from "../redux/configureStore";
 
 import { input_priceComma, comma, uncomma } from "shared/common";
 import { actionCreators as bidActions } from "redux/modules/bid";
@@ -14,9 +16,21 @@ import { actionCreators as productActions } from "redux/modules/product";
 
 import { Color } from "shared/DesignSys";
 
+const Stamp = (props) => {
+  const { children } = props;
+  return (
+    <>
+      <BidBox>
+        <Text h1 marginT="10%">
+          {children}에 성공하였습니다!
+        </Text>
+      </BidBox>
+    </>
+  );
+};
+
 const Bid = (props) => {
   const dispatch = useDispatch();
-  const history = props.history;
   const p_id = props._id;
   const { open, close, bid, immediateBid, lowBid, sucBid, deadLine, createAt, sellerunique, _id, onSale } = props;
   const u_id = localStorage.getItem("uid");
@@ -72,61 +86,79 @@ const Bid = (props) => {
     }
   };
 
+  const [stampMsg, setStamp] = useState(false);
+
   const addSuccessbid = () => {
     dispatch(bidActions.addNEWSucbidAPI(sucBid, sellerunique, Date.now()));
-    close();
+    setStamp(true);
+    // close();
   };
 
   if (bid) {
     return (
       <>
-        <BidBox>
-          <Text h1 marginT="10%">
-            입찰표 작성
-            {/* <FontAwesomeIcon icon={fasQC} /> */}
-          </Text>
-          <Grid textAlign="center" justify="space-between" width="35%" margin="20px 0 35px 0">
-            <Text h3 marginB="5px">
-              <Timer all deadLine={deadLine} onSale={onSale} purple />
+        {open && !stampMsg ? (
+          <BidBox>
+            <Text h1 marginT="10%">
+              입찰표 작성
+              {/* <FontAwesomeIcon icon={fasQC} /> */}
             </Text>
-            <Timer timeProgress deadLine={deadLine} createAt={createAt} onSale={onSale} />
-          </Grid>
-          {_current ? (
-            <BidNow>
-              <div>현재 입찰가</div>
-              <div>
-                {comma(uncomma(_current))}
-                <span>&ensp;원</span>
-              </div>
-            </BidNow>
-          ) : (
-            <BidNow>
-              <div>최소 입찰가</div>
-              <div>
-                {productOK.lowBid}
-                <span>&ensp;원</span>
-              </div>
-            </BidNow>
-          )}
+            <Grid textAlign="center" justify="space-between" width="35%" margin="20px 0 35px 0">
+              <Text h3 marginB="5px">
+                <Timer all deadLine={deadLine} onSale={onSale} purple />
+              </Text>
+              <Timer timeProgress deadLine={deadLine} createAt={createAt} onSale={onSale} />
+            </Grid>
+            {_current ? (
+              <BidNow>
+                <div>현재 입찰가</div>
+                <div>
+                  {comma(uncomma(_current))}
+                  <span>&ensp;원</span>
+                </div>
+              </BidNow>
+            ) : (
+              <BidNow>
+                <div>최소 입찰가</div>
+                <div>
+                  {productOK.lowBid}
+                  <span>&ensp;원</span>
+                </div>
+              </BidNow>
+            )}
 
-          <Input value={comma(uncomma(bidPrice))} _onChange={onChangeBid} num width="75%" margin="10px auto 0" adornment="원" plcholder="입찰가를 입력해주세요!" />
+            <Input value={comma(uncomma(bidPrice))} _onChange={onChangeBid} num width="75%" margin="10px auto 0" adornment="원" plcholder="입찰가를 입력해주세요!" />
 
-          {sellerunique === u_id ? (
-            <>
-              <InfoUl>* 스스로 입찰할 수 없습니다.</InfoUl>
-              <Button disabled width="75%" margin="10px auto 9% auto">
-                입찰하기
-              </Button>
-            </>
-          ) : (
-            <>
-              <InfoUl>{messageBid}</InfoUl>
-              <Button _onClick={addBid} width="75%" margin="10px auto 9% auto">
-                입찰하기
-              </Button>
-            </>
-          )}
-        </BidBox>
+            {sellerunique === u_id ? (
+              <>
+                <InfoUl>* 스스로 입찰할 수 없습니다.</InfoUl>
+                <Button disabled width="75%" margin="10px auto 9% auto">
+                  입찰하기
+                </Button>
+              </>
+            ) : (
+              <>
+                <InfoUl>{messageBid}</InfoUl>
+                <Button _onClick={addBid} width="75%" margin="10px auto 9% auto">
+                  입찰하기
+                </Button>
+              </>
+            )}
+          </BidBox>
+        ) : (
+          <BidBox {...props}>
+            <Stamp>입찰</Stamp>
+            <Button
+              _onClick={() => {
+                setStamp(false);
+              }}
+              width="75%"
+              margin="20px auto 9% auto"
+            >
+              확인
+            </Button>
+          </BidBox>
+        )}
       </>
     );
   }
@@ -134,11 +166,10 @@ const Bid = (props) => {
   if (immediateBid) {
     return (
       <>
-        {open ? (
-          <BidBox {...props} open={open}>
+        {open && !stampMsg ? (
+          <BidBox {...props}>
             <Text h1 marginT="10%">
               즉시 낙찰
-              {/* <FontAwesomeIcon icon={fasQC} /> */}
             </Text>
             <Text h4 marginT="10px" marginB="20px">
               즉시 낙찰가에 낙찰이 진행됩니다!
@@ -156,6 +187,7 @@ const Bid = (props) => {
               </>
             ) : (
               <>
+                {/* <Modal stamp sucBid={sucBid} sellerunique={sellerunique} timeNow={Date.now()}></Modal> */}
                 <Button _onClick={addSuccessbid} width="75%" margin="20px auto 9% auto">
                   즉시 낙찰하기
                 </Button>
@@ -163,7 +195,20 @@ const Bid = (props) => {
             )}
           </BidBox>
         ) : (
-          <></>
+          <BidBox {...props}>
+            <Stamp>낙찰</Stamp>
+            <Button
+              _onClick={() => {
+                setStamp(false);
+                close();
+                history.go(0);
+              }}
+              width="75%"
+              margin="20px auto 9% auto"
+            >
+              확인
+            </Button>
+          </BidBox>
         )}
       </>
     );
@@ -187,6 +232,7 @@ const BidBox = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  min-height: 100px;
 `;
 
 const BidNow = styled.div`

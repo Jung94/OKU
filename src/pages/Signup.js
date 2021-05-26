@@ -217,6 +217,7 @@ const Signup = (props) => {
       .then((res) => {
         let result = res.result;
         if (result === false) {
+          console.log(res);
           setMessageEmail("이미 등록된 이메일입니다. 다시 작성해 주세요.");
         } else {
           setMessageEmail("✔ 사용 가능한 이메일입니다!");
