@@ -153,7 +153,7 @@ const Product = (props) => {
                 <BidLabel>
                   <Text h4 textAlign="right" marginB="2px">
                     현재 입찰 가격
-                    <Tooltip _solid vAlgin="-3px">
+                    <Tooltip _solid rtl vAlgin="-3px">
                       현재 다른 사람들이 어디까지 가격을 불렀는지 확인할 수 있어요!
                     </Tooltip>
                   </Text>

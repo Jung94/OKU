@@ -17,14 +17,17 @@ const BidConfirm = (props) => {
 
   const buyer = useSelector((state) => state.bid.buyer);
 
-  useEffect(() => {
-    dispatch(bidActions.getPublicUserAPI(buyerId));
-  }, [successMsg]);
-
   const successMsg = useSelector((state) => state.bid.successMsg);
 
-  const makeItBid = (successBoolean) => {
-    dispatch(bidActions.confirmSuccessAPI(alertId, successBoolean));
+  const [confirm, setConfirm] = useState(false);
+
+  useEffect(() => {
+    dispatch(bidActions.getPublicUserAPI(buyerId));
+    dispatch(bidActions.confirmSuccessAPI(alertId));
+  }, [successMsg]);
+
+  const makeItBid = () => {
+    dispatch(bidActions.confirmSuccessAPI(alertId, confirm));
     console.log(successMsg);
 
     if (successMsg === "거래가 취소되었습니다.") {
@@ -57,10 +60,25 @@ const BidConfirm = (props) => {
             블랙 유저처럼 보인다면 아니오를 눌러주세요!
           </Text>
           <Buttons>
-            <Button sub _onClick={() => makeItBid(false)} width="50%" margin="0 2.5px 0 0">
+            <Button
+              sub
+              _onClick={() => {
+                setConfirm(false);
+                makeItBid();
+              }}
+              width="50%"
+              margin="0 2.5px 0 0"
+            >
               안할래요
             </Button>
-            <Button _onClick={() => makeItBid(true)} width="100%" margin="0 0 0 2.5px">
+            <Button
+              _onClick={() => {
+                setConfirm(true);
+                makeItBid();
+              }}
+              width="100%"
+              margin="0 0 0 2.5px"
+            >
               낙찰 응하기
             </Button>
           </Buttons>

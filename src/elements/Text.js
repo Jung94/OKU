@@ -7,6 +7,7 @@ const Text = (props) => {
   const {
     children,
     onClick,
+    onMouseEnter,
     color,
     size,
     bold,
@@ -110,7 +111,7 @@ const Text = (props) => {
   // 조회수, 카테고리 설명
   if (subBody) {
     return (
-      <TextBox size="12px" onClick={onClick} {...styles} {...preSetting}>
+      <TextBox size="12px" onClick={onClick} onMouseEnter={onMouseEnter} {...styles} {...preSetting}>
         {children}
       </TextBox>
     );

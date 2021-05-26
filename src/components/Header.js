@@ -45,6 +45,7 @@ const Mobile = ({ children }) => {
 const Header = (props) => {
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
+  const nickname = localStorage.getItem("nickname");
   const { showHeader } = props;
   const [keyword, setKeyword] = useState("");
   const [mainct, setMainct] = useState("");
@@ -349,7 +350,7 @@ const Header = (props) => {
                     <Text subBody color={Color.Dark_4} onClick={() => history.push("/MyShop")} margin="0 4% 0 0">
                       내 상점
                     </Text>
-                    <Text subBody color={Color.Dark_4} onClick={() => history.push("/my/shopping")}>
+                    <Text subBody color={Color.Dark_4} onMouseEnter={() => console.log(nickname)} onClick={() => history.push("/my/shopping")}>
                       마이페이지
                     </Text>
                   </>
@@ -791,7 +792,7 @@ const HeaderWrap = styled.header`
   }
 
   @media only screen and (min-width: 768px) and (max-width: 1023px) {
-    overflow : scroll;
+    overflow: scroll;
     max-width: 100%;
     width: 100%;
     position: fixed;
@@ -850,7 +851,7 @@ const Fix = styled.div`
   }
 
   @media only screen and (min-width: 768px) and (max-width: 1023px) {
-    min-width : 1023px;
+    min-width: 1023px;
     max-width: 80vw;
     width: 100%;
     display: flex;
