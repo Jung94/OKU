@@ -170,7 +170,13 @@ const addNEWSucbidAPI = (sucBid, sellerunique, createAt) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        dispatch(addBid(draft));
+        console.log(res);
+        if (res.okay) {
+          dispatch(addBid(draft));
+          dispatch(setMsg(res.msg));
+        } else {
+          console.log("response is not ok.");
+        }
       })
       .catch((err) => {
         console.log("addNEWSucbidAPI에 문제가 있습니다.", err);
