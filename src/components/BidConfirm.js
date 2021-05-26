@@ -19,25 +19,20 @@ const BidConfirm = (props) => {
 
   const successMsg = useSelector((state) => state.bid.successMsg);
 
-  const [confirm, setConfirm] = useState(false);
+  // const [confirm, setConfirm] = useState(false);
 
   useEffect(() => {
     dispatch(bidActions.getPublicUserAPI(buyerId));
-    dispatch(bidActions.confirmSuccessAPI(alertId));
   }, [successMsg]);
 
-  const makeItBid = () => {
-    dispatch(bidActions.confirmSuccessAPI(alertId, confirm));
-    console.log(successMsg);
+  const makeItBid = (boolean) => {
+    dispatch(bidActions.confirmSuccessAPI(alertId, boolean));
+  };
 
-    if (successMsg === "거래가 취소되었습니다.") {
-      console.log(successMsg, "취소");
-      close();
-    } else {
-      console.log(successMsg);
-      close();
-      history.push("/chat");
-    }
+  const closeAndRedirect = () => {
+    console.log(successMsg);
+    close();
+    history.push("/chat");
   };
 
   return (
@@ -63,8 +58,8 @@ const BidConfirm = (props) => {
             <Button
               sub
               _onClick={() => {
-                setConfirm(false);
-                makeItBid();
+                makeItBid(false);
+                close();
               }}
               width="50%"
               margin="0 2.5px 0 0"
@@ -73,8 +68,8 @@ const BidConfirm = (props) => {
             </Button>
             <Button
               _onClick={() => {
-                setConfirm(true);
-                makeItBid();
+                makeItBid(true);
+                closeAndRedirect();
               }}
               width="100%"
               margin="0 0 0 2.5px"

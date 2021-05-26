@@ -10,6 +10,8 @@ import { faQuestionCircle as fasQC } from "@fortawesome/free-solid-svg-icons";
 
 import { history } from "../redux/configureStore";
 
+import { API } from "shared/Api";
+
 import { input_priceComma, comma, uncomma } from "shared/common";
 import { actionCreators as bidActions } from "redux/modules/bid";
 import { actionCreators as productActions } from "redux/modules/product";
@@ -18,6 +20,7 @@ import { Color } from "shared/DesignSys";
 
 const Stamp = (props) => {
   const { children } = props;
+
   return (
     <>
       <BidBox>
@@ -44,16 +47,8 @@ const Bid = (props) => {
   const [messageBid, setMessageBid] = useState("");
 
   const _current = useSelector((state) => state.bid.current);
-  React.useEffect(() => {
-    setMessageBid("");
-    if (bid_before === "time") {
-      setMessageBid("마감 시간이 종료되었어요..");
-    } else if (bid_before === "success") {
-      // setMessageBid("입찰 성공!");
-    } else if (bid_before === "before") {
-      setMessageBid("현재 입찰가보다 높아야 해욧!");
-    }
-  }, [bid_before, open]);
+
+  const [stampMsg, setStamp] = useState(false);
 
   useInterval(() => {
     dispatch(bidActions.setBidAPI(p_id, lowBid)); // lowBid 있어야함
@@ -84,15 +79,53 @@ const Bid = (props) => {
     } else {
       dispatch(bidActions.addBidAPI(parseInt(bidPrice.replace(/,/g, "")), Date.now()));
     }
+    // return succeessModal();
   };
-
-  const [stampMsg, setStamp] = useState(false);
 
   const addSuccessbid = () => {
-    dispatch(bidActions.addNEWSucbidAPI(sucBid, sellerunique, Date.now()));
-    setStamp(true);
-    // close();
+    addNEWSucbidAPI();
   };
+
+  const addNEWSucbidAPI = () => {
+    return function (dispatch, getState, { history }) {
+      let id = getState().product.productId;
+      let nickname = localStorage.getItem("nickname");
+      const access_token = localStorage.getItem("access_token");
+      const draft = { bid: sucBid, nickName: nickname, createAt: Date.now() };
+      fetch(`${API}/bid/newsucbid/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          access_token: `${access_token}`,
+        },
+        body: JSON.stringify({ sellerunique: sellerunique, sucbid: sucBid }),
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res);
+          if (res.okay) {
+            setStamp(true);
+            dispatch(bidActions.addBid(draft));
+          } else {
+            console.log("response is not ok.");
+          }
+        })
+        .catch((err) => {
+          console.log("addNEWSucbidAPI에 문제가 있습니다.", err);
+        });
+    };
+  };
+
+  React.useEffect(() => {
+    setMessageBid("");
+    if (bid_before === "time") {
+      setMessageBid("마감 시간이 종료되었어요..");
+    } else if (bid_before === "success") {
+      // setMessageBid("입찰 성공!");
+    } else if (bid_before === "before") {
+      setMessageBid("현재 입찰가보다 높아야 해욧!");
+    }
+  }, [bid_before, open]);
 
   if (bid) {
     return (
@@ -201,7 +234,7 @@ const Bid = (props) => {
               _onClick={() => {
                 setStamp(false);
                 close();
-                history.go(0);
+                // history.go(0);
               }}
               width="75%"
               margin="20px auto 9% auto"
