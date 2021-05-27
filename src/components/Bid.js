@@ -50,9 +50,12 @@ const Bid = (props) => {
 
   const [stampMsg, setStamp] = useState(false);
 
+  const testBid = _current + 1;
+
   useInterval(() => {
     dispatch(bidActions.setBidAPI(p_id, lowBid)); // lowBid 있어야함
-  }, 1000);
+    // dispatch(bidActions.addBidAPI(testBid, Date.now()));
+  }, 15);
 
   const addBid = () => {
     const trueBid = parseInt(bidPrice.replace(/,/g, ""));
