@@ -67,7 +67,7 @@ const Seller_Review = () => {
           <ReviewInfo>
             <Head>
               <Text h3 textAlign="left">
-                내 상점 후기
+                판매자 상점 후기
               </Text>
             </Head>
             <Detail>
