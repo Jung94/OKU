@@ -15,7 +15,7 @@ import NotFound from "shared/NotFound";
 import Loading from "shared/Loading";
 import Notice from "shared/Notice";
 import { Header, Footer } from "components/";
-import { Home, Product, ProductUpload, Signup, Login, Agreement, Result, My, Chat, CategoryResult, MdList, DeadList, MyShop, AllList } from "pages/";
+import { Home, Product, ProductUpload, Signup, Login, Agreement, Result, My, Chat, CategoryResult, MdList, DeadList, MyShop, AllList, SellerShop } from "pages/";
 
 const App = (props) => {
   const dispatch = useDispatch();
@@ -59,6 +59,7 @@ const App = (props) => {
               <Route path="/chat/:productId/:otherId/:myId/:otherName/:title" exact component={Chat} />
               <Route path="/alllist" component={AllList} />
               <Route path="/myshop" component={MyShop} />
+              <Route path="/sellershop" component={SellerShop} />
               <Route path="/my" component={My} />
               <Route path="/social/:id" exact component={Social} />
               <Route component={NotFound} />

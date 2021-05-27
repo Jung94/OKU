@@ -76,7 +76,7 @@ const DetailRing = (props) => {
               {alert.alreadyCheck && alert.alreadyCheck.length > 0 ? (
                 <Contents>
                   {alert.notCheck.map((i, idx) => {
-                    return <RingContents key={idx} {...i} />;
+                    return <RingContents notCheck key={idx} {...i} />;
                   })}
                   {alert.alreadyCheck.map((i, idx) => {
                     return <RingContents key={idx} {...i} />;
@@ -126,6 +126,7 @@ const DetailRing = (props) => {
         <Desktop>
           <Wrap>
             {alert.notCheck && alert.notCheck.length === 0 ? (
+              <>
               <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
                 <Badge invisible={is_read} color="secondary" variant="dot">
                   <Img src={IconRingOff} />
@@ -135,7 +136,12 @@ const DetailRing = (props) => {
                   알림
                 </Text>
               </div>
+              {/* <New className="newAlarm">
+                새로운 <span style={{color :"#AE00FF"}}>알람</span>이 있습니다
+              </New> */}
+            </>
             ) : (
+              <>
               <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
                 <Badge color="secondary" variant="dot">
                   <Img src={IconRingOff} />
@@ -145,6 +151,10 @@ const DetailRing = (props) => {
                   알림
                 </Text>
               </div>
+              <New className="newAlarm">
+                새로운 <span style={{color :"#AE00FF"}}>알람</span>이 있습니다.
+              </New>
+              </>
             )}
           </Wrap>
         </Desktop>
@@ -325,6 +335,41 @@ const ContentsX = styled.div`
   display: block;
   margin: 100px 69px 0;
   color: #dadada;
+`;
+const New = styled.div`
+  margin : 25px 0 0 -55px;
+  position: relative;
+  width: 190px;
+  height: 50px;
+  padding: 10px;
+  background: #eee;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  border-radius: 24px;
+  border: #AE00FF solid 2px;
+::after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 0 20px 15px;
+  border-color: #eee transparent;
+  display: block;
+  width: 0;
+  z-index: 1;
+  top: -15px;
+  left: 42px;
+::before {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 0 22px 16px;
+  border-color: #AE00FF transparent;
+  display: block;
+  width: 0;
+  z-index: 0;
+  top: -18px;
+  left: 41px;
+  }
 `;
 
 export default DetailRing;
