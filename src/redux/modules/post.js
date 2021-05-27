@@ -62,6 +62,8 @@ const PopularProduct_API = `${API}/product/popularlist`;
 
 const getPopularProductsAPI = () => {
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
+
     axios
       .get(PopularProduct_API)
       .then((resp) => {
@@ -73,7 +75,7 @@ const getPopularProductsAPI = () => {
         }
       })
       .catch((e) => console.error(e))
-      .finally(() => {});
+      .finally(() => dispatch(loadingActions.loading(false)));
   };
 };
 
@@ -82,6 +84,7 @@ const getRecentProductsAPI = () => {
   const RecentProduct_API = `${API}/product/recentlist?608c316e1a69364cd388967a`;
 
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
     axios
       .get(RecentProduct_API)
       .then((resp) => {
@@ -89,7 +92,7 @@ const getRecentProductsAPI = () => {
         // console.log(resp);
       })
       .catch((e) => console.error(e))
-      .finally(() => {});
+      .finally(() => dispatch(loadingActions.loading(false)));
   };
 };
 
@@ -113,12 +116,14 @@ const AllProducts_API = `${API}/product/all`;
 
 const getAllProductAPI = () => {
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
     axios
       .get(AllProducts_API)
       .then((resp) => {
         dispatch(setAllProducts(resp.data.result));
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.log(e))
+      .finally(() => dispatch(loadingActions.loading(false)));
   };
 };
 
@@ -127,6 +132,7 @@ const DeadlineProduct_API = `${API}/product/deadline`;
 
 const getDeadlineProductAPI = () => {
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
     axios
       .get(DeadlineProduct_API)
       .then((resp) => {
@@ -138,7 +144,7 @@ const getDeadlineProductAPI = () => {
         }
       })
       .catch((e) => console.log(e))
-      .finally(() => {});
+      .finally(() => dispatch(loadingActions.loading(false)));
   };
 };
 
@@ -147,6 +153,7 @@ const RecommendProduct_API = `${API}/product/recommend`;
 
 const getRecommendProductAPI = () => {
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
     axios
       .get(RecommendProduct_API)
       .then((resp) => {
@@ -156,7 +163,7 @@ const getRecommendProductAPI = () => {
         }
       })
       .catch((e) => console.log(e))
-      .finally(() => {});
+      .finally(() => dispatch(loadingActions.loading(false)));
   };
 };
 
@@ -164,6 +171,7 @@ const getRecommendProductAPI = () => {
 const getProductMainCategotAPI = (mainKeyword) => {
   const ProductMainCategory_API = `${API}/product/Category/${mainKeyword}`;
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
     dispatch(clearCategory());
     dispatch(setMainKeyword(mainKeyword));
     axios
@@ -176,7 +184,7 @@ const getProductMainCategotAPI = (mainKeyword) => {
         console.log(e);
         window.alert("카테고리 데이터가 없습니다");
       })
-      .finally(() => {});
+      .finally(() => dispatch(loadingActions.loading(false)));
   };
 };
 
@@ -184,6 +192,7 @@ const getProductMainCategotAPI = (mainKeyword) => {
 const getProductSubCategotAPI = (mainKeyword, subKeyword) => {
   const ProductSubCategory_API = `${API}/product/Category/${mainKeyword}/${subKeyword}`;
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
     dispatch(clearCategory());
     dispatch(setSubKeyword(subKeyword));
     axios
@@ -195,7 +204,7 @@ const getProductSubCategotAPI = (mainKeyword, subKeyword) => {
       .catch((e) => {
         console.log(e);
       })
-      .finally(() => {});
+      .finally(() => dispatch(loadingActions.loading(false)));
   };
 };
 

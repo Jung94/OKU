@@ -50,7 +50,7 @@ const Bid = (props) => {
 
   const [stampMsg, setStamp] = useState(false);
 
-  const testBid = _current + 1;
+  // const testBid = _current + 1;
 
   useInterval(() => {
     dispatch(bidActions.setBidAPI(p_id, lowBid)); // lowBid 있어야함
