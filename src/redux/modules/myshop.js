@@ -3,6 +3,8 @@ import { produce } from "immer";
 import { API } from "shared/Api";
 import axios from "axios";
 
+import { actionCreators as loadingActions } from "redux/modules/loading";
+
 // actions
 // 내상점
 // 내상점소개
@@ -29,6 +31,7 @@ const Dsec_API = `${API}/user/marketdesc`;
 
 const getShopDescAPI = () => {
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
     const access_token = localStorage.getItem("access_token");
     fetch(Dsec_API, {
       method: "GET",
@@ -44,7 +47,8 @@ const getShopDescAPI = () => {
       })
       .catch((error) => {
         console.log("내 상점 소개", error);
-      });
+      })
+      .finally(() => dispatch(loadingActions.loading(false)));
   };
 };
 
@@ -77,6 +81,8 @@ const MyProduct_API = `${API}/user/myproduct`;
 const getMyProductAPI = () => {
   const access_token = localStorage.getItem("access_token");
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
+
     fetch(MyProduct_API, {
       method: "GET",
       headers: {
@@ -91,7 +97,8 @@ const getMyProductAPI = () => {
       })
       .catch((error) => {
         console.log("실시간등록상품", error);
-      });
+      })
+      .finally(() => dispatch(loadingActions.loading(false)));
   };
 };
 

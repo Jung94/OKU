@@ -20,7 +20,7 @@ import { Home, Product, ProductUpload, Signup, Login, Agreement, Result, My, Cha
 const App = (props) => {
   const dispatch = useDispatch();
   const is_login = localStorage.getItem("access_token") ? true : false;
-  // const is_loading = useSelector((state) => state.loading.is_loading);
+  const is_loading = useSelector((state) => state.loading.is_loading);
   const header_display = useSelector((state) => state.header.header_display);
   const footer_display = useSelector((state) => state.header.footer_display);
 
@@ -32,9 +32,9 @@ const App = (props) => {
     }
   }, []);
 
-  // if (is_loading) {
-  //   return <Loading />;
-  // }
+  if (is_loading) {
+    return <Loading />;
+  }
 
   return (
     <Wrap>

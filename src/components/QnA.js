@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import styled from "styled-components";
 import { Grid, Input, Line, Button, Text, Profile } from "elements/";
@@ -24,8 +24,11 @@ const QnA = (props) => {
   const [_answer, setAnswer] = useState("");
   const onChangeContents = useCallback((e) => setAnswer(e.target.value), []);
 
+  const qId = useSelector((state) => state.product.questId);
+  // const new_qna = useSelector((state) => state.product.new_qna);
+
   const addAnswer = () => {
-    dispatch(productActions.addAnswerAPI(_id, _answer, sellerId, Date.now()));
+    dispatch(productActions.addAnswerAPI(_id || qId, _answer, sellerId, Date.now()));
     setAnswer("");
     setACnt("");
     setOpen(false);
@@ -120,6 +123,7 @@ const QnA = (props) => {
       </QnAWrap>
     );
   }
+
   // if (_qna_list) {
   return (
     <QnAWrap>
@@ -168,6 +172,7 @@ const QnA = (props) => {
               </Grid>
             </>
           )}
+
           {is_seller === sellerId && (
             <OpenPostBtn
               onClick={() => {
