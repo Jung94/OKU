@@ -102,8 +102,7 @@ const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, p
       })
       .catch((error) => {
         console.log("addPostAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => {});
+      });
   };
 };
 

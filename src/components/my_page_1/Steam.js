@@ -212,12 +212,7 @@ const Box = styled.div`
   overflow-y : hidden;
   box-sizing: border-box;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-
-  padding: 15px;
-  gap: 10px;
+  padding: 15px 15px 15px 15px;
 
   background: ${Color.Light_1};
   border-radius: 12px;
@@ -229,20 +224,22 @@ const Box = styled.div`
   
   /* overflow-x scrollbar css */
   ::-webkit-scrollbar {
-    width: 12px;
+    width: 1px;
+    height : 8px;
   }
   // scrollbar
   ::-webkit-scrollbar-thumb {
-    background: ${Color.Secondary_1};
+    background: #ccc;
     border-radius: 10px;
     background-clip: padding-box;
-    border: 2px solid transparent;
+    border: 1px solid transparent;    
   }
   // scrollbar 배경 (트랙)
   ::-webkit-scrollbar-track {
     background-color: ${Color.Light_1};
     border-radius: 10px;
     /* box-shadow: inset 0px 0px 6px #ff000080; */
+    margin : 0 0px 0 15px;
   }
 
 `;
@@ -251,11 +248,6 @@ const List = styled.div`
   display : flex;
   justify-content: space-between;
   width: 100%;
-
-  div {
-    margin: 2px auto 2px;
-    text-align: center;
-  }
 `;
 // const LeftArrow = styled.div`
 //   position: absolute;

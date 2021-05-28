@@ -3,6 +3,8 @@ import { produce } from "immer";
 import { API } from "shared/Api";
 import axios from "axios";
 
+import { actionCreators as loadingActions } from "redux/modules/loading";
+
 // actions
 // 내상점
 // 내상점소개

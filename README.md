@@ -1,10 +1,14 @@
-# Getting Started with Create React App
+# 0부터 9까지 It's OK! OKU!
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+이 프로젝트는 사이트는 📍 [O K U](http://myoku.co.kr).
 
-## Available Scripts
+## OKU 프로젝트 개요
 
-In the project directory, you can run:
+##### 덕후들을 위한 굿즈 경매 사이트입니다.\
+
+Design: UI/UX 2인\
+Backend: Node.js 2인 [BackendRepo](https://github.com/danaisboss/OKU)\
+Frontend: React.js 3인
 
 ### `yarn start`
 

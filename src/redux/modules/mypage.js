@@ -44,8 +44,7 @@ const setProfileAPI = () => {
       })
       .catch((error) => {
         console.log("setProfileAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => {});
+      });
   };
 };
 
@@ -88,8 +87,7 @@ const editProfileAPI = (nickname, profile) => {
       })
       .catch((error) => {
         console.log("editProfileAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => {});
+      });
   };
 };
 
@@ -112,8 +110,7 @@ const setInfoAPI = () => {
       })
       .catch((error) => {
         console.log("setInfoAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => {});
+      });
   };
 };
 
@@ -146,8 +143,7 @@ const setMystoreAPI = () => {
       })
       .catch((error) => {
         console.log("setInfoAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => {});
+      });
   };
 };
 

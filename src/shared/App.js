@@ -15,12 +15,12 @@ import NotFound from "shared/NotFound";
 import Loading from "shared/Loading";
 import Notice from "shared/Notice";
 import { Header, Footer } from "components/";
-import { Home, Product, ProductUpload, Signup, Login, Agreement, Result, My, Chat, CategoryResult, MdList, DeadList, MyShop, AllList } from "pages/";
+import { Home, Product, ProductUpload, Signup, Login, Agreement, Result, My, Chat, CategoryResult, MdList, DeadList, MyShop, AllList, SellerShop } from "pages/";
 
 const App = (props) => {
   const dispatch = useDispatch();
   const is_login = localStorage.getItem("access_token") ? true : false;
-  // const is_loading = useSelector((state) => state.loading.is_loading);
+  const is_loading = useSelector((state) => state.loading.is_loading);
   const header_display = useSelector((state) => state.header.header_display);
   const footer_display = useSelector((state) => state.header.footer_display);
 
@@ -32,9 +32,9 @@ const App = (props) => {
     }
   }, []);
 
-  // if (is_loading) {
-  //   return <Loading />;
-  // }
+  if (is_loading) {
+    return <Loading />;
+  }
 
   return (
     <Wrap>
@@ -59,6 +59,7 @@ const App = (props) => {
               <Route path="/chat/:productId/:otherId/:myId/:otherName/:title" exact component={Chat} />
               <Route path="/alllist" component={AllList} />
               <Route path="/myshop" component={MyShop} />
+              <Route path="/sellershop" component={SellerShop} />
               <Route path="/my" component={My} />
               <Route path="/social/:id" exact component={Social} />
               <Route component={NotFound} />

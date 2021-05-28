@@ -15,18 +15,21 @@ const SET_RELATED = "SET_RELATED";
 const SET_QNA = "SET_QNA";
 const ADD_QUESTION = "ADD_QUESTION";
 const ADD_ANSWER = "ADD_ANSWER";
+const SOON_ANSWER = "SOON_ANSWER";
 
 //actionCreators
 const setProductAll = createAction(SET_PRODUCT_ALL, (pid, product_detail) => ({ pid, product_detail }));
 const setRelated = createAction(SET_RELATED, (related) => ({ related }));
 const setQnA = createAction(SET_QNA, (question) => ({ question }));
-const addQuestion = createAction(ADD_QUESTION, (new_question) => ({ new_question }));
+const addQuestion = createAction(ADD_QUESTION, (questId, new_question) => ({ questId, new_question }));
 const addAnswer = createAction(ADD_ANSWER, (qid, new_answer) => ({ qid, new_answer }));
+const soonAnswer = createAction(SOON_ANSWER, (soonAnswer) => ({ soonAnswer }));
 
 const initialState = {
   product_detail: {},
   qna_list: [],
   productId: null,
+  questId: "",
   related: [],
   related_mobile: [],
   new_qna: {},
@@ -68,8 +71,7 @@ const setProductAllAPI = (_id) => {
       })
       .catch((error) => {
         console.log("setProductAllAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => {});
+      });
   };
 };
 
@@ -194,7 +196,7 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
           console.log(res);
           console.log(res.questId);
           console.log("문의글이 등록되었습니다.");
-          dispatch(addQuestion(draft));
+          dispatch(addQuestion(res.questId, draft));
           // 공부 포인트!
         } else {
           console.log("okay is false");
@@ -202,10 +204,6 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
       })
       .catch((error) => {
         console.log("addQuestionAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => {
-        // history.replace(`/`);
-        history.replace(`/product/detail/${_id}`);
       });
   };
 };
@@ -235,14 +233,14 @@ const addAnswerAPI = (_id, _answer, sellerId, updatedAt) => {
       .then((res) => {
         if (res.okay) {
           dispatch(addAnswer(_id, draft));
+          dispatch(soonAnswer(draft));
         } else {
           console.log("새로고침을 하여 문의글id를 받아야하거나, 판매자가 아니거나, 답변 등록에 실패하였습니다.");
         }
       })
       .catch((error) => {
         console.log("addAnswerAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => {});
+      });
   };
 };
 
@@ -269,6 +267,7 @@ export default handleActions(
         // unshift: 데이터를 배열 맨 앞에 넣어줌.
         draft.qna_list.unshift(action.payload.new_question);
         console.log(action.payload.new_question);
+        draft.questId = action.payload.questId;
       }),
     [ADD_ANSWER]: (state, action) =>
       produce(state, (draft) => {
@@ -278,6 +277,10 @@ export default handleActions(
         let idx = draft.qna_list.findIndex((e) => e._id === action.payload.qid);
         // console.log("🟡", draft.qna_list[idx]); // 이건 proxy로 나옴. 무슨 의미?
         draft.qna_list[idx] = { ...draft.qna_list[idx], ...action.payload.new_answer };
+      }),
+    [SOON_ANSWER]: (state, action) =>
+      produce(state, (draft) => {
+        draft.new_qna = action.payload.soonAnswer;
       }),
   },
   initialState

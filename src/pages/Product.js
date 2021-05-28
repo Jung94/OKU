@@ -14,6 +14,7 @@ import { useMediaQuery } from "react-responsive";
 import { actionCreators as headerActions } from "redux/modules/header";
 import { actionCreators as productActions } from "redux/modules/product";
 import { actionCreators as likeActions } from "redux/modules/like";
+import { actionCreators as loadingActions } from "redux/modules/loading";
 import RelatedProduct from "components/global/RelatedProduct";
 import { actionCreators as bidActions } from "redux/modules/bid";
 import { input_priceComma } from "shared/common";

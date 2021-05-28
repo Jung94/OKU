@@ -56,10 +56,12 @@ const DetailRing = (props) => {
 
   const RingDetailShowing = () => setRingShowing(!Ringshowing);
 
+      // 로그인이 되어있을 때
+      // 알림 박스 Open
   if (Ringshowing && is_login) {
     return (
-      // 로그인이 되어있을 때
       <>
+      {/* Desktop Ver */}
         <Desktop>
           <Wrap>
             <div className="alarm" onClick={notiCheck}>
@@ -76,13 +78,13 @@ const DetailRing = (props) => {
               {alert.alreadyCheck && alert.alreadyCheck.length > 0 ? (
                 <Contents>
                   {alert.notCheck.map((i, idx) => {
-                    return <RingContents key={idx} {...i} />;
+                    return <RingContents notCheck key={idx} {...i} />;
                   })}
                   {alert.alreadyCheck.map((i, idx) => {
                     return <RingContents key={idx} {...i} />;
                   })}
                 </Contents>
-              ) : (
+                ) : (
                 <ContentsX>
                   <span>최근 알림이 없습니다.</span>
                 </ContentsX>
@@ -91,6 +93,7 @@ const DetailRing = (props) => {
           </Wrap>
         </Desktop>
 
+        {/* Mobile Ver */}
         <Mobile>
           <Wrap>
             <div className="alarm" onClick={notiCheck}>
@@ -120,31 +123,43 @@ const DetailRing = (props) => {
         </Mobile>
       </>
     );
+
+    // 알림 박스 Close
   } else if (is_login) {
     return (
       <>
         <Desktop>
           <Wrap>
             {alert.notCheck && alert.notCheck.length === 0 ? (
-              <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
-                <Badge invisible={is_read} color="secondary" variant="dot">
-                  <Img src={IconRingOff} />
-                  {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-                </Badge>
-                <Text h4 margin="4px 0 0 7px">
-                  알림
-                </Text>
-              </div>
+              <>
+                <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
+                  <Badge invisible={is_read} color="secondary" variant="dot">
+                    <Img src={IconRingOff} />
+                    {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
+                  </Badge>
+                  <Text h4 margin="4px 0 0 7px">
+                    알림
+                  </Text>
+                </div>
+                {/* <New className="newAlarm">
+                  새로운 <span style={{ color: "#AE00FF" }}>알람</span>이 있습니다.
+                </New> */}
+              </>
             ) : (
-              <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
-                <Badge color="secondary" variant="dot">
-                  <Img src={IconRingOff} />
-                  {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-                </Badge>
-                <Text h4 margin="4px 0 0 7px">
-                  알림
-                </Text>
-              </div>
+              <>
+                <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
+                  <Badge color="secondary" variant="dot">
+                    <Img src={IconRingOff} />
+                    {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
+                  </Badge>
+                  <Text h4 margin="4px 0 0 7px">
+                    알림
+                  </Text>
+                </div>
+                <New className="newAlarm">
+                  새로운 <span style={{ color: "#AE00FF" }}>알람</span>이 있습니다.
+                </New>
+              </>
             )}
           </Wrap>
         </Desktop>
@@ -170,6 +185,7 @@ const DetailRing = (props) => {
         </Mobile>
       </>
     );
+    // 로그인이 안 되어있을 때 
   } else {
     return (
       <>
@@ -325,6 +341,49 @@ const ContentsX = styled.div`
   display: block;
   margin: 100px 69px 0;
   color: #dadada;
+`;
+
+const New = styled.div`
+  margin: 25px 0 0 -55px;
+  position: relative;
+  /* display: flex; */
+  width: 180px;
+  height: 40px;
+  font-size: 12px;
+  text-align: center;
+  padding: 10px;
+  background: white;
+  -webkit-border-radius: 24px;
+  -moz-border-radius: 24px;
+  border-radius: 24px;
+  border: ${Color.Primary}33 solid 0.5px;
+  box-shadow: 0 1px 6px ${Color.Primary}33;
+  ::after {
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-width: 0 10px 10px;
+    border-color: #ffffff transparent;
+
+    display: block;
+    width: 0;
+    z-index: 1;
+    top: -10px;
+    left: 70px;
+  }
+  ::before {
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-width: 0 10px 10px;
+    border-color: ${Color.Primary}33 transparent;
+
+    display: block;
+    width: 0;
+    z-index: 0;
+    top: -11px;
+    left: 70px;
+  }
 `;
 
 export default DetailRing;

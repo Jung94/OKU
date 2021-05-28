@@ -67,6 +67,8 @@ const signupAPI = (email, pw, pwCheck, nickName, phone) => {
 // 일반 로그인
 const loginAPI = (email, pw, autoLogin, saveId) => {
   return function (dispatch, getState, { history }) {
+    dispatch(loadingActions.loading(true));
+
     fetch(`${API}/user/login`, {
       method: "POST",
       headers: {
@@ -89,7 +91,9 @@ const loginAPI = (email, pw, autoLogin, saveId) => {
           localStorage.setItem("access_token", token);
           localStorage.setItem("nickname", user);
           localStorage.setItem("uid", uid);
-          window.alert("로그인을 완료하였습니다!");
+          dispatch(loadingActions.loading(false));
+
+          window.alert(`${user}님, OKU에 로그인되었습니다.`);
           dispatch(setUser(user, uid));
           if (autoLogin) {
             dispatch(autoLogin()); // 완성되지 않은 함수

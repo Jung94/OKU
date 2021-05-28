@@ -72,15 +72,13 @@ const getPopularProductsAPI = () => {
           window.alert("실시간 인기상품 데이터가 없습니다");
         }
       })
-      .catch((e) => console.error(e))
-      .finally(() => {});
+      .catch((e) => console.error(e));
   };
 };
 
 // 실시간 등록상품
 const getRecentProductsAPI = () => {
   const RecentProduct_API = `${API}/product/recentlist?608c316e1a69364cd388967a`;
-
   return function (dispatch, getState, { history }) {
     axios
       .get(RecentProduct_API)
@@ -88,8 +86,7 @@ const getRecentProductsAPI = () => {
         dispatch(setRecentProducts(resp.data.productList[0]));
         // console.log(resp);
       })
-      .catch((e) => console.error(e))
-      .finally(() => {});
+      .catch((e) => console.error(e));
   };
 };
 
@@ -137,8 +134,7 @@ const getDeadlineProductAPI = () => {
           window.alert("마감 임박 상품 데이터가 없습니다");
         }
       })
-      .catch((e) => console.log(e))
-      .finally(() => {});
+      .catch((e) => console.log(e));
   };
 };
 
@@ -155,8 +151,7 @@ const getRecommendProductAPI = () => {
           dispatch(setRecommendProducts(resp.data.result));
         }
       })
-      .catch((e) => console.log(e))
-      .finally(() => {});
+      .catch((e) => console.log(e));
   };
 };
 
@@ -175,8 +170,7 @@ const getProductMainCategotAPI = (mainKeyword) => {
       .catch((e) => {
         console.log(e);
         window.alert("카테고리 데이터가 없습니다");
-      })
-      .finally(() => {});
+      });
   };
 };
 
@@ -194,8 +188,7 @@ const getProductSubCategotAPI = (mainKeyword, subKeyword) => {
       })
       .catch((e) => {
         console.log(e);
-      })
-      .finally(() => {});
+      });
   };
 };
 

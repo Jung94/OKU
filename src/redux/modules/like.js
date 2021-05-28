@@ -137,8 +137,7 @@ const getMyLikeListAPI = () => {
       })
       .catch((error) => {
         console.log("getMyLikeListAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => {});
+      });
   };
 };
 

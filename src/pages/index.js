@@ -14,10 +14,11 @@ import Chat from "./Chat";
 import CategoryResult from "./CategoryResult";
 import My from "./My";
 import MyShop from './MyShop'
+import SellerShop from './SellerShop'
 
 import DeadList from './DeadList'
 import MdList from './MdList'
 
 import AllList from './AllList'
 
-export { Home, Product, ProductUpload, Signup, Login, Agreement, Result, Chat, CategoryResult, My, MdList, DeadList, MyShop, AllList };
+export { Home, Product, ProductUpload, Signup, Login, Agreement, Result, Chat, CategoryResult, My, MdList, DeadList, MyShop, AllList, SellerShop };
