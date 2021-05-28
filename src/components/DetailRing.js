@@ -68,7 +68,7 @@ const DetailRing = (props) => {
                 <Img src={IconRingOff} onClick={RingDetailShowing} />
                 {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
               </Badge>
-              <Text h4 margin="4px 0 0 8px">
+              <Text h4 margin="4px 0 0 7px">
                 알림
               </Text>
             </div>
@@ -131,7 +131,7 @@ const DetailRing = (props) => {
                   <Img src={IconRingOff} />
                   {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
                 </Badge>
-                <Text h4 margin="4px 0 0 8px">
+                <Text h4 margin="4px 0 0 7px">
                   알림
                 </Text>
               </div>
@@ -141,7 +141,7 @@ const DetailRing = (props) => {
                   <Img src={IconRingOff} />
                   {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
                 </Badge>
-                <Text h4 margin="4px 0 0 8px">
+                <Text h4 margin="4px 0 0 7px">
                   알림
                 </Text>
               </div>
@@ -183,7 +183,7 @@ const DetailRing = (props) => {
             <div className="alarm" onClick={notiCheck} onClick={RingDetailShowing}>
               <Img src={IconRingOff} />
               {/* <NotiBadge onClick={RingDetailShowing} src={List}></NotiBadge> */}
-              <Text h4 margin="4px 0 0 8px">
+              <Text h4 margin="4px 0 0 7px">
                 알림
               </Text>
             </div>

@@ -21,12 +21,10 @@ const Mobile = ({ children }) => {
   return isMobile ? children : null;
 };
 
-const Sidebar = ({ room }) => {
+const Sidebar = ({ room, productId }) => {
   const dispatch = useDispatch();
-  const [update, setUpdate] = useState("");
   const uid = localStorage.getItem("uid");
   const users = useSelector((state) => state.chat.user_list);
-  const msgList = useSelector((state) => state.chat.chat_list);
 
   useEffect(() => {
     // 전체 유저 조회
@@ -38,7 +36,7 @@ const Sidebar = ({ room }) => {
 
   useEffect(() => {
     // 베지 및 알림
-    dispatch(chatActions.globalAddChatList(room));
+    dispatch(chatActions.globalAddChatList(room, productId));
     return () => {
       // 언마운트 시 socket off
       chatActions.globalSocket.off();
@@ -72,6 +70,7 @@ const Sidebar = ({ room }) => {
                         // 채팅 페이지 이동
                         history.push(`/chat/${val._id}/${val.sellerunique === uid ? val.soldById : val.sellerunique}/${uid}/${val.sellerunique === uid ? val.soldBy : val.nickname}/${val.title}`);
                         // dispatch(chatActions.badgeOff(val.sellerunique === uid ? val.soldById : val.sellerunique));
+                        dispatch(chatActions.badgeOff(val._id));
                       }}
                     >
                       <>

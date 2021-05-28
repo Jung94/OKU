@@ -18,7 +18,7 @@ const END_DEAL = "END_DEAL";
 // 액션 생성함수
 const getMsg = createAction(GET_MSG, (msg) => ({ msg }));
 const setMsg = createAction(SET_MSG, (msg) => ({ msg }));
-const badgeOff = createAction(BADGE, (uid) => ({ uid }));
+const badgeOff = createAction(BADGE, (pid) => ({ pid }));
 const receiveBadge = createAction(RECEIVEBADGE, (uid) => ({ uid }));
 const user_list = createAction(USERS, (user_list) => ({ user_list }));
 const endOfDeal = createAction(END_DEAL, (_id) => ({ _id }));
@@ -71,13 +71,12 @@ const middlewareUsers = () => {
       },
     })
       .then((res) => {
-        console.log(res);
         if (res.data.targets !== false) {
           const users = res.data.targets.map((val) => {
             // 알림 배지 여부를 위해 처리
             return { ...val, is_badge: false };
           });
-
+          // console.log(users);
           dispatch(user_list(users));
         } else {
           return;
@@ -107,9 +106,11 @@ const addChatList = () => {
   };
 };
 
-const globalAddChatList = (room) => {
+const globalAddChatList = (room, productId) => {
   return function (dispatch, getState) {
     globalSocket.on("globalReceive", (res) => {
+      console.log(res);
+      console.log(room);
       // const myId = getState().user.user.uid;
       const myId = localStorage.getItem("uid");
       const receive_val = res.room.split("-");
@@ -117,7 +118,7 @@ const globalAddChatList = (room) => {
       // 나한태 오는 알림일 경우
       if (receive_val.includes(myId) === true) {
         // 내가 보내는 알림은 울리지 않게 끔
-        if (getState().user.user.uid !== res.uid) {
+        if (myId !== res.uid) {
           // 해당 채팅방에서는 알람이 울리지 않게 끔 조건 처리
           if (room !== res.room) {
             // 배지 알림
@@ -162,12 +163,12 @@ export default handleActions(
     [BADGE]: (state, action) =>
       produce(state, (draft) => {
         console.log();
-        const idx = draft.user_list.findIndex((val) => val.userId === action.payload.uid);
+        const idx = draft.user_list.findIndex((val) => val._id === action.payload.pid);
         draft.user_list[idx].is_badge = false;
       }),
     [RECEIVEBADGE]: (state, action) =>
       produce(state, (draft) => {
-        const idx = draft.user_list.findIndex((val) => val.userId === action.payload.uid);
+        const idx = draft.user_list.findIndex((val) => val._Id === action.payload.uid);
         draft.user_list[idx].is_badge = true;
       }),
     [USERS]: (state, action) =>

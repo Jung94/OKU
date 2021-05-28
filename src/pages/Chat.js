@@ -41,9 +41,9 @@ const Chat = (props) => {
   // 로컬에 저장된 토큰 조회
   const is_login = localStorage.getItem("access_token") ? true : false;
 
-  const makeRoom = [props.match.params.otherId, props.match.params.myId].sort();
+  const makeRoom = [props.match.params.productId, props.match.params.otherId, props.match.params.myId].sort();
   // 방
-  const room = makeRoom[0] + "-" + makeRoom[1];
+  const room = makeRoom[0] + "-" + makeRoom[1] + "-" + makeRoom[2];
   // 대화 상대 이름
   const targetName = props.match.params.otherName;
   // 상품 id
@@ -96,7 +96,7 @@ const Chat = (props) => {
         <Wrap>
           <MainContent>
             <MainLeft>
-              <Sider room={room} />
+              <Sider room={room} productId={productId} />
             </MainLeft>
             <MainRight>
               {chatActions.socket ? (
@@ -120,7 +120,7 @@ const Chat = (props) => {
         <Wrap>
           <MainContent>
             <MainTop>
-              <Sider room={room} />
+              <Sider room={room} productId={productId} />
             </MainTop>
             <MainBottom>
               <Main targetName={targetName} productName={productName} room={room} />
