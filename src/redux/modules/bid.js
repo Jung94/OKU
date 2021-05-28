@@ -123,8 +123,7 @@ const addBidAPI = (bidPrice, createAt) => {
       })
       .catch((err) => {
         console.log("addBidAPI에 문제가 있습니다.", err);
-      })
-      .finally(() => {});
+      });
   };
 };
 
@@ -149,8 +148,7 @@ const addSucbidAPI = (sucBid, sellerunique, createAt) => {
       })
       .catch((err) => {
         console.log("addBidAPI에 문제가 있습니다.", err);
-      })
-      .finally(() => {});
+      });
   };
 };
 
@@ -180,8 +178,7 @@ const addNEWSucbidAPI = (sucBid, sellerunique, createAt) => {
       })
       .catch((err) => {
         console.log("addNEWSucbidAPI에 문제가 있습니다.", err);
-      })
-      .finally(() => {});
+      });
   };
 };
 
@@ -208,8 +205,7 @@ const confirmSuccessAPI = (alertId, successBoolean) => {
       })
       .catch((err) => {
         console.log("getPublicUserAPI에 문제가 있습니다.", err);
-      })
-      .finally(() => {});
+      });
   };
 };
 
@@ -236,8 +232,7 @@ const getPublicUserAPI = (buyerId) => {
       })
       .catch((err) => {
         console.log("getPublicUserAPI에 문제가 있습니다.", err);
-      })
-      .finally(() => {});
+      });
   };
 };
 

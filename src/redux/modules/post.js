@@ -62,8 +62,6 @@ const PopularProduct_API = `${API}/product/popularlist`;
 
 const getPopularProductsAPI = () => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
-
     axios
       .get(PopularProduct_API)
       .then((resp) => {
@@ -74,25 +72,21 @@ const getPopularProductsAPI = () => {
           window.alert("실시간 인기상품 데이터가 없습니다");
         }
       })
-      .catch((e) => console.error(e))
-      .finally(() => dispatch(loadingActions.loading(false)));
+      .catch((e) => console.error(e));
   };
 };
 
 // 실시간 등록상품
 const getRecentProductsAPI = () => {
   const RecentProduct_API = `${API}/product/recentlist?608c316e1a69364cd388967a`;
-
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     axios
       .get(RecentProduct_API)
       .then((resp) => {
         dispatch(setRecentProducts(resp.data.productList[0]));
         // console.log(resp);
       })
-      .catch((e) => console.error(e))
-      .finally(() => dispatch(loadingActions.loading(false)));
+      .catch((e) => console.error(e));
   };
 };
 
@@ -116,14 +110,12 @@ const AllProducts_API = `${API}/product/all`;
 
 const getAllProductAPI = () => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     axios
       .get(AllProducts_API)
       .then((resp) => {
         dispatch(setAllProducts(resp.data.result));
       })
-      .catch((e) => console.log(e))
-      .finally(() => dispatch(loadingActions.loading(false)));
+      .catch((e) => console.log(e));
   };
 };
 
@@ -132,7 +124,6 @@ const DeadlineProduct_API = `${API}/product/deadline`;
 
 const getDeadlineProductAPI = () => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     axios
       .get(DeadlineProduct_API)
       .then((resp) => {
@@ -143,8 +134,7 @@ const getDeadlineProductAPI = () => {
           window.alert("마감 임박 상품 데이터가 없습니다");
         }
       })
-      .catch((e) => console.log(e))
-      .finally(() => dispatch(loadingActions.loading(false)));
+      .catch((e) => console.log(e));
   };
 };
 
@@ -153,7 +143,6 @@ const RecommendProduct_API = `${API}/product/recommend`;
 
 const getRecommendProductAPI = () => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     axios
       .get(RecommendProduct_API)
       .then((resp) => {
@@ -162,8 +151,7 @@ const getRecommendProductAPI = () => {
           dispatch(setRecommendProducts(resp.data.result));
         }
       })
-      .catch((e) => console.log(e))
-      .finally(() => dispatch(loadingActions.loading(false)));
+      .catch((e) => console.log(e));
   };
 };
 
@@ -171,7 +159,6 @@ const getRecommendProductAPI = () => {
 const getProductMainCategotAPI = (mainKeyword) => {
   const ProductMainCategory_API = `${API}/product/Category/${mainKeyword}`;
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     dispatch(clearCategory());
     dispatch(setMainKeyword(mainKeyword));
     axios
@@ -183,8 +170,7 @@ const getProductMainCategotAPI = (mainKeyword) => {
       .catch((e) => {
         console.log(e);
         window.alert("카테고리 데이터가 없습니다");
-      })
-      .finally(() => dispatch(loadingActions.loading(false)));
+      });
   };
 };
 
@@ -192,7 +178,6 @@ const getProductMainCategotAPI = (mainKeyword) => {
 const getProductSubCategotAPI = (mainKeyword, subKeyword) => {
   const ProductSubCategory_API = `${API}/product/Category/${mainKeyword}/${subKeyword}`;
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     dispatch(clearCategory());
     dispatch(setSubKeyword(subKeyword));
     axios
@@ -203,8 +188,7 @@ const getProductSubCategotAPI = (mainKeyword, subKeyword) => {
       })
       .catch((e) => {
         console.log(e);
-      })
-      .finally(() => dispatch(loadingActions.loading(false)));
+      });
   };
 };
 

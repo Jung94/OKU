@@ -22,7 +22,6 @@ const initialState = {
 
 const getProductSearch = (keyword) => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     dispatch(clearSearchPage()); // 전에 검색한 결과 내용 모두 지우기
     dispatch(setKeyword(keyword));
 
@@ -46,10 +45,7 @@ const getProductSearch = (keyword) => {
 
         dispatch(setProductSearch(products));
       })
-      .catch((err) => console.log(err, "getProductSearch"))
-      .finally(() => {
-        dispatch(loadingActions.loading(false));
-      });
+      .catch((err) => console.log(err, "getProductSearch"));
   };
 };
 

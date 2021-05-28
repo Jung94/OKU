@@ -39,7 +39,6 @@ const _idTest = "609566ecc795947ca9a342bd";
 
 const setProductAllAPI = (_id) => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     // 추후에 product 클릭 id를 가져와야함
     // _id
     fetch(`${API}/product/detail/${_id}`, {
@@ -72,9 +71,6 @@ const setProductAllAPI = (_id) => {
       })
       .catch((error) => {
         console.log("setProductAllAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => {
-        dispatch(loadingActions.loading(false));
       });
   };
 };
@@ -208,10 +204,6 @@ const addQuestionAPI = (_id, _contents, sellerunique, sellerNickname, createdAt)
       })
       .catch((error) => {
         console.log("addQuestionAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => {
-        // history.replace(`/`);
-        history.replace(`/product/detail/${_id}`);
       });
   };
 };
@@ -248,8 +240,7 @@ const addAnswerAPI = (_id, _answer, sellerId, updatedAt) => {
       })
       .catch((error) => {
         console.log("addAnswerAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => {});
+      });
   };
 };
 

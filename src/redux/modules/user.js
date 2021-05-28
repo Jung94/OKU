@@ -29,7 +29,6 @@ const initialState = {
 // 회원 가입
 const signupAPI = (email, pw, pwCheck, nickName, phone) => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     fetch(`${API}/user/signup`, {
       method: "POST",
       headers: {
@@ -61,8 +60,7 @@ const signupAPI = (email, pw, pwCheck, nickName, phone) => {
           window.alert("회원가입이 완료되었습니다!");
           history.push("/login");
         }
-      })
-      .finally(() => dispatch(loadingActions.loading(false)));
+      });
   };
 };
 
@@ -70,6 +68,7 @@ const signupAPI = (email, pw, pwCheck, nickName, phone) => {
 const loginAPI = (email, pw, autoLogin, saveId) => {
   return function (dispatch, getState, { history }) {
     dispatch(loadingActions.loading(true));
+
     fetch(`${API}/user/login`, {
       method: "POST",
       headers: {
@@ -92,6 +91,8 @@ const loginAPI = (email, pw, autoLogin, saveId) => {
           localStorage.setItem("access_token", token);
           localStorage.setItem("nickname", user);
           localStorage.setItem("uid", uid);
+          dispatch(loadingActions.loading(false));
+
           window.alert(`${user}님, OKU에 로그인되었습니다.`);
           dispatch(setUser(user, uid));
           if (autoLogin) {
@@ -108,8 +109,7 @@ const loginAPI = (email, pw, autoLogin, saveId) => {
       })
       .catch((error) => {
         console.log(error);
-      })
-      .finally(() => dispatch(loadingActions.loading(false)));
+      });
   };
 };
 

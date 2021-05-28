@@ -104,7 +104,6 @@ const deleteLikeAPI = (_id) => {
 // 마이페이지용
 const getMyLikeListAPI = () => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     const access_token = localStorage.getItem("access_token");
     fetch(`${API}/user/pick`, {
       method: "GET",
@@ -138,8 +137,7 @@ const getMyLikeListAPI = () => {
       })
       .catch((error) => {
         console.log("getMyLikeListAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => dispatch(loadingActions.loading(true)));
+      });
   };
 };
 

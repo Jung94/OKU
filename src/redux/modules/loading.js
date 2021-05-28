@@ -6,9 +6,7 @@ import { produce } from "immer";
 // is_loading initialState에서 지정해주어야함
 // dispatch(loadingActions.loading(true));
 //
-// .finally(() => {
 // dispatch(loadingActions.loading(false));
-// });
 
 // actions
 const LOADING = "LOADING";

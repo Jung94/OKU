@@ -44,8 +44,7 @@ const setProfileAPI = () => {
       })
       .catch((error) => {
         console.log("setProfileAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => {});
+      });
   };
 };
 
@@ -88,14 +87,12 @@ const editProfileAPI = (nickname, profile) => {
       })
       .catch((error) => {
         console.log("editProfileAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => {});
+      });
   };
 };
 
 const setInfoAPI = () => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     const access_token = localStorage.getItem("access_token");
     fetch(`${API}/user/myinfo`, {
       method: "GET",
@@ -113,14 +110,12 @@ const setInfoAPI = () => {
       })
       .catch((error) => {
         console.log("setInfoAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => dispatch(loadingActions.loading(false)));
+      });
   };
 };
 
 const setMystoreAPI = () => {
   return function (dispatch, getState, { history }) {
-    dispatch(loadingActions.loading(true));
     const access_token = localStorage.getItem("access_token");
     fetch(`${API}/user/myproduct`, {
       method: "GET",
@@ -148,8 +143,7 @@ const setMystoreAPI = () => {
       })
       .catch((error) => {
         console.log("setInfoAPI에 문제가 있습니다.", error);
-      })
-      .finally(() => dispatch(loadingActions.loading(false)));
+      });
   };
 };
 
