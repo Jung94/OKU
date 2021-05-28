@@ -56,10 +56,12 @@ const DetailRing = (props) => {
 
   const RingDetailShowing = () => setRingShowing(!Ringshowing);
 
+      // 로그인이 되어있을 때
+      // 알림 박스 Open
   if (Ringshowing && is_login) {
     return (
-      // 로그인이 되어있을 때
       <>
+      {/* Desktop Ver */}
         <Desktop>
           <Wrap>
             <div className="alarm" onClick={notiCheck}>
@@ -82,7 +84,7 @@ const DetailRing = (props) => {
                     return <RingContents key={idx} {...i} />;
                   })}
                 </Contents>
-              ) : (
+                ) : (
                 <ContentsX>
                   <span>최근 알림이 없습니다.</span>
                 </ContentsX>
@@ -91,6 +93,7 @@ const DetailRing = (props) => {
           </Wrap>
         </Desktop>
 
+        {/* Mobile Ver */}
         <Mobile>
           <Wrap>
             <div className="alarm" onClick={notiCheck}>
@@ -120,6 +123,8 @@ const DetailRing = (props) => {
         </Mobile>
       </>
     );
+
+    // 알림 박스 Close
   } else if (is_login) {
     return (
       <>
@@ -180,6 +185,7 @@ const DetailRing = (props) => {
         </Mobile>
       </>
     );
+    // 로그인이 안 되어있을 때 
   } else {
     return (
       <>

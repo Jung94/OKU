@@ -35,7 +35,7 @@ const Seller_Selling = (props) => {
           <SellInfo>
             <Head>
               <Text h1 textAlign="left">
-                판매상품
+                판매중인 상품
               </Text>
               {/* <More>
                         더보기
@@ -52,14 +52,6 @@ const Seller_Selling = (props) => {
                     return <SellingImg {...l} key={idx} img={l.img[0]} />;
                   })
                 )}
-                <UpLoad
-                  onClick={() => {
-                    history.push("/ProductUpload");
-                  }}
-                >
-                  <img style={{ width: "50px", height: "50px", marginTop: "68px" }} src={icon_Upload_1} />
-                  <p style={{ fontSize: "17px", color: "#818181", fontWeight: "bold", marginTop: "10px" }}>물건등록</p>
-                </UpLoad>
               </List>
             </Detail>
           </SellInfo>
@@ -71,7 +63,7 @@ const Seller_Selling = (props) => {
           <SellInfo>
             <Head>
               <Text h3 textAlign="left">
-                판매상품
+                판매중인 상품
               </Text>
               {/* <More>
                             더보기
@@ -88,14 +80,6 @@ const Seller_Selling = (props) => {
                     return <SellingImg {...l} key={idx} img={l.img[0]} />;
                   })
                 )}
-                <UpLoad
-                  onClick={() => {
-                    history.push("/ProductUpload");
-                  }}
-                >
-                  <img style={{ width: "40px", height: "40px", marginTop: "40px" }} src={icon_Upload_1} />
-                  <p style={{ fontSize: "15px", color: "#818181", fontWeight: "bold", marginTop: "5px" }}>물건등록</p>
-                </UpLoad>
               </List>
             </Detail>
           </SellInfo>

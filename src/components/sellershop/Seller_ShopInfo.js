@@ -48,7 +48,7 @@ const Seller_ShopInfo = () => {
             <ShopInfo>
                 <Head>
                 <Text h1 textAlign="left">
-                    <span style={{ color: "#ae27ff" }}>{_user.nickname}</span> 님의 상점
+                    판매자 님의 상점
                 </Text>
                 </Head>
                 <Detail>
