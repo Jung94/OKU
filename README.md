@@ -11,8 +11,7 @@
 
 ## 목차
 ### 1. 개요
-### 2. 프로젝트 주요 특징
-### 3. 프로젝트 Overview
+### 2. 프로젝트 주요 기능
   * Login
   * Signup
   * Home Page
@@ -20,40 +19,40 @@
   * Product Registration Page
   * Mypage + MyStore
   * Chatting
-### 4. 고객 반응 및 개선 사항
+### 3. 고객 반응 및 개선 사항
 
 ---
 <br/>
 
 ## 개요
-#### ➀ 프로젝트명 : OKU(오쿠)
+#### ➀ OKU(오쿠) 란?
 #### `덕후들을 위한 굿즈 경매 사이트`
-* 오타쿠의 오타쿠에 의한 오타쿠를 위한 경매사이트 OKU는 오타쿠들의 니즈를 충족시켜줄 웹서비스입니다.\
-내가 좋아하는 분야의 굿즈를 좋은 가격에 팔아볼 수 있고, 그동안 돈 주고도 못샀던 굿즈들도 OKU에서 구해볼 수 있다!
+* 오타쿠의, 오타쿠에 의한, 오타쿠를 위한 경매사이트 OKU는 오타쿠들의 니즈를 충족시켜줄 웹서비스입니다.\
+내가 좋아하는 분야의 굿즈를 좋은 가격에 팔 수 있고, 그동안 돈 주고도 못샀던 굿즈들도 OKU에서는 구할 수 있습니다!
 
-#### ➁ 🦸‍♀️🦹‍♀️🧙‍♀️팀원
+#### ➁ 👨‍👩‍👧‍👧 팀원
   * Design: UI/UX 2인 (남유진, 이소희)
   * Backend: Node.js 2인 (김연재, 원가연) [[Repo가기👉]](https://github.com/danaisboss/OKU)
   * Frontend: React.js 3인 (정성목, 최경민, 최용현)
 
 #### ➂ 개발 기간 : 2021.04.23 ~
 
-#### ➃ 협업 툴 : notion, 재플린, 구글 드라이브
-
-#### ➄ 사용 패키지
+#### ➃ 사용 패키지 & Tools
   * axios
-  * styled-components
   * redux-middleware(redux-thunk)
   * connected-react-router, history
   * react-redux, redux (+ redux-actions, immer 사용)
+  * View: React with JavaScript, Material-UI,styled-components
+  * Infrastructure: AWS S3, Route 53, Amazon CloudFront
+  * Git, Github, Notion, Zeplin, Slack, Google Drive etc.
 
 ---
 <br/>
 
-## 프로젝트 주요 특징
-#### ➀ 주요 기능
+## 프로젝트 주요 기능
+#### ➀ 기능 요약
   * 로그인(+카카오로그인), 회원가입
-  * Chatting : 1 대 1 채팅
+  * Chatting : 1대1,  채팅
   * Home Page : MD 추천 상품, 인기 상품, 마감임박 상품, 알림, Carousel
   * Detail Page : 마감시간, 입/낙찰, 실시간 입찰 정보, 댓글 작성, 좋아요, Carousel
   * Product Registration Page : 이미지 미리보기, 주소 찾기
@@ -71,16 +70,80 @@
 
 #### ➄ 반응형 웹 구현
   * PC + Mobile
-  * React Hook : useMediaQuery 사용
   * Media Query
+  * React Hook : useMediaQuery 사용
+
+<details>
+<summary>useMediaQuery 사용 방법</summary>
+<div markdown="1"> 
+ 
+   * react-responsive 설치
+
+```javascript
+import { useMediaQuery } from "react-responsive";
+```
+
+```javascript
+const Desktop = ({ children }) => {
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  return isDesktop ? children : null;
+};
+
+const Tablet = ({ children }) => {
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+  return isTablet ? children : null;
+};
+
+const Mobile = ({ children }) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  return isMobile ? children : null;
+};
+```
+ * 컴포넌트 생성 후 import하여 사용하는 방법
+```javascript
+import React from "react";
+import { useMediaQuery } from "react-responsive";
+
+export const Mobile: React.FC = ({ children }) => {
+  const isMobile = useMediaQuery({
+    query: "(min-width:0px) and (max-width:599px)",
+  });
+  return <React.Fragment>{isMobile && children}</React.Fragment>;
+};
+```
+```javascript
+import React from "react"
+const { Mobile } from "../mediaQuery"
+
+export const Main = () => {
+	return (
+    	<div>hello</div>
+        <Mobile>
+        	<div>hi</div>
+        </Mobile>
+    )
+}
+```
+</div>
+</details>
 
 ---
 <br/>
 
-## 프로젝트 Overview
+## 프로젝트 주요 기능 - 페이지별
+
 ### Login
   * 일반 로그인(이메일, 비밀번호)
   * 소셜 로그인(카카오로그인)
+
+<details>
+<summary>이미지 보기</summary>
+<div markdown="1">       
+
+😎숨겨진 내용😎
+
+</div>
+</details>
 
 ### Signup
   * 아이디(이메일)와 닉네임 중복 및 정규식 체크
@@ -96,6 +159,8 @@
 <br/>
 
 ## 고객 반응 및 개선 사항
+
+
 
 ![7](https://okuhanghae.s3.ap-northeast-2.amazonaws.com/About+OKU/%E1%84%89%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B37.PNG)
 
