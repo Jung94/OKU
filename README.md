@@ -52,7 +52,7 @@
 ## 프로젝트 주요 기능
 #### ➀ 기능 요약
   * 로그인(+카카오로그인), 회원가입
-  * Chatting : 1대1,  채팅
+  * Chatting : 1대1, 전체 채팅
   * Home Page : MD 추천 상품, 인기 상품, 마감임박 상품, 알림, Carousel
   * Detail Page : 마감시간, 입/낙찰, 실시간 입찰 정보, 댓글 작성, 좋아요, Carousel
   * Product Registration Page : 이미지 미리보기, 주소 찾기
