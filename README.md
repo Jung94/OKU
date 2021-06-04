@@ -133,8 +133,8 @@ export const Main = () => {
 ## 프로젝트 주요 기능 - 페이지별
 
 ### Login
-  * 일반 로그인(이메일, 비밀번호)
-  * 소셜 로그인(카카오로그인)
+  * 일반 로그인(이메일, 비밀번호) : JWT
+  * 소셜 로그인(카카오로그인) : validation 적용
 
 <details>
 <summary>이미지 보기</summary>
