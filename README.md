@@ -1,6 +1,6 @@
 #  OKU, 0부터 9까지 It's OK!
 
-이미지 추가
+![](https://raw.githubusercontent.com/Jung94/OKU/main/public/oku_ppt_png/슬라이드1.PNG)
 
 📍 [Website link](http://myoku.co.kr)\
 📺 [YouTube link_1](https://www.youtube.com/watch?v=7vrvxDKprsc&list=PLprtZZegvmKBIXYfUAXQ9py0eb4piPPL_&index=19&t=3s) / 
