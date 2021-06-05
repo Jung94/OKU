@@ -1,4 +1,4 @@
-#  OKU, 0부터 9까지 It's OK!
+#  OKU(오쿠) - 0부터 9까지 It's OK!
 
 ![](https://raw.githubusercontent.com/Jung94/OKU/main/public/oku_ppt_png/슬라이드1.PNG)
 
@@ -20,7 +20,8 @@
   * Product Registration Page
   * Mypage + MyStore
   * Chatting
-### 4. 고객 반응 및 개선 사항
+### 4. 트러블 슈팅
+### 5. 고객 반응 및 개선 사항
 
 ---
 <br/>
@@ -44,7 +45,7 @@
   * connected-react-router, history
   * react-redux, redux (+ redux-actions, immer 사용)
   * View: React with JavaScript, Material-UI,styled-components
-  * Infrastructure: AWS S3, Route 53, Amazon CloudFront
+  * Infrastructure: AWS S3 버킷 생성, Route 53을 이용한 도메인 네임서버 등록, Amazon CloudFront??, ACM 보안 인증서 발급 및 등록
   * Git, Github, Notion, Zeplin, Slack, Google Drive etc.
 
 ---
@@ -136,15 +137,12 @@ export const Main = () => {
 ### Login
   * 일반 로그인(이메일, 비밀번호) : JWT
   * 소셜 로그인(카카오로그인) : validation 적용
-
-<details>
-<summary>이미지 보기</summary>
-<div markdown="1">       
-
-😎숨겨진 내용😎
-
-</div>
-</details>
+    <details>
+      <summary>이미지 보기</summary>
+      <div markdown="1">       
+        😎숨겨진 내용😎
+      </div>
+    </details>
 
 ### Signup
   * 아이디(이메일)와 닉네임 중복 및 정규식 체크
@@ -153,14 +151,74 @@ export const Main = () => {
 ### Home Page
 ### Product Registration Page
 ### Detail Page
+  * [ CRUD ] : 입찰 / 낙찰 / 찜(좋아요) / 문의하기
+    <details>
+      <summary>이미지 보기</summary>
+      <div markdown="1">       
+        😎숨겨진 내용😎
+      </div>
+    </details>
+
+  * [ Carousel ]
+    <details>
+      <summary>이미지 보기</summary>
+      <div markdown="1">       
+        😎숨겨진 내용😎
+      </div>
+    </details>
+    
+    * 이미지 최대 3장으로 제한
+    * margin 값 조정을 통한 Carousel 기능 구현
+      * 좌/우 버튼 클릭 시 margin 값이 조정되어 웹에서는 원활히 작동하지만, 모바일에서는 스크롤이 되지 않음
+      * 확장 가능한 Carousel 구현을 위해 [ 스크롤 + 스냅 ] 활용 예정
+      
+  * [ Timer ]
+    * useInterval hook / moment / 내장 시간 함수를 통한 Timer 구현
+    * useInterval을 통해 1000ms 단위로 현재 시간 표현
+    * 시간을 나타내는 '타이머'의 경우 -> [ 마감시간-현재 ]
+    * 프로그레스 바와 같은 진행상태를 나타내는 '스탑워치'의 경우 -> [ 마감시간-(현재-시작시간) ]
+    * 고민 내용
+      * 서버와의 소통을 위한 시간의 형태(timestamp or isoDate) 고민\
+        -> 상대적으로 가독성이 높은 isoDate으로 소통
+      * 프로그레스 바 구현 위해 어떻게 시간차를 숫자값으로 인식하게 할 수 있을지 고민\
+        -> moment 라이브러리의 difference를 이용하면 계산 가능한 숫자값으로 반환하지 않기에 내장함수 ?? 이용
+	
+  * [ 입찰표 작성 ]
+    * Modal 컴포넌트화 + useInterval을 통해 제한적 통신 요청 및 실시간 같은 UX 구현
+    * 입찰표 작성 Modal
+      * 현재 최고 입찰가와 마감시간 확인 + 입찰 시도 가능
+      * 입찰 후 곧바로 입찰을 재시도할 수 있기에 입찰 시도 후에도 모달 유지
+    * 고민 내용
+      * 웹소켓을 이용한 양방향 통신을 기획했으나 입찰과 낙찰의 경우 일방적인 요청이므로 웹소켓이 필수가 아닌 것으로 판단
+      * 빠른 기능 구현을 위해 useInterval을 이용하여 현재 입찰가 및 onSale(경매중인지 아닌지 여부) 구현
+      * 추후 웹소켓을 이용한 기능 구현 예정
+
+  * [ 문의하기 + 대댓글 ]
+    * 문의하기는 구매자와 판매자 모두 가능하지만 문의글에 대한 답글은 판매자만 가능
+    * 대댓글 구현을 위해 문의글 마다 고유 ID 지정
+
 ### Mypage + MyStore
 ### Chatting
 
 ---
 <br/>
 
-## 고객 반응 및 개선 사항
+## 트러블 슈팅
 
+### ➀ 브라우저 호환성
+  * 정규표현식 문제
+    * 문제 : 아이폰 IOS, Safari 브라우저 흰 바탕의 빈 화면만 보여짐 -> syntaxError 발생
+
+      `SyntaxError: Invalid regular expression: invalid group specifier name`
+    * 문제 : 아이폰 IOS, Safari 브라우저 흰 바탕의 빈 화면만 보여짐 -> syntaxError 발생
+    
+  * CSS 호환 문제
+    * 문제 : CSS 일부가 사파리(ios)에서 호환이 되지 않는 문제 발생 
+
+---
+<br/>
+
+## 고객 반응 및 개선 사항
 
 
 ![7](https://okuhanghae.s3.ap-northeast-2.amazonaws.com/About+OKU/%E1%84%89%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B37.PNG)
