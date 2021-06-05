@@ -210,10 +210,33 @@ export const Main = () => {
     * 문제 : 아이폰 IOS, Safari 브라우저 흰 바탕의 빈 화면만 보여짐 -> syntaxError 발생
 
       `SyntaxError: Invalid regular expression: invalid group specifier name`
-    * 문제 : 아이폰 IOS, Safari 브라우저 흰 바탕의 빈 화면만 보여짐 -> syntaxError 발생
+    * 해결 : Safari에서 지원하지 않는 특정 정규표현식(부등호) 사용이 문제 원인임을 발견
+
+    ```javascript
+    // 가격 콤마 정규식(input)
+    export const input_priceComma = (price) => {
+      return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g,",")
+    };
+    ```
     
   * CSS 호환 문제
-    * 문제 : CSS 일부가 사파리(ios)에서 호환이 되지 않는 문제 발생 
+    * 문제 : CSS 일부가 Safari(+ios)에서 호환이 되지 않는 문제 발생 - flex gap, fit-content etc.
+    * 해결 : flex 대신 grid 사용
+    
+    ```javascript
+    const ProductList = styled.div`
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-column-gap: 38px;
+      grid-row-gap: 50px;
+
+      @media only screen and (max-width: 767px) {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-row-gap: 20px;
+      }
+    `;
+    ```
 
 ---
 <br/>
