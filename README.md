@@ -192,7 +192,7 @@
     <details>
       <summary>이미지 보기</summary>
       <div markdown="1">       
-        <img src="/public/oku_demo_gif/kakao.gif"  width="900" height="500">
+        <img src="/public/oku_demo_gif/kakao login.gif"  width="900" height="500">
       </div>
     </details>
 
