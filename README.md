@@ -28,9 +28,16 @@
 
 ## 개요
 #### ➀ OKU(오쿠) 란?
-#### `덕후들을 위한 굿즈 경매 사이트`
+#### `덕후들을 위한 굿즈 경매 서비스`
 * 오타쿠의, 오타쿠에 의한, 오타쿠를 위한 경매사이트 OKU는 오타쿠들의 니즈를 충족시켜줄 웹서비스입니다.\
 내가 좋아하는 분야의 굿즈를 좋은 가격에 팔 수 있고, 그동안 돈 주고도 못샀던 굿즈들도 OKU에서는 구할 수 있습니다!
+
+  <details>
+    <summary>이미지 보기</summary>
+    <div markdown="1">
+      ![슬라이드7](https://user-images.githubusercontent.com/68035948/120974438-1c1e1280-c7ab-11eb-9144-f9776b6c2841.PNG)
+    </div>
+  </details>
 
 #### ➁ 👨‍👩‍👧‍👧 팀원
   * Design: UI/UX 2인 (남유진, 이소희)
@@ -40,7 +47,7 @@
 #### ➂ 개발 기간 : 2021.04.23 ~
 
 #### ➃ 사용 패키지 & Tools
-  * axios
+  * axios, fetch
   * redux-middleware(redux-thunk)
   * connected-react-router, history
   * react-redux, redux (+ redux-actions, immer 사용)
@@ -136,7 +143,26 @@
       <details>
         <summary>이미지 보기</summary>
         <div markdown="1">       
-          😎숨겨진 내용😎
+          <img src="/public/oku_demo_gif/header.gif"  width="900" height="500">
+        </div>
+      </details>
+      
+  * 알림
+    * 낙찰 시 판매자 알림 : 상대방의 거래 요청 수락 or 거절 가능
+  
+      <details>
+        <summary>이미지 보기</summary>
+        <div markdown="1">       
+          <img src="/public/oku_demo_gif/confirm.gif"  width="900" height="500">
+        </div>
+      </details>
+    
+    * 거래 요청이 수락된 구매자의 알림
+
+      <details>
+        <summary>이미지 보기</summary>
+        <div markdown="1">       
+          <img src="/public/oku_demo_gif/afterconfirm.gif"  width="900" height="500">
         </div>
       </details>
       
@@ -152,6 +178,7 @@
 
 ### `Login`
   * 일반 로그인(이메일, 비밀번호) : JWT
+  * 아이디 저장 기능 : localStorage에 영구 저장
   
     <details>
       <summary>이미지 보기</summary>
@@ -160,7 +187,7 @@
       </div>
     </details>
     
-  * 소셜 로그인(카카오로그인) : validation 적용
+  * 소셜 로그인(카카오로그인)
   
     <details>
       <summary>이미지 보기</summary>
@@ -174,11 +201,11 @@
   * 비밀번호 정규식 체크, 비밀번호 확인
 
      <details>
-      <summary>이미지 보기</summary>
-      <div markdown="1">       
-        😎숨겨진 내용😎
-      </div>
-    </details>
+       <summary>이미지 보기</summary>
+       <div markdown="1">       
+         <img src="/public/oku_demo_gif/signup.gif"  width="900" height="500">
+       </div>
+     </details>
 
 ### `Home Page`
   * [ CRUD ] : 실시간 인기 상품 / 최신 등록상품리스트 / 마감 임박 상품 / MD 추천 상품
@@ -190,15 +217,15 @@
     </details>
   
   * [ Carousel ]
-    <details>
-      <summary>이미지 보기</summary>
-      <div markdown="1">       
-        😎숨겨진 내용😎
-      </div>
-    </details>
-    
     * 홈페이지 렌더링 시 처음으로 보여지는 실시간 인기 상품 리스트를 Carousel로 구성
     * React-Slick을 사용
+    
+      <details>
+        <summary>이미지 보기</summary>
+        <div markdown="1">       
+          <img src="/public/oku_demo_gif/main_carousel.gif"  width="900" height="500">
+        </div>
+      </details>
 
   * [ 카드 ]
     * 마감 기한, 상품 제목, 최소 입찰가 정보 제공
@@ -207,21 +234,21 @@
       <details>
         <summary>이미지 보기</summary>
         <div markdown="1">       
-          😎숨겨진 내용😎
+          <img src="/public/oku_demo_gif/main_card.gif"  width="900" height="500">
         </div>
       </details>
 
 ### `Product Registration Page`
   * [ CRUD ] : 상품 등록
-  * [ 이미지 미리보기 ]
   
     <details>
       <summary>이미지 보기</summary>
       <div markdown="1">       
-        😎숨겨진 내용😎
+        <img src="/public/oku_demo_gif/upload.gif"  width="900" height="500">
       </div>
     </details>
     
+  * [ 이미지 미리보기 ]
     * 이미지 업로드 최대 3장으로 제한 -> 개별 이미지 업로드 버튼(handleChange1, 2, 3) 구현
     ```javascript
     const handleChange1 = (e) => {
@@ -271,7 +298,27 @@
     <Select onChange={handleDeadline} value={D4CT.find((obj) => obj.value === deadline)} placeholder="경매 기간" options={D4CT} />
     ```
   * [ 주소 검색 ]
-    * 희망 거래 방식 중 '직거래' 클릭 시 주소 검색 
+    * 희망 거래 방식 중 '직거래' 클릭 시 주소 검색 항목 생성
+    ```javascript
+    // 우편번호 / 주소 찾기
+    const handleComplete = (data) => {
+      let fullAddress = data.address;
+      let extraAddress = "";
+
+      if (data.addressType === "R") {
+        if (data.bname !== "") {
+          extraAddress += data.bname;
+        }
+        if (data.buildingName !== "") {
+          extraAddress += extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+        }
+        fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+      }
+      setRegion(fullAddress);
+      // 주소 모달 닫기
+      setIsPostOpen(false);
+    };
+    ```
 
 ### `Detail Page`
   * [ CRUD ] : 상품 상세 정보 / 입찰 / 낙찰 / 찜(좋아요) / 문의하기
@@ -307,6 +354,14 @@
         -> moment 라이브러리의 difference를 이용하면 계산 가능한 숫자값으로 반환하지 않기에 내장함수 ?? 이용
 	
   * [ 입찰표 작성 ]
+  
+    <details>
+      <summary>이미지 보기</summary>
+      <div markdown="1">       
+        <img src="/public/oku_demo_gif/finalBid.gif"  width="900" height="500">
+      </div>
+    </details>
+      
     * Modal 컴포넌트화 + useInterval을 통해 제한적 통신 요청 및 실시간 같은 UX 구현
     * 입찰표 작성 Modal
       * 현재 최고 입찰가와 마감시간 확인 + 입찰 시도 가능
@@ -386,9 +441,6 @@
 <br/>
 
 ## 고객 반응 및 개선 사항
-
-
-![7](https://okuhanghae.s3.ap-northeast-2.amazonaws.com/About+OKU/%E1%84%89%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B37.PNG)
 
 ![8](https://okuhanghae.s3.ap-northeast-2.amazonaws.com/About+OKU/%E1%84%89%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B38.PNG)
 
