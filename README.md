@@ -152,12 +152,20 @@
 
 ### `Login`
   * 일반 로그인(이메일, 비밀번호) : JWT
+  
+    <details>
+      <summary>이미지 보기</summary>
+      <div markdown="1">       
+        <img src="/public/oku_demo_gif/login.gif"  width="900" height="500">
+      </div>
+    </details>
+    
   * 소셜 로그인(카카오로그인) : validation 적용
   
     <details>
       <summary>이미지 보기</summary>
       <div markdown="1">       
-        <img src="/public/oku_demo_gif/afterconfirm.gif"  width="900" height="500">
+        <img src="/public/oku_demo_gif/kakao.gif"  width="900" height="500">
       </div>
     </details>
 
@@ -191,6 +199,17 @@
     
     * 홈페이지 렌더링 시 처음으로 보여지는 실시간 인기 상품 리스트를 Carousel로 구성
     * React-Slick을 사용
+
+  * [ 카드 ]
+    * 마감 기한, 상품 제목, 최소 입찰가 정보 제공
+    * 좋아요 기능 구현
+    
+      <details>
+        <summary>이미지 보기</summary>
+        <div markdown="1">       
+          😎숨겨진 내용😎
+        </div>
+      </details>
 
 ### `Product Registration Page`
   * [ CRUD ] : 상품 등록
