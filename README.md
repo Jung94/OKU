@@ -4,7 +4,8 @@
 
 📍 [Website link](http://myoku.co.kr)\
 📺 [YouTube link_1](https://www.youtube.com/watch?v=7vrvxDKprsc&list=PLprtZZegvmKBIXYfUAXQ9py0eb4piPPL_&index=19&t=3s) / 
-[YouTube link_2](https://www.youtube.com/watch?v=zbaKZKt4p0U&list=PLprtZZegvmKBIXYfUAXQ9py0eb4piPPL_&index=20)
+[YouTube link_2](https://www.youtube.com/watch?v=zbaKZKt4p0U&list=PLprtZZegvmKBIXYfUAXQ9py0eb4piPPL_&index=20)\
+✨[Team Members](https://www.notion.so/90bbb2e5d07941a3a46370e5333c7556)
 
 ---
 <br/>
@@ -22,6 +23,7 @@
   * Chatting
 ### 4. 트러블 슈팅
 ### 5. 고객 반응 및 개선 사항
+### 6. 기타
 
 ---
 <br/>
@@ -48,6 +50,7 @@
 
 #### ➃ 사용 패키지 & Tools
   * axios, fetch
+  * socket.io / moment.js / react-responsive
   * redux-middleware(redux-thunk)
   * connected-react-router, history
   * react-redux, redux (+ redux-actions, immer 사용)
@@ -353,10 +356,17 @@
       * 프로그레스 바 구현 위해 어떻게 시간차를 숫자값으로 인식하게 할 수 있을지 고민\
         -> moment 라이브러리의 difference를 이용하면 계산 가능한 숫자값으로 반환하지 않기에 내장함수 ?? 이용
 	
-  * [ 입찰표 작성 ]
+  * [ 입찰 & 낙찰 ]
   
     <details>
-      <summary>이미지 보기</summary>
+      <summary>입찰 과정 보기</summary>
+      <div markdown="1">       
+        <img src="/public/oku_demo_gif/bid.gif"  width="900" height="500">
+      </div>
+    </details>
+    
+    <details>
+      <summary>낙찰 과정 보기</summary>
       <div markdown="1">       
         <img src="/public/oku_demo_gif/finalBid.gif"  width="900" height="500">
       </div>
@@ -370,19 +380,37 @@
       * 웹소켓을 이용한 양방향 통신을 기획했으나 입찰과 낙찰의 경우 일방적인 요청이므로 웹소켓이 필수가 아닌 것으로 판단
       * 빠른 기능 구현을 위해 useInterval을 이용하여 현재 입찰가 및 onSale(경매중인지 아닌지 여부) 구현
       * 추후 웹소켓을 이용한 기능 구현 예정
+      
+        <details>
+          <summary>고민 더보기</summary>
+          <div markdown="1">       
+            <img src="/public/oku_ppt_png/슬라이드8.PNG" width="900" height="500">
+            <img src="/public/oku_ppt_png/슬라이드9.PNG" width="900" height="500">
+	    <img src="/public/oku_ppt_png/슬라이드10.PNG" width="900" height="500">
+	    <img src="/public/oku_ppt_png/슬라이드11.PNG" width="900" height="500">
+          </div>
+        </details>
 
-  * [ 문의하기 + 대댓글 ]
+  * [ 문의하기 & 대댓글 ]
+  
+    <details>
+      <summary>이미지 보기</summary>
+      <div markdown="1">       
+        😎숨겨진 내용😎
+      </div>
+    </details>
+    
     * 문의하기는 구매자와 판매자 모두 가능하지만 문의글에 대한 답글은 판매자만 가능
     * 대댓글 구현을 위해 문의글 마다 고유 ID 지정
 
-### `Mypage + MyStore`
+### `Mypage & MyStore`
   * Mypage
     * [ CRUD ] : 회원정보(+수정) / 찜 리스트 / 구매 리스트
     
       <details>
         <summary>이미지 보기</summary>
         <div markdown="1">       
-         😎숨겨진 내용😎
+          <img src="/public/oku_demo_gif/mypage.gif"  width="900" height="500">
         </div>
       </details>
     
@@ -393,7 +421,7 @@
       <details>
         <summary>이미지 보기</summary>
         <div markdown="1">       
-         😎숨겨진 내용😎
+          <img src="/public/oku_demo_gif/mystore.gif"  width="900" height="500">
         </div>
       </details>
 
@@ -442,13 +470,6 @@
 
 ## 고객 반응 및 개선 사항
 
-![8](https://okuhanghae.s3.ap-northeast-2.amazonaws.com/About+OKU/%E1%84%89%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B38.PNG)
-
-![](https://okuhanghae.s3.ap-northeast-2.amazonaws.com/About+OKU/%E1%84%89%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B39.PNG)
-
-![10](https://okuhanghae.s3.ap-northeast-2.amazonaws.com/About+OKU/%E1%84%89%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B310.PNG)
-
-![11](https://okuhanghae.s3.ap-northeast-2.amazonaws.com/About+OKU/%E1%84%89%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B311.PNG)
 
 ![](https://okuhanghae.s3.ap-northeast-2.amazonaws.com/About+OKU/%E1%84%89%E1%85%B3%E1%86%AF%E1%84%85%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%83%E1%85%B312.PNG)
 
