@@ -35,7 +35,7 @@
   <details>
     <summary>이미지 보기</summary>
     <div markdown="1">
-      ![슬라이드7](https://user-images.githubusercontent.com/68035948/120974438-1c1e1280-c7ab-11eb-9144-f9776b6c2841.PNG)
+      <img src="/public/oku_ppt_png/슬라이드7.PNG" width="900" height="500">
     </div>
   </details>
 
