@@ -4,7 +4,8 @@
 
 📍 [Website link](http://myoku.co.kr)\
 📺 [YouTube link_1](https://www.youtube.com/watch?v=7vrvxDKprsc&list=PLprtZZegvmKBIXYfUAXQ9py0eb4piPPL_&index=19&t=3s) / 
-[YouTube link_2](https://www.youtube.com/watch?v=zbaKZKt4p0U&list=PLprtZZegvmKBIXYfUAXQ9py0eb4piPPL_&index=20)
+[YouTube link_2](https://www.youtube.com/watch?v=zbaKZKt4p0U&list=PLprtZZegvmKBIXYfUAXQ9py0eb4piPPL_&index=20)\
+✨[Team Members](https://www.notion.so/90bbb2e5d07941a3a46370e5333c7556)
 
 ---
 <br/>
@@ -22,6 +23,7 @@
   * Chatting
 ### 4. 트러블 슈팅
 ### 5. 고객 반응 및 개선 사항
+### 6. 기타
 
 ---
 <br/>
@@ -48,6 +50,7 @@
 
 #### ➃ 사용 패키지 & Tools
   * axios, fetch
+  * socket.io / moment.js / react-responsive
   * redux-middleware(redux-thunk)
   * connected-react-router, history
   * react-redux, redux (+ redux-actions, immer 사용)
