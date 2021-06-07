@@ -157,7 +157,7 @@
     <details>
       <summary>이미지 보기</summary>
       <div markdown="1">       
-        <img src="/public/oku_demo_gif/afterconfirm.gif"  width="700" height="370">
+        <img src="/public/oku_demo_gif/afterconfirm.gif"  width="900" height="500">
       </div>
     </details>
 
