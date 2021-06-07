@@ -75,68 +75,85 @@
   * Media Query
   * React Hook : useMediaQuery 사용
 
-<details>
-<summary>useMediaQuery 사용 방법</summary>
-<div markdown="1"> 
- 
-   * react-responsive 설치
+	<details>
+	<summary>useMediaQuery 사용 방법</summary>
+	<div markdown="1">
+		
+	   * react-responsive 설치
 
-```javascript
-import { useMediaQuery } from "react-responsive";
-```
+	```javascript
+	import { useMediaQuery } from "react-responsive";
+	```
 
-```javascript
-const Desktop = ({ children }) => {
-  const isDesktop = useMediaQuery({ minWidth: 1024 });
-  return isDesktop ? children : null;
-};
+	```javascript
+	const Desktop = ({ children }) => {
+	  const isDesktop = useMediaQuery({ minWidth: 1024 });
+	  return isDesktop ? children : null;
+	};
 
-const Tablet = ({ children }) => {
-  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
-  return isTablet ? children : null;
-};
+	const Tablet = ({ children }) => {
+	  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+	  return isTablet ? children : null;
+	};
 
-const Mobile = ({ children }) => {
-  const isMobile = useMediaQuery({ maxWidth: 767 });
-  return isMobile ? children : null;
-};
-```
- * 컴포넌트 생성 후 import하여 사용하는 방법
-```javascript
-import React from "react";
-import { useMediaQuery } from "react-responsive";
+	const Mobile = ({ children }) => {
+	  const isMobile = useMediaQuery({ maxWidth: 767 });
+	  return isMobile ? children : null;
+	};
+	```
+	 * 컴포넌트 생성 후 import하여 사용하는 방법
+	```javascript
+	import React from "react";
+	import { useMediaQuery } from "react-responsive";
 
-export const Mobile: React.FC = ({ children }) => {
-  const isMobile = useMediaQuery({
-    query: "(min-width:0px) and (max-width:599px)",
-  });
-  return <React.Fragment>{isMobile && children}</React.Fragment>;
-};
-```
-```javascript
-import React from "react"
-const { Mobile } from "../mediaQuery"
+	export const Mobile: React.FC = ({ children }) => {
+	  const isMobile = useMediaQuery({
+	    query: "(min-width:0px) and (max-width:599px)",
+	  });
+	  return <React.Fragment>{isMobile && children}</React.Fragment>;
+	};
+	```
+	```javascript
+	import React from "react"
+	const { Mobile } from "../mediaQuery"
 
-export const Main = () => {
-	return (
-    	<div>hello</div>
-        <Mobile>
-        	<div>hi</div>
-        </Mobile>
-    )
-}
-```
-</div>
-</details>
+	export const Main = () => {
+		return (
+		<div>hello</div>
+		<Mobile>
+			<div>hi</div>
+		</Mobile>
+	    )
+	}
+	```
+	</div>
+	</details>
+
+#### ➅ 헤더(Header)
+  * 스크롤 반응형 헤더
+    * 사용자 편의성을 위해 스크롤에 따른 헤더 높이 조절 + 로고 위치 및 크기 변경
+  
+      <details>
+        <summary>이미지 보기</summary>
+        <div markdown="1">       
+          😎숨겨진 내용😎
+        </div>
+      </details>
+      
+  * 카테고리 검색
+    * 대분류 선택 시 대분류에 해당하는 중분류 선택이 가능하도록 구분
+
+  * 일반 검색
 
 ---
 <br/>
 
 ## 페이지별 기능 소개
 
-### Login
+### `Login`
   * 일반 로그인(이메일, 비밀번호) : JWT
   * 소셜 로그인(카카오로그인) : validation 적용
+  
     <details>
       <summary>이미지 보기</summary>
       <div markdown="1">       
@@ -144,14 +161,101 @@ export const Main = () => {
       </div>
     </details>
 
-### Signup
+### `Signup`
   * 아이디(이메일)와 닉네임 중복 및 정규식 체크
   * 비밀번호 정규식 체크, 비밀번호 확인
 
-### Home Page
-### Product Registration Page
-### Detail Page
-  * [ CRUD ] : 입찰 / 낙찰 / 찜(좋아요) / 문의하기
+     <details>
+      <summary>이미지 보기</summary>
+      <div markdown="1">       
+        😎숨겨진 내용😎
+      </div>
+    </details>
+
+### `Home Page`
+  * [ CRUD ] : 실시간 인기 상품 / 최신 등록상품리스트 / 마감 임박 상품 / MD 추천 상품
+    <details>
+      <summary>이미지 보기</summary>
+      <div markdown="1">       
+        😎숨겨진 내용😎
+      </div>
+    </details>
+  
+  * [ Carousel ]
+    <details>
+      <summary>이미지 보기</summary>
+      <div markdown="1">       
+        😎숨겨진 내용😎
+      </div>
+    </details>
+    
+    * 홈페이지 렌더링 시 처음으로 보여지는 실시간 인기 상품 리스트를 Carousel로 구성
+    * React-Slick을 사용
+
+### `Product Registration Page`
+  * [ CRUD ] : 상품 등록
+  * [ 이미지 미리보기 ]
+  
+    <details>
+      <summary>이미지 보기</summary>
+      <div markdown="1">       
+        😎숨겨진 내용😎
+      </div>
+    </details>
+    
+    * 이미지 업로드 최대 3장으로 제한 -> 개별 이미지 업로드 버튼(handleChange1, 2, 3) 구현
+    ```javascript
+    const handleChange1 = (e) => {
+      const reader = new FileReader();
+      const file = fileInput.current.files[0];
+      // 파일 내용을 읽어오기
+      reader.readAsDataURL(file);
+
+      // 읽기가 끝나면 발생하는 이벤트 핸들러
+      reader.onloadend = () => {
+        dispatch(uploadActions.setPreview1(reader.result));
+      };
+    };
+    ```
+    
+    * 이미지 미리보기 Redux 
+    ```javascript
+    // actions
+    const SET_PREVIEW_1 = "SET_PREVIEW_1";
+    
+    // action creators
+    const setPreview1 = createAction(SET_PREVIEW_1, (preview) => ({ preview }));
+    
+    // reducer
+    export default handleActions(
+      {
+        [SET_PREVIEW_1]: (state, action) =>
+          produce(state, (draft) => {
+            draft.preview1 = action.payload.preview;
+          })
+      },
+      initialState
+    );
+    ```
+  * [ 경매 기간 ]
+    * millisecond로 변환 후 서버에 전달 ex. 3시간 = 10800000, 1일 = 86400000
+    
+    ```javascript
+    const [deadline, setDeadline] = useState("");
+    
+    const handleDeadline = (e) => {
+      setDeadline(parseInt(e.value));
+    };
+    
+    - 생략 -
+    
+    <Select onChange={handleDeadline} value={D4CT.find((obj) => obj.value === deadline)} placeholder="경매 기간" options={D4CT} />
+    ```
+  * [ 주소 검색 ]
+    * 희망 거래 방식 중 '직거래' 클릭 시 주소 검색 
+
+### `Detail Page`
+  * [ CRUD ] : 상품 상세 정보 / 입찰 / 낙찰 / 찜(좋아요) / 문의하기
     <details>
       <summary>이미지 보기</summary>
       <div markdown="1">       
@@ -197,8 +301,29 @@ export const Main = () => {
     * 문의하기는 구매자와 판매자 모두 가능하지만 문의글에 대한 답글은 판매자만 가능
     * 대댓글 구현을 위해 문의글 마다 고유 ID 지정
 
-### Mypage + MyStore
-### Chatting
+### `Mypage + MyStore`
+  * Mypage
+    * [ CRUD ] : 회원정보(+수정) / 찜 리스트 / 구매 리스트
+    
+      <details>
+        <summary>이미지 보기</summary>
+        <div markdown="1">       
+         😎숨겨진 내용😎
+        </div>
+      </details>
+    
+  * MyStore
+    * [ CRUD ] : 내 상점(+수정) / 내 상점 후기 / 현재 판매 상품
+    * 현재 판매 중인 상품이 없는 경우 물건 등록 버튼 생성
+
+      <details>
+        <summary>이미지 보기</summary>
+        <div markdown="1">       
+         😎숨겨진 내용😎
+        </div>
+      </details>
+
+### `Chatting`
 
 ---
 <br/>
