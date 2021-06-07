@@ -210,6 +210,7 @@
         <img src="/public/oku_demo_gif/kakao login.gif"  width="900" height="500">
       </div>
     </details>
+<br/>
 
 ### `Signup`
   * 아이디(이메일)와 닉네임 중복 및 정규식 체크
@@ -221,6 +222,7 @@
          <img src="/public/oku_demo_gif/signup.gif"  width="900" height="500">
        </div>
      </details>
+<br/>
 
 ### `Home Page`
   * [ CRUD ] : 실시간 인기 상품 / 최신 등록상품리스트 / 마감 임박 상품 / MD 추천 상품
@@ -252,6 +254,7 @@
           <img src="/public/oku_demo_gif/main_card.gif"  width="900" height="500">
         </div>
       </details>
+<br/>
 
 ### `Product Registration Page`
   * [ CRUD ] : 상품 등록
@@ -335,6 +338,7 @@
       setIsPostOpen(false);
     };
     ```
+<br/>
 
 ### `Detail Page`
   * [ CRUD ] : 상품 상세 정보 / 입찰 / 낙찰 / 찜(좋아요) / 문의하기
@@ -424,6 +428,7 @@
     
     * 문의하기는 구매자와 판매자 모두 가능하지만 문의글에 대한 답글은 판매자만 가능
     * 대댓글 구현을 위해 문의글 마다 고유 ID 지정
+<br/>
 
 ### `Mypage & MyStore`
   * Mypage
@@ -446,6 +451,7 @@
           <img src="/public/oku_demo_gif/mystore.gif"  width="900" height="500">
         </div>
       </details>
+<br/>
 
 ### `Chatting`
   <details>
