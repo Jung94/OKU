@@ -58,6 +58,18 @@
   * Infrastructure: AWS S3 버킷 생성, Route 53을 이용한 도메인 네임서버 등록, Amazon CloudFront??, ACM 보안 인증서 발급 및 등록
   * Git, Github, Notion, Zeplin, Slack, Google Drive etc.
 
+#### ➄ 디자인 시스템화
+  * 무슨 말을 쓸까
+  
+    <details>
+      <summary>이미지 보기</summary>
+      <div markdown="1">
+        ㄸㄸㄸ
+      </div>
+    </details>
+
+#### ➅ 폴더구조화
+
 ---
 <br/>
 
@@ -232,7 +244,7 @@
 
   * [ 카드 ]
     * 마감 기한, 상품 제목, 최소 입찰가 정보 제공
-    * 좋아요 기능 구현
+    * 좋아요 + Timer 기능 구현
     
       <details>
         <summary>이미지 보기</summary>
@@ -302,6 +314,7 @@
     ```
   * [ 주소 검색 ]
     * 희망 거래 방식 중 '직거래' 클릭 시 주소 검색 항목 생성
+    * Daum Postcode 라이브러리 사용
     ```javascript
     // 우편번호 / 주소 찾기
     const handleComplete = (data) => {
@@ -336,7 +349,7 @@
     <details>
       <summary>이미지 보기</summary>
       <div markdown="1">       
-        😎숨겨진 내용😎
+        <img src="/public/oku_demo_gif/carousel_detail.gif"  width="500" height="540">
       </div>
     </details>
     
@@ -346,6 +359,15 @@
       * 확장 가능한 Carousel 구현을 위해 [ 스크롤 + 스냅 ] 활용 예정
       
   * [ Timer ]
+    <details>
+      <summary>이미지 보기</summary>
+      <div markdown="1">       
+        <img src="/public/oku_demo_gif/timer.gif"  width="400" height="200">
+        <img src="/public/oku_demo_gif/timer_2.gif"  width="400" height="200">
+	<img src="/public/oku_demo_gif/timer_3.gif"  width="400" height="200">
+      </div>
+    </details>
+
     * useInterval hook / moment / 내장 시간 함수를 통한 Timer 구현
     * useInterval을 통해 1000ms 단위로 현재 시간 표현
     * 시간을 나타내는 '타이머'의 경우 -> [ 마감시간-현재 ]
@@ -396,7 +418,7 @@
     <details>
       <summary>이미지 보기</summary>
       <div markdown="1">       
-        😎숨겨진 내용😎
+        <img src="/public/oku_demo_gif/qna.gif"  width="900" height="500">
       </div>
     </details>
     
@@ -426,6 +448,31 @@
       </details>
 
 ### `Chatting`
+  <details>
+    <summary>이미지 보기</summary>
+    <div markdown="1">       
+      <img src="/public/oku_demo_gif/chatting_send_fin.mp4.gif"  width="900" height="500">
+    </div>
+  </details>
+      
+  * Socket.io 라이브러리 사용 -> 클라이언트와 서버의 양방향 통신 가능
+  * 채팅 페이지 이동 시 서비스 이용자들과의 전체 채팅(아무나 채팅) 가능
+  * 판매자와 구매자의 거래가 성사되었을 경우에만 1:1 채팅 가능 -> 거래자 채팅 목록 안에 채팅방 생성, 거래 종료 및 주소 검색 가능
+  ```javascript
+  {users.map((val, idx) => {
+    return (
+      <Box 
+        key={idx + 'msg'}
+        onClick={() => {
+          // 채팅방 이동
+          history.push(`/chat/${val._id}/${val.sellerunique === uid ? val.soldById : val.sellerunique}/${uid}/${val.sellerunique === uid ? val.soldBy : val.nickname}/${val.title}`);
+        }}
+      >
+      - 생략 -
+      </Box>
+    );
+  })}
+  ```
 
 ---
 <br/>
