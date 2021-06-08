@@ -59,7 +59,7 @@
   * Git, Github, Notion, Zeplin, Slack, Google Drive etc.
 
 #### ➄ 디자인 시스템화
-  * 무슨 말을 쓸까
+  * 디자인 시스템에 맞추어 시스템 및 element 컴포넌트화 ex) button, input, etc.
   
     <details>
       <summary>이미지 보기</summary>
