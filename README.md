@@ -226,12 +226,6 @@
 
 ### `Home Page`
   * [ CRUD ] : 실시간 인기 상품 / 최신 등록상품리스트 / 마감 임박 상품 / MD 추천 상품
-    <details>
-      <summary>이미지 보기</summary>
-      <div markdown="1">       
-        😎숨겨진 내용😎
-      </div>
-    </details>
   
   * [ Carousel ]
     * 홈페이지 렌더링 시 처음으로 보여지는 실시간 인기 상품 리스트를 Carousel로 구성
@@ -342,12 +336,6 @@
 
 ### `Detail Page`
   * [ CRUD ] : 상품 상세 정보 / 입찰 / 낙찰 / 찜(좋아요) / 문의하기
-    <details>
-      <summary>이미지 보기</summary>
-      <div markdown="1">       
-        😎숨겨진 내용😎
-      </div>
-    </details>
 
   * [ Carousel ]
     <details>
@@ -399,14 +387,15 @@
     </details>
       
     * Modal 컴포넌트화 + useInterval을 통해 제한적 통신 요청 및 실시간 같은 UX 구현
+    
     * 입찰표 작성 Modal
       * 현재 최고 입찰가와 마감시간 확인 + 입찰 시도 가능
       * 입찰 후 곧바로 입찰을 재시도할 수 있기에 입찰 시도 후에도 모달 유지
+      
     * 고민 내용
       * 웹소켓을 이용한 양방향 통신을 기획했으나 입찰과 낙찰의 경우 일방적인 요청이므로 웹소켓이 필수가 아닌 것으로 판단
       * 빠른 기능 구현을 위해 useInterval을 이용하여 현재 입찰가 및 onSale(경매중인지 아닌지 여부) 구현
       * 추후 웹소켓을 이용한 기능 구현 예정
-      
         <details>
           <summary>고민 더보기</summary>
           <div markdown="1">       
