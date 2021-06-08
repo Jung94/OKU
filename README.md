@@ -64,7 +64,7 @@
     <details>
       <summary>이미지 보기</summary>
       <div markdown="1">
-        ㄸㄸㄸ
+        <img src="/public/color system.png" width="900" height="400">
       </div>
     </details>
 
