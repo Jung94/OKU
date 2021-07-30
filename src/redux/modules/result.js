@@ -21,32 +21,21 @@ const initialState = {
 };
 
 const getProductSearch = (keyword) => {
-  return function (dispatch, getState, { history }) {
-    dispatch(clearSearchPage()); // 전에 검색한 결과 내용 모두 지우기
-    dispatch(setKeyword(keyword));
+  return async function (dispatch) {
 
-    // const page = getState().movie.search_page;
+    try {
+      dispatch(clearSearchPage()); // 전에 검색한 결과 내용 모두 지우기
+      dispatch(setKeyword(keyword));
 
-    fetch(`${API}/product/search?term=${keyword}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        // if(!data.last) {
-        //     dispatch(setSearchPage(page + 1));
-        // } else {
-        //     dispatch(setSearchPage(0));
-        // }
-        const products = res.result;
+      const response = await fetch(`${API}/product/search?term=${keyword}`);
+      const res = await response.json();
+      const products = res.result;
 
-        dispatch(setProductSearch(products));
-      })
-      .catch((err) => console.log(err, "getProductSearch"));
-  };
+      dispatch(setProductSearch(products));
+    } catch (err) {
+      console.log(err, "getProductSearch")
+    }
+  }
 };
 
 export default handleActions(

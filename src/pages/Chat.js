@@ -85,11 +85,6 @@ const Chat = (props) => {
     chatActions.socket.emit("join", Info);
   }
 
-  // if (!is_login) {
-  //   // history.push("/login");
-  //   alert("로그인후에 이용하실 수 있습니다.");
-  // }
-
   return (
     <>
       <Desktop>

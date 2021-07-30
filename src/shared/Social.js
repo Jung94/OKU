@@ -9,13 +9,9 @@ const Social = (props) => {
   console.log(props.match);
   const _id = props.match.params.id;
   const dispatch = useDispatch();
-  console.log(_id);
 
   useEffect(() => {
-    
-    // 회원정보 디스패치
     dispatch(userActions.socialLoginDB(_id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>

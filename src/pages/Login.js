@@ -77,18 +77,10 @@ const Login = (props) => {
     const kakao_nickname = res.profile.kakao_account.profile.nickname;
     const kakao_email = res.profile.kakao_account.email;
 
-    // console.log(kakao_access_token);
-    // console.log(kakao_refresh_token);
-    // console.log(kakao_nickname);
-    // console.log(kakao_email);
-
     // 카카오 로그인 후 받아온 정보들(토큰, 이메일, 닉네임) 서버에 전달
     dispatch(
       userActions.loginByKakao({
         kakao_token: kakao_access_token,
-        // kakao_refresh_token: kakao_refresh_token,
-        // kakao_email: kakao_email,
-        // kakao_nickname: kakao_nickname,
       })
     );
   };
@@ -110,7 +102,6 @@ const Login = (props) => {
           로그인을 통해 더욱 편리하게 OKU의 다양한 상품을 구경하세요.
         </Text>
         <LoginBox>
-          {/* <FontAwesomeIcon icon={faUser} color={Color.Light_3} /> */}
           <LoginInput
             value={email}
             type="text"
@@ -133,7 +124,6 @@ const Login = (props) => {
           </Text>
         )}
         <LoginBox>
-          {/* <FontAwesomeIcon icon={faLock} color={Color.Light_3} /> */}
           <LoginInput
             type={show ? "text" : "password"}
             placeholder="PASSWORD"
@@ -161,18 +151,6 @@ const Login = (props) => {
         )}
 
         <Check>
-          {/* <Input
-          check
-          checked={autoLogin}
-          _onClick={() => {
-            if (autoLogin) {
-              setAuto(false);
-            } else {
-              setAuto(true);
-            }
-          }}
-          desc="자동 로그인"
-        /> */}
           <Input
             check
             checked={saveId}
@@ -185,13 +163,6 @@ const Login = (props) => {
             }}
             desc="아이디 저장"
           />
-
-          {/* <CheckIdPw>
-          <a>아이디</a>
-          <CheckBar>|</CheckBar>
-          <a>비밀번호</a>
-          <span>찾기</span>
-        </CheckIdPw> */}
         </Check>
         <Button noflex _onClick={login} width="100%" margin="1rem 0" height="50px">
           로그인
@@ -200,7 +171,7 @@ const Login = (props) => {
           {/* <Naver/> */}
           <KakaoBtn
             href="http://13.124.55.186/user/kakao"
-            // token={KAKAO_JS_ID} render={(props) => <KakaoBtn onClick={props.onClick}></KakaoBtn>} onSuccess={kakaoLoginClickHandler} getProfile={true}
+          // token={KAKAO_JS_ID} render={(props) => <KakaoBtn onClick={props.onClick}></KakaoBtn>} onSuccess={kakaoLoginClickHandler} getProfile={true}
           ></KakaoBtn>
           {/* <Google/> */}
         </SocialBox>

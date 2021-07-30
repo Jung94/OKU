@@ -2,7 +2,6 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { API } from "shared/Api";
 import "moment";
-import moment from "moment";
 
 import { actionCreators as loadingActions } from "redux/modules/loading";
 
@@ -40,7 +39,6 @@ const initialState = {
   preview2: [],
   preview3: [],
   previewAll: [],
-  // insert_dt: moment().format("YY.MM.DD hh:mm"),
 };
 
 const addPostAPI = (image1, image2, image3, title, cateBig, cateSmall, region, productState, deadline, lowbid, sucbid, delivery, productDesc, tags) => {
@@ -122,9 +120,7 @@ export default handleActions(
 
     [SET_PREVIEW_1]: (state, action) =>
       produce(state, (draft) => {
-        // draft.preview_image.push(action.payload.preview);
         draft.preview1 = action.payload.preview;
-        // draft.progress = true;
       }),
 
     [SET_PREVIEW_2]: (state, action) =>

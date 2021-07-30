@@ -10,8 +10,6 @@ import { actionCreators as uploadActions } from "redux/modules/upload";
 import { actionCreators as headerActions } from "redux/modules/header";
 
 import { input_priceComma, comma, uncomma } from "shared/common";
-// import { Upload } from "components/";
-import Upload from "shared/Upload";
 
 import { useMediaQuery } from "react-responsive";
 
@@ -21,7 +19,6 @@ import { faCircle } from "@fortawesome/free-solid-svg-icons";
 import { Color } from "shared/DesignSys";
 import { MainCT, D2CT, D3CT, D4CT } from "shared/Category";
 
-import IconCamera from "images/icon_Camera.svg";
 import IconCamera2 from "images/icon_Camera_2.svg";
 
 import DaumPostcode from "react-daum-postcode";
@@ -49,6 +46,7 @@ const ProductUpload = React.memo((props) => {
   const is_login = localStorage.getItem("access_token");
 
   useEffect(() => {
+    console.log('상품등록 렌더링');
     dispatch(headerActions.setHeader(true));
   }, []);
 
@@ -68,35 +66,11 @@ const ProductUpload = React.memo((props) => {
 
   const progress = useSelector((state) => state.upload.progress);
 
-  // const handleChange = (e) => {
-
-  //   const fileArr = e.target.files;
-
-  //   let fileURLs = [];
-
-  //   let file;
-  //   let filesLength = fileArr.length > 3 ? 3 : fileArr.length;
-
-  //   for (let i = 0; i < filesLength; i++) {
-  //     file = fileArr[i];
-
-  //     let reader = new FileReader();
-
-  //     reader.onloadend = () => {
-  //       // console.log(reader.result);
-  //       fileURLs[i] = reader.result;
-  //       // setDetailImgs([...fileURLs]);
-  //       dispatch(uploadActions.setPreview([...fileURLs]));
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // }
-
   const handleChange1 = (e) => {
     const reader = new FileReader();
     const file = fileInput.current.files[0];
-    // console.log(file);
-    reader.readAsDataURL(file); // 파일 내용을 읽어오기
+    // 파일 내용을 읽어오기
+    reader.readAsDataURL(file);
 
     // 읽기가 끝나면 발생하는 이벤트 핸들러
     reader.onloadend = () => {
@@ -106,8 +80,8 @@ const ProductUpload = React.memo((props) => {
   const handleChange2 = (e) => {
     const reader = new FileReader();
     const file = fileInput1.current.files[0];
-    // console.log(file);
-    reader.readAsDataURL(file); // 파일 내용을 읽어오기
+    // 파일 내용을 읽어오기
+    reader.readAsDataURL(file);
 
     // 읽기가 끝나면 발생하는 이벤트 핸들러
     reader.onloadend = () => {
@@ -117,8 +91,8 @@ const ProductUpload = React.memo((props) => {
   const handleChange3 = (e) => {
     const reader = new FileReader();
     const file = fileInput2.current.files[0];
-    // console.log(file);
-    reader.readAsDataURL(file); // 파일 내용을 읽어오기
+    // 파일 내용을 읽어오기
+    reader.readAsDataURL(file);
 
     // 읽기가 끝나면 발생하는 이벤트 핸들러
     reader.onloadend = () => {
@@ -129,7 +103,7 @@ const ProductUpload = React.memo((props) => {
   const postalAddressInfo = useRef();
   const addressInfo = useRef();
   const detailAddressInfo = useRef();
-  
+
 
   const _title = createRef();
   const _cateBig = useRef();
@@ -302,23 +276,6 @@ const ProductUpload = React.memo((props) => {
         );
       }
     }
-
-    // const ss = {
-    //   image1 : preview1[0],
-    //   image2 : preview2[0],
-    //   image3 : preview3[0],
-    //   title : title,
-    //   cateBig : cateBig,
-    //   cateSmall : cateSmall,
-    //   region : region,
-    //   productState : productState,
-    //   deadline : deadline,
-    //   lowbid : lowbid,
-    //   sucbid : sucbid,
-    //   delivery : delivery,
-    //   productDesc : productDesc,
-    //   tags : tags
-    // }
   };
 
   // 글자수 제한 TitleCnt
@@ -378,7 +335,7 @@ const ProductUpload = React.memo((props) => {
               )}
             </Grid>
           </Grid>
-          
+
           <Grid margin="0 0 35px 0">
             <Text h3 marginB="20px">
               <FontAwesomeIcon icon={faCircle} className="cirSvg" />
@@ -477,7 +434,7 @@ const ProductUpload = React.memo((props) => {
             </Grid>
           </Grid>
 
-          {directDealing && 
+          {directDealing &&
             <Grid margin="0 0 35px 0" >
               <Text h3 marginB="20px" >
                 희망 거래 장소
@@ -573,7 +530,7 @@ const ProductUpload = React.memo((props) => {
               )}
             </Grid>
           </Grid>
-          
+
           <Grid margin="0 0 24px">
             <Text h3 marginB="20px">
               상품이미지
@@ -667,8 +624,8 @@ const ProductUpload = React.memo((props) => {
               <Input radio name="delivery" value="택배거래" />
             </form>
           </Grid>
-          
-          {directDealing && 
+
+          {directDealing &&
             <Grid margin="0 0 24px">
               <Text h3 marginB="20px">
                 희망 거래 장소
@@ -693,7 +650,7 @@ const ProductUpload = React.memo((props) => {
               </Grid>
             </Grid>
           }
-          
+
           <Grid margin="0 0 24px">
             <Text h3 marginB="20px">
               최소입찰가
@@ -744,7 +701,7 @@ const ProductUpload = React.memo((props) => {
 });
 
 ProductUpload.defaultProps = {
-  onChange: (img) => {},
+  onChange: (img) => { },
 };
 
 const UploadWrap = styled.div`

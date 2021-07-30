@@ -42,7 +42,7 @@ const getAlertAPI = () => {
       .then((res) => {
         if (res.msg === "not_login") {
         } else {
-          console.log(res);
+          // console.log(res);
           //     let _prebid = res.alreadyCheck;
           //     _prebid.sort(function (a, b) {
           //       return a.createAt > b.createAt ? -1 : a.createAt < b.createAt ? 1 : 0;
